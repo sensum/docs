@@ -2394,251 +2394,375 @@ API Key, Authorisation.
 </code></pre>
           <h1 id="android-sdk-service-constants">Android SDK Service Constants</h1>
 
-<h2 id="public-static-final-string-enable_scan-enable-scan"><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></h2>
+<h2 id="enable-scan">Enable Scan</h2>
+
+<p><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></p>
 
 <p>This passes a message of enabling scan for the devices to the SDK service</p>
 
-<h2 id="public-static-final-string-device_list-device-list"><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></h2>
+<h2 id="device-list">Device List</h2>
+
+<p><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></p>
 
 <p>This is used to get list of scan devices</p>
 
-<h2 id="public-static-final-string-request-send-request"><code class="prettyprint">public static final String REQUEST = &quot;send-request&quot;</code></h2>
+<h2 id="request">Request</h2>
+
+<p><code class="prettyprint">public static final String REQUEST = &quot;send-request&quot;</code></p>
 
 <p>This is used to get request data</p>
 
-<h2 id="public-static-final-string-request_filter-request-filter"><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></h2>
+<h2 id="request-filter">Request Filter</h2>
+
+<p><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the request which is made to the SDK service</p>
 
-<h2 id="public-static-final-string-device_filter-device-filter"><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></h2>
+<h2 id="device-filter">Device filter</h2>
+
+<p><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the connected device</p>
 
-<h2 id="public-static-final-string-value_filter-value-filter"><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></h2>
+<h2 id="value-filter">Value Filter</h2>
+
+<p><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the heart rate value</p>
 
-<h2 id="public-static-final-string-login_filter-login-filter"><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></h2>
+<h2 id="login-filter">Login Filter</h2>
+
+<p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the user login</p>
 
-<h2 id="public-static-final-string-gps_filter-gps-filter"><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></h2>
+<h2 id="gps-filter">GPS Filter</h2>
+
+<p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the gps values</p>
 
-<h2 id="public-static-final-string-acc_filter-acc-filter"><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></h2>
+<h2 id="acc-filter">ACC Filter</h2>
+
+<p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the accelerometer values</p>
 
-<h2 id="public-static-final-string-extra_data-extra-data"><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></h2>
+<h2 id="extra-data">Extra Data</h2>
+
+<p><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></p>
 
 <p>This is used to bundle up extra data to the intents</p>
 
-<h2 id="public-static-final-string-device_name-device-name"><code class="prettyprint">public static final String DEVICE_NAME = &quot;device-name&quot;</code></h2>
+<h2 id="device-name">Device Name</h2>
+
+<p><code class="prettyprint">public static final String DEVICE_NAME = &quot;device-name&quot;</code></p>
 
 <p>This is used to get the connected device name</p>
 
-<h2 id="public-static-final-string-device_address-device-address"><code class="prettyprint">public static final String DEVICE_ADDRESS = &quot;device-address&quot;</code></h2>
+<h2 id="device-address">Device Address</h2>
+
+<p><code class="prettyprint">public static final String DEVICE_ADDRESS = &quot;device-address&quot;</code></p>
 
 <p>This is used to get the connected device address</p>
 
-<h2 id="public-static-final-string-user_name-user-name"><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></h2>
+<h2 id="user-name">User Name</h2>
+
+<p><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></p>
 
 <p>This is used to pass the username for authentication to the SDK service, only authenticated users are able to use the SDK service</p>
 
-<h2 id="public-static-final-string-password-password"><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></h2>
+<h2 id="password">Password</h2>
+
+<p><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></p>
 
 <p>This is used to pass the password for authentication to the SDK service</p>
 
-<h2 id="public-static-final-string-wear_hr_value-wear-hr-value"><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></h2>
+<h2 id="wear_hr_value">Wear_HR_Value</h2>
+
+<p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
 
 <p>This is used to pass the Heart Rate value captured using Android Wear to the SDK service</p>
 
-<h2 id="public-static-final-string-text_message-text-message"><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></h2>
+<h2 id="text-message">Text Message</h2>
+
+<p><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></p>
 
 <p>This is used to pass Text/Emoji value to the SDK service</p>
 
-<h2 id="public-static-final-string-x_value-x-value"><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></h2>
+<h2 id="x-value">X Value</h2>
+
+<p><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></p>
 
 <p>This is used to pass the captured accelerometer x value</p>
 
-<h2 id="public-static-final-string-y_value-y-value"><code class="prettyprint">public static final String Y_VALUE = &quot;y-value&quot;</code></h2>
+<h2 id="y-value">Y Value</h2>
+
+<p><code class="prettyprint">public static final String Y_VALUE = &quot;y-value&quot;</code></p>
 
 <p>This is used to pass the captured accelerometer y value</p>
 
-<h2 id="public-static-final-string-z_value-z-value"><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></h2>
+<h2 id="z-value">Z Value</h2>
+
+<p><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></p>
 
 <p>This is used to pass the captured accelerometer z value</p>
 
-<h2 id="public-static-final-string-speed_value-speed-value"><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></h2>
+<h2 id="speed-value">Speed Value</h2>
+
+<p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
 
 <p>This is used to pass the captured gps speed value</p>
 
-<h2 id="public-static-final-string-latitude_value-latitude-value"><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></h2>
+<h2 id="latitude-value">Latitude Value</h2>
+
+<p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
 
 <p>This is used to pass the captured gps latitude value</p>
 
-<h2 id="public-static-final-string-longitude_value-longtitude-value"><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></h2>
+<h2 id="longitude-value">Longitude Value</h2>
+
+<p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
 
 <p>This is used to pass the captured gps longitude value</p>
 
-<h2 id="public-static-final-string-altitude_value-altitude-value"><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></h2>
+<h2 id="altitude-value">Altitude Value</h2>
+
+<p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
 
 <p>This is used to pass the captured gps altitude value</p>
 
-<h2 id="public-static-final-string-bearing_value-bearing-value"><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></h2>
+<h2 id="bearing-value">Bearing Value</h2>
+
+<p><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></p>
 
 <p>This is used to pass the captured gps bearing value</p>
 
-<h2 id="public-static-final-string-accuracy_value-accuracy-value"><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></h2>
+<h2 id="accuracy-value">Accuracy Value</h2>
+
+<p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
 
 <p>This is used to pass the captured gps accuracy value</p>
 
-<h2 id="public-static-final-string-acceleration_capture-acceleration-capture"><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></h2>
+<h2 id="acceleration-capture">Acceleration Capture</h2>
+
+<p><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></p>
 
 <p>This is used to enable/disable capturing of accelerometer data which is sent to the API</p>
 
-<h2 id="public-static-final-string-gps_capture-gps-capture"><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></h2>
+<h2 id="gps-capture">GPS Capture</h2>
+
+<p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
 
 <p>This is used to enable/disable capturing of gps data which is sent to the API</p>
 
-<h2 id="public-static-final-string-hr_capture-heartrate-capture"><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></h2>
+<h2 id="hr-capture">HR Capture</h2>
+
+<p><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></p>
 
 <p>This is used to enable/disable capturing of heart rate data which is sent to the API</p>
 
-<h2 id="public-static-final-string-input_capture-input-capture"><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></h2>
+<h2 id="input-capture">Input Capture</h2>
+
+<p><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></p>
 
 <p>This is used to enable/disable capturing of text/emoji data which is sent to the API</p>
 
-<h2 id="public-static-final-string-heartrate_data_rate-heartrate_data_rate"><code class="prettyprint">public static final String HEARTRATE_DATA_RATE = &quot;heartrate_data_rate&quot;</code></h2>
+<h2 id="hr-data-rate">HR Data Rate</h2>
+
+<p><code class="prettyprint">public static final String HEARTRATE_DATA_RATE = &quot;heartrate_data_rate&quot;</code></p>
 
 <p>This is used to pass the interval rate (in milliseconds) for the heart rate data to be sent to the API</p>
 
-<h2 id="public-static-final-string-accelerometer_data_rate-accelerometer_data_rate"><code class="prettyprint">public static final String ACCELEROMETER_DATA_RATE = &quot;accelerometer_data_rate&quot;</code></h2>
+<h2 id="accelerometer-data-rate">Accelerometer Data Rate</h2>
+
+<p><code class="prettyprint">public static final String ACCELEROMETER_DATA_RATE = &quot;accelerometer_data_rate&quot;</code></p>
 
 <p>This is used to pass the interval rate (in milliseconds) for the accelerometer data to be sent to the API</p>
 
-<h2 id="public-static-final-string-gps_data_rate-gps_data_rate"><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></h2>
+<h2 id="gps-data-rate">GPS Data Rate</h2>
+
+<p><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></p>
 
 <p>This is used to pass the interval rate (in milliseconds) for the gps data to be sent to the API</p>
 
-<h2 id="public-static-final-string-input_tags_data_rate-input_tags_data_rate"><code class="prettyprint">public static final String INPUT_TAGS_DATA_RATE = &quot;input_tags_data_rate&quot;</code></h2>
+<h2 id="input-tags-data-rate">Input Tags Data Rate</h2>
+
+<p><code class="prettyprint">public static final String INPUT_TAGS_DATA_RATE = &quot;input_tags_data_rate&quot;</code></p>
 
 <p>This is used to pass the interval rate (in milliseconds) for the text/emoji data to be sent to the API</p>
 
-<h2 id="public-static-final-string-device_disconnected-com-example-bluetooth-le-action_gatt_disconnected"><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></h2>
+<h2 id="device-disconnected">Device Disconnected</h2>
+
+<p><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></p>
 
 <p>This is used to pass a message from the SDK service in case of any device disconnection</p>
 
-<h2 id="public-static-final-string-api_response-api-response"><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></h2>
+<h2 id="api-response">API Response</h2>
+
+<p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
 
 <p>This is used to pass message from the SDK service for the API response</p>
 
-<h2 id="public-static-final-string-toast_message-toast-message"><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></h2>
+<h2 id="toast-message">Toast Message</h2>
+
+<p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
 
 <p>This is used to pass informative toast message from the SDK service</p>
 
-<h2 id="public-static-final-string-api_baseurl-api-baseurl"><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></h2>
+<h2 id="api-base-url">API Base URL</h2>
+
+<p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
 
 <p>This is used to pass the base url for API to the SDK service which is used for setting up communication with the API</p>
 
-<h2 id="public-static-final-string-auth_token-auth-token"><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></h2>
+<h2 id="auth-token">Auth Token</h2>
+
+<p><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></p>
 
 <p>This is used to pass the authentication token for API to the SDK service which is used for setting up communication with the API</p>
 
-<h2 id="public-static-final-string-user_pool_id-user-poolid"><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></h2>
+<h2 id="user-pool-id">User Pool Id</h2>
+
+<p><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></p>
 
 <p>This is used to pass the user pool id to the SDK service which is used for user authentication</p>
 
-<h2 id="public-static-final-string-client_id-client-id"><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></h2>
+<h2 id="client-id">Client Id</h2>
+
+<p><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></p>
 
 <p>This is used to pass the client id to the SDK service which is used for user authentication</p>
 
-<h2 id="public-static-final-int-connect-101"><code class="prettyprint">public static final int CONNECT = 101</code></h2>
+<h2 id="connect">Connect</h2>
+
+<p><code class="prettyprint">public static final int CONNECT = 101</code></p>
 
 <p>This is used to connect to the selected device from the list of the devices</p>
 
-<h2 id="public-static-final-int-bind_service-103"><code class="prettyprint">public static final int BIND_SERVICE = 103</code></h2>
+<h2 id="bind-service">Bind Service</h2>
+
+<p><code class="prettyprint">public static final int BIND_SERVICE = 103</code></p>
 
 <p>This is used for binding to the service</p>
 
-<h2 id="public-static-final-int-unbind_service-104"><code class="prettyprint">public static final int UNBIND_SERVICE = 104</code></h2>
+<h2 id="unbind-service">Unbind Service</h2>
+
+<p><code class="prettyprint">public static final int UNBIND_SERVICE = 104</code></p>
 
 <p>This is used for unbinding from the service</p>
 
-<h2 id="public-static-final-int-scan-105"><code class="prettyprint">public static final int SCAN = 105</code></h2>
+<h2 id="scan">Scan</h2>
+
+<p><code class="prettyprint">public static final int SCAN = 105</code></p>
 
 <p>This is used internally in the SDK service to filter scan for devices</p>
 
-<h2 id="public-static-final-int-devices-106"><code class="prettyprint">public static final int DEVICES = 106</code></h2>
+<h2 id="devices">Devices</h2>
+
+<p><code class="prettyprint">public static final int DEVICES = 106</code></p>
 
 <p>This is used to filter for devices</p>
 
-<h2 id="public-static-final-int-send-108"><code class="prettyprint">public static final int SEND = 108</code></h2>
+<h2 id="send">Send</h2>
+
+<p><code class="prettyprint">public static final int SEND = 108</code></p>
 
 <p>This is sued to filter send from the front end</p>
 
-<h2 id="public-static-final-int-connecting-109"><code class="prettyprint">public static final int CONNECTING = 109</code></h2>
+<h2 id="connecting">Connecting</h2>
+
+<p><code class="prettyprint">public static final int CONNECTING = 109</code></p>
 
 <p>This is used to filter connecting from the front end</p>
 
-<h2 id="public-static-final-int-start_service-111"><code class="prettyprint">public static final int START_SERVICE = 111</code></h2>
+<h2 id="start-service">Start Service</h2>
+
+<p><code class="prettyprint">public static final int START_SERVICE = 111</code></p>
 
 <p>This is used to start the service</p>
 
-<h2 id="public-static-final-int-cancel_capture-112"><code class="prettyprint">public static final int CANCEL_CAPTURE = 112</code></h2>
+<h2 id="cancel-capture">Cancel Capture</h2>
+
+<p><code class="prettyprint">public static final int CANCEL_CAPTURE = 112</code></p>
 
 <p>This is used to cancel sending of the captured data to the API</p>
 
-<h2 id="public-static-final-int-start_capture-113"><code class="prettyprint">public static final int START_CAPTURE = 113</code></h2>
+<h2 id="start-capture">Start Capture</h2>
+
+<p><code class="prettyprint">public static final int START_CAPTURE = 113</code></p>
 
 <p>This is used to start sending of the captured data to the API</p>
 
-<h2 id="public-static-final-int-enable_storing-114"><code class="prettyprint">public static final int ENABLE_STORING = 114</code></h2>
+<h2 id="enable-storing">Enable Storing</h2>
+
+<p><code class="prettyprint">public static final int ENABLE_STORING = 114</code></p>
 
 <p>This is used to enable storing of the captured data locally on the device</p>
 
-<h2 id="public-static-final-int-disable_storing-115"><code class="prettyprint">public static final int DISABLE_STORING = 115</code></h2>
+<h2 id="disable-storing">Disable Storing</h2>
+
+<p><code class="prettyprint">public static final int DISABLE_STORING = 115</code></p>
 
 <p>This is used to disable storing of the captured data locally on the device</p>
 
-<h2 id="public-static-final-int-enable_hrtimer-116"><code class="prettyprint">public static final int ENABLE_HRTIMER = 116</code></h2>
+<h2 id="enable-hr-timer">Enable HR Timer</h2>
+
+<p><code class="prettyprint">public static final int ENABLE_HRTIMER = 116</code></p>
 
 <p>This is used to enable the timer for sending the heart rate data to the API</p>
 
-<h2 id="public-static-final-int-disable_hrtimer-117"><code class="prettyprint">public static final int DISABLE_HRTIMER = 117</code></h2>
+<h2 id="disable-hr-timer">Disable HR Timer</h2>
+
+<p><code class="prettyprint">public static final int DISABLE_HRTIMER = 117</code></p>
 
 <p>This is used to disable the timer for sending the heart rate data to the API</p>
 
-<h2 id="public-static-final-int-enable_acctimer-118"><code class="prettyprint">public static final int ENABLE_ACCTIMER = 118</code></h2>
+<h2 id="enable-accelerometer-timer">Enable Accelerometer Timer</h2>
+
+<p><code class="prettyprint">public static final int ENABLE_ACCTIMER = 118</code></p>
 
 <p>This is used to enable the timer for sending the accelerometer data to the API</p>
 
-<h2 id="public-static-final-int-disable_acctimer-119"><code class="prettyprint">public static final int DISABLE_ACCTIMER = 119</code></h2>
+<h2 id="disable-accelerometer-timer">Disable Accelerometer Timer</h2>
+
+<p><code class="prettyprint">public static final int DISABLE_ACCTIMER = 119</code></p>
 
 <p>This is used to disable the timer for sending the accelerometer data to the API</p>
 
-<h2 id="public-static-final-int-enable_gpstimer-120"><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></h2>
+<h2 id="enable-gps-timer">Enable GPS Timer</h2>
+
+<p><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></p>
 
 <p>This is used to enable the timer for sending the gps data to the API</p>
 
-<h2 id="public-static-final-int-disable_gpstimer-121"><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></h2>
+<h2 id="disable-gps-timer">Disable GPS Timer</h2>
+
+<p><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></p>
 
 <p>This is used to disable the timer for sending the gps data to the API</p>
 
-<h2 id="public-static-final-int-enable_inputtimer-122"><code class="prettyprint">public static final int ENABLE_INPUTTIMER = 122</code></h2>
+<h2 id="enable-input-timer">Enable Input Timer</h2>
+
+<p><code class="prettyprint">public static final int ENABLE_INPUTTIMER = 122</code></p>
 
 <p>This is used to enable the timer for sending the text/emoji data to the API</p>
 
-<h2 id="public-static-final-int-disable_inputtimer-123"><code class="prettyprint">public static final int DISABLE_INPUTTIMER = 123</code></h2>
+<h2 id="disable-input-timer">Disable Input Timer</h2>
+
+<p><code class="prettyprint">public static final int DISABLE_INPUTTIMER = 123</code></p>
 
 <p>This is used to enable the timer for sending the text/emoji data to the API</p>
 
-<h2 id="public-static-final-int-login-124"><code class="prettyprint">public static final int LOGIN = 124</code></h2>
+<h2 id="login">Login</h2>
+
+<p><code class="prettyprint">public static final int LOGIN = 124</code></p>
 
 <p>This is used to pass a login message to the SDK service</p>
 
-<h2 id="public-static-final-int-input_text-125"><code class="prettyprint">public static final int INPUT_TEXT = 125</code></h2>
+<h2 id="input-text">Input Text</h2>
+
+<p><code class="prettyprint">public static final int INPUT_TEXT = 125</code></p>
 
 <p>This is used to filter/pass text &amp; emoji message to the SDK service</p>
 
