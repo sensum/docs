@@ -338,15 +338,41 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </tbody></table>
 
-<h2 id="send-text-data-to-analyse-emoji-sentiment">Send text data to analyse emoji sentiment</h2>
+<h2 id="send-text-data-to-analyse-emoji-text-sentiment">Send text data to analyse emoji &amp; text sentiment</h2>
 
-<p>Given a list of emojis, this endpoint returns a dictionary containing sentiment.</p>
+<p>This endpoint allows users to send strings of text to our service for emotional sentiment analysis. </p>
 
-<p>Emoji Sentiment is calculated by the service as the average of the raw Valence, Arousal and Popularity(TODO Add Glossary or something to explain these).</p>
+<p>The service will return a JSON object that contain Positivity, Negativity and Emotionality values for emojis and text.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">POST https://api.sensum.co/v0/sentiment</code></p>
+
+<h3 id="glossary">Glossary</h3>
+
+<table><thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Positivity</td>
+<td>The level of positive emotion expressed in an input(Scale: 0 to +1)</td>
+</tr>
+<tr>
+<td>Negativity</td>
+<td>The level of negative emotion expressed in an input(Scale: 0 to +1)</td>
+</tr>
+<tr>
+<td>Emotionality</td>
+<td>The overall strength of emotion contained in an input(Scale: -1 to +1)*</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response. </li>
+</ul>
 
 <blockquote>
 <p>Code samples</p>
@@ -427,6 +453,27 @@ Accept: application/json
 <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
+<blockquote>
+<p>Body Parameters: Text Only - Unemotional</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is nothing"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Body Parameters: Text Only - Emotional</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This was a very good test"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Body Parameters: Emoji</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="s2">"👌👌👌"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <h3 id="responses">Responses</h3>
 
 <table><thead>
@@ -444,9 +491,45 @@ Accept: application/json
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
+<p>Example responses: Text Only - Unemotional</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"text_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"compound"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//Aggregate</span><span class="w"> </span><span class="err">Emotionality</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"neg"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Negativity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"neu"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Neutrality</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"pos"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">Positivity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example responses: Text Only - Emotional</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"text_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"positivity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.444</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"negativity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"emotionality"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4927</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example responses: Emoji</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"negativity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"positivity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"emotionality"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"positivity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6575529733</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"negativity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0936431989</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"emotionality"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4236068641</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
