@@ -65,7 +65,7 @@ The service will return a JSON object that contain Positivity, Negativity and Em
 
 `POST https://api.sensum.co/v0/sentiment`
 
-###Glossary
+### Glossary
 
 |Term|Description|
 |----|-----------|
@@ -88,21 +88,17 @@ curl -X post https://api.sensum.co/v0/sentiment \
 ```http
 POST https://api.sensum.co/v0/sentiment HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/sentiment',
   method: 'post',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -115,13 +111,11 @@ const request = require('node-fetch');
 
 const headers = {
   'Accept':'application/json'
-
 };
 
 fetch('https://api.sensum.co/v0/sentiment',
 {
   method: 'POST',
-
   headers: headers
 })
 .then(function(res) {
@@ -142,7 +136,7 @@ headers = {
 result = RestClient.post 'https://api.sensum.co/v0/sentiment', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -266,7 +260,6 @@ This endpoint allows the user to check the HTTP Methods that can be used on the 
 curl -X options https://api.sensum.co/v0/sentiment \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
-
 ```
 
 ```http
@@ -274,20 +267,17 @@ OPTIONS https://api.sensum.co/v0/sentiment HTTP/1.1
 Host: api.sensum.co/v0
 Content-Type: application/json
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Content-Type':'application/json',
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/sentiment',
   method: 'options',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -297,7 +287,6 @@ $.ajax({
 
 ```javascript--nodejs
 const request = require('node-fetch');
-
 const headers = {
   'Content-Type':'application/json',
   'Accept':'application/json'
@@ -307,7 +296,6 @@ const headers = {
 fetch('https://api.sensum.co/v0/sentiment',
 {
   method: 'OPTIONS',
-
   headers: headers
 })
 .then(function(res) {
@@ -329,7 +317,7 @@ headers = {
 result = RestClient.options 'https://api.sensum.co/v0/sentiment', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -396,6 +384,7 @@ API Key, Authorization.
 This endpoint allows the user to retreive prevously entered data by providing a start time, and endtime and the metrics to be retrieved.
 
 ### HTTP Request
+
 `GET https://api.sensum.co/v0/data/`
 
 > Code samples
@@ -410,21 +399,17 @@ curl -X GET https://api.sensum.co/v0/data/ \
 ```http
 GET https://api.sensum.co/v0/data/ HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/data/',
   method: 'get',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -434,16 +419,13 @@ $.ajax({
 
 ```javascript--nodejs
 const request = require('node-fetch');
-
 const headers = {
   'Accept':'application/json'
-
 };
 
 fetch('https://api.sensum.co/v0/data/',
 {
   method: 'get',
-
   headers: headers
 })
 .then(function(res) {
@@ -464,7 +446,7 @@ headers = {
 result = RestClient.get 'https://api.sensum.co/v0/data/', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -473,9 +455,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://api.sensum.co/v0/data/', params={
-
-}, headers = headers)
+r = requests.get('https://api.sensum.co/v0/data/', params={}, headers = headers)
 
 print r.json()
 ```
@@ -534,21 +514,17 @@ curl -X GET https://api.sensum.co/v0/data/records.json \
 ```http
 GET https://api.sensum.co/v0/data/records.json HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/data/records.json',
   method: 'get',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -558,7 +534,6 @@ $.ajax({
 
 ```javascript--nodejs
 const request = require('node-fetch');
-
 const headers = {
   'Accept':'application/json'
 
@@ -588,7 +563,7 @@ headers = {
 result = RestClient.get 'https://api.sensum.co/v0/data/records.json', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -597,9 +572,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://api.sensum.co/v0/data/records.json', params={
-
-}, headers = headers)
+r = requests.get('https://api.sensum.co/v0/data/records.json', params={}, headers = headers)
 
 print r.json()
 ```
@@ -634,7 +607,7 @@ Status|Meaning|Description
 ---|---|---|
 200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
 
- > Example Response
+> Example Response
 
 ```json
 {
@@ -676,7 +649,6 @@ curl -X GET https://api.sensum.co/v0/data/metrics.json \
 ```http
 GET https://api.sensum.co/v0/data/metrics.json HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
 
 ```
@@ -684,7 +656,6 @@ Accept: application/json
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
@@ -700,7 +671,6 @@ $.ajax({
 
 ```javascript--nodejs
 const request = require('node-fetch');
-
 const headers = {
   'Accept':'application/json'
 
@@ -709,7 +679,6 @@ const headers = {
 fetch('https://api.sensum.co/v0/data/metrics.json',
 {
   method: 'get',
-
   headers: headers
 })
 .then(function(res) {
@@ -730,7 +699,7 @@ headers = {
 result = RestClient.get 'https://api.sensum.co/v0/data/metrics.json', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -739,9 +708,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://api.sensum.co/v0/data/metrics.json', params={
-
-}, headers = headers)
+r = requests.get('https://api.sensum.co/v0/data/metrics.json', params={}, headers = headers)
 
 print r.json()
 ```
@@ -804,13 +771,11 @@ This endpoint allows the user to retreive wide-form array of timeseries records 
 # You can also use wget
 curl -X GET https://api.sensum.co/v0/data/wide.json \
   -H 'Accept: application/json'
-
 ```
 
 ```http
 GET https://api.sensum.co/v0/data/wide.json HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
 
 ```
@@ -818,13 +783,11 @@ Accept: application/json
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/data/wide.json',
   method: 'get',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -837,13 +800,11 @@ const request = require('node-fetch');
 
 const headers = {
   'Accept':'application/json'
-
 };
 
 fetch('https://api.sensum.co/v0/data/wide.json',
 {
   method: 'get',
-
   headers: headers
 })
 .then(function(res) {
@@ -864,7 +825,7 @@ headers = {
 result = RestClient.get 'https://api.sensum.co/v0/data/wide.json', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -873,9 +834,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://api.sensum.co/v0/data/wide.json', params={
-
-}, headers = headers)
+r = requests.get('https://api.sensum.co/v0/data/wide.json', params={}, headers = headers)
 
 print r.json()
 ```
@@ -929,7 +888,6 @@ This endpoint allows the user to check the HTTP Methods that can be used on the 
 curl -X options https://api.sensum.co/v0/data \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
-
 ```
 
 ```http
@@ -937,20 +895,17 @@ OPTIONS https://api.sensum.co/v0/data HTTP/1.1
 Host: api.sensum.co/v0
 Content-Type: application/json
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Content-Type':'application/json',
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/data',
   method: 'options',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -964,13 +919,11 @@ const request = require('node-fetch');
 const headers = {
   'Content-Type':'application/json',
   'Accept':'application/json'
-
 };
 
 fetch('https://api.sensum.co/v0/data',
 {
   method: 'OPTIONS',
-
   headers: headers
 })
 .then(function(res) {
@@ -992,7 +945,7 @@ headers = {
 result = RestClient.options 'https://api.sensum.co/v0/data', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -1002,9 +955,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.options('https://api.sensum.co/v0/data', params={
-
-}, headers = headers)
+r = requests.options('https://api.sensum.co/v0/data', params={}, headers = headers)
 
 print r.json()
 ```
@@ -1070,7 +1021,6 @@ This endpoint allows the user to send data to the Emotion AI service for analysi
 curl -X post https://api.sensum.co/v0/events \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
-
 ```
 
 ```http
@@ -1078,7 +1028,6 @@ POST https://api.sensum.co/v0/events HTTP/1.1
 Host: api.sensum.co/v0
 Content-Type: application/json
 Accept: application/json
-
 ```
 
 ```javascript
@@ -1133,10 +1082,9 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.post 'https://api.sensum.co/v0/events', params: {
-  }, headers: headers
+result = RestClient.post 'https://api.sensum.co/v0/events', params: {}, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
@@ -1146,11 +1094,9 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.post('https://api.sensum.co/v0/events', params={
+r = requests.post('https://api.sensum.co/v0/events', params={}, headers = headers)
 
-}, headers = headers)
-
-print r.json()
+print(r.json())
 ```
 
 ```java
@@ -1277,7 +1223,6 @@ This endpoint allows the user to check the HTTP Methods that can be used on the 
 
 ### HTTP Request
 
-
 `OPTIONS http://api.sensum.co/v0/events`
 
 > Code samples
@@ -1308,7 +1253,6 @@ var headers = {
 $.ajax({
   url: 'https://api.sensum.co/v0/events',
   method: 'options',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -1318,7 +1262,6 @@ $.ajax({
 
 ```javascript--nodejs
 const request = require('node-fetch');
-
 const headers = {
   'Content-Type':'application/json',
   'Accept':'application/json'
@@ -1328,7 +1271,6 @@ const headers = {
 fetch('https://api.sensum.co/v0/events',
 {
   method: 'OPTIONS',
-
   headers: headers
 })
 .then(function(res) {
@@ -1360,9 +1302,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.options('https://api.sensum.co/v0/events', params={
-
-}, headers = headers)
+r = requests.options('https://api.sensum.co/v0/events', params={}, headers = headers)
 
 print r.json()
 ```
@@ -1426,27 +1366,22 @@ This endpoint allows the user to generate a series of test data streams that can
 # You can also use wget
 curl -X get https://api.sensum.co/v0/testdata \
   -H 'Accept: application/json'
-
 ```
 
 ```http
 GET https://api.sensum.co/v0/testdata HTTP/1.1
 Host: api.sensum.co/v0
-
 Accept: application/json
-
 ```
 
 ```javascript
 var headers = {
   'Accept':'application/json'
-
 };
 
 $.ajax({
   url: 'https://api.sensum.co/v0/testdata',
   method: 'get',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -1459,13 +1394,11 @@ const request = require('node-fetch');
 
 const headers = {
   'Accept':'application/json'
-
 };
 
 fetch('https://api.sensum.co/v0/testdata',
 {
   method: 'GET',
-
   headers: headers
 })
 .then(function(res) {
@@ -1495,9 +1428,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://api.sensum.co/v0/testdata', params={
-
-}, headers = headers)
+r = requests.get('https://api.sensum.co/v0/testdata', params={}, headers = headers)
 
 print r.json()
 ```
@@ -1602,7 +1533,6 @@ var headers = {
 $.ajax({
   url: 'https://api.sensum.co/v0/testdata',
   method: 'options',
-
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -1644,7 +1574,7 @@ headers = {
 result = RestClient.options 'https://api.sensum.co/v0/testdata', params: {
   }, headers: headers
 
-p JSON.parse(result)
+JSON.parse(result)
 ```
 
 ```python
