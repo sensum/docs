@@ -200,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;,&quot;java&quot;,&quot;swift&quot;]">
+  <body class="index" data-languages="[&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;,&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -215,7 +215,6 @@
               <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
               <a href="#" data-language-name="python">Python</a>
               <a href="#" data-language-name="java">Java</a>
-              <a href="#" data-language-name="swift">Swift</a>
         </div>
 
       <div id="toc">
@@ -2012,17 +2011,393 @@ API Key, Authorisation.
 </tr>
 </tbody></table>
 
-          <h1 id="android-sdk">Android SDK</h1>
+          <h1 id="java-sdk">java SDK</h1>
+
+<h2 id="service-constants">Service Constants</h2>
+
+<p>These constants can used to construct message bundled that are then relayed to the Emotion AI service to send and retrieve data.</p>
+
+<p>One example of a call to the service would be to send credentials in order to authorise a user. See <a href = "#submit-credentials-to-service-for-authorisation">&ldquo;Submit Credentials to service for authorisation&rdquo;</a> for an example in how these bundles are constructed.</p>
+
+<h3 id="enable-scan">Enable Scan</h3>
+
+<p><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></p>
+
+<p>This passes a message of enabling scan for the devices to the SDK service</p>
+
+<h3 id="device-list">Device List</h3>
+
+<p><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></p>
+
+<p>This is used to get list of scan devices</p>
+
+<h3 id="request">Request</h3>
+
+<p><code class="prettyprint">public static final String REQUEST = &quot;send-request&quot;</code></p>
+
+<p>This is used to get request data</p>
+
+<h3 id="request-filter">Request Filter</h3>
+
+<p><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the request which is made to the SDK service</p>
+
+<h3 id="device-filter">Device filter</h3>
+
+<p><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the connected device</p>
+
+<h3 id="value-filter">Value Filter</h3>
+
+<p><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the heart rate value</p>
+
+<h3 id="login-filter">Login Filter</h3>
+
+<p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the user login</p>
+
+<h3 id="gps-filter">GPS Filter</h3>
+
+<p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the gps values</p>
+
+<h3 id="acelerometer-filter">Acelerometer Filter</h3>
+
+<p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the accelerometer values</p>
+
+<h3 id="extra-data">Extra Data</h3>
+
+<p><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></p>
+
+<p>This is used to bundle up extra data to the intents</p>
+
+<h3 id="device-name">Device Name</h3>
+
+<p><code class="prettyprint">public static final String DEVICE_NAME = &quot;device-name&quot;</code></p>
+
+<p>This is used to get the connected device name</p>
+
+<h3 id="device-address">Device Address</h3>
+
+<p><code class="prettyprint">public static final String DEVICE_ADDRESS = &quot;device-address&quot;</code></p>
+
+<p>This is used to get the connected device address</p>
+
+<h3 id="user-name">User Name</h3>
+
+<p><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></p>
+
+<p>This is used to pass the username for authentication to the SDK service, only authenticated users are able to use the SDK service</p>
+
+<h3 id="password">Password</h3>
+
+<p><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></p>
+
+<p>This is used to pass the password for authentication to the SDK service</p>
+
+<h3 id="wear-hr-value">Wear HR Value</h3>
+
+<p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
+
+<p>This is used to pass the Heart Rate value captured using java Wear to the SDK service</p>
+
+<h3 id="text-message">Text Message</h3>
+
+<p><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></p>
+
+<p>This is used to pass Text/Emoji value to the SDK service</p>
+
+<h3 id="x-value">X Value</h3>
+
+<p><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></p>
+
+<p>This is used to pass the captured accelerometer x value</p>
+
+<h3 id="y-value">Y Value</h3>
+
+<p><code class="prettyprint">public static final String Y_VALUE = &quot;y-value&quot;</code></p>
+
+<p>This is used to pass the captured accelerometer y value</p>
+
+<h3 id="z-value">Z Value</h3>
+
+<p><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></p>
+
+<p>This is used to pass the captured accelerometer z value</p>
+
+<h3 id="speed-value">Speed Value</h3>
+
+<p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
+
+<p>This is used to pass the captured gps speed value</p>
+
+<h3 id="latitude-value">Latitude Value</h3>
+
+<p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
+
+<p>This is used to pass the captured gps latitude value</p>
+
+<h3 id="longitude-value">Longitude Value</h3>
+
+<p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
+
+<p>This is used to pass the captured gps longitude value</p>
+
+<h3 id="altitude-value">Altitude Value</h3>
+
+<p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
+
+<p>This is used to pass the captured gps altitude value</p>
+
+<h3 id="bearing-value">Bearing Value</h3>
+
+<p><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></p>
+
+<p>This is used to pass the captured gps bearing value</p>
+
+<h3 id="accuracy-value">Accuracy Value</h3>
+
+<p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
+
+<p>This is used to pass the captured gps accuracy value</p>
+
+<h3 id="acceleration-capture">Acceleration Capture</h3>
+
+<p><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></p>
+
+<p>This is used to enable/disable capturing of accelerometer data which is sent to the API</p>
+
+<h3 id="gps-capture">GPS Capture</h3>
+
+<p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
+
+<p>This is used to enable/disable capturing of gps data which is sent to the API</p>
+
+<h3 id="hr-capture">HR Capture</h3>
+
+<p><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></p>
+
+<p>This is used to enable/disable capturing of heart rate data which is sent to the API</p>
+
+<h3 id="input-capture">Input Capture</h3>
+
+<p><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></p>
+
+<p>This is used to enable/disable capturing of text/emoji data which is sent to the API</p>
+
+<h3 id="hr-data-rate">HR Data Rate</h3>
+
+<p><code class="prettyprint">public static final String HEARTRATE_DATA_RATE = &quot;heartrate_data_rate&quot;</code></p>
+
+<p>This is used to pass the interval rate (in milliseconds) for the heart rate data to be sent to the API</p>
+
+<h3 id="accelerometer-data-rate">Accelerometer Data Rate</h3>
+
+<p><code class="prettyprint">public static final String ACCELEROMETER_DATA_RATE = &quot;accelerometer_data_rate&quot;</code></p>
+
+<p>This is used to pass the interval rate (in milliseconds) for the accelerometer data to be sent to the API</p>
+
+<h3 id="gps-data-rate">GPS Data Rate</h3>
+
+<p><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></p>
+
+<p>This is used to pass the interval rate (in milliseconds) for the gps data to be sent to the API</p>
+
+<h3 id="input-tags-data-rate">Input Tags Data Rate</h3>
+
+<p><code class="prettyprint">public static final String INPUT_TAGS_DATA_RATE = &quot;input_tags_data_rate&quot;</code></p>
+
+<p>This is used to pass the interval rate (in milliseconds) for the text/emoji data to be sent to the API</p>
+
+<h3 id="device-disconnected">Device Disconnected</h3>
+
+<p><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></p>
+
+<p>This is used to pass a message from the SDK service in case of any device disconnection</p>
+
+<h3 id="api-response">API Response</h3>
+
+<p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
+
+<p>This is used to pass message from the SDK service for the API response</p>
+
+<h3 id="toast-message">Toast Message</h3>
+
+<p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
+
+<p>This is used to pass informative toast message from the SDK service</p>
+
+<h3 id="api-base-url">API Base URL</h3>
+
+<p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
+
+<p>This is used to pass the base url for API to the SDK service which is used for setting up communication with the API</p>
+
+<h3 id="auth-token">Auth Token</h3>
+
+<p><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></p>
+
+<p>This is used to pass the authentication token for API to the SDK service which is used for setting up communication with the API</p>
+
+<h3 id="user-pool-id">User Pool Id</h3>
+
+<p><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></p>
+
+<p>This is used to pass the user pool id to the SDK service which is used for user authentication</p>
+
+<h3 id="client-id">Client Id</h3>
+
+<p><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></p>
+
+<p>This is used to pass the client id to the SDK service which is used for user authentication</p>
+
+<h3 id="connect">Connect</h3>
+
+<p><code class="prettyprint">public static final int CONNECT = 101</code></p>
+
+<p>This is used to connect to the selected device from the list of the devices</p>
+
+<h3 id="bind-service">Bind Service</h3>
+
+<p><code class="prettyprint">public static final int BIND_SERVICE = 103</code></p>
+
+<p>This is used for binding to the service</p>
+
+<h3 id="unbind-service">Unbind Service</h3>
+
+<p><code class="prettyprint">public static final int UNBIND_SERVICE = 104</code></p>
+
+<p>This is used for unbinding from the service</p>
+
+<h3 id="scan">Scan</h3>
+
+<p><code class="prettyprint">public static final int SCAN = 105</code></p>
+
+<p>This is used internally in the SDK service to filter scan for devices</p>
+
+<h3 id="devices">Devices</h3>
+
+<p><code class="prettyprint">public static final int DEVICES = 106</code></p>
+
+<p>This is used to filter for devices</p>
+
+<h3 id="send">Send</h3>
+
+<p><code class="prettyprint">public static final int SEND = 108</code></p>
+
+<p>This is sued to filter send from the front end</p>
+
+<h3 id="connecting">Connecting</h3>
+
+<p><code class="prettyprint">public static final int CONNECTING = 109</code></p>
+
+<p>This is used to filter connecting from the front end</p>
+
+<h3 id="start-service">Start Service</h3>
+
+<p><code class="prettyprint">public static final int START_SERVICE = 111</code></p>
+
+<p>This is used to start the service</p>
+
+<h3 id="cancel-capture">Cancel Capture</h3>
+
+<p><code class="prettyprint">public static final int CANCEL_CAPTURE = 112</code></p>
+
+<p>This is used to cancel sending of the captured data to the API</p>
+
+<h3 id="start-capture">Start Capture</h3>
+
+<p><code class="prettyprint">public static final int START_CAPTURE = 113</code></p>
+
+<p>This is used to start sending of the captured data to the API</p>
+
+<h3 id="enable-storing">Enable Storing</h3>
+
+<p><code class="prettyprint">public static final int ENABLE_STORING = 114</code></p>
+
+<p>This is used to enable storing of the captured data locally on the device</p>
+
+<h3 id="disable-storing">Disable Storing</h3>
+
+<p><code class="prettyprint">public static final int DISABLE_STORING = 115</code></p>
+
+<p>This is used to disable storing of the captured data locally on the device</p>
+
+<h3 id="enable-hr-timer">Enable HR Timer</h3>
+
+<p><code class="prettyprint">public static final int ENABLE_HRTIMER = 116</code></p>
+
+<p>This is used to enable the timer for sending the heart rate data to the API</p>
+
+<h3 id="disable-hr-timer">Disable HR Timer</h3>
+
+<p><code class="prettyprint">public static final int DISABLE_HRTIMER = 117</code></p>
+
+<p>This is used to disable the timer for sending the heart rate data to the API</p>
+
+<h3 id="enable-accelerometer-timer">Enable Accelerometer Timer</h3>
+
+<p><code class="prettyprint">public static final int ENABLE_ACCTIMER = 118</code></p>
+
+<p>This is used to enable the timer for sending the accelerometer data to the API</p>
+
+<h3 id="disable-accelerometer-timer">Disable Accelerometer Timer</h3>
+
+<p><code class="prettyprint">public static final int DISABLE_ACCTIMER = 119</code></p>
+
+<p>This is used to disable the timer for sending the accelerometer data to the API</p>
+
+<h3 id="enable-gps-timer">Enable GPS Timer</h3>
+
+<p><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></p>
+
+<p>This is used to enable the timer for sending the gps data to the API</p>
+
+<h3 id="disable-gps-timer">Disable GPS Timer</h3>
+
+<p><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></p>
+
+<p>This is used to disable the timer for sending the gps data to the API</p>
+
+<h3 id="enable-input-timer">Enable Input Timer</h3>
+
+<p><code class="prettyprint">public static final int ENABLE_INPUTTIMER = 122</code></p>
+
+<p>This is used to enable the timer for sending the text/emoji data to the API</p>
+
+<h3 id="disable-input-timer">Disable Input Timer</h3>
+
+<p><code class="prettyprint">public static final int DISABLE_INPUTTIMER = 123</code></p>
+
+<p>This is used to enable the timer for sending the text/emoji data to the API</p>
+
+<h3 id="login">Login</h3>
+
+<p><code class="prettyprint">public static final int LOGIN = 124</code></p>
+
+<p>This is used to pass a login message to the SDK service</p>
+
+<h3 id="input-text">Input Text</h3>
+
+<p><code class="prettyprint">public static final int INPUT_TEXT = 125</code></p>
+
+<p>This is used to filter/pass text &amp; emoji message to the SDK service</p>
+
+<h2 id="example-methods">Example Methods</h2>
 
 <h2 id="initiate-connection-to-service">Initiate connection to service</h2>
 
 <p><code class="prettyprint">private final ServiceConnection mConnection = new ServiceConnection()</code></p>
 
 <p>Connection made to the service. Once bound to the service, the binder object is passed through to messenger to set it up</p>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ServiceConnection</span> <span class="n">mConnection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">binder</span><span class="o">)</span> <span class="o">{</span>
@@ -2041,10 +2416,6 @@ API Key, Authorisation.
 <p><code class="prettyprint">void submit()</code></p>
 
 <p>Sets up the credential bundle to be sent to the SDK service this needs to be sent first to the SDK service as only authenticated users can use the service</p>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
         <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">USER_NAME</span><span class="o">,</span> <span class="s">"username"</span><span class="o">);</span>
@@ -2070,10 +2441,6 @@ API Key, Authorisation.
 <li><code class="prettyprint">argValue</code> — for service handler to switch on</li>
 </ul></li>
 </ul>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendToService</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">,</span> <span class="kt">int</span> <span class="n">argValue</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
         <span class="n">message</span><span class="o">.</span><span class="na">arg1</span> <span class="o">=</span> <span class="n">argValue</span><span class="o">;</span>
@@ -2086,15 +2453,11 @@ API Key, Authorisation.
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="create-new-broadcast-receiever-object">Create new Broadcast Receiever object</h2>
+<h2 id="create-new-broadcast-receiver-object">Create new Broadcast Receiver object</h2>
 
 <p><code class="prettyprint">private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()</code></p>
 
 <p>Broadcast receiver with the list of registered filters</p>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
@@ -2139,10 +2502,6 @@ API Key, Authorisation.
 <ul>
 <li><strong>Returns:</strong> an intent filter with a list of actions</li>
 </ul>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">updateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
         <span class="kd">final</span> <span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
 
@@ -2163,10 +2522,6 @@ API Key, Authorisation.
 <p><code class="prettyprint">private void startCaptureSetUp()</code></p>
 
 <p>Starts capturing of biometric/contextual data</p>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">startCaptureSetUp</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"Started capturing"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
         <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Started capturing"</span><span class="o">);</span>
@@ -2182,10 +2537,6 @@ API Key, Authorisation.
 <ul>
 <li><strong>Returns:</strong> capture bundle</li>
 </ul>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">Bundle</span> <span class="nf">getCaptureBundle</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
         <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">ACCELERATION_CAPTURE</span><span class="o">,</span> <span class="n">adapter</span><span class="o">.</span><span class="na">accelerationView</span><span class="o">.</span><span class="na">getSwitchValue</span><span class="o">());</span>
@@ -2204,393 +2555,176 @@ API Key, Authorisation.
 <p><code class="prettyprint">private void stopCaptureSetUp()</code></p>
 
 <p>Stops capturing of biometric/contextual data</p>
-
-<blockquote>
-<p>Please find examples in the Java tab</p>
-</blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">stopCaptureSetUp</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"Stopped capturing"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
         <span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">ServiceConstants</span><span class="o">.</span><span class="na">CANCEL_CAPTURE</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
-          <h1 id="android-sdk-service-constants">Android SDK Service Constants</h1>
-
-<h2 id="enable-scan">Enable Scan</h2>
-
-<p><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></p>
-
-<p>This passes a message of enabling scan for the devices to the SDK service</p>
-
-<h2 id="device-list">Device List</h2>
-
-<p><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></p>
-
-<p>This is used to get list of scan devices</p>
-
-<h2 id="request">Request</h2>
-
-<p><code class="prettyprint">public static final String REQUEST = &quot;send-request&quot;</code></p>
-
-<p>This is used to get request data</p>
-
-<h2 id="request-filter">Request Filter</h2>
-
-<p><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the request which is made to the SDK service</p>
-
-<h2 id="device-filter">Device filter</h2>
-
-<p><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the connected device</p>
-
-<h2 id="value-filter">Value Filter</h2>
-
-<p><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the heart rate value</p>
-
-<h2 id="login-filter">Login Filter</h2>
-
-<p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the user login</p>
-
-<h2 id="gps-filter">GPS Filter</h2>
-
-<p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the gps values</p>
-
-<h2 id="acc-filter">ACC Filter</h2>
-
-<p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the accelerometer values</p>
-
-<h2 id="extra-data">Extra Data</h2>
-
-<p><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></p>
-
-<p>This is used to bundle up extra data to the intents</p>
-
-<h2 id="device-name">Device Name</h2>
-
-<p><code class="prettyprint">public static final String DEVICE_NAME = &quot;device-name&quot;</code></p>
-
-<p>This is used to get the connected device name</p>
-
-<h2 id="device-address">Device Address</h2>
-
-<p><code class="prettyprint">public static final String DEVICE_ADDRESS = &quot;device-address&quot;</code></p>
-
-<p>This is used to get the connected device address</p>
-
-<h2 id="user-name">User Name</h2>
-
-<p><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></p>
-
-<p>This is used to pass the username for authentication to the SDK service, only authenticated users are able to use the SDK service</p>
-
-<h2 id="password">Password</h2>
-
-<p><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></p>
-
-<p>This is used to pass the password for authentication to the SDK service</p>
-
-<h2 id="wear_hr_value">Wear_HR_Value</h2>
-
-<p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
-
-<p>This is used to pass the Heart Rate value captured using Android Wear to the SDK service</p>
-
-<h2 id="text-message">Text Message</h2>
-
-<p><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></p>
-
-<p>This is used to pass Text/Emoji value to the SDK service</p>
-
-<h2 id="x-value">X Value</h2>
-
-<p><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></p>
-
-<p>This is used to pass the captured accelerometer x value</p>
-
-<h2 id="y-value">Y Value</h2>
-
-<p><code class="prettyprint">public static final String Y_VALUE = &quot;y-value&quot;</code></p>
-
-<p>This is used to pass the captured accelerometer y value</p>
-
-<h2 id="z-value">Z Value</h2>
-
-<p><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></p>
-
-<p>This is used to pass the captured accelerometer z value</p>
-
-<h2 id="speed-value">Speed Value</h2>
-
-<p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
-
-<p>This is used to pass the captured gps speed value</p>
-
-<h2 id="latitude-value">Latitude Value</h2>
-
-<p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
-
-<p>This is used to pass the captured gps latitude value</p>
-
-<h2 id="longitude-value">Longitude Value</h2>
-
-<p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
-
-<p>This is used to pass the captured gps longitude value</p>
-
-<h2 id="altitude-value">Altitude Value</h2>
-
-<p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
-
-<p>This is used to pass the captured gps altitude value</p>
-
-<h2 id="bearing-value">Bearing Value</h2>
-
-<p><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></p>
-
-<p>This is used to pass the captured gps bearing value</p>
-
-<h2 id="accuracy-value">Accuracy Value</h2>
-
-<p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
-
-<p>This is used to pass the captured gps accuracy value</p>
-
-<h2 id="acceleration-capture">Acceleration Capture</h2>
-
-<p><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></p>
-
-<p>This is used to enable/disable capturing of accelerometer data which is sent to the API</p>
-
-<h2 id="gps-capture">GPS Capture</h2>
-
-<p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
-
-<p>This is used to enable/disable capturing of gps data which is sent to the API</p>
-
-<h2 id="hr-capture">HR Capture</h2>
-
-<p><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></p>
-
-<p>This is used to enable/disable capturing of heart rate data which is sent to the API</p>
-
-<h2 id="input-capture">Input Capture</h2>
-
-<p><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></p>
-
-<p>This is used to enable/disable capturing of text/emoji data which is sent to the API</p>
-
-<h2 id="hr-data-rate">HR Data Rate</h2>
-
-<p><code class="prettyprint">public static final String HEARTRATE_DATA_RATE = &quot;heartrate_data_rate&quot;</code></p>
-
-<p>This is used to pass the interval rate (in milliseconds) for the heart rate data to be sent to the API</p>
-
-<h2 id="accelerometer-data-rate">Accelerometer Data Rate</h2>
-
-<p><code class="prettyprint">public static final String ACCELEROMETER_DATA_RATE = &quot;accelerometer_data_rate&quot;</code></p>
-
-<p>This is used to pass the interval rate (in milliseconds) for the accelerometer data to be sent to the API</p>
-
-<h2 id="gps-data-rate">GPS Data Rate</h2>
-
-<p><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></p>
-
-<p>This is used to pass the interval rate (in milliseconds) for the gps data to be sent to the API</p>
-
-<h2 id="input-tags-data-rate">Input Tags Data Rate</h2>
-
-<p><code class="prettyprint">public static final String INPUT_TAGS_DATA_RATE = &quot;input_tags_data_rate&quot;</code></p>
-
-<p>This is used to pass the interval rate (in milliseconds) for the text/emoji data to be sent to the API</p>
-
-<h2 id="device-disconnected">Device Disconnected</h2>
-
-<p><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></p>
-
-<p>This is used to pass a message from the SDK service in case of any device disconnection</p>
-
-<h2 id="api-response">API Response</h2>
-
-<p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
-
-<p>This is used to pass message from the SDK service for the API response</p>
-
-<h2 id="toast-message">Toast Message</h2>
-
-<p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
-
-<p>This is used to pass informative toast message from the SDK service</p>
-
-<h2 id="api-base-url">API Base URL</h2>
-
-<p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
-
-<p>This is used to pass the base url for API to the SDK service which is used for setting up communication with the API</p>
-
-<h2 id="auth-token">Auth Token</h2>
-
-<p><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></p>
-
-<p>This is used to pass the authentication token for API to the SDK service which is used for setting up communication with the API</p>
-
-<h2 id="user-pool-id">User Pool Id</h2>
-
-<p><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></p>
-
-<p>This is used to pass the user pool id to the SDK service which is used for user authentication</p>
-
-<h2 id="client-id">Client Id</h2>
-
-<p><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></p>
-
-<p>This is used to pass the client id to the SDK service which is used for user authentication</p>
-
-<h2 id="connect">Connect</h2>
-
-<p><code class="prettyprint">public static final int CONNECT = 101</code></p>
-
-<p>This is used to connect to the selected device from the list of the devices</p>
-
-<h2 id="bind-service">Bind Service</h2>
-
-<p><code class="prettyprint">public static final int BIND_SERVICE = 103</code></p>
-
-<p>This is used for binding to the service</p>
-
-<h2 id="unbind-service">Unbind Service</h2>
-
-<p><code class="prettyprint">public static final int UNBIND_SERVICE = 104</code></p>
-
-<p>This is used for unbinding from the service</p>
-
-<h2 id="scan">Scan</h2>
-
-<p><code class="prettyprint">public static final int SCAN = 105</code></p>
-
-<p>This is used internally in the SDK service to filter scan for devices</p>
-
-<h2 id="devices">Devices</h2>
-
-<p><code class="prettyprint">public static final int DEVICES = 106</code></p>
-
-<p>This is used to filter for devices</p>
-
-<h2 id="send">Send</h2>
-
-<p><code class="prettyprint">public static final int SEND = 108</code></p>
-
-<p>This is sued to filter send from the front end</p>
-
-<h2 id="connecting">Connecting</h2>
-
-<p><code class="prettyprint">public static final int CONNECTING = 109</code></p>
-
-<p>This is used to filter connecting from the front end</p>
-
-<h2 id="start-service">Start Service</h2>
-
-<p><code class="prettyprint">public static final int START_SERVICE = 111</code></p>
-
-<p>This is used to start the service</p>
-
-<h2 id="cancel-capture">Cancel Capture</h2>
-
-<p><code class="prettyprint">public static final int CANCEL_CAPTURE = 112</code></p>
-
-<p>This is used to cancel sending of the captured data to the API</p>
-
-<h2 id="start-capture">Start Capture</h2>
-
-<p><code class="prettyprint">public static final int START_CAPTURE = 113</code></p>
-
-<p>This is used to start sending of the captured data to the API</p>
-
-<h2 id="enable-storing">Enable Storing</h2>
-
-<p><code class="prettyprint">public static final int ENABLE_STORING = 114</code></p>
-
-<p>This is used to enable storing of the captured data locally on the device</p>
-
-<h2 id="disable-storing">Disable Storing</h2>
-
-<p><code class="prettyprint">public static final int DISABLE_STORING = 115</code></p>
-
-<p>This is used to disable storing of the captured data locally on the device</p>
-
-<h2 id="enable-hr-timer">Enable HR Timer</h2>
-
-<p><code class="prettyprint">public static final int ENABLE_HRTIMER = 116</code></p>
-
-<p>This is used to enable the timer for sending the heart rate data to the API</p>
-
-<h2 id="disable-hr-timer">Disable HR Timer</h2>
-
-<p><code class="prettyprint">public static final int DISABLE_HRTIMER = 117</code></p>
-
-<p>This is used to disable the timer for sending the heart rate data to the API</p>
-
-<h2 id="enable-accelerometer-timer">Enable Accelerometer Timer</h2>
-
-<p><code class="prettyprint">public static final int ENABLE_ACCTIMER = 118</code></p>
-
-<p>This is used to enable the timer for sending the accelerometer data to the API</p>
-
-<h2 id="disable-accelerometer-timer">Disable Accelerometer Timer</h2>
-
-<p><code class="prettyprint">public static final int DISABLE_ACCTIMER = 119</code></p>
-
-<p>This is used to disable the timer for sending the accelerometer data to the API</p>
-
-<h2 id="enable-gps-timer">Enable GPS Timer</h2>
-
-<p><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></p>
-
-<p>This is used to enable the timer for sending the gps data to the API</p>
-
-<h2 id="disable-gps-timer">Disable GPS Timer</h2>
-
-<p><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></p>
-
-<p>This is used to disable the timer for sending the gps data to the API</p>
-
-<h2 id="enable-input-timer">Enable Input Timer</h2>
-
-<p><code class="prettyprint">public static final int ENABLE_INPUTTIMER = 122</code></p>
-
-<p>This is used to enable the timer for sending the text/emoji data to the API</p>
-
-<h2 id="disable-input-timer">Disable Input Timer</h2>
-
-<p><code class="prettyprint">public static final int DISABLE_INPUTTIMER = 123</code></p>
-
-<p>This is used to enable the timer for sending the text/emoji data to the API</p>
-
-<h2 id="login">Login</h2>
-
-<p><code class="prettyprint">public static final int LOGIN = 124</code></p>
-
-<p>This is used to pass a login message to the SDK service</p>
-
-<h2 id="input-text">Input Text</h2>
-
-<p><code class="prettyprint">public static final int INPUT_TEXT = 125</code></p>
-
-<p>This is used to filter/pass text &amp; emoji message to the SDK service</p>
-
           <h1 id="ios-sdk">iOS SDK</h1>
 
-<h2 id="todo-all-of-it">Todo: All of it</h2>
+<h2 id="bluetooth-command">Bluetooth Command</h2>
 
+<p>Below are all available commands relating to Bluetooth in the iOS SDK.</p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var bluetoothCommand = BluetoothCommand()</code></p>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<p><code class="prettyprint">bluetoothCommand.startUpdating()</code></p>
+
+<p>Start the updates of any connected heart rate peripheral </p>
+
+<p>### Stop Updating</p>
+
+<p><code class="prettyprint">bluetoothCommand.stopUpdating()</code></p>
+
+<p>Stop the updates of any connected heart rate peripheral</p>
+
+<p>### Start Recording</p>
+
+<p><code class="prettyprint">bluetoothCommand.startRecording()</code></p>
+
+<p>Start recording the updates of any connected heart rate peripheral </p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<p><code class="prettyprint">bluetoothCommand.stopRecording()</code></p>
+
+<p>Stop recording the updates of any connected heart rate peripheral</p>
+
+<h3 id="start-sending-to-emotion-ai-service">Start Sending to Emotion AI Service</h3>
+
+<p><code class="prettyprint">bluetoothCommand.startSendingToAPI()</code></p>
+
+<p>Start sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
+
+<h3 id="stop-sending-to-emotion-ai-service">Stop Sending to Emotion AI Service</h3>
+
+<p><code class="prettyprint">bluetoothCommand.stopSendingToAPI()</code></p>
+
+<p>Stop sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
+
+<h3 id="check-module-update-status">Check Module Update Status</h3>
+
+<p><code class="prettyprint">bluetoothCommand.isUpdating()</code></p>
+
+<p>Check if module is updating. Returns a boolean value.</p>
+
+<h3 id="check-module-recording-status">Check Module Recording Status</h3>
+
+<p><code class="prettyprint">bluetoothCommand.isRecording()</code></p>
+
+<p>Check if module is recording. Returns a boolean value.</p>
+
+<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+
+<p><code class="prettyprint">bluetoothCommand.isSendingToAPI()</code></p>
+
+<p>Check if module is sending to the Emotion AI Service</p>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<p><code class="prettyprint">bluetoothCommand.assignListener()</code></p>
+
+<p>Assign a listener to the bluetooth module to receive bluetooth event updates.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>BluetoothListener</td>
+<td>An instance of a class that conforms to the Bluetooth listener extension</td>
+</tr>
+</tbody></table>
+
+<h3 id="start-scan-for-devices">Start Scan for Devices</h3>
+
+<p><code class="prettyprint">bluetoothCommand.startScanForDevices()</code></p>
+
+<p>Start scanning for discoverable peripheral devices</p>
+
+<h3 id="connect-to-peripheral-device">Connect to peripheral device</h3>
+
+<p><code class="prettyprint">bluetoothCommand.connectTo()</code></p>
+
+<p>Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the getDeviceList() function.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>peripheralDevice</td>
+<td>CBPeripheral</td>
+<td>The bluetooth peripheral device you want to connect to</td>
+</tr>
+</tbody></table>
+
+<h3 id="clear-list-of-discovered-devices">Clear List of Discovered Devices</h3>
+
+<p><code class="prettyprint">bluetoothCommand.clearDeviceList()</code></p>
+
+<p>Clear the list of devices discovered (equivalent to a refresh)</p>
+
+<h3 id="disconnect-from-device">Disconnect from Device</h3>
+
+<p><code class="prettyprint">bluetoothCommand.disconnect()</code></p>
+
+<p>Disconnect from the currently connected peripheral device</p>
+
+<h3 id="get-device-list">Get Device List</h3>
+
+<p><code class="prettyprint">bluetoothCommand.getDeviceList()</code></p>
+
+<p>Return a list of all discovered peripherals. This list is populated when startScanForDevices() is called.</p>
+
+<p>Returns a list of dictionaries containing bluetooth peripheral information with three fields:</p>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>deviceName</td>
+<td>String</td>
+<td>returns a String of the device name</td>
+</tr>
+<tr>
+<td>peripheral</td>
+<td>CoreBluetooth CBPeripheral</td>
+<td>returns the CoreBluetooth CBPeripheral object (import CoreBluetooth to use this)</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>String</td>
+<td>For now all peripherals are of type BLE</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example Usage</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code>     <span class="k">if</span> <span class="k">let</span> <span class="nv">peripheralDictionary</span> <span class="o">=</span> <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">getDeviceList</span><span class="p">()[</span><span class="n">index</span><span class="p">]?[</span><span class="s">"peripheral"</span><span class="p">]</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">peripheralToAdd</span> <span class="o">=</span> <span class="n">peripheralDictionary</span> <span class="k">as!</span> <span class="kt">CBPeripheral</span>
+     <span class="p">}</span>
+</code></pre>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
@@ -2599,7 +2733,6 @@ API Key, Authorisation.
                 <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
                 <a href="#" data-language-name="python">Python</a>
                 <a href="#" data-language-name="java">Java</a>
-                <a href="#" data-language-name="swift">Swift</a>
           </div>
       </div>
     </div>
