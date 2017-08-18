@@ -2562,6 +2562,98 @@ API Key, Authorisation.
 </code></pre>
           <h1 id="ios-sdk">iOS SDK</h1>
 
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="sdk-module-command-protocol">SDK Module Command Protocol</h3>
+
+<p>Every Sensum SDK module conforms to the module command protocol.
+At present these can be switched on and off independently. Every SDK managed object has three states that can be toggled independently:</p>
+
+<ul>
+<li>Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object it’s update methods will be called by the SDK and you can reflect these and carry out actions in your app.</li>
+<li>Recording: Data updates will be stored only. If you do not turn on updates no data can be recorded as updates will not be read.</li>
+<li>Sending To API: Data updates will be recorded and sent to the Emotion AI service.</li>
+</ul>
+
+<blockquote>
+<p>Protocol Code</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="n">foundation</span>
+
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SDKModuleCommandProtocol</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">stopUpdating</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">startRecording</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">stopRecording</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">startSendingToAPI</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">stopSendingToAPI</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">isUpdating</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+    <span class="kd">func</span> <span class="nf">isRecording</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+    <span class="kd">func</span> <span class="nf">isSendingToAPI</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id="authentication">Authentication</h2>
+
+<p>To get started working with the Sensum SDK manager you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign in details</p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var authenticationObj = Authentication()</code></p>
+
+<p>Create an instance of the Authentication object, specifying the Cognito User Pool ID, the App Client ID, the API base URL and your API key.
+These should all have been provided to you by Sensum when you requested API access.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cognitoUserPoolId</td>
+<td>This is the user pool ID we have given you to use</td>
+</tr>
+<tr>
+<td>CognitoClientId</td>
+<td>This is the Cognito App Client ID we have given you to use</td>
+</tr>
+<tr>
+<td>apiBaseURL</td>
+<td>This is the base URL of the API, this may change over time hence we allow you to configure this from your app</td>
+</tr>
+<tr>
+<td>apiKey</td>
+<td>This is your unique developer&rsquo;s API access key, contact Sensum to get one if we haven&rsquo;t given you one already</td>
+</tr>
+</tbody></table>
+
+<h3 id="login">Login</h3>
+
+<p>&lsquo;authenticationObj.attemptSignIn()&rsquo;</p>
+
+<p>Sign in using your Amazon Web Service Cognito account details with a username and password.
+This will allows you to create and instantiate the SDK fully and enable sending requests to our emotion AI service.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>The cognito username you have registered with</td>
+</tr>
+<tr>
+<td>password</td>
+<td>The cognito password you have registered with</td>
+</tr>
+</tbody></table>
+
 <h2 id="bluetooth-command">Bluetooth Command</h2>
 
 <p>Below are all available commands relating to Bluetooth in the iOS SDK.</p>
@@ -2712,7 +2804,7 @@ API Key, Authorisation.
 <td>returns the CoreBluetooth CBPeripheral object (import CoreBluetooth to use this)</td>
 </tr>
 <tr>
-<td>Type</td>
+<td>type</td>
 <td>String</td>
 <td>For now all peripherals are of type BLE</td>
 </tr>
