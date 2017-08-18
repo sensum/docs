@@ -2011,7 +2011,7 @@ API Key, Authorisation.
 </tr>
 </tbody></table>
 
-          <h1 id="java-sdk">java SDK</h1>
+          <h1 id="android-sdk">Android SDK</h1>
 
 <h2 id="service-constants">Service Constants</h2>
 
@@ -2654,6 +2654,158 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 </tr>
 </tbody></table>
 
+<h2 id="api-command">API Command</h2>
+
+<p>All available commands for configuring and enabling API communication </p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var apiCommand = APICommand()</code></p>
+
+<h3 id="set-server-request-rate">Set Server Request Rate</h3>
+
+<p><code class="prettyprint">apiCommand.setServerRtequestRate()</code></p>
+
+<p>Set how frequently uploads occur to the server.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>requestRateInSeconds</td>
+<td>Frequency of server updates in seconds</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-server-request-rate">Get Server Request Rate</h3>
+
+<p><code class="prettyprint">apiCommand.getServerRequestRate()</code></p>
+
+<p>Returns how often requests are sent to the API</p>
+
+<p>###Assign Listener</p>
+
+<p><code class="prettyprint">apiCommand.assignListener()</code></p>
+
+<p>Assign a listener to listen for API events</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<p>|Name|Type|Description|
+|&mdash;-|&mdash;&mdash;&mdash;&ndash;|
+|listener|APIResponseListener|An instance of a class that conforms to the APIResponseListener extension|</p>
+
+<h2 id="accelerometer-command">Accelerometer Command</h2>
+
+<p>All available commands for the Sensum accelerometer SDK</p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var accCommand = AccelerometerCommand()</code></p>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<p><code class="prettyprint">accCommand.startUpdating()</code></p>
+
+<p>Start the updates from CoreMotion</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<p><code class="prettyprint">accCommand.stopUpdating()</code></p>
+
+<p>Stop the updates from CoreMotion</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<p><code class="prettyprint">accCommand.startRecording()</code></p>
+
+<p>Start recording the updates from CoreMotion</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<p><code class="prettyprint">accCommand.stopRecording()</code></p>
+
+<p>Stop recording the updates from CoreMotion</p>
+
+<h3 id="start-sending-to-api">Start Sending to API</h3>
+
+<p><code class="prettyprint">accCommmand.startSendingToAPI()</code></p>
+
+<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="stop-sending-to-api">Stop Sending to API</h3>
+
+<p><code class="prettyprint">accCommmand.stopSendingToAPI()</code></p>
+
+<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="check-module-update-status">Check Module Update Status</h3>
+
+<p><code class="prettyprint">accCommand.isUpdating()</code></p>
+
+<p>Check if module is updating. Returns a boolean value.</p>
+
+<h3 id="check-module-recording-status">Check Module Recording Status</h3>
+
+<p><code class="prettyprint">accCommand.isRecording()</code></p>
+
+<p>Check if module is recording. Returns a boolean value.</p>
+
+<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+
+<p><code class="prettyprint">accCommand.isSendingToAPI()</code></p>
+
+<p>Check if module is sending to the Emotion AI Service</p>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<p><code class="prettyprint">accCommand.assignListener()</code></p>
+
+<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>AccelerometerListener</td>
+<td>An instance of a class that conforms to the AccelerometerListener extension</td>
+</tr>
+</tbody></table>
+
+<h3 id="set-read-frequency">Set Read Frequency</h3>
+
+<p><code class="prettyprint">accCommand.setReadFrequency()</code></p>
+
+<p>Set the frequency of the updates from the accelerometer.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newIntervalInSeconds</td>
+<td>Double</td>
+<td>Set the interval time in seconds, (minimum interval is 0.01s)</td>
+</tr>
+</tbody></table>
+
 <h2 id="bluetooth-command">Bluetooth Command</h2>
 
 <p>Below are all available commands relating to Bluetooth in the iOS SDK.</p>
@@ -2734,7 +2886,7 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 <tr>
 <td>listener</td>
 <td>BluetoothListener</td>
-<td>An instance of a class that conforms to the Bluetooth listener extension</td>
+<td>An instance of a class that conforms to the BluetoothListener extension</td>
 </tr>
 </tbody></table>
 
@@ -2817,6 +2969,175 @@ This will allows you to create and instantiate the SDK fully and enable sending 
         <span class="k">let</span> <span class="nv">peripheralToAdd</span> <span class="o">=</span> <span class="n">peripheralDictionary</span> <span class="k">as!</span> <span class="kt">CBPeripheral</span>
      <span class="p">}</span>
 </code></pre>
+<h2 id="location-command">Location Command</h2>
+
+<p>All available commands for the Sensum location SDK</p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var locationCommand = LocationCommand()</code></p>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<p><code class="prettyprint">locationCommand.startUpdating()</code></p>
+
+<p>Start the updates from CoreMotion</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<p><code class="prettyprint">locationCommand.stopUpdating()</code></p>
+
+<p>Stop the updates from CoreMotion</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<p><code class="prettyprint">locationCommand.startRecording()</code></p>
+
+<p>Start recording the updates from CoreMotion</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<p><code class="prettyprint">locationCommand.stopRecording()</code></p>
+
+<p>Stop recording the updates from CoreMotion</p>
+
+<h3 id="start-sending-to-api">Start Sending to API</h3>
+
+<p><code class="prettyprint">accCommmand.startSendingToAPI()</code></p>
+
+<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="stop-sending-to-api">Stop Sending to API</h3>
+
+<p><code class="prettyprint">accCommmand.stopSendingToAPI()</code></p>
+
+<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="check-module-update-status">Check Module Update Status</h3>
+
+<p><code class="prettyprint">locationCommand.isUpdating()</code></p>
+
+<p>Check if module is updating. Returns a boolean value.</p>
+
+<h3 id="check-module-recording-status">Check Module Recording Status</h3>
+
+<p><code class="prettyprint">locationCommand.isRecording()</code></p>
+
+<p>Check if module is recording. Returns a boolean value.</p>
+
+<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+
+<p><code class="prettyprint">locationCommand.isSendingToAPI()</code></p>
+
+<p>Check if module is sending to the Emotion AI Service</p>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<p><code class="prettyprint">locationCommand.assignListener()</code></p>
+
+<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>LocationListener</td>
+<td>An instance of a class that conforms to the LocationListener extension</td>
+</tr>
+</tbody></table>
+
+<h2 id="tag-command">Tag Command</h2>
+
+<p>All available commands for our tagging module. This is useful for noting events that occur in data. e.g. &ldquo;Started workout set&rdquo;, &ldquo;Jumped out of a plane&rdquo;, &ldquo;Finished jogging&rdquo;.
+These events are automatically timestamped.</p>
+
+<h3 id="initialisation">Initialisation</h3>
+
+<p><code class="prettyprint">var tagCommand = TagCommand()</code></p>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<p><code class="prettyprint">tagCommand.startUpdating()</code></p>
+
+<p>Start the updates from CoreMotion</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<p><code class="prettyprint">tagCommand.stopUpdating()</code></p>
+
+<p>Stop the updates from CoreMotion</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<p><code class="prettyprint">tagCommand.startRecording()</code></p>
+
+<p>Start recording the updates from CoreMotion</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<p><code class="prettyprint">tagCommand.stopRecording()</code></p>
+
+<p>Stop recording the updates from CoreMotion</p>
+
+<h3 id="start-sending-to-api">Start Sending to API</h3>
+
+<p><code class="prettyprint">tagCommmand.startSendingToAPI()</code></p>
+
+<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="stop-sending-to-api">Stop Sending to API</h3>
+
+<p><code class="prettyprint">tagCommmand.stopSendingToAPI()</code></p>
+
+<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+
+<h3 id="check-module-update-status">Check Module Update Status</h3>
+
+<p><code class="prettyprint">tagCommand.isUpdating()</code></p>
+
+<p>Check if module is updating. Returns a boolean value.</p>
+
+<h3 id="check-module-recording-status">Check Module Recording Status</h3>
+
+<p><code class="prettyprint">tagCommand.isRecording()</code></p>
+
+<p>Check if module is recording. Returns a boolean value.</p>
+
+<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+
+<p><code class="prettyprint">tagCommand.isSendingToAPI()</code></p>
+
+<p>Check if module is sending to the Emotion AI Service</p>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<p><code class="prettyprint">tagCommand.assignListener()</code></p>
+
+<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+
+<h4 id="parameters">Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>TagListener</td>
+<td>An instance of a class that conforms to the TagListener extension</td>
+</tr>
+</tbody></table>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
