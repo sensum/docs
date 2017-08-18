@@ -4,7 +4,7 @@
 ## Introduction
 The Sensum Emotion AI API enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the `Content-Type: application/json` be specified.
 The API is also cross-origin resource sharing ready.
-The Emotion AI SDK handles many of these requests and responses natively. It can however be useful to utilise the API directly.
+The Emotions AI SDK handles many of these requests and responses natively. It can however be useful to utilise the API directly.
 
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
