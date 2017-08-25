@@ -200,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;,&quot;java&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -210,17 +210,15 @@
     <div class="tocify-wrapper">
       <img src="images/logo.svg" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="http">HTTP</a>
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
               <a href="#" data-language-name="python">Python</a>
-              <a href="#" data-language-name="java">Java</a>
         </div>
 
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='https://sensum-staging.preview.sensum.co/'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://www.sensum.co/'>Sign Up for a Developer Key</a></li>
             <li><a href='#'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -237,7 +235,7 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>The Sensum Emotion AI API enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> be specified.
+<p>The Sensum Emotion AI API enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
 The API is also cross-origin resource sharing ready.
 The Emotion AI SDK handles many of these requests and responses natively. It can however be useful to utilise the API directly.</p>
 
@@ -254,14 +252,14 @@ The Emotion AI SDK handles many of these requests and responses natively. It can
 
 <h2 id="authorization">Authorization</h2>
 
-<p>Sensum Emotion AI uses a combination of an API Key and AWS Signature v4 signing to authorise access to the API. You can register a new API Key by contacting us.</p>
+<p>Sensum Emotion AI uses a combination of an API Key and AWS Signature v4 signing to authorize access to the API. You can register a new API Key by contacting us.</p>
 
 <p>Sensum Emotion AI expects each call to contain the following headers to gain access: </p>
 
 <ul>
-<li>Content-Type: &ldquo;application/json&rdquo;</li>
-<li>Authorization: &ldquo;AWS v4 Signature&rdquo;</li>
-<li>X-API-Key: &ldquo;Your API Key&rdquo;</li>
+<li>Content-Type: <code class="prettyprint">application/json</code></li>
+<li>Authorization: <code class="prettyprint">$AWSv4Signature</code></li>
+<li>X-API-Key: <code class="prettyprint">$YourAPIKey(For trial usage use &quot;PublicDemoKeyForDocumentation&quot;)</code></li>
 </ul>
 
 <p>To calculate the value for the Authorization header you must calculate a hash of your request, add extra information, then add the AWS secret key in order to create a signing key and then use this to sign the request.
@@ -291,11 +289,15 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 <tr>
 <td>temperature</td>
-<td>^o^C, assumed to be ambient/external</td>
+<td><sup>o</sup>C, assumed to be ambient/external</td>
 </tr>
 <tr>
 <td>skintemperature</td>
-<td>^o^C</td>
+<td><sup>o</sup>C</td>
+</tr>
+<tr>
+<td>gsr</td>
+<td>Siemens<sup>*</sup></td>
 </tr>
 <tr>
 <td>location_latitude</td>
@@ -319,21 +321,25 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 <tr>
 <td>acceleration</td>
-<td>linear acceleration in m/s2*</td>
+<td>linear acceleration in m/s<sup>2**</sup></td>
 </tr>
 <tr>
 <td>acceleration_x</td>
-<td>m/s2</td>
+<td>m/s<sup>2</sup></td>
 </tr>
 <tr>
 <td>acceleration_y</td>
-<td>m/s2</td>
+<td>m/s<sup>2</sup></td>
 </tr>
 <tr>
 <td>acceleration_z</td>
-<td>m/s2</td>
+<td>m/s<sup>2</sup></td>
 </tr>
 </tbody></table>
+
+<p><sup>*</sup> The GSR Conductance unit &ldquo;Siemens&rdquo; is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)</p>
+
+<p><sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the userAcceleration iOS method rather than the acceleration method</p>
 
 <h2 id="send-text-data-to-analyse-emoji-and-text-sentiment">Send text data to analyse emoji and text sentiment</h2>
 
@@ -344,6 +350,11 @@ To learn more about generating the Signature please read the <a href="https://do
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">POST https://api.sensum.co/v0/sentiment</code></p>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of the following headers:
+API Key, Authorization.
+</aside>
 
 <h3 id="glossary">Glossary</h3>
 
@@ -374,21 +385,22 @@ To learn more about generating the Signature please read the <a href="https://do
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">https://api.sensum.co/v0/sentiment</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
-Accept: application/json
+<span class="p">};</span>
 
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"text"</span><span class="p">:</span><span class="s2">"👌👌👌"</span>
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
   <span class="p">}</span>
@@ -396,14 +408,21 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"text"</span><span class="p">:</span><span class="s2">"👌👌👌"</span>
+<span class="p">};</span>
+
 
 <span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
-
+  <span class="na">body</span> <span class="p">:</span> <span class="nx">body</span><span class="p">,</span> 
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
 <span class="p">})</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
@@ -413,49 +432,20 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"text"</span><span class="p">:</span><span class="s">"👌👌👌"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/sentiment"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"POST"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
-<blockquote>
-<p>Body Parameters: Text Only - Unemotional</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is nothing"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Body Parameters: Text Only - Emotional</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This was a very good test"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Body Parameters: Emoji</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"text"</span><span class="p">:</span><span class="s2">"👌👌👌"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 <h3 id="responses">Responses</h3>
 
 <table><thead>
@@ -472,8 +462,21 @@ Accept: application/json
 </tr>
 </tbody></table>
 
+<h3 id="examples">Examples</h3>
+
+<p>Please refer to the code samples for request and response examples </p>
+
 <blockquote>
-<p>Example responses: Text Only - Unemotional</p>
+<p>Text Only - Unemotional</p>
+
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is nothing"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -486,7 +489,16 @@ Accept: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>Example responses: Text Only - Emotional</p>
+<p>Text Only - Emotional</p>
+
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This was a very good test"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -498,7 +510,16 @@ Accept: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>Example responses: Emoji</p>
+<p>Emoji</p>
+
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"text"</span><span class="p">:</span><span class="s2">"👌👌👌"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"text_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -513,149 +534,6 @@ Accept: application/json
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of the following headers:
-API Key, Authorization.
-</aside>
-
-<h2 id="check-the-methods-that-can-be-called-on-the-sentiment-resource">Check the methods that can be called on the sentiment resource</h2>
-
-<p>This endpoint allows the user to check the HTTP Methods that can be used on the sentiment resource</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">OPTIONS https://api.sensum.co/v0/sentiment</code></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">OPTIONS</span> <span class="nn">https://api.sensum.co/v0/sentiment</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-<span class="p">};</span>
-
-<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'options'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
-
-<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
-<span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'OPTIONS'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
-<span class="p">}</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
-
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/sentiment"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"OPTIONS"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</code></pre>
-<h3 id="responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>200 response</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-headers">Response Headers</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Header</th>
-<th>Type</th>
-<th>Format</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Origin</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Methods</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Headers</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Response Header</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">:</span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Methods"</span><span class="p">:</span><span class="s2">"DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Headers"</span><span class="p">:</span><span class="s2">"Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Content-Type"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of the following headers:
-API Key, Authorization.
-</aside>
-
 <h2 id="retrieve-previously-recorded-data">Retrieve previously recorded data</h2>
 
 <p>This endpoint allows the user to retrieve previously entered data by providing a start time, an end time and the metrics to be retrieved.</p>
@@ -667,20 +545,22 @@ API Key, Authorization.
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://api.sensum.co/v0/data/</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
+<span class="p">};</span>
 
-Accept: application/json
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'start'</span> <span class="p">:</span> <span class="s1">'2017-08-15'</span><span class="p">,</span>
+    <span class="s1">'end'</span> <span class="p">:</span> <span class="s1">'2017-08-25'</span><span class="p">,</span>
+    <span class="s1">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">,</span><span class="s1">'breathingrate'</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data/'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-
+  <span class="na">data</span> <span class="p">:</span> <span class="nx">params</span><span class="p">,</span> 
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -689,11 +569,13 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data?start=2017-08-15&amp;end=2017-08-25&amp;metrics=['</span><span class="nx">heartrate</span><span class="s1">','</span><span class="nx">breathingrate</span><span class="s1">']'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
 
@@ -706,27 +588,21 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'start'</span> <span class="p">:</span> <span class="s">'2017-08-15'</span><span class="p">,</span>
+    <span class="s">'end'</span> <span class="p">:</span> <span class="s">'2017-08-25'</span><span class="p">,</span>
+    <span class="s">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'heartrate'</span><span class="p">,</span><span class="s">'breathingrate'</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/data/"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"get"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <h3 id="parameters">Parameters</h3>
 
@@ -742,7 +618,7 @@ Accept: application/json
 <td>start</td>
 <td>string</td>
 <td>true</td>
-<td>Datetime compatible start time for query</td>
+<td><a href = http://www.cl.cam.ac.uk/~mgk25/iso-time.html> Datetime compatible</a> start time for query</td>
 </tr>
 <tr>
 <td>end</td>
@@ -790,20 +666,22 @@ X-API-Key, Authorization
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://api.sensum.co/v0/data/records.json</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
+<span class="p">};</span>
 
-Accept: application/json
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'start'</span> <span class="p">:</span> <span class="s1">'2017-08-15'</span><span class="p">,</span>
+    <span class="s1">'end'</span> <span class="p">:</span> <span class="s1">'2017-08-25'</span><span class="p">,</span>
+    <span class="s1">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">,</span><span class="s1">'breathingrate'</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data/records.json'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-
+  <span class="na">data</span><span class="p">:</span> <span class="s1">'params'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -812,11 +690,12 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/records.json'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/records.json?start=2017-08-15&amp;end=2017-08-25&amp;metrics=['</span><span class="nx">heartrate</span><span class="s1">','</span><span class="nx">breathingrate</span><span class="s1">']'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
 
@@ -829,27 +708,22 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/records.json'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'start'</span> <span class="p">:</span> <span class="s">'2017-08-15'</span><span class="p">,</span>
+    <span class="s">'end'</span> <span class="p">:</span> <span class="s">'2017-08-25'</span><span class="p">,</span>
+    <span class="s">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'heartrate'</span><span class="p">,</span><span class="s">'breathingrate'</span><span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/records.json'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/data/records.json"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"get"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <h3 id="parameters">Parameters</h3>
 
@@ -912,7 +786,10 @@ Accept: application/json
    </span><span class="s2">"acceleration_y"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w">
-    </span><span class="p">[</span><span class="s2">"accelerator_x"</span><span class="p">,</span><span class="s2">"accelerator_y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"accelerator_z"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_altitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_horizontalaccuracy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_latitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_speed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gps_verticalaccuracy"</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"acceleration_x"</span><span class="p">,</span><span class="s2">"acceleration_y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"acceleration_z"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"location_altitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_horizontalaccuracy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_latitude"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"location_longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_speed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_verticalaccuracy"</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <aside class="warning">
@@ -922,7 +799,7 @@ X-API-Key, Authorization
 
 <h2 id="retrieve-available-metrics">Retrieve available metrics</h2>
 
-<p>This endpoint allows the user to retreive a list of available metrics in the requested records.</p>
+<p>This endpoint allows the user to retrieve a list of available metrics in the requested records.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -931,20 +808,22 @@ X-API-Key, Authorization
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://api.sensum.co/v0/data/metrics.json</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
+<span class="p">};</span>
 
-Accept: application/json
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'start'</span> <span class="p">:</span> <span class="s1">'2017-08-15'</span><span class="p">,</span>
+    <span class="s1">'end'</span> <span class="p">:</span> <span class="s1">'2017-08-25'</span><span class="p">,</span>
+    <span class="s1">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">,</span><span class="s1">'breathingrate'</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data/metrics.json'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-
+  <span class="na">data</span><span class="p">:</span> <span class="nx">params</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -953,11 +832,13 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/metrics.json'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/metrics.json?start=2017-08-15&amp;end=2017-08-25&amp;metrics=['</span><span class="nx">heartrate</span><span class="s1">','</span><span class="nx">breathingrate</span><span class="s1">']'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
 
@@ -970,27 +851,21 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/metrics.json'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'start'</span> <span class="p">:</span> <span class="s">'2017-08-15'</span><span class="p">,</span>
+    <span class="s">'end'</span> <span class="p">:</span> <span class="s">'2017-08-25'</span><span class="p">,</span>
+    <span class="s">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'heartrate'</span><span class="p">,</span><span class="s">'breathingrate'</span><span class="p">]</span>
+<span class="p">};</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/metrics.json'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/data/metrics.json"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"get"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <h3 id="parameters">Parameters</h3>
 
@@ -1055,7 +930,7 @@ X-API-Key, Authorization
 
 <h2 id="retrieve-available-wide-format-records">Retrieve available wide-format records</h2>
 
-<p>This endpoint allows the user to retrieve wide-form array of timeseries records for the available metrics, filled with null values for unavailable values.</p>
+<p>This endpoint allows the user to retrieve a wide-format array of time series records for the available metrics, filled with null values for unavailable values.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1064,20 +939,24 @@ X-API-Key, Authorization
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://api.sensum.co/v0/data/wide.json</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-
-Accept: application/json
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'start'</span> <span class="p">:</span> <span class="s1">'2017-08-15'</span><span class="p">,</span>
+    <span class="s1">'end'</span> <span class="p">:</span> <span class="s1">'2017-08-25'</span><span class="p">,</span>
+    <span class="s1">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">,</span><span class="s1">'breathingrate'</span><span class="p">]</span>
+<span class="p">};</span>
+
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data/wide.json'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-
+  <span class="na">data</span><span class="p">:</span> <span class="nx">params</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -1086,11 +965,13 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/wide.json'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data/wide.json?start=2017-08-15&amp;end=2017-08-25&amp;metrics=['</span><span class="nx">heartrate</span><span class="s1">','</span><span class="nx">breathingrate</span><span class="s1">']'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
 
@@ -1103,27 +984,21 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/wide.json'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'start'</span> <span class="p">:</span> <span class="s">'2017-08-15'</span><span class="p">,</span>
+    <span class="s">'end'</span> <span class="p">:</span> <span class="s">'2017-08-25'</span><span class="p">,</span>
+    <span class="s">'metrics'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'heartrate'</span><span class="p">,</span><span class="s">'breathingrate'</span><span class="p">]</span>
+<span class="p">};</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data/wide.json'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/data/wide.json"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"get"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <h3 id="parameters">Parameters</h3>
 
@@ -1176,146 +1051,6 @@ To perform this operation, you must be authenticated by means of the following h
 X-API-Key, Authorization
 </aside>
 
-<h2 id="check-the-methods-that-can-be-called-on-the-data-resource">Check the methods that can be called on the data resource</h2>
-
-<p>This endpoint allows the user to check the HTTP Methods that can be used on the data resource</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">OPTIONS https://api.sensum.co/v0/data</code></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">OPTIONS</span> <span class="nn">https://api.sensum.co/v0/data</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data'</span><span class="p">,</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'options'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
-
-<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/data'</span><span class="p">,</span>
-<span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'OPTIONS'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
-<span class="p">}</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/data'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
-
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/data"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"OPTIONS"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</code></pre>
-<h3 id="responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Successful request</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-headers">Response Headers</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Header</th>
-<th>Type</th>
-<th>Format</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Origin</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Methods</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Headers</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Response headers</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">:</span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Methods"</span><span class="p">:</span><span class="s2">"DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Headers"</span><span class="p">:</span><span class="s2">"Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Content-Type"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of the following headers:
-API Key, Authorization.
-</aside>
-
 <h2 id="send-data-for-events-analysis">Send data for events analysis</h2>
 
 <p>This endpoint allows the user to send data to the Emotion AI service for analysis. The response will return a series of significant events.   </p>
@@ -1327,21 +1062,64 @@ API Key, Authorization.
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">https://api.sensum.co/v0/events</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Authorization'</span><span class="p">:</span> <span class="s1">'AWS_Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span><span class="p">:</span> <span class="s1">'Public'</span>
 
 <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"records"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"heartrate"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807187332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">111.77347523527911</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807188332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">112.89604978090439</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807189332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">112.37719504311998</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807190332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">113.68469103590627</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807191332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">113.67799449012763</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807192332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">112.71988545819869</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807193332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">113.05775062793727</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807194332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">114.53499763344529</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807195332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">115.4964191594706</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"time"</span><span class="p">:</span> <span class="mi">1502807196332</span><span class="p">,</span>
+          <span class="s2">"value"</span><span class="p">:</span> <span class="mf">115.31744641217797</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">};</span> 
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-
+  <span class="na">data</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -1349,12 +1127,56 @@ API Key, Authorization.
 <span class="p">})</span>
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="s1">'{
-  "records": {},
-  "events": {}
-}'</span><span class="p">;</span>
+    "records": {
+      "heartrate": [
+        {
+          "time": 1502807187332,
+          "value": 111.77347523527911
+        },
+        {
+          "time": 1502807188332,
+          "value": 112.89604978090439
+        },
+        {
+          "time": 1502807189332,
+          "value": 112.37719504311998
+        },
+        {
+          "time": 1502807190332,
+          "value": 113.68469103590627
+        },
+        {
+          "time": 1502807191332,
+          "value": 113.67799449012763
+        },
+        {
+          "time": 1502807192332,
+          "value": 112.71988545819869
+        },
+        {
+          "time": 1502807193332,
+          "value": 113.05775062793727
+        },
+        {
+          "time": 1502807194332,
+          "value": 114.53499763344529
+        },
+        {
+          "time": 1502807195332,
+          "value": 115.4964191594706
+        },
+        {
+          "time": 1502807196332,
+          "value": 115.31744641217797
+        }
+      ]
+    }
+  } 
+'</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
 
@@ -1371,28 +1193,62 @@ API Key, Authorization.
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"records"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s">"heartrate"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807187332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">111.77347523527911</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807188332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">112.89604978090439</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807189332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">112.37719504311998</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807190332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">113.68469103590627</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807191332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">113.67799449012763</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807192332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">112.71988545819869</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807193332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">113.05775062793727</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807194332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">114.53499763344529</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807195332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">115.4964191594706</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s">"time"</span><span class="p">:</span> <span class="mi">1502807196332</span><span class="p">,</span>
+          <span class="s">"value"</span><span class="p">:</span> <span class="mf">115.31744641217797</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/events"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"POST"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <blockquote>
 <p>Body parameter</p>
@@ -1521,146 +1377,6 @@ To perform this operation, you must be authenticated by means of the following h
 X-API-Key, Authorization
 </aside>
 
-<h2 id="check-the-methods-that-can-be-called-on-the-events-resource">Check the methods that can be called on the events resource</h2>
-
-<p>This endpoint allows the user to check the HTTP Methods that can be used on the events resource</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">OPTIONS http://api.sensum.co/v0/events</code></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">OPTIONS</span> <span class="nn">https://api.sensum.co/v0/events</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'options'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
-
-<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
-<span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'OPTIONS'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
-<span class="p">}</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
-
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/events"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"OPTIONS"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</code></pre>
-<h3 id="responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Successful request</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-headers">Response Headers</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Header</th>
-<th>Type</th>
-<th>Format</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Origin</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Methods</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Headers</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Response header</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">:</span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Methods"</span><span class="p">:</span><span class="s2">"POST,OPTIONS"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Headers"</span><span class="p">:</span><span class="s2">"Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Content-Type"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of the following headers:
-API Key, Authorization.
-</aside>
-
 <h2 id="get-test-data">Get test data</h2>
 
 <p>This endpoint allows the user to generate a series of test data streams that can be fed into the events endpoint to test the analysis service. When testing the events endpoint only POST the &ldquo;records&rdquo; JSON object in the request body. </p>
@@ -1672,20 +1388,23 @@ API Key, Authorization.
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://api.sensum.co/v0/testdata</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
-Accept: application/json
+<span class="p">};</span>
 
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n'</span> <span class="p">:</span> <span class="s1">'10'</span><span class="p">,</span>
+    <span class="s1">'freq'</span> <span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+    <span class="s1">'values'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-
+  <span class="na">data</span> <span class="p">:</span> <span class="nx">params</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -1694,14 +1413,22 @@ Accept: application/json
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Authorization'</span> <span class="p">:</span> <span class="s1">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s1">'x-api-key'</span> <span class="p">:</span> <span class="s1">'PublicDemoKeyForDocumentation'</span>
 
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n'</span> <span class="p">:</span> <span class="s1">'10'</span><span class="p">,</span>
+    <span class="s1">'freq'</span> <span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+    <span class="s1">'values'</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'heartrate'</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/testdata?n=10&amp;freq=1&amp;values=['</span><span class="nx">heartrate</span><span class="s1">']'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
-
+  <span class="na">data</span><span class="p">:</span> <span class="nx">params</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
 <span class="p">})</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
@@ -1711,27 +1438,20 @@ Accept: application/json
 <span class="p">});</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span> <span class="p">:</span> <span class="s">'AWS Sig v4 Key'</span><span class="p">,</span>
+  <span class="s">'x-api-key'</span> <span class="p">:</span> <span class="s">'PublicDemoKeyForDocumentation'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'n'</span> <span class="p">:</span> <span class="s">'10'</span><span class="p">,</span>
+    <span class="s">'freq'</span> <span class="p">:</span> <span class="s">'1'</span><span class="p">,</span>
+    <span class="s">'values'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'heartrate'</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/testdata"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre>
 <h3 id="parameters">Parameters</h3>
 
@@ -1831,146 +1551,6 @@ To perform this operation, you must be authenticated by means of the following h
 X-API-Key, Authorization
 </aside>
 
-<h2 id="check-the-methods-that-can-be-called-on-the-testdata-resource">Check the methods that can be called on the testdata resource</h2>
-
-<p>This endpoint allows the user to check the HTTP Methods that can be used on the testdata resource</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">OPTIONS http://api.sensum.co/v0/testdata</code></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight http tab-http"><code><span class="nf">OPTIONS</span> <span class="nn">https://api.sensum.co/v0/testdata</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">api.sensum.co/v0</span>
-<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'options'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
-
-<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
-
-<span class="p">};</span>
-
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span>
-<span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'OPTIONS'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
-<span class="p">}</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/testdata'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
-
-<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://api.sensum.co/v0/testdata"</span><span class="o">);</span>
-<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"OPTIONS"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
-<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
-<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</code></pre>
-<h3 id="responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Successful request</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-headers">Response Headers</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Header</th>
-<th>Type</th>
-<th>Format</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Origin</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Methods</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>200</td>
-<td>Access-Control-Allow-Headers</td>
-<td>string</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Response Header </p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">:</span><span class="s2">"*"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Methods"</span><span class="p">:</span><span class="s2">"DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Access-Control-Allow-Headers"</span><span class="p">:</span><span class="s2">"Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"Content-Type"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of the following headers:
-API Key, Authorisation.
-</aside>
-
 <h2 id="errors">Errors</h2>
 
 <p>The Sensum Emotion AI API uses the following error codes:</p>
@@ -2017,7 +1597,7 @@ API Key, Authorisation.
 
 <p>These constants can used to construct message bundled that are then relayed to the Emotion AI service to send and retrieve data.</p>
 
-<p>One example of a call to the service would be to send credentials in order to authorise a user. See <a href = "#submit-credentials-to-service-for-authorisation">&ldquo;Submit Credentials to service for authorisation&rdquo;</a> for an example in how these bundles are constructed.</p>
+<p>One example of a call to the service would be to send credentials in order to authorize a user. See <a href = "#submit-credentials-to-service-for-authorization">&ldquo;Submit Credentials to service for authorization&rdquo;</a> for an example in how these bundles are constructed.</p>
 
 <h3 id="enable-scan">Enable Scan</h3>
 
@@ -2029,7 +1609,7 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></p>
 
-<p>This is used to get list of scan devices</p>
+<p>This is used to get a list of scanned devices</p>
 
 <h3 id="request">Request</h3>
 
@@ -2065,9 +1645,9 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the gps values</p>
+<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the GPS values</p>
 
-<h3 id="acelerometer-filter">Acelerometer Filter</h3>
+<h3 id="accelerometer-filter">Accelerometer Filter</h3>
 
 <p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
 
@@ -2107,7 +1687,7 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
 
-<p>This is used to pass the Heart Rate value captured using java Wear to the SDK service</p>
+<p>This is used to pass the Heart Rate value captured using Android Wear to the SDK service</p>
 
 <h3 id="text-message">Text Message</h3>
 
@@ -2137,37 +1717,37 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
 
-<p>This is used to pass the captured gps speed value</p>
+<p>This is used to pass the captured GPS speed value</p>
 
 <h3 id="latitude-value">Latitude Value</h3>
 
 <p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
 
-<p>This is used to pass the captured gps latitude value</p>
+<p>This is used to pass the captured GPS latitude value</p>
 
 <h3 id="longitude-value">Longitude Value</h3>
 
 <p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
 
-<p>This is used to pass the captured gps longitude value</p>
+<p>This is used to pass the captured GPS longitude value</p>
 
 <h3 id="altitude-value">Altitude Value</h3>
 
 <p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
 
-<p>This is used to pass the captured gps altitude value</p>
+<p>This is used to pass the captured GPS altitude value</p>
 
 <h3 id="bearing-value">Bearing Value</h3>
 
 <p><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></p>
 
-<p>This is used to pass the captured gps bearing value</p>
+<p>This is used to pass the captured GPS bearing value</p>
 
 <h3 id="accuracy-value">Accuracy Value</h3>
 
 <p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
 
-<p>This is used to pass the captured gps accuracy value</p>
+<p>This is used to pass the captured GPS accuracy value</p>
 
 <h3 id="acceleration-capture">Acceleration Capture</h3>
 
@@ -2179,7 +1759,7 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of gps data which is sent to the API</p>
+<p>This is used to enable/disable capturing of GPS data which is sent to the API</p>
 
 <h3 id="hr-capture">HR Capture</h3>
 
@@ -2209,7 +1789,7 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the gps data to be sent to the API</p>
+<p>This is used to pass the interval rate (in milliseconds) for the GPS data to be sent to the API</p>
 
 <h3 id="input-tags-data-rate">Input Tags Data Rate</h3>
 
@@ -2293,7 +1873,7 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final int SEND = 108</code></p>
 
-<p>This is sued to filter send from the front end</p>
+<p>This is used to filter send from the front end</p>
 
 <h3 id="connecting">Connecting</h3>
 
@@ -2359,13 +1939,13 @@ API Key, Authorisation.
 
 <p><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></p>
 
-<p>This is used to enable the timer for sending the gps data to the API</p>
+<p>This is used to enable the timer for sending the GPS data to the API</p>
 
 <h3 id="disable-gps-timer">Disable GPS Timer</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></p>
 
-<p>This is used to disable the timer for sending the gps data to the API</p>
+<p>This is used to disable the timer for sending the GPS data to the API</p>
 
 <h3 id="enable-input-timer">Enable Input Timer</h3>
 
@@ -2411,7 +1991,7 @@ API Key, Authorisation.
         <span class="o">}</span>
     <span class="o">};</span>
 </code></pre>
-<h2 id="submit-credentials-to-service-for-authorisation">Submit Credentials to service for authorisation</h2>
+<h2 id="submit-credentials-to-service-for-authorization-cognito-user-pools">Submit Credentials to service for authorization (Cognito User Pools)</h2>
 
 <p><code class="prettyprint">void submit()</code></p>
 
@@ -2426,6 +2006,24 @@ API Key, Authorisation.
         <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">AUTH_TOKEN</span><span class="o">,</span> <span class="s">"authToken"</span><span class="o">);</span>
         <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">LOGIN</span><span class="o">);</span>
     <span class="o">}</span>
+</code></pre>
+<h2 id="submit-credentials-to-service-for-authorization-google-sign-in">Submit Credentials to service for authorization (Google Sign-In)</h2>
+
+<p>Follow Google&rsquo;s <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.</p>
+
+<p>Once successfully implemented you must send the Google Id token for the Google Sign-In application to us</p>
+
+<p><code class="prettyprint">void submit()</code></p>
+
+<p>Sets up the credential bundle to be sent to the SDK service this needs to be sent first to the SDK service as only authenticated users can use the service</p>
+<pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_BASEURL</span><span class="o">,</span> <span class="n">apiBaseUrl</span><span class="o">);</span>
+            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_KEY</span><span class="o">,</span> <span class="n">apiKey</span><span class="o">);</span>
+            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">IDENTITY_POOL_ID</span><span class="o">,</span> <span class="n">identityPoolId</span><span class="o">);</span>
+            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_ID_TOKEN</span><span class="o">,</span> <span class="n">googleIdToken</span><span class="o">);</span>
+            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_WEB_CLIENT_ID</span><span class="o">,</span> <span class="n">googleWebClientId</span><span class="o">);</span>
+            <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">GOOGLE_LOGIN</span><span class="o">);</span>
 </code></pre>
 <h2 id="send-a-data-message-to-the-service">Send a data message to the service</h2>
 
@@ -2576,7 +2174,7 @@ At present these can be switched on and off independently. Every SDK managed obj
 </ul>
 
 <blockquote>
-<p>Protocol Code</p>
+<p>Protocol Code - SDK written in Swift 3</p>
 </blockquote>
 <pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="n">foundation</span>
 
@@ -2594,16 +2192,16 @@ At present these can be switched on and off independently. Every SDK managed obj
 </code></pre>
 <h2 id="authentication">Authentication</h2>
 
-<p>To get started working with the Sensum SDK manager you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign in details</p>
+<p>To get started working with the Sensum SDK manager you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign in details. When using third-party login providers you must provide us with an Audience ID. In the case of Google Sign-In, you must provide use with the Google Applications Client ID. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google&rsquo;s documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.</p>
 
 <h3 id="initialisation">Initialisation</h3>
 
-<p><code class="prettyprint">var authenticationObj = Authentication()</code></p>
+<p><code class="prettyprint">var authenticationObj = Authentication(apiKey, host, stage)</code></p>
 
-<p>Create an instance of the Authentication object, specifying the Cognito User Pool ID, the App Client ID, the API base URL and your API key.
+<p>Create an instance of the Authentication object, specifying the Cognito Identity Pool Id, the host URL, stage and your API key.
 These should all have been provided to you by Sensum when you requested API access.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2612,16 +2210,16 @@ These should all have been provided to you by Sensum when you requested API acce
 </tr>
 </thead><tbody>
 <tr>
-<td>cognitoUserPoolId</td>
-<td>This is the user pool ID we have given you to use</td>
+<td>identityPoolId</td>
+<td>This is the Cognito identity pool ID we have given you to use</td>
 </tr>
 <tr>
-<td>CognitoClientId</td>
-<td>This is the Cognito App Client ID we have given you to use</td>
-</tr>
-<tr>
-<td>apiBaseURL</td>
+<td>host</td>
 <td>This is the base URL of the API, this may change over time hence we allow you to configure this from your app</td>
+</tr>
+<tr>
+<td>stage</td>
+<td>This is typically the version of the API you want to use. Defaults is &lsquo;v0&rsquo;.</td>
 </tr>
 <tr>
 <td>apiKey</td>
@@ -2629,14 +2227,17 @@ These should all have been provided to you by Sensum when you requested API acce
 </tr>
 </tbody></table>
 
-<h3 id="login">Login</h3>
+<h2 id="authentication-command">Authentication Command</h2>
 
-<p>&lsquo;authenticationObj.attemptSignIn()&rsquo;</p>
+<p><code class="prettyprint">var authenticationCommandObj = AuthenticationCommand(authenticationObj)</code></p>
 
-<p>Sign in using your Amazon Web Service Cognito account details with a username and password.
-This will allows you to create and instantiate the SDK fully and enable sending requests to our emotion AI service.</p>
+<h3 id="federated-sign-in">Federated sign in</h3>
 
-<h4 id="parameters">Parameters</h4>
+<p>In order to authenticate you must sign in using Google Sign-in. Once this has been implemented, use this function to sign in to access the Emotion AI service.</p>
+
+<p><code class="prettyprint">authenticationCommandObj.federatedSignIn()</code>  </p>
+
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2645,12 +2246,12 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 </tr>
 </thead><tbody>
 <tr>
-<td>username</td>
-<td>The cognito username you have registered with</td>
+<td>provider</td>
+<td>The URL of the identity provider that you are using this will be &lsquo;accounts.google.com&rsquo; in the case of Google Sign-In</td>
 </tr>
 <tr>
-<td>password</td>
-<td>The cognito password you have registered with</td>
+<td>authenticationToken</td>
+<td>This is the authentication token generated by successful login with the identity provider</td>
 </tr>
 </tbody></table>
 
@@ -2664,11 +2265,11 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <h3 id="set-server-request-rate">Set Server Request Rate</h3>
 
-<p><code class="prettyprint">apiCommand.setServerRtequestRate()</code></p>
+<p><code class="prettyprint">apiCommand.setServerRequestRate(requestRateInSeconds)</code></p>
 
-<p>Set how frequently uploads occur to the server.</p>
+<p>Set how frequently data is uploaded to the server.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2688,17 +2289,27 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <p>Returns how often requests are sent to the API</p>
 
-<p>###Assign Listener</p>
+<h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">apiCommand.assignListener()</code></p>
+<p><code class="prettyprint">apiCommand.assignListener(listener)</code></p>
 
 <p>Assign a listener to listen for API events</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
-<p>|Name|Type|Description|
-|&mdash;-|&mdash;&mdash;&mdash;&ndash;|
-|listener|APIResponseListener|An instance of a class that conforms to the APIResponseListener extension|</p>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>APIResponseListener</td>
+<td>An instance of a class that conforms to the APIResponseListener extension</td>
+</tr>
+</tbody></table>
 
 <h2 id="accelerometer-command">Accelerometer Command</h2>
 
@@ -2764,11 +2375,11 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">accCommand.assignListener()</code></p>
+<p><code class="prettyprint">accCommand.assignListener(listener)</code></p>
 
 <p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2786,11 +2397,11 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <h3 id="set-read-frequency">Set Read Frequency</h3>
 
-<p><code class="prettyprint">accCommand.setReadFrequency()</code></p>
+<p><code class="prettyprint">accCommand.setReadFrequency(newIntervalInSeconds)</code></p>
 
 <p>Set the frequency of the updates from the accelerometer.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2820,13 +2431,13 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <p>Start the updates of any connected heart rate peripheral </p>
 
-<p>### Stop Updating</p>
+<h3 id="stop-updating">Stop Updating</h3>
 
 <p><code class="prettyprint">bluetoothCommand.stopUpdating()</code></p>
 
 <p>Stop the updates of any connected heart rate peripheral</p>
 
-<p>### Start Recording</p>
+<h3 id="start-recording">Start Recording</h3>
 
 <p><code class="prettyprint">bluetoothCommand.startRecording()</code></p>
 
@@ -2870,11 +2481,11 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">bluetoothCommand.assignListener()</code></p>
+<p><code class="prettyprint">bluetoothCommand.assignListener(listener)</code></p>
 
 <p>Assign a listener to the bluetooth module to receive bluetooth event updates.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2898,11 +2509,11 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <h3 id="connect-to-peripheral-device">Connect to peripheral device</h3>
 
-<p><code class="prettyprint">bluetoothCommand.connectTo()</code></p>
+<p><code class="prettyprint">bluetoothCommand.connectTo(peripheralDevice)</code></p>
 
 <p>Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the getDeviceList() function.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3037,7 +2648,7 @@ This will allows you to create and instantiate the SDK fully and enable sending 
 
 <p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3122,7 +2733,7 @@ These events are automatically timestamped.</p>
 
 <p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
 
-<h4 id="parameters">Parameters</h4>
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3141,11 +2752,9 @@ These events are automatically timestamped.</p>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="http">HTTP</a>
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
                 <a href="#" data-language-name="python">Python</a>
-                <a href="#" data-language-name="java">Java</a>
           </div>
       </div>
     </div>
