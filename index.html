@@ -2190,6 +2190,51 @@ At present these can be switched on and off independently. Every SDK managed obj
     <span class="kd">func</span> <span class="nf">isSendingToAPI</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
 <span class="p">}</span>
 </code></pre>
+<h2 id="starting-the-sdk">Starting the SDK</h2>
+
+<p>To start the SDK you will need:</p>
+
+<ul>
+<li>An API Key,</li>
+<li>A host URL,</li>
+<li>A stage URL.
+We will provide you with the API Key as a string, all you have to do is pass this string into the SensumSDKManager .</li>
+</ul>
+
+<p>By default, the host URL and stage URL should be api.sensum.co and v0 respectively, unless we have instructed you otherwise.</p>
+
+<p>In order to create a single instance of the SensumSDKManager, follow the example within the code snippet opposite (the example makes use of a ViewController to do this, but this could be achieved within any file)</p>
+
+<blockquote>
+<p>Code Snippet</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">import</span> <span class="kt">SensumKit</span>
+
+<span class="kd">class</span> <span class="kt">TabBarController</span><span class="p">:</span> <span class="kt">UITabBarController</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">sensumSDK</span> <span class="p">:</span> <span class="kt">SensumSDKManager</span><span class="p">?</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+           <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+           <span class="n">sensumSDK</span> <span class="o">=</span> <span class="kt">SensumSDKManager</span><span class="p">(</span>
+               <span class="nv">requestEngineInternalInSeconds</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+               <span class="nv">apiKey</span><span class="p">:</span> <span class="s">"PublicDemoKeyForDocumentation"</span><span class="p">,</span>
+               <span class="nv">host</span><span class="p">:</span> <span class="s">"api.sensum.co"</span><span class="p">,</span>
+               <span class="nv">stage</span><span class="p">:</span> <span class="s">"v0"</span><span class="p">)</span>
+        <span class="nf">startEverythingUpdating</span><span class="p">()</span>
+       <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">startEverythingUpdating</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">accelerometer</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+    <span class="p">}</span>   
+<span class="p">}</span>
+</code></pre>
+<p>This single instance of the SensumSDKManager can then be referenced from elsewhere within your application.</p>
+
 <h2 id="authentication">Authentication</h2>
 
 <p>To get started working with the Sensum SDK manager you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign in details. When using third-party login providers you must provide us with an Audience ID. In the case of Google Sign-In, you must provide use with the Google Applications Client ID. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google&rsquo;s documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.</p>
@@ -2315,67 +2360,63 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p>All available commands for the Sensum accelerometer SDK</p>
 
-<h3 id="initialisation">Initialisation</h3>
-
-<p><code class="prettyprint">var accCommand = AccelerometerCommand()</code></p>
-
 <h3 id="start-updating">Start Updating</h3>
 
-<p><code class="prettyprint">accCommand.startUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?.accelerometer.startUpdating()</code></p>
 
 <p>Start the updates from CoreMotion</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
-<p><code class="prettyprint">accCommand.stopUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.stopUpdating()</code></p>
 
 <p>Stop the updates from CoreMotion</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
-<p><code class="prettyprint">accCommand.startRecording()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.startRecording()</code></p>
 
 <p>Start recording the updates from CoreMotion</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
-<p><code class="prettyprint">accCommand.stopRecording()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.stopRecording()</code></p>
 
 <p>Stop recording the updates from CoreMotion</p>
 
 <h3 id="start-sending-to-api">Start Sending to API</h3>
 
-<p><code class="prettyprint">accCommmand.startSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.startSendingToAPI()</code></p>
 
 <p>Start sending the updates of CoreMotion to the Emotion AI service</p>
 
 <h3 id="stop-sending-to-api">Stop Sending to API</h3>
 
-<p><code class="prettyprint">accCommmand.stopSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.stopSendingToAPI()</code></p>
 
 <p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
-<p><code class="prettyprint">accCommand.isUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.isUpdating()</code></p>
 
 <p>Check if module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
-<p><code class="prettyprint">accCommand.isRecording()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.isRecording()</code></p>
 
 <p>Check if module is recording. Returns a boolean value.</p>
 
 <h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
 
-<p><code class="prettyprint">accCommand.isSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.isSendingToAPI()</code></p>
 
 <p>Check if module is sending to the Emotion AI Service</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">accCommand.assignListener(listener)</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.assignListener(listener)</code></p>
 
 <p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
 
@@ -2397,7 +2438,7 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h3 id="set-read-frequency">Set Read Frequency</h3>
 
-<p><code class="prettyprint">accCommand.setReadFrequency(newIntervalInSeconds)</code></p>
+<p><code class="prettyprint">sdkManager?accelerometer.setReadFrequency(newIntervalInSeconds)</code></p>
 
 <p>Set the frequency of the updates from the accelerometer.</p>
 
@@ -2421,67 +2462,63 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p>Below are all available commands relating to Bluetooth in the iOS SDK.</p>
 
-<h3 id="initialisation">Initialisation</h3>
-
-<p><code class="prettyprint">var bluetoothCommand = BluetoothCommand()</code></p>
-
 <h3 id="start-updating">Start Updating</h3>
 
-<p><code class="prettyprint">bluetoothCommand.startUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.startUpdating()</code></p>
 
 <p>Start the updates of any connected heart rate peripheral </p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
-<p><code class="prettyprint">bluetoothCommand.stopUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.stopUpdating()</code></p>
 
 <p>Stop the updates of any connected heart rate peripheral</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
-<p><code class="prettyprint">bluetoothCommand.startRecording()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.startRecording()</code></p>
 
 <p>Start recording the updates of any connected heart rate peripheral </p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
-<p><code class="prettyprint">bluetoothCommand.stopRecording()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.stopRecording()</code></p>
 
 <p>Stop recording the updates of any connected heart rate peripheral</p>
 
 <h3 id="start-sending-to-emotion-ai-service">Start Sending to Emotion AI Service</h3>
 
-<p><code class="prettyprint">bluetoothCommand.startSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.startSendingToAPI()</code></p>
 
 <p>Start sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
 
 <h3 id="stop-sending-to-emotion-ai-service">Stop Sending to Emotion AI Service</h3>
 
-<p><code class="prettyprint">bluetoothCommand.stopSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.stopSendingToAPI()</code></p>
 
 <p>Stop sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
-<p><code class="prettyprint">bluetoothCommand.isUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.isUpdating()</code></p>
 
 <p>Check if module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
-<p><code class="prettyprint">bluetoothCommand.isRecording()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.isRecording()</code></p>
 
 <p>Check if module is recording. Returns a boolean value.</p>
 
 <h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
 
-<p><code class="prettyprint">bluetoothCommand.isSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.isSendingToAPI()</code></p>
 
 <p>Check if module is sending to the Emotion AI Service</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">bluetoothCommand.assignListener(listener)</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.assignListener(listener)</code></p>
 
 <p>Assign a listener to the bluetooth module to receive bluetooth event updates.</p>
 
@@ -2503,13 +2540,13 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h3 id="start-scan-for-devices">Start Scan for Devices</h3>
 
-<p><code class="prettyprint">bluetoothCommand.startScanForDevices()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.startScanForDevices()</code></p>
 
 <p>Start scanning for discoverable peripheral devices</p>
 
 <h3 id="connect-to-peripheral-device">Connect to peripheral device</h3>
 
-<p><code class="prettyprint">bluetoothCommand.connectTo(peripheralDevice)</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.connectTo(peripheralDevice)</code></p>
 
 <p>Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the getDeviceList() function.</p>
 
@@ -2531,19 +2568,19 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h3 id="clear-list-of-discovered-devices">Clear List of Discovered Devices</h3>
 
-<p><code class="prettyprint">bluetoothCommand.clearDeviceList()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.clearDeviceList()</code></p>
 
 <p>Clear the list of devices discovered (equivalent to a refresh)</p>
 
 <h3 id="disconnect-from-device">Disconnect from Device</h3>
 
-<p><code class="prettyprint">bluetoothCommand.disconnect()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.disconnect()</code></p>
 
 <p>Disconnect from the currently connected peripheral device</p>
 
 <h3 id="get-device-list">Get Device List</h3>
 
-<p><code class="prettyprint">bluetoothCommand.getDeviceList()</code></p>
+<p><code class="prettyprint">sdkManager?bluetooth.getDeviceList()</code></p>
 
 <p>Return a list of all discovered peripherals. This list is populated when startScanForDevices() is called.</p>
 
@@ -2584,69 +2621,65 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p>All available commands for the Sensum location SDK</p>
 
-<h3 id="initialisation">Initialisation</h3>
-
-<p><code class="prettyprint">var locationCommand = LocationCommand()</code></p>
-
 <h3 id="start-updating">Start Updating</h3>
 
-<p><code class="prettyprint">locationCommand.startUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?location.startUpdating()</code></p>
 
-<p>Start the updates from CoreMotion</p>
+<p>Start the updates from CoreLocation</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
-<p><code class="prettyprint">locationCommand.stopUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?location.stopUpdating()</code></p>
 
-<p>Stop the updates from CoreMotion</p>
+<p>Stop the updates from CoreLocation</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
-<p><code class="prettyprint">locationCommand.startRecording()</code></p>
+<p><code class="prettyprint">sdkManager?location.startRecording()</code></p>
 
-<p>Start recording the updates from CoreMotion</p>
+<p>Start recording the updates from CoreLocation</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
-<p><code class="prettyprint">locationCommand.stopRecording()</code></p>
+<p><code class="prettyprint">sdkManager?location.stopRecording()</code></p>
 
-<p>Stop recording the updates from CoreMotion</p>
+<p>Stop recording the updates from CoreLocation</p>
 
 <h3 id="start-sending-to-api">Start Sending to API</h3>
 
-<p><code class="prettyprint">accCommmand.startSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?location.startSendingToAPI()</code></p>
 
-<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Start sending the updates of CoreLocation to the Emotion AI service</p>
 
 <h3 id="stop-sending-to-api">Stop Sending to API</h3>
 
-<p><code class="prettyprint">accCommmand.stopSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?location.stopSendingToAPI()</code></p>
 
-<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Stop sending the updates of CoreLocation to the Emotion AI service</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
-<p><code class="prettyprint">locationCommand.isUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?location.isUpdating()</code></p>
 
 <p>Check if module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
-<p><code class="prettyprint">locationCommand.isRecording()</code></p>
+<p><code class="prettyprint">sdkManager?location.isRecording()</code></p>
 
 <p>Check if module is recording. Returns a boolean value.</p>
 
 <h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
 
-<p><code class="prettyprint">locationCommand.isSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?location.isSendingToAPI()</code></p>
 
 <p>Check if module is sending to the Emotion AI Service</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">locationCommand.assignListener()</code></p>
+<p><code class="prettyprint">sdkManager?location.assignListener()</code></p>
 
-<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+<p>Assign a listener to the location module to receive location event updates.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2669,69 +2702,65 @@ These should all have been provided to you by Sensum when you requested API acce
 <p>All available commands for our tagging module. This is useful for noting events that occur in data. e.g. &ldquo;Started workout set&rdquo;, &ldquo;Jumped out of a plane&rdquo;, &ldquo;Finished jogging&rdquo;.
 These events are automatically timestamped.</p>
 
-<h3 id="initialisation">Initialisation</h3>
-
-<p><code class="prettyprint">var tagCommand = TagCommand()</code></p>
-
 <h3 id="start-updating">Start Updating</h3>
 
-<p><code class="prettyprint">tagCommand.startUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?tag.startUpdating()</code></p>
 
-<p>Start the updates from CoreMotion</p>
+<p>Start the updates from the tag system which notifies listeners of new tags</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
-<p><code class="prettyprint">tagCommand.stopUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?tag.stopUpdating()</code></p>
 
-<p>Stop the updates from CoreMotion</p>
+<p>Stop the updates from the tag system </p>
 
 <h3 id="start-recording">Start Recording</h3>
 
-<p><code class="prettyprint">tagCommand.startRecording()</code></p>
+<p><code class="prettyprint">sdkManager?tag.startRecording()</code></p>
 
-<p>Start recording the updates from CoreMotion</p>
+<p>Start recording tags created</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
-<p><code class="prettyprint">tagCommand.stopRecording()</code></p>
+<p><code class="prettyprint">sdkManager?tag.stopRecording()</code></p>
 
-<p>Stop recording the updates from CoreMotion</p>
+<p>Stop recording tags created</p>
 
 <h3 id="start-sending-to-api">Start Sending to API</h3>
 
-<p><code class="prettyprint">tagCommmand.startSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?tag.startSendingToAPI()</code></p>
 
-<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Start sending tags to the Emotion API</p>
 
 <h3 id="stop-sending-to-api">Stop Sending to API</h3>
 
-<p><code class="prettyprint">tagCommmand.stopSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?tag.stopSendingToAPI()</code></p>
 
-<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Stop sending tags to the Emotion API</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
-<p><code class="prettyprint">tagCommand.isUpdating()</code></p>
+<p><code class="prettyprint">sdkManager?tag.isUpdating()</code></p>
 
 <p>Check if module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
-<p><code class="prettyprint">tagCommand.isRecording()</code></p>
+<p><code class="prettyprint">sdkManager?tag.isRecording()</code></p>
 
 <p>Check if module is recording. Returns a boolean value.</p>
 
 <h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
 
-<p><code class="prettyprint">tagCommand.isSendingToAPI()</code></p>
+<p><code class="prettyprint">sdkManager?tag.isSendingToAPI()</code></p>
 
 <p>Check if module is sending to the Emotion AI Service</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
-<p><code class="prettyprint">tagCommand.assignListener()</code></p>
+<p><code class="prettyprint">sdkManager?tag.assignListener(listener)</code></p>
 
-<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+<p>Assign a listener to the tag module to receive tag event updates.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2746,6 +2775,28 @@ These events are automatically timestamped.</p>
 <td>listener</td>
 <td>TagListener</td>
 <td>An instance of a class that conforms to the TagListener extension</td>
+</tr>
+</tbody></table>
+
+<h3 id="create-tag">Create Tag</h3>
+
+<p><code class="prettyprint">sdkManager?tag.createTag(tag)</code></p>
+
+<p>Creates a tag object composed of a string and timestamp pair</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tag</td>
+<td>String</td>
+<td>A string object of a message or emoticon</td>
 </tr>
 </tbody></table>
 
