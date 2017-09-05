@@ -2164,13 +2164,13 @@ X-API-Key, Authorization
 
 <h3 id="sdk-module-command-protocol">SDK Module Command Protocol</h3>
 
-<p>Every Sensum SDK module conforms to the module command protocol.
-At present these can be switched on and off independently. Every SDK managed object has three states that can be toggled independently:</p>
+<p>Every <strong>SensumSDK</strong> module conforms to the module command protocol.
+At present these can be switched on and off independently. Every SDK-managed object has three states that can be toggled independently:</p>
 
 <ul>
-<li>Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object it’s update methods will be called by the SDK and you can reflect these and carry out actions in your app.</li>
-<li>Recording: Data updates will be stored only. If you do not turn on updates no data can be recorded as updates will not be read.</li>
-<li>Sending To API: Data updates will be recorded and sent to the Emotion AI service.</li>
+<li>Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object, its update methods will be called by the SDK and you can reflect these and carry out actions in your app.</li>
+<li>Recording: Data updates will be stored only. If you do not enable updates no data can be recorded as updates will not be read.</li>
+<li>Sending To API: Data updates will be recorded and sent to the <strong>SensumAPI</strong>.</li>
 </ul>
 
 <blockquote>
@@ -2190,20 +2190,24 @@ At present these can be switched on and off independently. Every SDK managed obj
     <span class="kd">func</span> <span class="nf">isSendingToAPI</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
 <span class="p">}</span>
 </code></pre>
-<h2 id="starting-the-sdk">Starting the SDK</h2>
+<h2 id="starting-the-sensumsdk">Starting the SensumSDK</h2>
 
-<p>To start the SDK you will need:</p>
+<p>To start the <strong>SensumSDK</strong> you will need:</p>
 
 <ul>
 <li>An API Key,</li>
 <li>A host URL,</li>
 <li>A stage URL.
-We will provide you with the API Key as a string, all you have to do is pass this string into the SensumSDKManager .</li>
+We will provide you with the API Key as a string, all you have to do is pass this string into the <code class="prettyprint">SensumSDKManager</code>.</li>
 </ul>
 
-<p>By default, the host URL and stage URL should be api.sensum.co and v0 respectively, unless we have instructed you otherwise.</p>
+<p>By default, the host URL and stage URL should be <strong>&ldquo;api.sensum.co&rdquo;</strong> and <strong>&ldquo;v0&rdquo;</strong> respectively, unless we have instructed you otherwise.</p>
 
-<p>In order to create a single instance of the SensumSDKManager, follow the example within the code snippet opposite (the example makes use of a ViewController to do this, but this could be achieved within any file)</p>
+<p>The <code class="prettyprint">SensumSDKManager</code> is the root object in the <strong>SensumKit</strong> which starts the service.
+The manager prepares all objects you can use to interface with your device motion, location and bluetooth peripheral frameworks.
+As well as all the data required to send data to the <strong>SensumAPI</strong>.</p>
+
+<p>In order to create a single instance of the <code class="prettyprint">SensumSDKManager</code>, follow the example within the Code Snippet below (the example makes use of a <code class="prettyprint">TabBarController</code> to do this, but this could be achieved within any file).</p>
 
 <blockquote>
 <p>Code Snippet</p>
@@ -2230,57 +2234,22 @@ We will provide you with the API Key as a string, all you have to do is pass thi
         <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
         <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
         <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
-    <span class="p">}</span>   
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>This single instance of the SensumSDKManager can then be referenced from elsewhere within your application.</p>
+<p>This single instance of the <code class="prettyprint">SensumSDKManager</code> can then be referenced from elsewhere within your application.</p>
 
 <h2 id="authentication">Authentication</h2>
 
-<p>To get started working with the Sensum SDK manager you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign in details. When using third-party login providers you must provide us with an Audience ID. In the case of Google Sign-In, you must provide use with the Google Applications Client ID. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google&rsquo;s documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.</p>
-
-<h3 id="initialisation">Initialisation</h3>
-
-<p><code class="prettyprint">var authenticationObj = Authentication(apiKey, host, stage)</code></p>
-
-<p>Create an instance of the Authentication object, specifying the Cognito Identity Pool Id, the host URL, stage and your API key.
-These should all have been provided to you by Sensum when you requested API access.</p>
-
-<h3 id="parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>identityPoolId</td>
-<td>This is the Cognito identity pool ID we have given you to use</td>
-</tr>
-<tr>
-<td>host</td>
-<td>This is the base URL of the API, this may change over time hence we allow you to configure this from your app</td>
-</tr>
-<tr>
-<td>stage</td>
-<td>This is typically the version of the API you want to use. Defaults is &lsquo;v0&rsquo;.</td>
-</tr>
-<tr>
-<td>apiKey</td>
-<td>This is your unique developer&rsquo;s API access key, contact Sensum to get one if we haven&rsquo;t given you one already</td>
-</tr>
-</tbody></table>
+<p>To get started working with the <code class="prettyprint">SensumSDKManager</code> you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of <em>Google Sign-In</em>, you must provide use with the <em>Google Applications Client ID</em>. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google&rsquo;s documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.</p>
 
 <h2 id="authentication-command">Authentication Command</h2>
 
-<p><code class="prettyprint">var authenticationCommandObj = AuthenticationCommand(authenticationObj)</code></p>
+<h3 id="federated-sign-in">Federated sign-in</h3>
 
-<h3 id="federated-sign-in">Federated sign in</h3>
+<p>In order to authenticate you must sign in using <em>Google Sign-in</em>. Once this has been implemented, use this function to sign in to access the <strong>SensumAPI</strong>.</p>
 
-<p>In order to authenticate you must sign in using Google Sign-in. Once this has been implemented, use this function to sign in to access the Emotion AI service.</p>
-
-<p><code class="prettyprint">authenticationCommandObj.federatedSignIn()</code>  </p>
+<p><code class="prettyprint">sdkManager?authentication.federatedSignIn(provider: provider, authenticationToken: authenticationToken)</code>  </p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2292,7 +2261,7 @@ These should all have been provided to you by Sensum when you requested API acce
 </thead><tbody>
 <tr>
 <td>provider</td>
-<td>The URL of the identity provider that you are using this will be &lsquo;accounts.google.com&rsquo; in the case of Google Sign-In</td>
+<td>The URL of the identity provider that you are using this will be &lsquo;accounts.google.com&rsquo; in the case of <em>Google Sign-In</em></td>
 </tr>
 <tr>
 <td>authenticationToken</td>
@@ -2302,7 +2271,7 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h2 id="api-command">API Command</h2>
 
-<p>All available commands for configuring and enabling API communication </p>
+<p>All available commands for configuring and enabling API communication.</p>
 
 <h3 id="initialisation">Initialisation</h3>
 
@@ -2312,7 +2281,7 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p><code class="prettyprint">apiCommand.setServerRequestRate(requestRateInSeconds)</code></p>
 
-<p>Set how frequently data is uploaded to the server.</p>
+<p>Set the frequency of data uploads to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2332,13 +2301,13 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p><code class="prettyprint">apiCommand.getServerRequestRate()</code></p>
 
-<p>Returns how often requests are sent to the API</p>
+<p>Returns how often requests are sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
 <p><code class="prettyprint">apiCommand.assignListener(listener)</code></p>
 
-<p>Assign a listener to listen for API events</p>
+<p>Assign a listener to listen for <strong>SensumAPI</strong> events.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2358,67 +2327,67 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h2 id="accelerometer-command">Accelerometer Command</h2>
 
-<p>All available commands for the Sensum accelerometer SDK</p>
+<p>All available commands for the <strong>SensumSDK</strong> accelerometer component.</p>
 
 <h3 id="start-updating">Start Updating</h3>
 
 <p><code class="prettyprint">sdkManager?.accelerometer.startUpdating()</code></p>
 
-<p>Start the updates from CoreMotion</p>
+<p>Start the updates from <em>CoreMotion</em>.</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.stopUpdating()</code></p>
 
-<p>Stop the updates from CoreMotion</p>
+<p>Stop the updates from <em>CoreMotion</em>.</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.startRecording()</code></p>
 
-<p>Start recording the updates from CoreMotion</p>
+<p>Start recording the updates from <em>CoreMotion</em>.</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.stopRecording()</code></p>
 
-<p>Stop recording the updates from CoreMotion</p>
+<p>Stop recording the updates from <em>CoreMotion</em>.</p>
 
 <h3 id="start-sending-to-api">Start Sending to API</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.startSendingToAPI()</code></p>
 
-<p>Start sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Start sending the updates of <em>CoreMotion</em> to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="stop-sending-to-api">Stop Sending to API</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.stopSendingToAPI()</code></p>
 
-<p>Stop sending the updates of CoreMotion to the Emotion AI service</p>
+<p>Stop sending the updates of <em>CoreMotion</em> to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.isUpdating()</code></p>
 
-<p>Check if module is updating. Returns a boolean value.</p>
+<p>Check if <em>CoreMotion</em> Accelerometer is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.isRecording()</code></p>
 
-<p>Check if module is recording. Returns a boolean value.</p>
+<p>Check if <em>CoreMotion</em> Accelerometer is recording. Returns a boolean value.</p>
 
-<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+<h3 id="check-sensumapi-update-status">Check SensumAPI Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.isSendingToAPI()</code></p>
 
-<p>Check if module is sending to the Emotion AI Service</p>
+<p>Check if <em>CoreMotion</em> Accelerometer is sending to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
 <p><code class="prettyprint">sdkManager?accelerometer.assignListener(listener)</code></p>
 
-<p>Assign a listener to the accelerometer module to receive accelerometer event updates.</p>
+<p>Assign a listener to the accelerometer module to receive <em>CoreMotion</em> event updates.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2460,43 +2429,43 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <h2 id="bluetooth-command">Bluetooth Command</h2>
 
-<p>Below are all available commands relating to Bluetooth in the iOS SDK.</p>
+<p>Below are all available commands relating to Bluetooth within the <strong>SensumSDK</strong>.</p>
 
 <h3 id="start-updating">Start Updating</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.startUpdating()</code></p>
 
-<p>Start the updates of any connected heart rate peripheral </p>
+<p>Start the updates of any connected heart rate peripheral.</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.stopUpdating()</code></p>
 
-<p>Stop the updates of any connected heart rate peripheral</p>
+<p>Stop the updates of any connected heart rate peripheral.</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.startRecording()</code></p>
 
-<p>Start recording the updates of any connected heart rate peripheral </p>
+<p>Start recording the updates of any connected heart rate peripheral.</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.stopRecording()</code></p>
 
-<p>Stop recording the updates of any connected heart rate peripheral</p>
+<p>Stop recording the updates of any connected heart rate peripheral.</p>
 
-<h3 id="start-sending-to-emotion-ai-service">Start Sending to Emotion AI Service</h3>
+<h3 id="start-sending-to-sensumapi">Start Sending to SensumAPI</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.startSendingToAPI()</code></p>
 
-<p>Start sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
+<p>Start sending the updates of any connected heart rate peripheral to the <strong>SensumAPI</strong>.</p>
 
-<h3 id="stop-sending-to-emotion-ai-service">Stop Sending to Emotion AI Service</h3>
+<h3 id="stop-sending-to-sensumapi">Stop Sending to SensumAPI</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.stopSendingToAPI()</code></p>
 
-<p>Stop sending the updates of any connected heart rate peripheral to the Emotion AI service</p>
+<p>Stop sending the updates of any connected heart rate peripheral to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
@@ -2510,11 +2479,11 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p>Check if module is recording. Returns a boolean value.</p>
 
-<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+<h3 id="check-sensumapi-update-status">Check SensumAPI Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.isSendingToAPI()</code></p>
 
-<p>Check if module is sending to the Emotion AI Service</p>
+<p>Check if module is sending to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
@@ -2542,13 +2511,13 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p><code class="prettyprint">sdkManager?bluetooth.startScanForDevices()</code></p>
 
-<p>Start scanning for discoverable peripheral devices</p>
+<p>Start scanning for discoverable peripheral devices.</p>
 
 <h3 id="connect-to-peripheral-device">Connect to peripheral device</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.connectTo(peripheralDevice)</code></p>
 
-<p>Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the getDeviceList() function.</p>
+<p>Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the <code class="prettyprint">getDeviceList()</code> function.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2570,19 +2539,19 @@ These should all have been provided to you by Sensum when you requested API acce
 
 <p><code class="prettyprint">sdkManager?bluetooth.clearDeviceList()</code></p>
 
-<p>Clear the list of devices discovered (equivalent to a refresh)</p>
+<p>Clear the list of devices discovered (equivalent to a refresh).</p>
 
 <h3 id="disconnect-from-device">Disconnect from Device</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.disconnect()</code></p>
 
-<p>Disconnect from the currently connected peripheral device</p>
+<p>Disconnect from the currently connected peripheral device.</p>
 
 <h3 id="get-device-list">Get Device List</h3>
 
 <p><code class="prettyprint">sdkManager?bluetooth.getDeviceList()</code></p>
 
-<p>Return a list of all discovered peripherals. This list is populated when startScanForDevices() is called.</p>
+<p>Return a list of all discovered peripherals. The list will begin populating after <code class="prettyprint">startScanForDevices()</code> is called.</p>
 
 <p>Returns a list of dictionaries containing bluetooth peripheral information with three fields:</p>
 
@@ -2601,7 +2570,7 @@ These should all have been provided to you by Sensum when you requested API acce
 <tr>
 <td>peripheral</td>
 <td>CoreBluetooth CBPeripheral</td>
-<td>returns the CoreBluetooth CBPeripheral object (import CoreBluetooth to use this)</td>
+<td>returns the CoreBluetooth <code class="prettyprint">CBPeripheral</code> object (import CoreBluetooth to use this)</td>
 </tr>
 <tr>
 <td>type</td>
@@ -2619,67 +2588,67 @@ These should all have been provided to you by Sensum when you requested API acce
 </code></pre>
 <h2 id="location-command">Location Command</h2>
 
-<p>All available commands for the Sensum location SDK</p>
+<p>All available commands for the <strong>SensumSDK</strong> location component.</p>
 
 <h3 id="start-updating">Start Updating</h3>
 
 <p><code class="prettyprint">sdkManager?location.startUpdating()</code></p>
 
-<p>Start the updates from CoreLocation</p>
+<p>Start the updates from <em>CoreLocation</em>.</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
 <p><code class="prettyprint">sdkManager?location.stopUpdating()</code></p>
 
-<p>Stop the updates from CoreLocation</p>
+<p>Stop the updates from <em>CoreLocation</em>.</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
 <p><code class="prettyprint">sdkManager?location.startRecording()</code></p>
 
-<p>Start recording the updates from CoreLocation</p>
+<p>Start recording the updates from <em>CoreLocation</em>.</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
 <p><code class="prettyprint">sdkManager?location.stopRecording()</code></p>
 
-<p>Stop recording the updates from CoreLocation</p>
+<p>Stop recording the updates from <em>CoreLocation</em>.</p>
 
 <h3 id="start-sending-to-api">Start Sending to API</h3>
 
 <p><code class="prettyprint">sdkManager?location.startSendingToAPI()</code></p>
 
-<p>Start sending the updates of CoreLocation to the Emotion AI service</p>
+<p>Start sending the updates of <em>CoreLocation</em> to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="stop-sending-to-api">Stop Sending to API</h3>
 
 <p><code class="prettyprint">sdkManager?location.stopSendingToAPI()</code></p>
 
-<p>Stop sending the updates of CoreLocation to the Emotion AI service</p>
+<p>Stop sending the updates of <em>CoreLocation</em> to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?location.isUpdating()</code></p>
 
-<p>Check if module is updating. Returns a boolean value.</p>
+<p>Check if the location module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
 <p><code class="prettyprint">sdkManager?location.isRecording()</code></p>
 
-<p>Check if module is recording. Returns a boolean value.</p>
+<p>Check if the location module is recording. Returns a boolean value.</p>
 
-<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+<h3 id="check-sensumapi-update-status">Check SensumAPI Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?location.isSendingToAPI()</code></p>
 
-<p>Check if module is sending to the Emotion AI Service</p>
+<p>Check if the location module is sending to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
 <p><code class="prettyprint">sdkManager?location.assignListener()</code></p>
 
-<p>Assign a listener to the location module to receive location event updates.</p>
+<p>Assign a listener to the location module to receive <em>CoreLocation</em> event updates.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2706,55 +2675,55 @@ These events are automatically timestamped.</p>
 
 <p><code class="prettyprint">sdkManager?tag.startUpdating()</code></p>
 
-<p>Start the updates from the tag system which notifies listeners of new tags</p>
+<p>Start the updates from the tag system which notifies listeners of new tags.</p>
 
 <h3 id="stop-updating">Stop Updating</h3>
 
 <p><code class="prettyprint">sdkManager?tag.stopUpdating()</code></p>
 
-<p>Stop the updates from the tag system </p>
+<p>Stop the updates from the tag system.</p>
 
 <h3 id="start-recording">Start Recording</h3>
 
 <p><code class="prettyprint">sdkManager?tag.startRecording()</code></p>
 
-<p>Start recording tags created</p>
+<p>Start recording tags created.</p>
 
 <h3 id="stop-recording">Stop Recording</h3>
 
 <p><code class="prettyprint">sdkManager?tag.stopRecording()</code></p>
 
-<p>Stop recording tags created</p>
+<p>Stop recording tags created.</p>
 
-<h3 id="start-sending-to-api">Start Sending to API</h3>
+<h3 id="start-sending-to-sensumapi">Start Sending to SensumAPI</h3>
 
 <p><code class="prettyprint">sdkManager?tag.startSendingToAPI()</code></p>
 
-<p>Start sending tags to the Emotion API</p>
+<p>Start sending tags to the <strong>SensumAPI</strong>.</p>
 
-<h3 id="stop-sending-to-api">Stop Sending to API</h3>
+<h3 id="stop-sending-to-sensumapi">Stop Sending to SensumAPI</h3>
 
 <p><code class="prettyprint">sdkManager?tag.stopSendingToAPI()</code></p>
 
-<p>Stop sending tags to the Emotion API</p>
+<p>Stop sending tags to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="check-module-update-status">Check Module Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?tag.isUpdating()</code></p>
 
-<p>Check if module is updating. Returns a boolean value.</p>
+<p>Check if the tag module is updating. Returns a boolean value.</p>
 
 <h3 id="check-module-recording-status">Check Module Recording Status</h3>
 
 <p><code class="prettyprint">sdkManager?tag.isRecording()</code></p>
 
-<p>Check if module is recording. Returns a boolean value.</p>
+<p>Check if the tag module is recording. Returns a boolean value.</p>
 
-<h3 id="check-emotion-ai-update-status">Check Emotion AI Update Status</h3>
+<h3 id="check-sensumapi-update-status">Check SensumAPI Update Status</h3>
 
 <p><code class="prettyprint">sdkManager?tag.isSendingToAPI()</code></p>
 
-<p>Check if module is sending to the Emotion AI Service</p>
+<p>Check if the tag module is sending to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="assign-listener">Assign Listener</h3>
 
@@ -2782,7 +2751,7 @@ These events are automatically timestamped.</p>
 
 <p><code class="prettyprint">sdkManager?tag.createTag(tag)</code></p>
 
-<p>Creates a tag object composed of a string and timestamp pair</p>
+<p>Creates a tag object composed of a string and timestamp pair.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -2799,6 +2768,616 @@ These events are automatically timestamped.</p>
 <td>A string object of a message or emoticon</td>
 </tr>
 </tbody></table>
+
+<h2 id="apilistener">APIListener</h2>
+
+<p>To be able to listen for updates from the API you must extend your class using an extension of type <code class="prettyprint">API Listener</code> using the following example code.</p>
+
+<blockquote>
+<p>APIListener extension</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code> <span class="kd">extension</span> <span class="kt">RecordingMasterViewController</span><span class="p">:</span> <span class="kt">APIListener</span> <span class="p">{</span>
+
+    <span class="kd">func</span> <span class="nf">realmResponseSaved</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// saved to Realm, lets query it and print the values</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">realmResponse</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">Realm</span><span class="p">()</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Response</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">realmResponse</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">sentimentResponseSaved</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">realmSentiment</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">Realm</span><span class="p">()</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">SentimentResponse</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">realmSentiment</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">arousalReceived</span><span class="p">(</span><span class="nv">arousalScore</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"arousalScore </span><span class="se">\(</span><span class="n">arousalScore</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">apiRequestFailure</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">statusCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"Failed to send to SensumAPI </span><span class="se">\(</span><span class="n">message</span><span class="se">)</span><span class="s"> </span><span class="se">\(</span><span class="n">statusCode</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">apiRequestSuccessful</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"successfully saved"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+<h3 id="api-listener-functions-api-request-successful">API Listener Functions: API Request Successful</h3>
+
+<p><code class="prettyprint">func apiRequestSuccessful()</code></p>
+
+<p>Used to notify listeners that a request made to the <strong>SensumAPI</strong> was successful.
+  Called immediately after a 200 HTTP response is received but not before the data received has been safely saved to <em>Realm</em> instance of <strong>SensumKit</strong>.</p>
+
+<h3 id="api-listener-functions-api-request-failure">API Listener Functions: API Request Failure</h3>
+
+<p><code class="prettyprint">func apiRequestFailure(message: String, statusCode: Int?)</code></p>
+
+<p>Used to notify listeners that a request made to the <strong>SensumAPI</strong> was unsuccessful.
+  Called immediately after a HTTP response that was not 200.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>The error message from the HTTP request</td>
+</tr>
+<tr>
+<td>statusCode</td>
+<td>Int?</td>
+<td>Optional URLResponse HTTP status code from the HTTP request</td>
+</tr>
+</tbody></table>
+
+<h3 id="api-listener-functions-realm-response-saved">API Listener Functions: <em>Realm</em> Response Saved</h3>
+
+<p><code class="prettyprint">func realmResponseSaved()</code></p>
+
+<p>Used to notify listeners that a successful request body has been parsed and is ready for querying in <em>Realm</em>.
+  Called immediately after <code class="prettyprint">response.save()</code> is called.</p>
+
+<h3 id="api-listener-functions-arousal-received">API Listener Functions: Arousal Received</h3>
+
+<p><code class="prettyprint">func arousalReceived(arousalScore: Double)</code></p>
+
+<p>Used to notify listeners that a successful request body has been parsed and an arousal score value is sent to listeners.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>arousalScore</td>
+<td>Double</td>
+<td>Double value of the calculated arousal from the <strong>SensumAPI</strong></td>
+</tr>
+</tbody></table>
+
+<h3 id="api-listener-functions-sentiment-response-received">API Listener Functions: Sentiment Response Received</h3>
+
+<p><code class="prettyprint">func sentimentResponseReceived()</code></p>
+
+<p>Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in <em>Realm</em>.
+  Called immediately after <code class="prettyprint">sentimentEmotion.save()</code> is called.</p>
+
+<h2 id="accelerometerlistener">AccelerometerListener</h2>
+
+<p>Accelerometer listeners handle updates from the <strong>SensumSDK</strong> accelerometer component.
+Subscribers will be notified of updates to the Accelerometer object. To use this listener extend your class using the following example code:</p>
+
+<blockquote>
+<p>AccelerometerListener extension</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">AccelerometerViewController</span><span class="p">:</span> <span class="kt">AccelerometerListener</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">accelerationUpdated</span><span class="p">(</span><span class="nv">newAcceleration</span><span class="p">:</span> <span class="kt">CMAcceleration</span><span class="p">,</span> <span class="nv">dateTime</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">newAcceleration</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="accelerometerlistener-functions-acceleration-updated">AccelerometerListener Functions: Acceleration Updated</h3>
+
+<p><code class="prettyprint">func accelerationUpdated(newAcceleration: CMAcceleration, dateTime: Date)</code></p>
+
+<p>Called when a new accelerometer value is generated by the device.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newAcceleration</td>
+<td>CMAcceleration</td>
+<td>A raw acceleration object from the CoreMotion framework.</td>
+</tr>
+<tr>
+<td>dateTime</td>
+<td>Date</td>
+<td>The native <code class="prettyprint">Date()</code> in date time of when the acceleration object was created.</td>
+</tr>
+</tbody></table>
+
+<h2 id="authenticationlistener">AuthenticationListener</h2>
+
+<p>This listener can be used to handle the Authentication component of the local federated identity sign-in process. This step occurs after the third party login, where the <strong>SensumAPI</strong> will validate the idToken from the end user.</p>
+
+<h3 id="authenticationlistener-functions-sign-in-successful">AuthenticationListener Functions: Sign In Successful</h3>
+
+<p><code class="prettyprint">func signInSuccesful(message: String)</code></p>
+
+<p>Implement to handle the result of a successful login to the <strong>SensumAPI</strong> after the third party identity provider authentication.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>A success message from a valid sign-in result.</td>
+</tr>
+</tbody></table>
+
+<h3 id="authenticationlistener-functions-sign-in-failed">AuthenticationListener Functions: Sign In Failed</h3>
+
+<p><code class="prettyprint">func signInFailed(message: String)</code></p>
+
+<h3 id="authenticationlistener-functions-sign-in-successful">AuthenticationListener Functions: Sign In Successful</h3>
+
+<p><code class="prettyprint">func signInSuccesful(message: String)</code></p>
+
+<p>Implement to handle the result of a successful login to the <strong>SensumAPI</strong> after the third party identity provider authentication.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>A fail message from an invalid sign-in result.</td>
+</tr>
+</tbody></table>
+
+<h2 id="bluetoothlistener">BluetoothListener</h2>
+
+<p>Bluetooth listeners handle updates from the <strong>SensumSDK</strong> bluetooth component.
+Subscribers will be notified of updates to the Bluetooth object.</p>
+
+<p>To use a BluetoothListener extend your class as in the following example code:</p>
+
+<blockquote>
+<p>BluetoothListener extension</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">BluetoothTableViewController</span><span class="p">:</span> <span class="kt">BluetoothListener</span> <span class="p">{</span>
+
+  <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceDiscovered</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">tableView</span><span class="o">.</span><span class="nf">reloadData</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="kd">func</span> <span class="nf">bpmUpdated</span><span class="p">(</span><span class="nv">newBpm</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">dateTime</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceConnectionSuccess</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceConnectionFailure</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceDisconnected</span><span class="p">(</span><span class="nv">disconnectedPeripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="bluetoothlistener-functions-device-discovered">BluetoothListener Functions: Device Discovered</h3>
+
+<p><code class="prettyprint">func deviceDiscovered()</code>  </p>
+
+<p>Called when a BLE device has been discovered during a device scan.</p>
+
+<h3 id="bluetoothlistener-functions-device-connection-success">BluetoothListener Functions: Device Connection Success</h3>
+
+<p><code class="prettyprint">func deviceConnectionSuccess()</code>  </p>
+
+<p>Called when the users device has successfully connected to a BLE device.</p>
+
+<h3 id="bluetoothlistener-functions-device-connection-failure">BluetoothListener Functions: Device Connection Failure</h3>
+
+<p><code class="prettyprint">func deviceConnectionFailure()</code>  </p>
+
+<p>Called when the users device has failed to connect to a BLE device.</p>
+
+<h3 id="bluetoothlistener-functions-device-disconnected">BluetoothListener Functions: Device Disconnected</h3>
+
+<p><code class="prettyprint">func deviceDisconnected(disconnectedPeripheral: CBPeripheral)</code>  </p>
+
+<p>Called when the users device has been disconnected from a BLE device.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>disconnectedPeripheral</td>
+<td>CBPeripheral</td>
+<td>The CoreBluetooth BLE device that disconnected.</td>
+</tr>
+</tbody></table>
+
+<h3 id="bluetoothlistener-functions-bpm-updated">BluetoothListener Functions: BPM Updated</h3>
+
+<p><code class="prettyprint">func bpmUpdated(newBpm: Int, dateTime: Date)</code></p>
+
+<p>Called when the BLE device connected to the users device has a processed update value ready.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newBpm</td>
+<td>Int</td>
+<td>A heart rate value in beats per minute.</td>
+</tr>
+<tr>
+<td>dateTime</td>
+<td>Date</td>
+<td>A native <code class="prettyprint">Date()</code> object of when the reading was generated.</td>
+</tr>
+</tbody></table>
+
+<h2 id="locationlistener">LocationListener</h2>
+
+<p>Location listeners handles updates from the Location SDK component.
+Subscribers will be notified of updates to the Location object.</p>
+
+<p>To use a LocationListener, extend your class as seen in the following example code:</p>
+
+<blockquote>
+<p>LocationListener extension</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">GPSViewController</span><span class="p">:</span> <span class="kt">LocationListener</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">locationUpdated</span><span class="p">(</span><span class="nv">newLocation</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+      <span class="nf">print</span><span class="p">(</span><span class="n">newLocation</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="locationlistener-functions-location-updated">LocationListener Functions: Location Updated</h3>
+
+<p><code class="prettyprint">func locationUpdated(newLocation:CLLocation)</code></p>
+
+<p>Called when a new location update has been generated by the device.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newLocation</td>
+<td>CLLocation</td>
+<td>A CoreLocation type location object containing fine values about the device location.</td>
+</tr>
+</tbody></table>
+
+<h2 id="taglistener">TagListener</h2>
+
+<p>This listener can be used to handle the response to Tag objects of unicode text/emoji objects.</p>
+
+<h3 id="taglistener-functions-tag-created">TagListener Functions: Tag Created</h3>
+
+<p><code class="prettyprint">func tagCreated(newTag: String, dateTime: Date)</code></p>
+
+<p>Called when a new tag object is created.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newTag</td>
+<td>String</td>
+<td>The literal string tag that was created.</td>
+</tr>
+<tr>
+<td>dateTime</td>
+<td>Date</td>
+<td>A native <code class="prettyprint">Date()</code> object representing time and date when the tag was created.</td>
+</tr>
+</tbody></table>
+
+<h2 id="serverrequestengine">ServerRequestEngine</h2>
+
+<h3 id="serverrequestengine-functions-set-request-interval">ServerRequestEngine Functions: Set Request Interval</h3>
+
+<p><code class="prettyprint">public func setRequestInterval(newUpdateInterval : Int)</code></p>
+
+<p>This changes the interval immediately, destroying the old timer and starting a new one counting from time zero.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>newUpdateInterval</td>
+<td>Int</td>
+<td>The new update interval in seconds</td>
+</tr>
+</tbody></table>
+
+<h2 id="sdkmanagedobject">SDKManagedObject</h2>
+
+<p>The managed DataSource that custom types must implement to use with the <strong>SensumAPI</strong>.</p>
+
+<h3 id="sdkmanagedobject-functions-start-updates">SDKManagedObject Functions: Start Updates</h3>
+
+<p><code class="prettyprint">func startUpdates()</code></p>
+
+<p>Start retrieving updates from the data source.</p>
+
+<h3 id="sdkmanagedobject-functions-stop-updates">SDKManagedObject Functions: Stop Updates</h3>
+
+<p><code class="prettyprint">func stopUpdates()</code></p>
+
+<p>Stop retrieving updates from the data source.</p>
+
+<h3 id="sdkmanagedobject-functions-start-recording">SDKManagedObject Functions: Start Recording</h3>
+
+<p><code class="prettyprint">func startRecording()</code></p>
+
+<p>Start recording updates from the data source to the local <em>Realm</em> store on device.</p>
+
+<h3 id="sdkmanagedobject-functions-stop-recording">SDKManagedObject Functions: Stop Recording</h3>
+
+<p><code class="prettyprint">func stopRecording()</code></p>
+
+<p>Stop recording updates from the data source to the local <em>Realm</em> store on device.</p>
+
+<h3 id="sdkmanagedobject-functions-start-sending-to-api">SDKManagedObject Functions: Start Sending To API</h3>
+
+<p><code class="prettyprint">func startSendingToAPI()</code></p>
+
+<p>Start sending updates from the data source to the <strong>SensumAPI</strong>.</p>
+
+<h3 id="sdkmanagedobject-functions-stop-sending-to-api">SDKManagedObject Functions: Stop Sending To API</h3>
+
+<p><code class="prettyprint">func stopSendingToAPI()</code></p>
+
+<p>Stop sending updates from the data source to the <strong>SensumAPI</strong>.</p>
+
+<h2 id="database">Database</h2>
+
+<p>Database manager handles the key functions of the <em>Realm</em> instance used as part of the SDK.</p>
+
+<h3 id="database-functions-delete-all-records">Database Functions: Delete All Records</h3>
+
+<p><code class="prettyprint">static public func deleteAllRecords()</code></p>
+
+<p>Attempts to delete the default <em>Realm</em> database on the device, deleting all <strong>SensumKit</strong> related data.</p>
+
+<h2 id="bluetoothperipheral">BluetoothPeripheral</h2>
+
+<p><code class="prettyprint">public struct BluetoothPeripheral</code></p>
+
+<blockquote>
+<p>BluetoothPeripheral</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BluetoothPeripheral</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">advertisedName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="k">var</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span>
+    <span class="k">var</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"ble"</span>
+<span class="p">}</span>
+</code></pre>
+<p>Struct composing a Bluetooth Device, including name, type and peripheral value.</p>
+
+<h2 id="response">Response</h2>
+
+<p>Parent response <em>Realm</em> object generated from request data sent from the device.</p>
+
+<h3 id="response-functions-save">Response Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="heartrateresponse">HeartRateResponse</h2>
+
+<p>A root heart rate response object generated from the <strong>SensumAPI</strong>.</p>
+
+<h3 id="response-functions-save">Response Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="accelerometerresponse">AccelerometerResponse</h2>
+
+<p>AccelerometerResponse is a mapping to Accelerometer based data from the device that was sent and processed by the <strong>SensumAPI</strong>.
+<em>Realm</em> type object which is persisted under the Response object.</p>
+
+<h3 id="accelerometerresponse-functions-save">AccelerometerResponse Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="locationresponse">LocationResponse</h2>
+
+<p>A root location response object generated from the <strong>SensumAPI</strong>.</p>
+
+<h3 id="locationresponse-functions-save">LocationResponse Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="arousalresponse">ArousalResponse</h2>
+
+<p>ArousalResponse is the root object of arousal data generated by the <strong>SensumAPI</strong>.</p>
+
+<h3 id="arousalresponse-functions-save">ArousalResponse Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="sentimentresponse">SentimentResponse</h2>
+
+<p>Sentiment represents the <strong>SensumAPI</strong> analysis of textual and emoji input sent from <strong>SensumKit</strong>.</p>
+
+<h3 id="sentimentresponse-functions-save">SentimentResponse Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="heartrate">HeartRate</h2>
+
+<p>A raw heart rate value processed from a BLE device that was connected to the users device.</p>
+
+<h3 id="heartrate-functions-map-to-schema">HeartRate Functions: Map To Schema</h3>
+
+<p><code class="prettyprint">public func mapToSchema() -&gt; [RecordTuple]</code></p>
+
+<p>Maps the raw Heart rate value to the database record.</p>
+
+<h2 id="location">Location</h2>
+
+<p>A CLLocation <em>Realm</em> type object saved from the location data that was generated by the device.</p>
+
+<h3 id="heartrate-functions-map-to-schema">HeartRate Functions: Map To Schema</h3>
+
+<p><code class="prettyprint">public func mapToSchema() -&gt; [RecordTuple]</code></p>
+
+<p>Maps the location data to the database record.</p>
+
+<h2 id="accelerometer">Accelerometer</h2>
+
+<p>The <em>Realm</em> Accelerometer object class, used for persisting raw accelerometer readings to <em>Realm</em>.</p>
+
+<h3 id="accelerometer-functions-map-to-schema">Accelerometer Functions: Map To Schema</h3>
+
+<p><code class="prettyprint">public func mapToSchema() -&gt; [RecordTuple]</code></p>
+
+<p>Maps the location data to the database record.</p>
+
+<h2 id="unicodetag">UnicodeTag</h2>
+
+<p>Local text/emoji unicode objects created that can be used for sentiment analysis completed by the <strong>SensumAPI</strong>.</p>
+
+<h3 id="unicodetag-functions-map-to-schema">UnicodeTag Functions: Map To Schema</h3>
+
+<p><code class="prettyprint">public func mapToSchema() -&gt; [RecordTuple]</code></p>
+
+<p>Maps the location data to the database record.</p>
+
+<h2 id="arousalstat">ArousalStat</h2>
+
+<p>Statistical information relating to arousal which is generated by the <strong>SensumAPI</strong>.</p>
+
+<h3 id="arousalstat-functions-save">ArousalStat Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="arousalrecord">ArousalRecord</h2>
+
+<p>The arousal record relates to the arousal calculated and sent as a response from the <strong>SensumAPI</strong> which processed heart rate data to generate this object.</p>
+
+<h3 id="arousalrecord-functions-save">ArousalRecord Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="stat">Stat</h2>
+
+<p>A generic statistic object that represents related values about a processed data from the <strong>SensumAPI</strong>.</p>
+
+<h3 id="stat-functions-save">Stat Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="percentile">Percentile</h2>
+
+<p>A percentile object represents the amount of values that exist as part of a parent reading in a certain percentile. Generated from the <strong>SensumAPI</strong>.</p>
+
+<h3 id="percentile-functions-save">Percentile Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<p>Saves to <em>Realm</em>.</p>
+
+<h2 id="event">Event</h2>
+
+<p>Generic events that can occur relating to the changes of the values coming from a typical data stream.</p>
+
+<h3 id="event-functions-save">Event Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
+
+<h2 id="emotion">Emotion</h2>
+
+<p>Emotion is a collection of inferred emotions from the sentiment analysis performed by the <strong>SensumAPI</strong>.</p>
+
+<h3 id="emotion-functions-save">Emotion Functions: Save</h3>
+
+<p><code class="prettyprint">func save()</code></p>
 
       </div>
       <div class="dark-box">
