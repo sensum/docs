@@ -214,9 +214,8 @@
               <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
               <a href="#" data-language-name="python">Python</a>
         </div>
-
-      <div id="toc">
-      </div>
+  <div id="toc">
+  </div>
         <ul class="toc-footer">
             <li><a href='https://www.sensum.co/'>Sign Up for a Developer Key</a></li>
             <li><a href='#'>Documentation Powered by Slate</a></li>
@@ -229,15 +228,37 @@
 
 <p>Welcome to the Sensum Emotion AI API &amp; SDK.</p>
 
-<p>The Sensum API and SDK enables you to build services or products which respond to emotional events in real time.</p>
+<p>The <strong>SensumAPI</strong> and <strong>SensumSDK</strong> enables you to build services or products which respond to emotional events in real time.</p>
 
-          <h1 id="emotion-ai-api">Emotion AI API</h1>
+<h1 id="glossary-of-terms">Glossary of Terms</h1>
+
+<table><thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>SensumSDK</strong></td>
+<td><strong>SensumSDK</strong> refers to the Android and iOS SDKs</td>
+</tr>
+<tr>
+<td><strong>SensumKit</strong></td>
+<td><strong>SensumKit</strong> is the framework file that allows an application to use the <strong>SensumSDK</strong></td>
+</tr>
+<tr>
+<td><strong>SensumAPI</strong></td>
+<td>The <strong>SensumAPI</strong> is the Restful API that is used either directly or through the <strong>SensumSDK</strong></td>
+</tr>
+</tbody></table>
+
+          <h1 id="sensumapi">SensumAPI</h1>
 
 <h2 id="introduction">Introduction</h2>
 
-<p>The Sensum Emotion AI API enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
-The API is also cross-origin resource sharing ready.
-The Emotion AI SDK handles many of these requests and responses natively. It can however be useful to utilise the API directly.</p>
+<p><strong>SensumAPI</strong> enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
+<strong>SensumAPI</strong> is also cross-origin resource sharing ready.
+<strong>SensumSDK</strong> handles many of these requests and responses natively. It can however be useful to utilise the <strong>SensumAPI</strong> directly.</p>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
@@ -245,16 +266,16 @@ The Emotion AI SDK handles many of these requests and responses natively. It can
 
 <h2 id="uri-structure">URI Structure</h2>
 
-<p>The Sensum Emotion AI API uses URI resources to provide access to its services. To use a RESTful API, your application will use HTTP Methods(GET, POST, etc.) to request and parse a response. The Emotion AI API uses JSON for communication between your application and the server.</p>
+<p><strong>SensumAPI</strong> uses URI resources to provide access to its services. To use a RESTful API, your application will use HTTP Methods(GET, POST, etc.) to request and parse a response. <strong>SensumAPI</strong> uses JSON for communication between your application and the server.</p>
 
 <p>An example URI:
 <a href="">https://api.sensum.co/v0/testdata</a></p>
 
 <h2 id="authorization">Authorization</h2>
 
-<p>Sensum Emotion AI uses a combination of an API Key and AWS Signature v4 signing to authorize access to the API. You can register a new API Key by contacting us.</p>
+<p><strong>SensumAPI</strong> uses a combination of an API Key and AWS Signature v4 signing to authorize access. You can register a new API Key by contacting us.</p>
 
-<p>Sensum Emotion AI expects each call to contain the following headers to gain access: </p>
+<p><strong>SensumAPI</strong> expects each call to contain the following headers to gain access:</p>
 
 <ul>
 <li>Content-Type: <code class="prettyprint">application/json</code></li>
@@ -271,7 +292,7 @@ To learn more about generating the Signature please read the <a href="https://do
 
 <h2 id="available-metrics">Available Metrics</h2>
 
-<p>Below are the metrics that the Emotion AI API can analyse and the units that the data is posted in</p>
+<p>Below are the metrics that <strong>SensumAPI</strong> can analyse and the units that the data is posted in</p>
 
 <table><thead>
 <tr>
@@ -280,7 +301,7 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </thead><tbody>
 <tr>
-<td>heartrate</td>
+<td><a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate">heartrate</a></td>
 <td>bpm</td>
 </tr>
 <tr>
@@ -296,7 +317,7 @@ To learn more about generating the Signature please read the <a href="https://do
 <td><sup>o</sup>C</td>
 </tr>
 <tr>
-<td>gsr</td>
+<td><a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr">gsr</a></td>
 <td>Siemens<sup>*</sup></td>
 </tr>
 <tr>
@@ -341,9 +362,148 @@ To learn more about generating the Signature please read the <a href="https://do
 
 <p><sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the userAcceleration iOS method rather than the acceleration method</p>
 
+<h2 id="sensumapi-analysis-responses">SensumAPI Analysis Responses</h2>
+
+<table><thead>
+<tr>
+<th>Input Metric(s)</th>
+<th>Generated Events</th>
+<th>Generated Records</th>
+<th>Generated Stats</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>any</em></td>
+<td><a href = "#events">Events for that Metric</a></td>
+<td></td>
+<td><a href="#stats">Stats for that event</a></td>
+</tr>
+<tr>
+<td><code class="prettyprint">heartrate</code></td>
+<td></td>
+<td><code class="prettyprint">arousal</code></td>
+<td><code class="prettyprint">arousal</code> <a href="#fuzzy-class-stats">(See Fuzzy Class Stats)</a></td>
+</tr>
+<tr>
+<td><code class="prettyprint">gsr</code></td>
+<td></td>
+<td><code class="prettyprint">engagement</code></td>
+<td><code class="prettyprint">engagement</code> <a href="#fuzzy-class-stats">(See Fuzzy Class Stats)</a></td>
+</tr>
+<tr>
+<td><code class="prettyprint">acceleration_[x,y,z]</code></td>
+<td></td>
+<td><code class="prettyprint">activity</code></td>
+<td><code class="prettyprint">activity</code> <a href="#fuzzy-class-stats">(See Fuzzy Class Stats)</a></td>
+</tr>
+</tbody></table>
+
+<h3 id="events">Events</h3>
+
+<table><thead>
+<tr>
+<th>Event Fields</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>time</td>
+<td>UTC Timestamp (ms)</td>
+<td>Time of event</td>
+</tr>
+<tr>
+<td>value</td>
+<td>String: One of [&lsquo;normal&rsquo;, &lsquo;rising&rsquo;, &lsquo;falling&rsquo;, &lsquo;max&rsquo;, &lsquo;min&rsquo;]</td>
+<td>Type of event (normal is not currently used)</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>Float</td>
+<td>Relative severity of the event, i.e. how much of value change between forward/backward events with respect to the average value</td>
+</tr>
+</tbody></table>
+
+<h3 id="stats">Stats</h3>
+
+<table><thead>
+<tr>
+<th>Stats Field</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>avg</td>
+<td>Float</td>
+<td>average (mean) value</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Float (seconds)</td>
+<td>time between first and last analysed records</td>
+</tr>
+<tr>
+<td>max</td>
+<td>Float</td>
+<td>max value</td>
+</tr>
+<tr>
+<td>min</td>
+<td>Float</td>
+<td>min value</td>
+</tr>
+<tr>
+<td>std</td>
+<td>Float</td>
+<td>standard deviation of the record</td>
+</tr>
+<tr>
+<td>percentiles</td>
+<td>Object(dict)</td>
+<td>10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a></td>
+</tr>
+</tbody></table>
+
+<h3 id="fuzzy-class-stats">Fuzzy Class Stats</h3>
+
+<p>For <a href = "https://en.wikipedia.org/wiki/Fuzzy_classification">&ldquo;fuzzy&rdquo;</a> classification outputs such as <code class="prettyprint">arousal</code>, <code class="prettyprint">engagement</code> and <code class="prettyprint">activity</code>, an additional stats structure is used containing 3 fields:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value</td>
+<td>Float</td>
+<td>[0-1] activation value</td>
+</tr>
+<tr>
+<td>dominant</td>
+<td>string</td>
+<td>label of the dominant classification category</td>
+</tr>
+<tr>
+<td>sectors</td>
+<td>Object(dict)</td>
+<td>per-category-label activivation (<code class="prettyprint">label</code>:<code class="prettyprint">value</code>,&hellip;)</td>
+</tr>
+</tbody></table>
+
+<p>Current Sector Labels (highest to lowest activation value):</p>
+
+<ul>
+<li>Activity : &lsquo;active&rsquo;, &lsquo;inactive&rsquo;</li>
+<li>Arousal : &lsquo;excited&rsquo;, &lsquo;activated&rsquo;, &lsquo;calm&rsquo;, &lsquo;passive&rsquo;, &lsquo;relaxed&rsquo;</li>
+<li>Engagement: &lsquo;highly engaged&rsquo;, &lsquo;engaged&rsquo;, &lsquo;activated&rsquo;, &lsquo;neutral&rsquo;</li>
+</ul>
+
 <h2 id="send-text-data-to-analyse-emoji-and-text-sentiment">Send text data to analyse emoji and text sentiment</h2>
 
-<p>This endpoint allows users to send strings of text to our service for emotional sentiment analysis. </p>
+<p>This endpoint allows users to send strings of text to our service for emotional sentiment analysis.</p>
 
 <p>The service will return a JSON object that contain Positivity, Negativity and Emotionality values for emojis and text.</p>
 
@@ -379,7 +539,7 @@ API Key, Authorization.
 </tbody></table>
 
 <ul>
-<li>Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response. </li>
+<li>Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response.</li>
 </ul>
 
 <blockquote>
@@ -422,7 +582,7 @@ API Key, Authorization.
 <span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
-  <span class="na">body</span> <span class="p">:</span> <span class="nx">body</span><span class="p">,</span> 
+  <span class="na">body</span> <span class="p">:</span> <span class="nx">body</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
 <span class="p">})</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
@@ -464,7 +624,7 @@ API Key, Authorization.
 
 <h3 id="examples">Examples</h3>
 
-<p>Please refer to the code samples for request and response examples </p>
+<p>Please refer to the code samples for request and response examples</p>
 
 <blockquote>
 <p>Text Only - Unemotional</p>
@@ -560,7 +720,7 @@ API Key, Authorization.
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/data/'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
-  <span class="na">data</span> <span class="p">:</span> <span class="nx">params</span><span class="p">,</span> 
+  <span class="na">data</span> <span class="p">:</span> <span class="nx">params</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
@@ -787,8 +947,8 @@ X-API-Key, Authorization
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"metrics"</span><span class="p">:</span><span class="w">
     </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"acceleration_x"</span><span class="p">,</span><span class="s2">"acceleration_y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"acceleration_z"</span><span class="p">,</span><span class="w"> 
-      </span><span class="s2">"location_altitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_horizontalaccuracy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_latitude"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"acceleration_x"</span><span class="p">,</span><span class="s2">"acceleration_y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"acceleration_z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location_altitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_horizontalaccuracy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_latitude"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"location_longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_speed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"location_verticalaccuracy"</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1053,7 +1213,14 @@ X-API-Key, Authorization
 
 <h2 id="send-data-for-events-analysis">Send data for events analysis</h2>
 
-<p>This endpoint allows the user to send data to the Emotion AI service for analysis. The response will return a series of significant events.   </p>
+<p>This endpoint allows the user to send data to the Emotion AI service for analysis. The response will return a series of significant events.</p>
+
+<p>An event is triggered when there is a statistically significant timeseries change detected in an incoming data stream, be that from a Bluetooth sensor or internal sensor such as Accelerometer. Depending on the data stream applied, this can indicate a shift or change in emotional or activity state.</p>
+
+<p>The severity of an event is dependent on</p>
+
+<p>How &ldquo;steep&rdquo; the event is and<br>
+How &ldquo;isolated&rdquo; the event is with respect to any events identified before / after it.   </p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1114,7 +1281,7 @@ X-API-Key, Authorization
         <span class="p">}</span>
       <span class="p">]</span>
     <span class="p">}</span>
-  <span class="p">};</span> 
+  <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
@@ -1171,7 +1338,7 @@ X-API-Key, Authorization
         }
       ]
     }
-  } 
+  }
 '</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
@@ -1243,7 +1410,7 @@ X-API-Key, Authorization
         <span class="p">}</span>
       <span class="p">]</span>
     <span class="p">}</span>
-  <span class="p">}</span> 
+  <span class="p">}</span>
 
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -1379,7 +1546,7 @@ X-API-Key, Authorization
 
 <h2 id="get-test-data">Get test data</h2>
 
-<p>This endpoint allows the user to generate a series of test data streams that can be fed into the events endpoint to test the analysis service. When testing the events endpoint only POST the &ldquo;records&rdquo; JSON object in the request body. </p>
+<p>This endpoint allows the user to generate a series of test data streams that can be fed into the events endpoint to test the analysis service. When testing the events endpoint only POST the &ldquo;records&rdquo; JSON object in the request body.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1553,7 +1720,7 @@ X-API-Key, Authorization
 
 <h2 id="errors">Errors</h2>
 
-<p>The Sensum Emotion AI API uses the following error codes:</p>
+<p><strong>SensumAPI</strong> uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -1591,7 +1758,39 @@ X-API-Key, Authorization
 </tr>
 </tbody></table>
 
-          <h1 id="android-sdk">Android SDK</h1>
+          <h1 id="sensumsdk-android">SensumSDK - Android</h1>
+
+<h2 id="android-device-compatibility">Android Device Compatibility</h2>
+
+<p>The Android version of <strong>SensumSDK</strong> can be installed on devices with <strong>5.1.1 (Lollipop)</strong> up to <strong>7.0 (Nougat)</strong>.</p>
+
+<p>We recommend the <strong>Samsung S6</strong>, <strong>S7</strong>, <strong>S8</strong>, <strong>OnePlus X and above</strong> or the <strong>Google Pixel</strong> as suitable devices</p>
+
+<h2 id="bluetooth-device-compatibility">Bluetooth Device Compatibility</h2>
+
+<ul>
+<li>The Android <strong>SensumSDK</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</li>
+</ul>
+
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.</p>
+
+<h2 id="accepted-biometric-data-inputs">Accepted Biometric Data Inputs</h2>
+
+<p>The Android <strong>SensumSDK</strong> can accept the following <a href = "#available-metrics">metrics</a>:</p>
+
+<ul>
+<li>Heart Rate</li>
+<li>GSR</li>
+<li>GPS latitude</li>
+<li>GPS longitude</li>
+<li>GPS altitude</li>
+<li>GPS accuracy</li>
+<li>GPS speed</li>
+<li>acceleration</li>
+<li>acceleration X</li>
+<li>acceleration Y</li>
+<li>acceleration Z</li>
+</ul>
 
 <h2 id="service-constants">Service Constants</h2>
 
@@ -1603,7 +1802,7 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></p>
 
-<p>This passes a message of enabling scan for the devices to the SDK service</p>
+<p>This passes a message of enabling scan for the devices to the <strong>SensumSDK</strong> service</p>
 
 <h3 id="device-list">Device List</h3>
 
@@ -1621,37 +1820,37 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the request which is made to the SDK service</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the request which is made to the <strong>SensumSDK</strong> service</p>
 
 <h3 id="device-filter">Device filter</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the connected device</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the connected device</p>
 
 <h3 id="value-filter">Value Filter</h3>
 
 <p><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the heart rate value</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate value</p>
 
 <h3 id="login-filter">Login Filter</h3>
 
 <p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for the user login</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the user login</p>
 
 <h3 id="gps-filter">GPS Filter</h3>
 
 <p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the GPS values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS values</p>
 
 <h3 id="accelerometer-filter">Accelerometer Filter</h3>
 
 <p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service which is used as an intent filter at the front end for receiving the accelerometer values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer values</p>
 
 <h3 id="extra-data">Extra Data</h3>
 
@@ -1675,25 +1874,25 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></p>
 
-<p>This is used to pass the username for authentication to the SDK service, only authenticated users are able to use the SDK service</p>
+<p>This is used to pass the username for authentication to the <strong>SensumSDK</strong> service, only authenticated users are able to use the <strong>SensumSDK</strong> service</p>
 
 <h3 id="password">Password</h3>
 
 <p><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></p>
 
-<p>This is used to pass the password for authentication to the SDK service</p>
+<p>This is used to pass the password for authentication to the <strong>SensumSDK</strong> service</p>
 
 <h3 id="wear-hr-value">Wear HR Value</h3>
 
 <p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
 
-<p>This is used to pass the Heart Rate value captured using Android Wear to the SDK service</p>
+<p>This is used to pass the Heart Rate value captured using Android Wear to the <strong>SensumSDK</strong> service</p>
 
 <h3 id="text-message">Text Message</h3>
 
 <p><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></p>
 
-<p>This is used to pass Text/Emoji value to the SDK service</p>
+<p>This is used to pass Text/Emoji value to the <strong>SensumSDK</strong> service</p>
 
 <h3 id="x-value">X Value</h3>
 
@@ -1801,43 +2000,43 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></p>
 
-<p>This is used to pass a message from the SDK service in case of any device disconnection</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service in case of any device disconnection</p>
 
 <h3 id="api-response">API Response</h3>
 
 <p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
 
-<p>This is used to pass message from the SDK service for the API response</p>
+<p>This is used to pass message from the <strong>SensumSDK</strong> service for the API response</p>
 
 <h3 id="toast-message">Toast Message</h3>
 
 <p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
 
-<p>This is used to pass informative toast message from the SDK service</p>
+<p>This is used to pass informative toast message from the <strong>SensumSDK</strong> service</p>
 
 <h3 id="api-base-url">API Base URL</h3>
 
 <p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
 
-<p>This is used to pass the base url for API to the SDK service which is used for setting up communication with the API</p>
+<p>This is used to pass the base url for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API</p>
 
 <h3 id="auth-token">Auth Token</h3>
 
 <p><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></p>
 
-<p>This is used to pass the authentication token for API to the SDK service which is used for setting up communication with the API</p>
+<p>This is used to pass the authentication token for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API</p>
 
 <h3 id="user-pool-id">User Pool Id</h3>
 
 <p><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></p>
 
-<p>This is used to pass the user pool id to the SDK service which is used for user authentication</p>
+<p>This is used to pass the user pool id to the <strong>SensumSDK</strong> service which is used for user authentication</p>
 
 <h3 id="client-id">Client Id</h3>
 
 <p><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></p>
 
-<p>This is used to pass the client id to the SDK service which is used for user authentication</p>
+<p>This is used to pass the client id to the <strong>SensumSDK</strong> service which is used for user authentication</p>
 
 <h3 id="connect">Connect</h3>
 
@@ -1861,7 +2060,7 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final int SCAN = 105</code></p>
 
-<p>This is used internally in the SDK service to filter scan for devices</p>
+<p>This is used internally in the <strong>SensumSDK</strong> service to filter scan for devices</p>
 
 <h3 id="devices">Devices</h3>
 
@@ -1963,13 +2162,13 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final int LOGIN = 124</code></p>
 
-<p>This is used to pass a login message to the SDK service</p>
+<p>This is used to pass a login message to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="input-text">Input Text</h3>
 
 <p><code class="prettyprint">public static final int INPUT_TEXT = 125</code></p>
 
-<p>This is used to filter/pass text &amp; emoji message to the SDK service</p>
+<p>This is used to filter/pass text &amp; emoji message to the <strong>SensumSDK</strong> service.</p>
 
 <h2 id="example-methods">Example Methods</h2>
 
@@ -1995,7 +2194,7 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">void submit()</code></p>
 
-<p>Sets up the credential bundle to be sent to the SDK service this needs to be sent first to the SDK service as only authenticated users can use the service</p>
+<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service</p>
 <pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
         <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">USER_NAME</span><span class="o">,</span> <span class="s">"username"</span><span class="o">);</span>
@@ -2015,7 +2214,7 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">void submit()</code></p>
 
-<p>Sets up the credential bundle to be sent to the SDK service this needs to be sent first to the SDK service as only authenticated users can use the service</p>
+<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service</p>
 <pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
        <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
             <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_BASEURL</span><span class="o">,</span> <span class="n">apiBaseUrl</span><span class="o">);</span>
@@ -2051,7 +2250,7 @@ X-API-Key, Authorization
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="create-new-broadcast-receiver-object">Create new Broadcast Receiver object</h2>
+<h2 id="create-new-broadcast-receiver-object">Create New Broadcast Receiver Object</h2>
 
 <p><code class="prettyprint">private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()</code></p>
 
@@ -2115,7 +2314,7 @@ X-API-Key, Authorization
         <span class="k">return</span> <span class="n">intentFilter</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="start-biometric-data-capture">Start biometric data capture</h2>
+<h2 id="start-biometric-data-capture">Start Biometric Data Capture</h2>
 
 <p><code class="prettyprint">private void startCaptureSetUp()</code></p>
 
@@ -2126,7 +2325,7 @@ X-API-Key, Authorization
         <span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">START_CAPTURE</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="get-capture-bundle">Get capture bundle</h2>
+<h2 id="get-capture-bundle">Get Capture Bundle</h2>
 
 <p><code class="prettyprint">private Bundle getCaptureBundle()</code></p>
 
@@ -2148,7 +2347,7 @@ X-API-Key, Authorization
         <span class="k">return</span> <span class="n">bundle</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="stop-biometric-data-capture">Stop biometric data capture</h2>
+<h2 id="stop-biometric-data-capture">Stop Biometric Data Capture</h2>
 
 <p><code class="prettyprint">private void stopCaptureSetUp()</code></p>
 
@@ -2158,14 +2357,43 @@ X-API-Key, Authorization
         <span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">ServiceConstants</span><span class="o">.</span><span class="na">CANCEL_CAPTURE</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
-          <h1 id="ios-sdk">iOS SDK</h1>
+          <h1 id="sensumsdk-ios">SensumSDK - iOS</h1>
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="ios-device-compatibility">iOS Device Compatibility</h2>
 
-<h3 id="sdk-module-command-protocol">SDK Module Command Protocol</h3>
+<p>The iOS version of the <strong>SensumSDK</strong> can be installed on devices with <strong>v10.3.3 and up</strong>.</p>
+
+<p>We recommend the <strong>iPhone 5 and up</strong> as devices to use with the <strong>SensumSDK</strong>.</p>
+
+<h2 id="bluetooth-device-compatibility">Bluetooth Device Compatibility</h2>
+
+<ul>
+<li>The iOS <strong>SensumSDK</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</li>
+</ul>
+
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details.</p>
+
+<h2 id="accepted-biometric-data-inputs">Accepted Biometric Data Inputs</h2>
+
+<p>The iOS <strong>SensumSDK</strong> can accept the following <a href = "#available-metrics">metrics</a>:</p>
+
+<ul>
+<li>Heart Rate</li>
+<li>GPS latitude</li>
+<li>GPS longitude</li>
+<li>GPS altitude</li>
+<li>GPS accuracy</li>
+<li>GPS speed</li>
+<li>acceleration</li>
+<li>acceleration X</li>
+<li>acceleration Y</li>
+<li>acceleration Z</li>
+</ul>
+
+<h2 id="sdk-module-command-protocol">SDK Module Command Protocol</h2>
 
 <p>Every <strong>SensumSDK</strong> module conforms to the module command protocol.
-At present these can be switched on and off independently. Every SDK-managed object has three states that can be toggled independently:</p>
+At present these can be switched on and off independently. Every <strong>SensumSDK</strong>-managed object has three states that can be toggled independently:</p>
 
 <ul>
 <li>Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object, its update methods will be called by the SDK and you can reflect these and carry out actions in your app.</li>
@@ -2174,7 +2402,7 @@ At present these can be switched on and off independently. Every SDK-managed obj
 </ul>
 
 <blockquote>
-<p>Protocol Code - SDK written in Swift 3</p>
+<p>Protocol Code - <strong>SensumSDK</strong> written in Swift 3</p>
 </blockquote>
 <pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="n">foundation</span>
 
@@ -2430,6 +2658,12 @@ As well as all the data required to send data to the <strong>SensumAPI</strong>.
 <h2 id="bluetooth-command">Bluetooth Command</h2>
 
 <p>Below are all available commands relating to Bluetooth within the <strong>SensumSDK</strong>.</p>
+
+<ul>
+<li><strong>SensumKit</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</li>
+</ul>
+
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.</p>
 
 <h3 id="start-updating">Start Updating</h3>
 
@@ -3064,7 +3298,7 @@ Subscribers will be notified of updates to the Bluetooth object.</p>
 
 <h2 id="locationlistener">LocationListener</h2>
 
-<p>Location listeners handles updates from the Location SDK component.
+<p>Location listeners handles updates from the Location <strong>SensumSDK</strong> component.
 Subscribers will be notified of updates to the Location object.</p>
 
 <p>To use a LocationListener, extend your class as seen in the following example code:</p>
@@ -3199,7 +3433,7 @@ Subscribers will be notified of updates to the Location object.</p>
 
 <h2 id="database">Database</h2>
 
-<p>Database manager handles the key functions of the <em>Realm</em> instance used as part of the SDK.</p>
+<p>Database manager handles the key functions of the <em>Realm</em> instance used as part of the <strong>SensumSDK</strong>.</p>
 
 <h3 id="database-functions-delete-all-records">Database Functions: Delete All Records</h3>
 
