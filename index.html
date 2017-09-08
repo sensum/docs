@@ -3613,6 +3613,2530 @@ Subscribers will be notified of updates to the Location object.</p>
 
 <p><code class="prettyprint">func save()</code></p>
 
+          <h1 id="tutorial-android">Tutorial - Android</h1>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>We strongly recommend using Android Studio v2.3.3 and above. We work on Android Studio v2.3.3 at time of our first public <strong>SensumSDK</strong> release.</p>
+
+<ul>
+<li>Open Android Studio</li>
+<li>Select <strong>New Project</strong> displayed in Figure X</li>
+</ul>
+
+<p><img src="images/figure1_android.png" title="Figure 1 - Start New Project" alt="Figure 1 - Start New Project" /></p>
+
+<h4 id="figure-1-start-new-project"><p style="text-align: center;">Figure 1 - Start New Project</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Provide a name for your project, for example: &lsquo;<em>SensumTutorialApplication</em>&rsquo;, then click <strong>Next</strong>.</li>
+</ul>
+
+<p><img src="images/figure2_android.png" title="Figure 2 - Create New Project" alt="Figure 2 - Create New Project" /></p>
+
+<h4 id="figure-2-create-new-project"><p style="text-align: center;">Figure 2 - Create New Project</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Select the <strong>Phone and Tablet</strong>, and <strong>Wear</strong> options from the <em>Target Android Devices</em> dialogue window.</li>
+<li>We recommend you use API 22: Android 5.1 (Lollipop) or greater for best performance.</li>
+</ul>
+
+<p><img src="images/figure3_android.png" title="Figure 3 - Select Platforms" alt="Figure 3 - Select Platforms" /></p>
+
+<h4 id="figure-3-select-platforms"><p style="text-align: center;">Figure 3 - Select Platforms</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click <strong>Next</strong> and select <strong>Empty Activity</strong> as shown in Figure 4.</li>
+</ul>
+
+<p><img src="images/figure4_android.png" title="Figure 4 - Add Activity" alt="Figure 4 - Add Activity" /></p>
+
+<h4 id="figure-4-add-activity"><p style="text-align: center;">Figure 4 - Add Activity</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click <strong>Next</strong> in order to configure the Empty Activity, provide an appropriate title for the <em>Activity</em> (for example ‘MainActivity’, as shown in Figure 5).</li>
+</ul>
+
+<p><img src="images/figure5_android.png" title="Figure 5 - Customize the Activity" alt="Figure 5 - Customize the Activity" /></p>
+
+<h4 id="figure-5-customize-the-activity"><p style="text-align: center;">Figure 5 - Customize the Activity</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click <strong>Next</strong>, then select <strong>Blank Wear Activity</strong> in the Add an <em>Activity to Wear</em> dialogue window(Figure 6).</li>
+</ul>
+
+<p><img src="images/figure6_android.png" title="Figure 6 - Add an Activity to Wear" alt="Figure 6 - Add an Activity to Wear" /></p>
+
+<h4 id="figure-6-add-an-activity-to-wear"><p style="text-align: center;">Figure 6 - Add an Activity to Wear</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click <strong>Next</strong>, you will be presented with the <em>Customize the Activity</em> dialogue window.  You may optionally alter the default titles of your: <em>Activity Name</em>, <em>Layout Name</em>, <em>Round Layout Name</em>, and <em>Rectangular Layout Name</em> (Figure 7).</li>
+<li>Click <strong>Finish</strong></li>
+</ul>
+
+<p><img src="images/figure7_android.png" title="Figure 7 - Customize the Wear Activity" alt="Figure 7 - Customize the Wear Activity" /></p>
+
+<h4 id="figure-7-customize-the-wear-activity"><p style="text-align: center;">Figure 7 - Customize the Wear Activity</p></h4>
+
+<p><br></p>
+
+<h2 id="managing-project-dependencies">Managing Project Dependencies</h2>
+
+<ul>
+<li>From the <em>File</em> menu, navigate to <em>File</em> &gt; <em>New</em> &gt; <em>New Module</em> (Figure 8).</li>
+</ul>
+
+<p><img src="images/figure8_android.png" title=" Figure 8 - New Module" alt=" Figure 8 - New Module" /></p>
+
+<h4 id="figure-8-new-module"><p style="text-align: center;"> Figure 8 - New Module</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>The <em>New Module</em> dialogue window will appear. Select the <strong>Import .JAR/.AAR Package</strong> option (Figure 9).</li>
+<li>Click <strong>Next</strong></li>
+</ul>
+
+<p><img src="images/figure9_android.png" title=" Figure 9 - Import .JAR/.AAR Package" alt=" Figure 9 - Import .JAR/.AAR Package" /></p>
+
+<h4 id="figure-9-import-jar-aar-package"><p style="text-align: center;"> Figure 9 - Import .JAR/.AAR Package</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>The Create New Module dialogue window will appear (shown in Figure 10).</li>
+<li>In order to successfully create a new module, the developer must locate the necessary <strong>sdk-release</strong> file on their system.</li>
+</ul>
+
+<p><img src="images/figure10_android.png" title=" Figure 10 - Create New Module" alt=" Figure 10 - Create New Module" /></p>
+
+<h4 id="figure-10-create-new-module"><p style="text-align: center;"> Figure 10 - Create New Module</p></h4>
+
+<p><br></p>
+
+<ul>
+<li><p>Once the <strong>sdk-release</strong> file has been located, click <em>Finish</em>.</p></li>
+<li><p>In order to link the <strong>sdk-release</strong> file to the project as a dependency, the developer must navigate to <em>File</em> &gt; <em>Project Structure</em>, from the <em>File</em> menu (Figure 11).</p></li>
+</ul>
+
+<p><img src="images/figure11_android.png" title="Figure 11 - Project Structure" alt="Figure 11 - Project Structure" /></p>
+
+<h4 id="figure-11-project-structure"><p style="text-align: center;">Figure 11 - Project Structure</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>You will be presented with the Project Structure dialogue window.</li>
+<li>At the left-hand-side of the dialogue, select <strong>mobile</strong> from the <em>Modules</em> section.</li>
+<li>Click the <em>Dependencies</em> tab, then click the ‘<strong>+</strong>’ button (top right-hand-side of dialogue), then select the third option: <strong>3 Module Dependency</strong> (Figure 12).</li>
+</ul>
+
+<p><img src="images/figure12_android.png" title="Figure 12 - Module Dependency" alt="Figure 12 - Module Dependency" /></p>
+
+<h4 id="figure-12-module-dependency"><p style="text-align: center;">Figure 12 - Module Dependency</p></h4>
+
+<p></br></p>
+
+<ul>
+<li>You will be presented with the <em>Choose Modules</em> dialogue window (Figure 13).</li>
+</ul>
+
+<p><img src="images/figure13_android.png" title="Figure 13 - Choose Modules" alt="Figure 13 - Choose Modules" /></p>
+
+<h4 id="figure-13-choose-modules"><p style="text-align: center;">Figure 13 - Choose Modules</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Select the <strong>sdk-release</strong>, and click <strong>OK</strong>.</li>
+<li>You will return to the <em>Project Structure</em> dialogue window, once again, click <strong>OK</strong>.</li>
+</ul>
+
+<h2 id="including-permissions">Including Permissions</h2>
+
+<ul>
+<li>A number of permissions are required to use the Sensum <strong>sdk-release</strong>, shown in Code Snippet 1.</li>
+<li>Include these permissions within your manifest file (<em>AndroidManifest.xml</em>).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 1</p>
+</blockquote>
+<pre class="highlight xml tab-xml"><code><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.BLUETOOTH"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.BLUETOOTH_ADMIN"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_FINE_LOCATION"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span><span class="nt">/&gt;</span>
+ <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_NETWORK_STATE"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.WRITE_EXTERNAL_STORAGE"</span><span class="nt">/&gt;</span>
+</code></pre>
+<h2 id="creating-a-service">Creating a Service</h2>
+
+<ul>
+<li>The <strong>SensumSDK</strong> runs in the background of the application.
+The developer is required to create a <em>ServiceConnection</em>, that is responsible for communication between the application front-end and the <strong>SensumSDK</strong>.
+In order to create this <em>ServiceConnection</em>, follow the steps outlined within Code Snippet 2.</li>
+<li>The developer will need to create an instance of the <em>Messenger</em> object. This object has the ability to send <em>Message</em> objects to the <em>Service</em>. Once the over-ridden <code class="prettyprint">onServiceConnected</code> method is called, the <code class="prettyprint">Messenger</code> object is initialised using the passed in <code class="prettyprint">IBinder</code> object.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 2</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="n">ServiceConnection</span> <span class="n">mConnection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">componentName</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">iBinder</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mIsBound</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="n">mServiceMessenger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Messenger</span><span class="o">(</span><span class="n">iBinder</span><span class="o">);</span>
+        <span class="o">}</span>
+
+       <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceDisconnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">componentName</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"onServiceDisconnected: "</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+<ul>
+<li>Declare the Service within your manifest file (<em>AndroidManifest.xml</em>) as shown in Code Snippet 3.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 3</p>
+</blockquote>
+<pre class="highlight xml tab-xml"><code><span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">"co.sensum.sensumservice.SDK.SdkService"</span><span class="nt">/&gt;</span>
+</code></pre>
+<h2 id="using-a-broadcast-receiver">Using a Broadcast Receiver</h2>
+
+<ul>
+<li>A <em>BroadcastReceiver</em> ‘listens’ for (receives and handles) <em>Broadcast Intents</em>, sent by the <em>Service</em>.</li>
+<li>The <em>BroadcastReceiver</em> is essential as it manages messages sent from the <strong>sdk-release</strong>, within the front-end application.</li>
+<li>The <em>BroadcastReceiver</em> makes use of <em>Filters</em>, that determine which events the application should ‘listen’ for.</li>
+<li>The over-ridden method <em>.onReceive</em> takes two arguments: <em>Context</em> and <em>Intent</em>. The <em>Intent</em> parameter has an associated action that specifies how the
+<em>BroadcastReceiver</em> should behave.</li>
+<li>Table 1 outlines the filters included in the <em>Service</em> and the <em>Intent Extras</em> they return.</li>
+</ul>
+
+<h3 id="table-1">Table 1</h3>
+
+<table><thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+<th>IntentExtras</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>BLE_DEVICE_FILTER</strong></td>
+<td>Filters for BLE devices</td>
+<td><code class="prettyprint">ArrayList&lt;BluetoothDevice&gt;</code></td>
+</tr>
+<tr>
+<td><strong>VALUE_FILTER</strong></td>
+<td>Filters for heart rate value</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>GPS_FILTER</strong></td>
+<td>Filters for GPS values</td>
+<td><code class="prettyprint">Bundle</code></td>
+</tr>
+<tr>
+<td><strong>ACC_FILTER</strong></td>
+<td>Filters for acceleration values</td>
+<td><code class="prettyprint">Bundle</code></td>
+</tr>
+<tr>
+<td><strong>DEVICE_DISCONNECTED</strong></td>
+<td>Filters for a device disconnected value</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>API_RESPONSE</strong></td>
+<td>Filters for responses from the API</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>TOAST_MESSAGE</strong></td>
+<td>Filters for messages from the Service</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>CONNECTION_FILTER</strong></td>
+<td>Filters for connection BLE messages</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>BLUETOOTH_CONNECTION_FILTER</strong></td>
+<td>Filters for bluetooth connection messages</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>BLUETOOTH_DEVICE_FILTER</strong></td>
+<td>Filters for bluetooth devices</td>
+<td><code class="prettyprint">ArrayList&lt;BluetoothDevice&gt;</code></td>
+</tr>
+<tr>
+<td><strong>GSR_FILTER</strong></td>
+<td>Filters for GSR values</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+<tr>
+<td><strong>ACC_FAILED_REGISTERED</strong></td>
+<td>Filters for acceleration failure from unsupported devices</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>HELLO_FILTER</strong></td>
+<td>Filters for hello message</td>
+<td><code class="prettyprint">String</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="setting-up-the-broadcast-receiver">Setting up the Broadcast Receiver</h2>
+
+<ul>
+<li>Code Snippet 4 contains all necessary code that will allow you to setup a <em>BroadcastReceiver</em>.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 4</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">action</span><span class="o">){</span>
+                <span class="k">case</span> <span class="nl">HELLO_FILTER:</span>
+                    <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">),</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GPS_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">gpsBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">ACC_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">accBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="n">isAcc</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">VALUE_FILTER:</span>
+                    <span class="n">String</span> <span class="n">hrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GSR_FILTER:</span>
+                    <span class="n">String</span> <span class="n">gsrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">API_RESPONSE:</span>
+                    <span class="n">String</span> <span class="n">apiResponse</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">TOAST_MESSAGE:</span>
+                    <span class="n">String</span> <span class="n">toastMessage</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+<ul>
+<li>The <em>BroadcastReceiver</em> must be registered in order to receive <em>Intents</em> from a <em>Service</em>.</li>
+<li>The <code class="prettyprint">registerReceiver</code> method, takes two arguments: <em>BroadcastReceiver</em> and <em>IntentFilter</em>.</li>
+<li>We have included our own method that returns an <em>IntentFilter:</em> <code class="prettyprint">getUpdateIntentFilter</code> (this method is displayed within Code Snippet 6).</li>
+<li>This method should be called immediately on starting the application, therefore, it is placed within the <code class="prettyprint">.onResume</code> method, as shown in Code Snippet 5.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 5</p>
+</blockquote>
+<pre class="highlight java tab-java"><code> <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+        <span class="n">registerReceiver</span><span class="o">(</span><span class="n">mMessageReceiver</span><span class="o">,</span> <span class="n">getUpdateIntentFilter</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Code Snippet 6</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>  <span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">getUpdateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">IntentFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">HELLO_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GPS_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">ACC_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">VALUE_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GSR_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">API_RESPONSE</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">TOAST_MESSAGE</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">filter</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre>
+<ul>
+<li>When the application is destroyed (on application close/force-close), the <em>BroadcastReceiver</em> must be unregistered. This is handled via the <code class="prettyprint">.onDestroy</code> method.
+Code Snippet 7 demonstrates how to achieve this.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 7</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mIsBound</span><span class="o">){</span>
+            <span class="n">unbindService</span><span class="o">(</span><span class="n">mConnection</span><span class="o">);</span>
+            <span class="n">mIsBound</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="n">unregisterReceiver</span><span class="o">(</span><span class="n">mMessageReceiver</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+<h2 id="communicating-with-the-service">Communicating with the Service</h2>
+
+<ul>
+<li>The application’s communication with the <em>Service</em> requires that commands be sent via <em>Message</em> objects.</li>
+<li>The <em>Message</em> object contains a property called <code class="prettyprint">arg1</code> (which is an Integer value). This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8). This property (<code class="prettyprint">arg1</code>) will carry the command you want to request from the <em>Service</em>.</li>
+</ul>
+
+<h3 id="table-2">Table 2</h3>
+
+<table><thead>
+<tr>
+<th>Constants (of type &lsquo;Int&rsquo;)</th>
+<th>Required Bundle Data</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>CONNECT</strong></td>
+<td><code class="prettyprint">String DEVICE_NAME, String DEVICE_ADDRESS</code></td>
+</tr>
+<tr>
+<td><strong>BLE_SCAN</strong></td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>START_CAPTURE</strong></td>
+<td><code class="prettyprint">boolean ACCELERATION_CAPTURE, boolean HR_CAPTURE, boolean GPS_CAPTURE, boolean INPUT_CAPTURE, int DATA_RATE_SAMPLE, int DATA_RATE_SEND</code></td>
+</tr>
+<tr>
+<td><strong>CANCEL_CAPTURE</strong></td>
+<td><code class="prettyprint">boolean ACCELERATION_CAPTURE, boolean HR_CAPTURE, boolean GPS_CAPTURE, boolean INPUT_CAPTURE</code></td>
+</tr>
+<tr>
+<td><strong>LOGIN</strong></td>
+<td><code class="prettyprint">String USER_NAME, String PASSWORD, String API_BASEURL, String AUTH_TOKEN</code></td>
+</tr>
+<tr>
+<td><strong>GOOGLE_LOGIN</strong></td>
+<td><code class="prettyprint">String API_BASEURL_IAM, String API_KEY, String IDENTITY_POOL_ID, String GOOGLE_ID_TOKEN, String GOOGLE_AUTH_CODE</code></td>
+</tr>
+<tr>
+<td><strong>INPUT_TEXT</strong></td>
+<td><code class="prettyprint">String TEXT_MESSAGE</code></td>
+</tr>
+<tr>
+<td><strong>BLUETOOTH_SCAN</strong></td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>CONNECT_BLUETOOTH_DEVICE</strong></td>
+<td><code class="prettyprint">String DEVICE_NAME, String DEVICE_ADDRESS</code></td>
+</tr>
+<tr>
+<td><strong>HELLO</strong></td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>EXPORT_DATABASE</strong></td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>DELETE_ALL_DATA</strong></td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>This <em>Message</em> object also has the capacity to transmit data in the form of a <em>Bundle</em>.</li>
+<li>A <em>Bundle</em> contains associated data that can be interpreted by the <em>Service</em>.</li>
+<li>Table 2 indicates the relationship between selected Constants, and the requirements for a <em>Bundle</em> of a particular type.
+
+<ul>
+<li>e.g. If using the CONNECT constant, then the associated <em>Bundle</em> should contain two Strings, one for DEVICE_NAME, the other for DEVICE_ADDRESS.</li>
+</ul></li>
+<li>Code Snippet 8 illustrates how to construct a <em>Message</em> object, and how to send it on to the <em>Service</em>.</li>
+<li>The <em>Messenger</em> object, <code class="prettyprint">mServiceMessenger</code>, is able to execute its associated <code class="prettyprint">.send</code> method. This sends the constructed <em>Message</em> object to the <em>Service</em>.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 8</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendToService</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">,</span> <span class="kt">int</span> <span class="n">argValue</span><span class="o">){</span>
+        <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+        <span class="n">message</span><span class="o">.</span><span class="na">arg1</span> <span class="o">=</span> <span class="n">argValue</span><span class="o">;</span>
+        <span class="n">message</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">mServiceMessenger</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+<h2 id="testing-the-service">Testing the Service</h2>
+
+<ul>
+<li>To test the service the developer create a <em>Button</em> that will be able to send a <em>Message</em> to the <em>Service</em>.</li>
+<li>Within the <code class="prettyprint">onClickListener</code> make a call to the <code class="prettyprint">sendToService</code> method. Enter <strong>null</strong> as the first parameter (<em>Bundle</em>) and <strong>HELLO</strong> as the second parameter (<em>int</em>).</li>
+<li>This will send this the <em>Message</em> to the <em>Service</em>.</li>
+<li>The <em>Service</em> will receive this <em>Message</em> and send a <em>Broadcast</em> on which the <em>BroadcastReceiver</em> will listen for.</li>
+<li>The <em>BroadcastReceiver</em> will handle the <em>action</em> and in this case the <em>action</em> will fall under the HELLO_FILTER case.</li>
+<li>It is up to the developer what they wish to do with the returned <em>String</em>.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 9</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>  <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">action</span><span class="o">){</span>
+                <span class="k">case</span> <span class="nl">HELLO_FILTER:</span>
+                    <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">),</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GPS_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">gpsBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">ACC_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">accBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="n">isAcc</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">VALUE_FILTER:</span>
+                    <span class="n">String</span> <span class="n">hrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GSR_FILTER:</span>
+                    <span class="n">String</span> <span class="n">gsrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">API_RESPONSE:</span>
+                    <span class="n">String</span> <span class="n">apiResponse</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">TOAST_MESSAGE:</span>
+                    <span class="n">String</span> <span class="n">toastMessage</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+<ul>
+<li>Set up a button in your front-end activity/fragment</li>
+<li>Inside the <code class="prettyprint">onClickListener</code> include the lines shown in Code Snippet 10.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 10</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">hello_button</span><span class="o">);</span>
+<span class="n">button</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">sendToService</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">HELLO</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+<ul>
+<li>Then in the <em>BroadcastReceiver</em>, listen for the constant <strong>HELLO_FILTER</strong> (ensure that you are filtering for this in the call to register the receiver).</li>
+</ul>
+
+<h2 id="setting-up-ble">Setting up BLE</h2>
+
+<ul>
+<li>To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a Button object that will tell the <em>Service</em> to start scanning.</li>
+<li>As in the <a href ="#testing-the-service"><strong>Testing the Service</strong></a> section, the developer should execute the <code class="prettyprint">sendToService</code> method within the <em>Button’s</em> <code class="prettyprint">onClickListener</code> (following Table 2).</li>
+<li>The first parameter that the <code class="prettyprint">sendToService</code> method expects in this instance is <code class="prettyprint">null</code>, as there is no extra data that the Service needs to execute this task.</li>
+<li>The second parameter that it takes is <strong>BLE_SCAN</strong> (Code Snippet 11).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 11</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">scanButton</span><span class="o">);</span>
+<span class="n">button</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">sendToService</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">BLE_SCAN</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+<h2 id="receiving-ble-devices">Receiving BLE Devices</h2>
+
+<ul>
+<li>To receive devices from the <em>Service</em> the developer will have to set up the <em>BroadcastReceiver</em> to listen for the <strong>BLE_DEVICE_FILTER</strong> constant.</li>
+<li>Table 1 displays the data that the <em>Intent</em> received by the <em>BroadcastReceiver</em> carries.</li>
+<li>In this case, the data that is received is an <em>ArrayList</em> of <em>BluetoothDevice’s</em>.</li>
+<li>It is then up to the developer as to how they wish to display these devices. We would recommend that the user sets up a <em>ListView</em> or <em>RecyclerView</em>.</li>
+</ul>
+
+<h2 id="connecting-a-ble-device">Connecting a BLE Device</h2>
+
+<ul>
+<li>To connect a BLE device the developer will need to send two <em>String</em> objects as part of the <em>Bundle</em> object that will be sent to the <em>Service</em> as part of the <code class="prettyprint">sendToService</code> method (Code Snippet 12).</li>
+<li>According to Table 2, the two Strings that are required are the BLE devices’ name and address.</li>
+<li>These are both required in order to create a connection between the Android device and the BLE device.</li>
+<li>The developer should include the <strong>CONNECTION_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> overridden method. According to Table 1, the data received is of type <em>String</em>. This <em>String</em> is a connection message sent back from the <em>Service</em> to notify the user whether the connection was successful or not.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 12</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span>  <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+<span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">ServiceConstants</span><span class="o">.</span><span class="na">DEVICE_NAME</span><span class="o">,</span> <span class="n">deviceName</span><span class="o">);</span>
+<span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">ServiceConstants</span><span class="o">.</span><span class="na">DEVICE_ADDRESS</span><span class="o">,</span> <span class="n">deviceAddress</span><span class="o">);</span>
+<span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">CONNECT</span><span class="o">);</span>
+</code></pre>
+<h2 id="receiving-values">Receiving Values</h2>
+
+<ul>
+<li>This version of the <strong>SensumSDK</strong> only returns heart rate values from the BLE device, therefore the developer should ensure that the BLE device that they are using can detect heart rate.</li>
+<li>On connection the BLE device will send values to the <em>Service</em>. The <em>Service</em> will then broadcast these values to the application that the developer has built.</li>
+<li>The developer should include the <strong>VALUE_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
+<li>According to Table 1, the value received will be of type <em>String</em>. This value will be the heart rate.</li>
+</ul>
+
+<h2 id="bluetooth">Bluetooth</h2>
+
+<ul>
+<li>To scan for, receive, and read values from Bluetooth devices, please follow the steps previously outlined within the <a href = "#setting-up-the-ble">Setting up BLE</a> section of this tutorial.</li>
+<li>The same steps should be taken, however bear in mind that the constants should change i.e. replace BLE_SCAN with <strong>BLUETOOTH_SCAN</strong>.</li>
+<li>This version of the <strong>SensumSDK</strong> will only connect to a <em>Shimmer</em> device. This device returns GSR values.</li>
+<li>The developer should include the GSR_FILTER constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
+<li>According to Table 1 the value received will be of type <em>String</em>. This value will be the GSR value.</li>
+</ul>
+
+<p><strong>SensumSDK</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</p>
+
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.</p>
+
+<h2 id="receiving-gps-and-acceleration-values">Receiving GPS and Acceleration Values</h2>
+
+<ul>
+<li>GPS and Acceleration values will automatically be sent from the <em>Service</em> to the application’s frontend once the user has started the application and is authenticated (See <a href = "#google-sign-in">Google Sign-In Section</a>).</li>
+<li>The developer should include the <strong>GPS_FILTER</strong> and the <strong>ACC_FILTER</strong> constants within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
+<li>Both of these filters receive a bundle that contains multiple value types.</li>
+<li>Refer to Table 3 to discover the value types returned from the <em>Service</em>.</li>
+</ul>
+
+<h3 id="table-3">Table 3</h3>
+
+<table><thead>
+<tr>
+<th>Filter</th>
+<th>Bundle</th>
+<th>Constants</th>
+<th>Example Method Call</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>GPS Filter</strong></td>
+<td>Float speed</td>
+<td>SPEED_VALUE</td>
+<td>gpsBundle.getFloat(SPEED_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Double latitude</td>
+<td>LATITUDE_VALUE</td>
+<td>gpsBundle.getFloat(LATITUDE_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Double longitude</td>
+<td>LONGITUDE_VALUE</td>
+<td>gpsBundle.getFloat(LONGITUDE_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Double altitude</td>
+<td>ALTITUDE_VALUE</td>
+<td>gpsBundle.getFloat(ALTITUDE_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Float bearing</td>
+<td>BEARING_VALUE</td>
+<td>gpsBundle.getFloat(BEARING_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Float accuracy</td>
+<td>ACCURACY_VALUE</td>
+<td>gpsBundle.getFloat(ACCURACY_VALUE)</td>
+</tr>
+<tr>
+<td><strong>ACC_FILTER</strong></td>
+<td>Float x</td>
+<td>X_VALUE</td>
+<td>accBundle.getFloat(X_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Float y</td>
+<td>Y_VALUE</td>
+<td>accBundle.getFloat(Y_VALUE)</td>
+</tr>
+<tr>
+<td></td>
+<td>Float z</td>
+<td>Z_VALUE</td>
+<td>accBundle.getFloat(Z_VALUE)</td>
+</tr>
+</tbody></table>
+
+<h2 id="capturing-data">Capturing Data</h2>
+
+<ul>
+<li>Once the developer is able to receive data from the <em>Service</em> and is authorised (See <a href ="#google-sign-in">Google Sign-In Section</a>), they can start to send data to the <strong>SensumAPI</strong>.</li>
+<li>To do this the developer should create a <em>Button</em> object that implements the <code class="prettyprint">sendToService</code> method (See <a href = "testing-the-service">Hello example</a> &amp; <a href ="#table-2">Table 2</a> for more info).</li>
+<li><p>This will send a message to the Service to start sending captured data to the <strong>SensumAPI</strong>.</p></li>
+<li><p>The API will send back the analysed data to the service.</p></li>
+<li><p>Within your activity set up a button that will scan for BLE devices</p></li>
+<li><p>Just like the example before and using the table above setup the <code class="prettyprint">sendToService</code> method within the <code class="prettyprint">onClickListener</code></p></li>
+<li><p>To scan for BLE it will take <strong>null</strong> as the first parameter and <strong>BLE_SCAN</strong> for the second</p></li>
+<li><p>To retrieve your device list you will have to include the intent filter in your receiver as like before</p></li>
+<li><p>The intent filter for ble devices is BLE_DEVICE_FILTER</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 13</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="k">case</span> <span class="nl">BLE_DEVICE_FILTER:</span>
+    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">BluetoothDevice</span><span class="o">&gt;</span> <span class="n">bleDevices</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableArrayListExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+</code></pre>
+<ul>
+<li>The bundle which is returned from the broadcast intent includes an <em>ArrayList</em> of <em>BluetoothDevices</em>.</li>
+<li>It is up to you how you want to display this list i.e. <em>ListView</em> or <em>RecyclerView</em>.</li>
+</ul>
+
+<h2 id="connecting-a-ble-device">Connecting a BLE Device</h2>
+
+<ul>
+<li>To connect a BLE device you will need to send a bundle to the <em>Service</em> which includes two Strings: <strong>DEVICE_NAME</strong> and <strong>DEVICE_ADDRESS</strong>.</li>
+<li>These will be used to create the connection to the BLE device</li>
+<li>In your <em>BroadcastReceiver</em> you should include the <strong>CONNECTION_FILTER</strong> constant to listen for a response from the service in regards to your connection request.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 14</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="k">case</span> <span class="nl">CONNECTION_FILTER:</span>
+    <span class="n">String</span> <span class="n">connectionMessage</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">connectionMessage</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"connected"</span><span class="o">)){</span>
+    <span class="n">onConnection</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</code></pre>
+<h2 id="google-sign-in">Google Sign-In</h2>
+
+<ul>
+<li>For <em>Google Sign-In</em> the following <em>Play Service</em> dependency needs to be added to Gradle:</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 14</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">play</span><span class="o">-</span><span class="n">services</span><span class="o">-</span><span class="nl">auth:</span><span class="o">+</span><span class="err">'</span>
+</code></pre>
+<ul>
+<li>As part of enabling <em>Google APIs</em> or <em>Firebase</em> services in your Android application the <code class="prettyprint">google-services.json</code> is processed by the <code class="prettyprint">google-services</code> plugin. The <code class="prettyprint">google-services.json</code> is created using <em>Firebase</em> during enabling <em>Google Services</em> for your Android application and is generally placed in the app/ directory (at the root of the Android Studio app module).</li>
+<li><p>For <em>Google Sign-In</em> to work with <em>AWS</em> authentication, <code class="prettyprint">OAuth 2.0 client ID</code> (<em>Google Android Client ID</em>) is required by <em>AWS</em>. The <em>Google Android Client ID</em> is created using <em>Google Developer Console</em> by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio. The generated <em>Google Android Client ID</em> needs to be given to us for adding it to <em>AWS</em> for authentication.</p></li>
+<li><p>In the <code class="prettyprint">onCreate()</code> method of your sign-in <code class="prettyprint">Activity</code>, the <code class="prettyprint">GoogleSignInOptions</code> object should be instantiated which is used to create the <code class="prettyprint">GoogleApiClient</code> which is used for accessing the <em>Google Sign-In API</em>.</p></li>
+<li><p>The <em>Google Web Client ID</em> which is created in the <em>Google Developer Console</em> is required during the creation of the <em>Google Sign-In</em> object (shown in Code Snippet 15 as the <code class="prettyprint">gso</code> object).</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 15</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">GoogleSignInOptions</span> <span class="n">gso</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GoogleSignInOptions</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">GoogleSignInOptions</span><span class="o">.</span><span class="na">DEFAULT_SIGN_IN</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">requestEmail</span><span class="o">()</span>
+       <span class="o">.</span><span class="na">requestProfile</span><span class="o">()</span>
+       <span class="o">.</span><span class="na">requestIdToken</span><span class="o">(</span><span class="n">googleWebClientId</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">requestServerAuthCode</span><span class="o">(</span><span class="n">googleWebClientId</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">requestId</span><span class="o">()</span>
+       <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">googleApiClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GoogleApiClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">enableAutoManage</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">this</span> <span class="o">)</span>
+       <span class="o">.</span><span class="na">addApi</span><span class="o">(</span><span class="n">Auth</span><span class="o">.</span><span class="na">GOOGLE_SIGN_IN_API</span><span class="o">,</span> <span class="n">gso</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</code></pre>
+<ul>
+<li>The Google Sign-In needs to be triggered, this is achieved via an <em>Intent</em>. Code Snippet 16 provides an example of this.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 16</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">Intent</span> <span class="n">signInIntent</span> <span class="o">=</span> <span class="n">Auth</span><span class="o">.</span><span class="na">GoogleSignInApi</span><span class="o">.</span><span class="na">getSignInIntent</span><span class="o">(</span><span class="n">googleApiClient</span><span class="o">);</span>
+<span class="k">this</span><span class="o">.</span><span class="na">startActivityForResult</span><span class="o">(</span><span class="n">signInIntent</span><span class="o">,</span> <span class="n">RC_SIGN_IN</span><span class="o">);</span>
+</code></pre>
+<ul>
+<li>In <code class="prettyprint">onActivityResult</code>, the <em>Google Sign-In</em> results should be handled and upon successful sign-in the <em>Google Id Token</em> and <em>Google Web Client ID</em> needs to be passed to the <strong>SensumSDK</strong> as a Bundle which is used for maintaining the user session for using the <strong>SensumSDK</strong>. Also for authentication the <strong>SensumAPI</strong> base URL, key and <em>AWS Identity Pool ID</em> are also needed to pass as a bundle. The <strong>SensumSDK</strong> ServiceConstants are used to pass the authentication parameters to the <strong>SensumSDK</strong> through Bundle. Code Snippet 17 provides an example of this.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 17</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">RC_SIGN_IN</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">GoogleSignInResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Auth</span><span class="o">.</span><span class="na">GoogleSignInApi</span><span class="o">.</span><span class="na">getSignInResultFromIntent</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+       <span class="n">GoogleSignInAccount</span> <span class="n">acct</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">getSignInAccount</span><span class="o">();</span>
+       <span class="n">String</span> <span class="n">googleIdToken</span> <span class="o">=</span> <span class="n">acct</span><span class="o">.</span><span class="na">getIdToken</span><span class="o">();</span>
+       <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+       <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_BASEURL</span><span class="o">,</span> <span class="n">apiBaseUrl</span><span class="o">);</span>
+       <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_KEY</span><span class="o">,</span> <span class="n">apiKey</span><span class="o">);</span>
+       <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">IDENTITY_POOL_ID</span><span class="o">,</span> <span class="n">identityPoolId</span><span class="o">);</span>
+       <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_ID_TOKEN</span><span class="o">,</span> <span class="n">googleIdToken</span><span class="o">);</span>
+       <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_WEB_CLIENT_ID</span><span class="o">,</span> <span class="n">googleWebClientId</span><span class="o">);</span>
+       <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">GOOGLE_LOGIN</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+          <h1 id="tutorial-ios">Tutorial - iOS</h1>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>The <strong>SensumKit</strong> framework is only compatible with <strong>Swift 3</strong> and above. We strongly recommend using <strong>Xcode version 8 and above</strong>. We work on <strong>Xcode 8.3.3</strong> at time of our first public framework release.</p>
+
+<!-- (UPDATE WITH ACCURATE DATE) -->
+
+<h3 id="create-a-project">Create a project</h3>
+
+<ul>
+<li>Select <strong>Create a new Xcode project</strong> displayed in Figure 1.</li>
+</ul>
+
+<p><img src="images/figure1.png" title="Figure 1 - Project Creation in Xcode" alt="Figure 1 - Project Creation in Xcode" /></p>
+
+<h4 id="figure-1-project-creation-in-xcode"><p style="text-align: center;">Figure 1 - Project Creation in Xcode</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Select <strong>Single View Application</strong>.</li>
+<li>Select <strong>Swift</strong> as the language and <strong>iPhone</strong> as the target device.</li>
+</ul>
+
+<p><img src="images/figure2.png" title="Figure 2 - Project template selection in Xcode " alt="Figure 2 - Project template selection in Xcode " /></p>
+
+<h4 id="figure-2-project-template-selection-in-xcode"><p style="text-align: center;">Figure 2 - Project template selection in Xcode</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Name your application, for example: “SensumTutorialApplication” (as shown in Figure 3 below).</li>
+<li>Enter your specific details for the: <em>Team</em>, <em>Organization Name</em>, and <em>Organization Identifier</em> fields.</li>
+<li>Include <em>Unit Tests</em> and include <em>UI Tests</em> (<em>Core Data</em> can be omitted as <em>Realm</em> is the database framework employed, available from <a href = "https://realm.io/">https://realm.io/</a>).</li>
+</ul>
+
+<p><img src="images/figure3.png" title="Figure 3 - Project options in Xcode" alt="Figure 3 - Project options in Xcode " /></p>
+
+<h4 id="figure-3-project-options-in-xcode"><p style="text-align: center;">Figure 3 - Project options in Xcode</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>On completion of the above steps, select the <strong>Next</strong> button in order to save the project.</li>
+<li>Once the project has been saved you should now be presented with the Xcode project file, indicated in Figures 4 and 5 (in this instance, &ldquo;SensumTutorialApplication.xcodeproj&rdquo;, hereafter referred to as ‘the Xcode project file’).</li>
+</ul>
+
+<p><img src="images/figure4.png" title="Figure 4 - Overview of Xcode Environment" alt="Figure 4 - Overview of Xcode Environment" /></p>
+
+<h4 id="figure-4-overview-of-xcode-environment"><p style="text-align: center;">Figure 4 - Overview of Xcode Environment</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure5.png" title="Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected " alt="Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected " /></p>
+
+<h4 id="figure-5-overview-of-project-navigator-top-left-hand-side-of-figure-4-xcode-project-file-selected"><p style="text-align: center;">Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected </p></h4>
+
+<p><br></p>
+
+<h2 id="installing-the-sensumkit-framework">Installing the SensumKit framework</h2>
+
+<ul>
+<li>Select the Xcode project file, navigate to the <em>General</em> tab, scroll down the page to the <em>Embedded Binaries</em> section (highlighted in Figure 6)</li>
+</ul>
+
+<p><img src="images/figure6.png" title="Figure 6 - Accessing Embedded Binaries within General tab of the Xcode project file" alt="Figure 6 - Accessing *Embedded Binaries* within *General* tab of the Xcode project file" /></p>
+
+<h4 id="figure-6-accessing-embedded-binaries-within-general-tab-of-the-xcode-project-file"><p style="text-align: center;">Figure 6 - Accessing Embedded Binaries within General tab of the Xcode project file</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Locate the provided <strong>SensumKit.framework</strong> file.</li>
+</ul>
+
+<p><img src="images/figure7.png" title="Figure 7 - SensumKit.framework" alt="Figure 7 - SensumKit.framework" /></p>
+
+<h4 id="figure-7-sensumkit-framework"><p style="text-align: center;">Figure 7 - SensumKit.framework </p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Drag the <strong>SensumKit.framework</strong> into the <em>Embedded Binaries</em> section of the Xcode project file, as shown in Figure 8.</li>
+</ul>
+
+<p><img src="images/figure8.png" title="Figure 8 - Import SensumKit.framework" alt="Figure 8 - Import SensumKit.framework" /></p>
+
+<h4 id="figure-8-import-sensumkit-framework"><p style="text-align: center;">Figure 8 - Import SensumKit.framework</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>A dialogue box will present you with options relating to adding the framework (Figure 9).<br>
+Ensure <strong>Copy items if needed</strong> is selected, then press <strong>Finish</strong>.</li>
+</ul>
+
+<p><img src="images/figure9.png" title="Figure 9 - Embedded Binaries import dialogue box" alt="Figure 9 - Embedded Binaries import dialogue box " /></p>
+
+<h4 id="figure-9-embedded-binaries-import-dialogue-box"><p style="text-align: center;">Figure 9 - Embedded Binaries import dialogue box</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>The successfully imported framework should then appear as displayed in Figure 10 below.</li>
+</ul>
+
+<p><img src="images/figure10.png" title="Figure 10 - SensumKit.framework imported into Embedded Libraries" alt="Figure 10 - SensumKit.framework imported into Embedded Libraries" /></p>
+
+<h4 id="figure-10-sensumkit-framework-imported-into-embedded-libraries"><p style="text-align: center;">Figure 10 - SensumKit.framework imported into Embedded Libraries</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Select the Xcode project file within the Project Navigator.</li>
+<li>Navigate to <em>Linked Frameworks and Libraries</em>.</li>
+<li>Ensure <strong>SensumKit.framework</strong> is listed as both an <em>Embedded Binary</em>, and as a <em>Linked Framework and Library</em> (as shown below in Figure 11). N.B. Adding an embedded binary should automatically create a linked framework.</li>
+</ul>
+
+<p><img src="images/figure11.png" title="Figure 11 - SensumKit.framework as a Linked Framework and Library" alt="Figure 11 - SensumKit.framework as a Linked Framework and Library" /></p>
+
+<h4 id="figure-11-sensumkit-framework-as-a-linked-framework-and-library">Figure 11 - SensumKit.framework as a Linked Framework and Library</h4>
+
+<h2 id="carthage-and-dependencies">Carthage and Dependencies</h2>
+
+<ul>
+<li>Any attempt to run the project in its current state will result in error, as shown in Figure 12.</li>
+</ul>
+
+<p><img src="images/figure12.png" title="Figure 12 - Xcode error message due to missing dependencies" alt="Figure 12 - Xcode error message due to missing dependencies" /></p>
+
+<h4 id="figure-12-xcode-error-message-due-to-missing-dependencies"><p style="text-align: center;"> Figure 12 - Xcode error message due to missing dependencies</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>This error is due to the fact that the project is missing essential framework dependencies.</li>
+<li><p>In order to solve this issue, Carthage must be installed (a very useful dependency manager, available from: <a href = "https://github.com/Carthage/Carthage#installing-carthage">Carthage Install Guide</a></p></li>
+<li><p>We recommend using Homebrew as the install method (available from: <a href = "https://brew.sh">Homebrew Install Guide</a>).</p></li>
+</ul>
+
+<h3 id="process">Process</h3>
+
+<ul>
+<li>Locate the Cartfile provided with the <strong>SensumKit.framework</strong>.</li>
+<li>Drag it into the Xcode project as shown in Figures 13-14.</li>
+</ul>
+
+<p><img src="images/figure13.png" title="Figure 13 - Dragging Cartfile from source" alt="Figure 13 - Dragging Cartfile from source " /></p>
+
+<h4 id="figure-13-dragging-cartfile-from-source"><p style="text-align: center;">Figure 13 - Dragging Cartfile from source</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure14.png" title="Figure 14 - Dragging Cartfile to destination within Xcode" alt="Figure 14 - Dragging Cartfile to destination within Xcode" /></p>
+
+<h4 id="figure-14-dragging-cartfile-to-destination-within-xcode"><p style="text-align: center;">Figure 14 - Dragging Cartfile to destination within Xcode</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>A dialogue box will present you with options relating to adding the Cartfile (Figure 15).<br></li>
+<li>Ensure <strong>Copy items if needed</strong> is selected, then press <strong>Finish</strong>.</li>
+</ul>
+
+<p><img src="images/figure15.png" title="Figure 15 - Cartfile import dialogue box" alt="Figure 15 - Cartfile import dialogue box" /></p>
+
+<h4 id="figure-15-cartfile-import-dialogue-box"><p style="text-align: center;">Figure 15 - Cartfile import dialogue box</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure16.png" title="Figure 16 - Overview of Project Navigator on successful import of Cartfile" alt="Figure 16 - Overview of Project Navigator on successful import of Cartfile" /></p>
+
+<h4 id="figure-16-overview-of-project-navigator-on-successful-import-of-cartfile"><p style="text-align: center;">Figure 16 - Overview of Project Navigator on successful import of Cartfile</p></h4>
+
+<p><br></p>
+
+<ul>
+<li><p>Alternatively, if you are already using Carthage, and working with a pre-existing project Cartfile, copy the contents of the Cartfile provided with the <strong>SensumKit.framework</strong> into your own Cartfile.</p></li>
+<li><p>In order to make use of successfully imported/altered Cartfile, navigate to your project’s root directory via the Terminal application, ensuring that the installed Carthage software is up to date (as shown in Figures 17 and 18).</p></li>
+</ul>
+
+<p><img src="images/figure17.png" title="Figure 17 - Updating Carthage via Terminal" alt="Figure 17 - Updating Carthage via Terminal" /></p>
+
+<h4 id="figure-17-updating-carthage-via-terminal"><p style="text-align: center;">Figure 17 - Updating Carthage via Terminal</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure18.png" title=" Figure 18 - Updating Carthage via Terminal (detailed output displayed )" alt="Figure 18 - Updating Carthage via Terminal (detailed output displayed )" /></p>
+
+<h4 id="figure-18-updating-carthage-via-terminal-detailed-output-displayed"><p style="text-align: center;">Figure 18 - Updating Carthage via Terminal (detailed output displayed )</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>The necessary commands can be found in Code Snippet 1.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 1</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="cp">#If you're not using brew don't run this</span>
+<span class="n">brew</span> <span class="n">upgrade</span> <span class="n">carthage</span>
+<span class="cp">#cd to your project (yours may be named differently)</span>
+<span class="n">cd</span> <span class="o">&lt;</span><span class="kt">Root</span> <span class="kt">Project</span> <span class="kt">Directory</span><span class="o">&gt;</span>
+<span class="cp">#Update brings in all new changes</span>
+<span class="n">carthage</span> <span class="n">update</span>
+</code></pre>
+<ul>
+<li>This process may take quite some time, please be patient.</li>
+</ul>
+
+<h2 id="link-frameworks-provided-via-carthage">Link frameworks provided via Carthage</h2>
+
+<ul>
+<li>It is necessary to link the frameworks Carthage has downloaded to our project/application.</li>
+<li>Select the Xcode project file, navigate to the <em>General</em> tab, scroll down the page to the <em>Linked Frameworks and Libraries</em> section (highlighted in Figure 19).</li>
+</ul>
+
+<p><img src="images/figure19.png" title="Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file" alt="Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file" /></p>
+
+<h4 id="figure-19-linked-frameworks-and-libraries-section-within-general-tab-of-the-xcode-project-file"><p style="text-align: center;">Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Within this view, click the ‘<strong>+</strong>’ button .</li>
+<li>Click on <strong>Add other&hellip;</strong> at the lower left-hand-side of the pop-up window (Figure 20).</li>
+</ul>
+
+<p><img src="images/figure20.png" title="Figure 20 - Selecting frameworks/libraries to add to the Xcode project" alt="Figure 20 - Selecting frameworks/libraries to add to the Xcode project" /></p>
+
+<h4 id="figure-20-selecting-frameworks-libraries-to-add-to-the-xcode-project"><p style="text-align: center;">Figure 20 - Selecting frameworks/libraries to add to the Xcode project</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>A file system navigation window should appear, navigate to the root folder of the Xcode project.</li>
+<li>Within this root project folder, a Carthage folder should be present.</li>
+<li>Navigate to Carthage &gt; Build &gt; iOS (Figure 21).</li>
+</ul>
+
+<p><img src="images/figure21.png" title="Figure 21 - Navigating to Carthage iOS frameworks " alt="Figure 21 - Navigating to Carthage iOS frameworks " /></p>
+
+<h4 id="figure-21-navigating-to-carthage-ios-frameworks"><p style="text-align: center;">Figure 21 - Navigating to Carthage iOS frameworks</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>It is convenient/more efficient to search by file type in this file navigation window.</li>
+<li>Select the column labelled <em>Kind</em> within the iOS folder, all of the framework files should now be listed at the top of the list.</li>
+<li>Use the <strong>Command</strong> button (<strong>cmd ⌘</strong>), to select the five frameworks listed within Code Snippet 2.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 2</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kt">AWSCognitoIdentityProvider</span><span class="o">.</span><span class="n">framework</span><span class="err">’</span>
+<span class="kt">AWSCore</span><span class="o">.</span><span class="n">framework</span>
+<span class="kt">Realm</span><span class="o">.</span><span class="n">framework</span>
+<span class="kt">RealmSwift</span><span class="o">.</span><span class="n">framework</span>
+<span class="kt">CryptoSwift</span><span class="o">.</span><span class="n">framework</span>
+</code></pre>
+<ul>
+<li>Add these five to your project’s frameworks by clicking on the <strong>Open</strong> button.</li>
+<li>On successful completion of the above steps, your frameworks list should now appear as shown in Figure 22.</li>
+</ul>
+
+<p><img src="images/figure22.png" title="Figure 22 - Overview of successfully linked frameworks within the *Linked Frameworks and Libraries*" alt="Figure 22 - Overview of successfully linked frameworks within the *Linked Frameworks and Libraries*" /></p>
+
+<h4 id="figure-22-overview-of-successfully-linked-frameworks-within-the-linked-frameworks-and-libraries"><p style="text-align: center;">Figure 22 - Overview of successfully linked frameworks within the <em>Linked Frameworks and Libraries</em></p></h4>
+
+<p><br></p>
+
+<h2 id="create-a-run-script">Create a run script</h2>
+
+<ul>
+<li> Navigate to the <em>Build Phases</em> section of the Xcode project file (Figure 23).</li>
+</ul>
+
+<p><img src="images/figure23.png" title="Figure 23 - Build Phases section of the Xcode project file" alt="Figure 23 - Build Phases section of the Xcode project file" /></p>
+
+<h4 id="figure-23-build-phases-section-of-the-xcode-project-file"><p style="text-align: center;">Figure 23 - Build Phases section of the Xcode project file</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click the ‘<strong>+</strong>’ button at the top of this view (above the <em>Target Dependencies</em> header).</li>
+<li>Select <strong>New Run Script Phase</strong> (Figure 24).</li>
+</ul>
+
+<p><img src="images/figure24.png" title="Figure 24 - Adding a New Script Run Phase" alt="Figure 24 - Adding a New Script Run Phase" /></p>
+
+<h4 id="figure-24-adding-a-new-script-run-phase"><p style="text-align: center;">Figure 24 - Adding a New Script Run Phase</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>In the body of the script enter the following line from Code Snippet 3.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 3</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">carthage</span> <span class="n">copy</span><span class="o">-</span><span class="n">frameworks</span>
+</code></pre>
+<ul>
+<li>The run script should now appear as shown in Figure 25.</li>
+</ul>
+
+<p><img src="images/figure25.png" title="Figure 25 - View of successfully added Run Script" alt="Figure 25 - View of successfully added Run Script" /></p>
+
+<h4 id="figure-25-view-of-successfully-added-run-script"><p style="text-align: center;">Figure 25 - View of successfully added Run Script</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Click the ‘<strong>+</strong>’ icon again in order to add input files to this newly created <em>Run Script</em>.</li>
+<li>Add the five lines show in Code Snippet 4.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 4 - Adding input files to the <em>Run Script</em></p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="err">$</span><span class="p">(</span><span class="kt">SRCROOT</span><span class="p">)</span><span class="o">/</span><span class="kt">Carthage</span><span class="o">/</span><span class="kt">Build</span><span class="o">/</span><span class="n">iOS</span><span class="o">/</span><span class="kt">Realm</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">SRCROOT</span><span class="p">)</span><span class="o">/</span><span class="kt">Carthage</span><span class="o">/</span><span class="kt">Build</span><span class="o">/</span><span class="n">iOS</span><span class="o">/</span><span class="kt">RealmSwift</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">SRCROOT</span><span class="p">)</span><span class="o">/</span><span class="kt">Carthage</span><span class="o">/</span><span class="kt">Build</span><span class="o">/</span><span class="n">iOS</span><span class="o">/</span><span class="kt">AWSCore</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">SRCROOT</span><span class="p">)</span><span class="o">/</span><span class="kt">Carthage</span><span class="o">/</span><span class="kt">Build</span><span class="o">/</span><span class="n">iOS</span><span class="o">/</span><span class="kt">AWSCognitoIdentityProvider</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">SRCROOT</span><span class="p">)</span><span class="o">/</span><span class="kt">Carthage</span><span class="o">/</span><span class="kt">Build</span><span class="o">/</span><span class="n">iOS</span><span class="o">/</span><span class="kt">CryptoSwift</span><span class="o">.</span><span class="n">framework</span>
+</code></pre>
+<ul>
+<li>On completion of the above steps, the <em>Input Files</em> section should appear as shown in Figure 26.</li>
+</ul>
+
+<p><img src="images/figure26.png" title="Figure 26 - Overview of updated Input Files section" alt="Figure 26 - Overview of updated Input Files section" /></p>
+
+<h4 id="figure-26-overview-of-updated-input-files-section"><p style="text-align: center;">Figure 26 - Overview of updated Input Files section</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>The steps outlined above need to be repeated to create output files.</li>
+<li>Click the ‘<strong>+</strong>’ icon again in order to add output files to this newly created <em>Run Script</em>.</li>
+<li>Add the five lines of code shown in Code Snippet 5.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 5 - Adding output files to the Run Script</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="err">$</span><span class="p">(</span><span class="kt">BUILT_PRODUCTS_DIR</span><span class="p">)</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="kt">FRAMEWORKS_FOLDER_PATH</span><span class="p">)</span><span class="o">/</span><span class="kt">Realm</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">BUILT_PRODUCTS_DIR</span><span class="p">)</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="kt">FRAMEWORKS_FOLDER_PATH</span><span class="p">)</span><span class="o">/</span><span class="kt">RealmSwift</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">BUILT_PRODUCTS_DIR</span><span class="p">)</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="kt">FRAMEWORKS_FOLDER_PATH</span><span class="p">)</span><span class="o">/</span><span class="kt">AWSCore</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">BUILT_PRODUCTS_DIR</span><span class="p">)</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="kt">FRAMEWORKS_FOLDER_PATH</span><span class="p">)</span><span class="o">/</span><span class="kt">AWSCognitoIdentityProvider</span><span class="o">.</span><span class="n">framework</span>
+<span class="err">$</span><span class="p">(</span><span class="kt">BUILT_PRODUCTS_DIR</span><span class="p">)</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="kt">FRAMEWORKS_FOLDER_PATH</span><span class="p">)</span><span class="o">/</span><span class="kt">CryptoSwift</span><span class="o">.</span><span class="n">framework</span>
+</code></pre>
+<ul>
+<li>On completion of the above steps, the <em>Output Files</em> section should appear as shown in Figure 27.</li>
+</ul>
+
+<p><img src="images/figure27.png" title="Figure 27 - Overview of updated *Output Files* section" alt="Figure 27 - Overview of updated *Output Files* section" /></p>
+
+<h4 id="figure-27-overview-of-updated-output-files-section"><p style="text-align: center;">Figure 27 - Overview of updated <em>Output Files</em> section</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>At this stage, the project should be able to build successfully without errors.</li>
+<li>In order to build the project, click the <strong>Run</strong> button within Xcode (Figure 28).</li>
+</ul>
+
+<p><img src="images/figure28.png" title="Figure 28 - Xcode ‘Run’ button" alt="Figure 28 - Xcode ‘Run’ button" /></p>
+
+<h4 id="figure-28-xcode-run-button"><p style="text-align: center;">Figure 28 - Xcode ‘Run’ button</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Following a successful build, the <strong>SensumKit</strong> can now be utilised within your own Xcode project.</li>
+<li>In order to make use of the <strong>SensumKit</strong>, add the code shown in Code Snippet 6 to your <em>ViewController</em> class. No errors should appear.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 6 - Importing the SensumKit into your own project</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">SensumKit</span>
+</code></pre>
+<ul>
+<li>Your project should now also contain a Frameworks group where you should drag-and-drop the <strong>SensumKit.framework</strong> folder into.</li>
+</ul>
+
+<h2 id="using-cocoapods-for-google-sign-in">Using CocoaPods (for Google Sign-In)</h2>
+
+<ul>
+<li>CocoaPods must be installed (available from: <a href = "https://cocoapods.org/app">https://cocoapods.org/app</a> ).</li>
+<li>Ensure CocoaPods is both installed and up to date by running the code shown in Code Snippet 7 within the Terminal application.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 7 - Installing CocoaPods</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>sudo gem install cocoapods
+</code></pre>
+<ul>
+<li>The user has the option of using the command-line-interface or the CocoaPods GUI to manage their pods. We have utilised the GUI application in-house.</li>
+<li>On opening the CocoaPods GUI you will be presented with the view shown in Figure 29.</li>
+</ul>
+
+<p><img src="images/figure29.png" title="Figure 29 - CocoaPods GUI" alt="Figure 29 - CocoaPods GUI" /></p>
+
+<h4 id="figure-29-cocoapods-gui"><p style="text-align: center;">Figure 29 - CocoaPods GUI</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>To generate a new Podfile from your desired Xcode project, follow the steps shown in Figures 30-32.</li>
+</ul>
+
+<p><img src="images/figure30.png" title="Figure 30 - Creating a new Podfile from an Xcode Project" alt="Figure 30 - Creating a new Podfile from an Xcode Project" /></p>
+
+<h4 id="figure-30-creating-a-new-podfile-from-an-xcode-project"><p style="text-align: center;">Figure 30 - Creating a new Podfile from an Xcode Project</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure31.png" title="Figure 31 - Selecting the Xcode Project" alt="Figure 31 - Selecting the Xcode Project" /></p>
+
+<h4 id="figure-31-selecting-the-xcode-project-file"><p style="text-align: center;">Figure 31 - Selecting the Xcode Project file</p></h4>
+
+<p><br></p>
+
+<p><img src="images/figure32.png" title="Figure 32 - Overview of newly created Podfile for selected Xcode Project" alt="Figure 32 - Overview of newly created Podfile for selected Xcode Project" /></p>
+
+<h4 id="figure-32-overview-of-newly-created-podfile-for-selected-xcode-project"><p style="text-align: center;">Figure 32 - Overview of newly created Podfile for selected Xcode Project</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Below the comment <code class="prettyprint"># Pods for SensumTutorialApplication</code> (Line 10 in Figure 32), add the text shown in Code Snippet 8.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 8 - Adding a pod to the Podfile</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="n">pod</span> <span class="err">'</span><span class="kt">GoogleSignIn</span><span class="err">'</span><span class="p">,</span> <span class="err">'</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">1</span><span class="err">'</span>
+</code></pre>
+<ul>
+<li>Once the above line has been added, select <strong>Install(verbose)</strong> as shown in Figure 33.</li>
+</ul>
+
+<p><img src="images/figure33.png" title="Figure 33 - Installing specified pods" alt="Figure 33 - Installing specified pods" /></p>
+
+<h4 id="figure-33-installing-specified-pods"><p style="text-align: center;">Figure 33 - Installing specified pods</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>CocoaPods will now download the necessary files to use any pods present within the Podfile.</li>
+<li>As CocoaPods downloads and installs the required files, the view should appear as shown in Figure 34.</li>
+</ul>
+
+<p><img src="images/figure34.png" title="Figure 34 - CocoaPods fetching necessary pods " alt="Figure 34 - CocoaPods fetching necessary pods " /></p>
+
+<h4 id="figure-34-cocoapods-fetching-necessary-pods"><p style="text-align: center;">Figure 34 - CocoaPods fetching necessary pods</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>Once the above process has completed, close your Xcode project.</li>
+<li><strong>IMPORTANT:</strong> In order for the newly associated pods to function correctly, it is <strong>imperative</strong> that the Xcode project be opened using the project’s <strong>.xcworkspace</strong> file (white icon in macOS Finder); <strong>NOT</strong> via the <em>.xcodeproj</em> file (blue icon in macOS Finder)!</li>
+<li>Figure 35 displays an overview of the root folder of your Xcode project, the <em>.xcworkspace</em> file is highlighted with a green icon.</li>
+</ul>
+
+<p><img src="images/figure35.png" title="Figure 35 - Overview of Xcode Project folder" alt="Figure 35 - Overview of Xcode Project folder" /></p>
+
+<h4 id="figure-35-overview-of-xcode-project-folder"><p style="text-align: center;">Figure 35 - Overview of Xcode Project folder</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>To run the app:</li>
+<li>Navigate to <em>ViewController.swift</em> within the Xcode Project.</li>
+<li>Add the line “import SensumKit” (shown in Line 10 of Figure 36).</li>
+<li>Press the <strong>Run</strong> button (top left-hand-side of Figure 36).</li>
+<li>A successful build will display an empty white screen on your iOS device, no errors should be shown.</li>
+</ul>
+
+<p><img src="images/figure36.png" title="Figure 36 - Utilising the SensumKit within an Xcode project" alt="Figure 36 - Utilising the SensumKit within an Xcode project" /></p>
+
+<h4 id="figure-36-utilising-the-sensumkit-within-an-xcode-project"><p style="text-align: center;">Figure 36 - Utilising the SensumKit within an Xcode project</p></h4>
+
+<p><br></p>
+
+<h2 id="starting-the-sensumsdk">Starting the SensumSDK</h2>
+
+<ul>
+<li><p>To start the <strong>SensumSDK</strong> you will need:</p>
+
+<ul>
+<li>an <em>API Key</em>,</li>
+<li>a <em>host URL</em>,</li>
+<li>and a <em>stage URL</em>.</li>
+</ul></li>
+<li><p>We will provide you with the <em>API Key</em> as a string, all you have to do is pass this string into the <em>SensumSDKManager</em> .</p></li>
+<li><p>By default, the <em>host URL</em> and <em>stage URL</em> should be <strong>api.sensum.co</strong> and <strong>v0</strong> respectively, unless we have instructed you otherwise.</p></li>
+<li><p>In order to create a single instance of the <em>SensumSDKManager</em>, follow the example within Code Snippet 9 (the example makes use of a <em>ViewController</em> to do this, but this could be achieved within any file)</p></li>
+<li><p>This single instance of the <em>SensumSDKManager</em> can then be referenced from elsewhere within your application.</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 9</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">import</span> <span class="kt">SensumKit</span>
+
+<span class="kd">class</span> <span class="kt">TabBarController</span><span class="p">:</span> <span class="kt">UITabBarController</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">sensumSDK</span> <span class="p">:</span> <span class="kt">SensumSDKManager</span><span class="p">?</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+           <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+           <span class="n">sensumSDK</span> <span class="o">=</span> <span class="kt">SensumSDKManager</span><span class="p">(</span>
+               <span class="nv">requestEngineInternalInSeconds</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+               <span class="nv">apiKey</span><span class="p">:</span> <span class="s">"PublicDemoKeyForDocumentation"</span><span class="p">,</span>
+               <span class="nv">host</span><span class="p">:</span> <span class="s">"api.sensum.co"</span><span class="p">,</span>
+               <span class="nv">stage</span><span class="p">:</span> <span class="s">"v0"</span><span class="p">)</span>
+        <span class="nf">startEverythingUpdating</span><span class="p">()</span>
+       <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">startEverythingUpdating</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">accelerometer</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="nf">startUpdating</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id="getting-accelerometer-and-gps-data-from-the-sensumsdk">Getting Accelerometer and GPS Data from the SensumSDK</h2>
+
+<ul>
+<li><p>Once you have started the <strong>SensumSDK</strong> as shown in the previous example, you can query for both location (GPS) and accelerometer data locally.</p></li>
+<li><p><strong>SensumKit</strong> uses listener protocols to provide classes with a means to query and listen for updates. To implement an accelerometer listener, first you must import <em>CoreMotion</em> at the top of your class:</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 10</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">CoreMotion</span>
+</code></pre>
+<ul>
+<li>Now extend your <em>ViewController</em> (shown in Code Snippet 11) by implementing the <strong>SensumSDK</strong> Listener protocol for <em>AccelerometerListener</em>:</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 11</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">AccelerometerViewController</span><span class="p">:</span> <span class="kt">AccelerometerListener</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">accelerationUpdated</span><span class="p">(</span><span class="nv">newAcceleration</span><span class="p">:</span> <span class="kt">CMAcceleration</span><span class="p">,</span> <span class="nv">dateTime</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">newAcceleration</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<ul>
+<li>Finally register the listener in your class (preferably in your <code class="prettyprint">viewDidLoad()</code> method), referencing the <strong>SensumSDK</strong> variable you first created (see Code Snippet 12).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 12</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">accelerometer</span><span class="o">.</span><span class="nf">assignListener</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+</code></pre>
+<ul>
+<li>Please note that if you intend to set <em>UIView</em> objects from the output of the listeners, it is necessary to dispatch them to the main queue as shown in Code Snippet 11. The output of Code Snippet 11 should result in the following:</li>
+</ul>
+
+<p><code class="prettyprint">CMAcceleration(x: 0.00097714154981076717, y: -0.001684999093413353, z: -0.010779784061014652)</code></p>
+
+<ul>
+<li>To get GPS updates you can follow the same approach. First import <em>CoreLocation</em> so you can handle the objects in your class.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 13</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">CoreLocation</span>
+</code></pre>
+<ul>
+<li>Now extend your <em>ViewController</em> as below by implementing the <strong>SensumSDK</strong> Listener protocol for <em>AccelerometerListener</em>:</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 14</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">GPSViewController</span><span class="p">:</span> <span class="kt">LocationListener</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">locationUpdated</span><span class="p">(</span><span class="nv">newLocation</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">newLocation</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<ul>
+<li>Finally register the listener in your class, (preferably in your <code class="prettyprint">viewDidLoad()</code> method), referencing the <strong>SensumSDK</strong> variable you first created (see Code Snippet 15).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 15</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">assignListener</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+</code></pre>
+<ul>
+<li>Please note that if you intend to set <em>UIView</em> objects from the output of the listeners, it is necessary to dispatch them to the main queue as shown in Code Snippet 14. The output of Code Snippet 14 should result in the following:</li>
+</ul>
+
+<p><code class="prettyprint">&lt;+54.58727634,-5.90740191&gt; +/- 50.00m (speed 0.00 mps / course -1.00) @ 01/09/2017, 10:51:08 British Summer Time</code></p>
+
+<h2 id="scanning-for-ble-devices">Scanning for BLE devices</h2>
+
+<ul>
+<li><strong>SensumKit</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</li>
+</ul>
+
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.</p>
+
+<ul>
+<li>To connect a BLE device through the <strong>SensumSDK</strong>, you may wish to introduce a tableView or list style UI element which users can select and connect to. In this example we have added a <em>UITableView</em> element to a <em>ViewController</em> and created a <em>Prototype Cell</em> with the <em>identifier</em> as BLE_CELL.</li>
+<li><p>Ensure your table datasource and delegate is set to your <em>ViewController</em> and implement the required functions. Ensure you have a tableView variable from your outlet in the class file.</p></li>
+<li><p>Next, import <em>CoreBluetooth</em> so you can manage the <em>CBPeripheral</em> type which is a parameter in the listener function (see Code Snippet 16). If you are working in a new class, don&rsquo;t forget to <code class="prettyprint">import SensumKit</code>.</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 16</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">CoreBluetooth</span>
+</code></pre>
+<ul>
+<li>Next, implement the <em>BluetoothListener</em> extension as shown in Code Snippet 17.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 17</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">BluetoothTableViewController</span><span class="p">:</span> <span class="kt">BluetoothListener</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceDiscovered</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">tableView</span><span class="o">.</span><span class="nf">reloadData</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">bpmUpdated</span><span class="p">(</span><span class="nv">newBpm</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">dateTime</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceConnectionSuccess</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceConnectionFailure</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceDisconnected</span><span class="p">(</span><span class="nv">disconnectedPeripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre>
+<ul>
+<li>Each time a device is discovered, call <code class="prettyprint">reloadData()</code> on your tableView variable in the class (demonstrated in Code Snippet 17).</li>
+<li>Assign your <strong>SensumSDK</strong> listener as shown in Code Snippet 18.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 18</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">assignListener</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+</code></pre>
+<ul>
+<li>You will not see updates fired from the <strong>SensumSDK</strong> until you call <code class="prettyprint">sdkManager?.bluetooth.startScanForDevices()</code> which we have previously done in <code class="prettyprint">viewDidAppear()</code> or <code class="prettyprint">viewDidLoad()</code>, or alternatively, these can be set via a button press.</li>
+<li>For these updates to appear in the <em>UITableView•, you will need to customise two of its functions implemented as part of the *UITableView</em>,in addition to creating a custom class that inherits from the properties of <em>UITableViewCell</em>.</li>
+<li>Create a new Cocoa Touch Class, call it <code class="prettyprint">BluetoothPeripheralTableViewCell</code> and ensure it inherits from <em>UITableViewCell</em>. Then use the contents of Code Snippet 19 to quickly launch a basic example that will simply display the name of the device.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 19</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">import</span> <span class="kt">CoreBluetooth</span>
+
+<span class="kd">class</span> <span class="kt">BluetoothPeripheralTableViewCell</span><span class="p">:</span> <span class="kt">UITableViewCell</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">didSet</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">newValue</span> <span class="o">=</span> <span class="n">peripheral</span> <span class="p">{</span>
+                <span class="k">self</span><span class="o">.</span><span class="n">textLabel</span><span class="p">?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">newValue</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">awakeFromNib</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">awakeFromNib</span><span class="p">()</span>
+        <span class="c1">// Initialization code</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">setSelected</span><span class="p">(</span><span class="n">_</span> <span class="nv">selected</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">setSelected</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span>
+        <span class="c1">// Configure the view for the selected state</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<ul>
+<li>Turning attention back to the <em>ViewController</em> where you implemented the <strong>SensumSDK</strong>. The <code class="prettyprint">cellForRowAt</code> function from the tableView will define how the cells in the table are customised, demonstrated in Code Snippet 20.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 20</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="n">_</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">cellForRowAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UITableViewCell</span> <span class="p">{</span>
+    <span class="c1">// the identifier is what was set in your .storyboard in the attributes inspector</span>
+        <span class="k">let</span> <span class="nv">bleCell</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">tableView</span><span class="o">.</span><span class="nf">dequeueReusableCell</span><span class="p">(</span><span class="nv">withIdentifier</span><span class="p">:</span> <span class="s">"bleCell"</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">BluetoothPeripheralTableViewCell</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">dictValue</span> <span class="o">=</span> <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">getDeviceList</span><span class="p">()[</span><span class="n">indexPath</span><span class="o">.</span><span class="n">item</span><span class="p">]?[</span><span class="s">"peripheral"</span><span class="p">]</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">peripheralToAdd</span> <span class="o">=</span> <span class="n">dictValue</span> <span class="k">as!</span> <span class="kt">CBPeripheral</span>
+            <span class="n">bleCell</span><span class="o">.</span><span class="n">peripheral</span> <span class="o">=</span> <span class="n">peripheralToAdd</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">bleCell</span>
+    <span class="p">}</span>
+</code></pre>
+<ul>
+<li>Set your <code class="prettyprint">numberOfRowsInSection</code> to match the example shown in Code Snippet 21.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 21
+<code class="prettyprint">swift
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return (sdkManager?.bluetooth.getDeviceList().count)!
+    }
+</code></p>
+</blockquote>
+
+<ul>
+<li>You should now see a list of devices populating the tableView.</li>
+</ul>
+
+<h2 id="connecting-to-a-ble-device">Connecting to a BLE Device</h2>
+
+<ul>
+<li>Following on from the previous section, to connect to a selected BLE device, pass the selected cell to <code class="prettyprint">sdkManager?.bluetooth.connectTo(peripheralDevice: blePeripheral!)</code>.</li>
+<li>This will initiate a connection and, depending on the device, should after a few seconds start generating heart rate values that are passed to <em>BluetoothListener</em> protocol functions you have implemented.</li>
+<li>We have currently included additional <em>NSLog</em> outputs internally to <strong>SensumKit</strong> to detail the connection process. Your console output within Xcode should appear as shown in Code Snippet 22.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 22</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kt">Scanning</span> <span class="k">for</span> <span class="n">bluetooth</span> <span class="n">devices</span>
+<span class="kt">Connecting</span> <span class="n">to</span> <span class="nv">device</span><span class="p">:</span> <span class="kt">MIO</span> <span class="kt">GLOBAL</span><span class="o">-</span><span class="kt">LINK</span>
+<span class="kt">Stopping</span> <span class="n">device</span> <span class="n">scan</span>
+<span class="kt">Device</span> <span class="n">connected</span><span class="o">.</span>
+<span class="kt">Device</span> <span class="kt">Connected</span>
+<span class="kt">Discovered</span> <span class="nv">service</span><span class="p">:</span> <span class="kt">Heart</span> <span class="kt">Rate</span>
+<span class="kt">Discovered</span> <span class="nv">service</span><span class="p">:</span> <span class="kt">Battery</span>
+</code></pre>
+<ul>
+<li>You can update the <code class="prettyprint">bpmUpdated()</code> function in your listener which will output the user&rsquo;s heart rate.</li>
+</ul>
+
+<h2 id="listening-for-updates-from-the-sensumapi">Listening for Updates from the SensumAPI</h2>
+
+<ul>
+<li><strong>SensumKit</strong> handles the process of collecting both raw and contextual data from the device, before uploading to the <strong>SensumAPI</strong> without the user having to configure HTTP requests and responses.</li>
+<li>Before you can get updates from the <strong>SensumAPI</strong>, you must ensure that you  call recording on your contextual data.</li>
+<li>As an example, you must first call <code class="prettyprint">sdkManager?.accelerometer.startRecording()</code> to initiate the collection of accelerometer data. After this, call <code class="prettyprint">sdkManager?.accelerometer.startSendingToAPI()</code>.</li>
+<li>Depending on when you instantiated the <strong>SensumSDK</strong> and the time value you declared as the upload interval, data collected within the interval will be sent with the resulting response fired to all <code class="prettyprint">APIListener</code> objects.</li>
+<li>This response is accessible from any class that implements <code class="prettyprint">APIListener</code>.</li>
+<li>To gather all data and send all data, use the code contained within Code Snippet 23 after creating the Sensum SDK object.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 23</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code> <span class="kd">func</span> <span class="nf">startEverythingRecording</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">accelerometer</span><span class="o">.</span><span class="nf">startRecording</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">startRecording</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">startRecording</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="nf">startRecording</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">accelerometer</span><span class="o">.</span><span class="nf">startSendingToAPI</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="nf">startSendingToAPI</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">bluetooth</span><span class="o">.</span><span class="nf">startSendingToAPI</span><span class="p">()</span>
+        <span class="n">sdkManager</span><span class="p">?</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="nf">startSendingToAPI</span><span class="p">()</span>
+    <span class="p">}</span>
+</code></pre>
+<ul>
+<li>At the top of your class <code class="prettyprint">import RealmSwift</code> to query the response data. We save parsed data from the <strong>SensumAPI</strong> to Realm so it can safely persist on the device.</li>
+<li>Next implement an extension at the end of your class of type <code class="prettyprint">APIListener</code>, follow the example as shown in Code Snippet 24.
+&gt; Code Snippet 24</li>
+</ul>
+<pre class="highlight swift tab-swift"><code><span class="kd">extension</span> <span class="kt">RecordingMasterViewController</span><span class="p">:</span> <span class="kt">APIListener</span> <span class="p">{</span>
+
+    <span class="kd">func</span> <span class="nf">realmResponseSaved</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// saved to Realm, lets query it and print the values</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">realmResponse</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">Realm</span><span class="p">()</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Response</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">realmResponse</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">realmSentimentResponseSaved</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">realmSentiment</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">Realm</span><span class="p">()</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">SentimentResponse</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">realmSentiment</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">arousalReceived</span><span class="p">(</span><span class="nv">arousalScore</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"arousalScore </span><span class="se">\(</span><span class="n">arousalScore</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">apiRequestFailure</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">statusCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"Failed to send to SensumAPI </span><span class="se">\(</span><span class="n">message</span><span class="se">)</span><span class="s"> </span><span class="se">\(</span><span class="n">statusCode</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">apiRequestSuccessful</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"api request successful"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+<ul>
+<li>Don&rsquo;t forget to register the listener in the <code class="prettyprint">viewDidLoad()</code> method using <code class="prettyprint">sdkManager?.api.assignListener(self)</code>.<br></li>
+<li>You are now ready to receive updates on any class that implements the listener extensions.</li>
+<li>We use Realm to safely and efficiently store/query data from the response the <strong>SensumAPI</strong> returns. <a href = "https://realm.io/docs/swift/latest/">We recommend you take some time to study the RealmDocs here</a>. The examples above will return the latest saved object from the <strong>SensumAPI</strong>.</li>
+<li>A Response object is the parent object saved from a request made to the <strong>SensumAPI</strong> with contextual sensor, accelerometer, and GPS data. The object is made up of the following components:</li>
+<li>Response:
+
+<ul>
+<li><code class="prettyprint">HeartRateResponse</code> - Processed Heart Rate data.</li>
+<li><code class="prettyprint">AccelerometerResponse</code> - Processed Accelerometer data.</li>
+<li><code class="prettyprint">LocationResponse</code> - Processed Location data.</li>
+</ul></li>
+<li>Each of the three sub-response objects are made up of <em>Stat</em> and <em>Event</em> objects. Feel free to examine the public Realm objects that we use to store data.</li>
+<li><code class="prettyprint">SentimentResponse</code> is a seperate object that represents processed emoji and text data. Code Snippet 25 illustrates how it should appear when printed from <code class="prettyprint">sentimentResponseReceived()</code>:
+&gt; Code Snippet 25</li>
+</ul>
+<pre class="highlight swift tab-swift"><code><span class="kt">Optional</span><span class="p">(</span><span class="kt">SentimentResponse</span> <span class="p">{</span>
+    <span class="n">textSentiment</span> <span class="o">=</span> <span class="kt">Emotion</span> <span class="p">{</span>
+        <span class="n">emotionality</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">negativity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">positivity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="n">emojiSentiment</span> <span class="o">=</span> <span class="kt">Emotion</span> <span class="p">{</span>
+        <span class="n">emotionality</span> <span class="o">=</span> <span class="mf">0.4236068641</span><span class="p">;</span>
+        <span class="n">negativity</span> <span class="o">=</span> <span class="mf">0.0936431989</span><span class="p">;</span>
+        <span class="n">positivity</span> <span class="o">=</span> <span class="mf">0.6575529733</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">})</span>
+</code></pre>
+<ul>
+<li><code class="prettyprint">ArousalResponse</code> is also a seperate object that represents processed heart rate data. Please see the <a href = "http://docs.sensum.co/#emotion-ai-api"><strong>SensumAPI</strong> documentation</a> for more information on processed data outputs.</li>
+</ul>
+
+<h2 id="third-party-authentication">Third Party Authentication</h2>
+
+<ul>
+<li>To authenticate your end users with access to the <strong>SensumAPI</strong> functions of <strong>SensumKit</strong>, you will need to use a third-party identity provider and implement the required Frameworks within your Xcode Project.</li>
+</ul>
+
+<h3 id="google">Google:</h3>
+
+<ul>
+<li>For Google, <a href = "https://developers.google.com/identity/sign-in/ios/start-integrating">follow these instructions to implement Google Sign-In within your Xcode Project</a>.</li>
+<li>Please note that you have already installed the required Google Frameworks using CocoaPods, so you will not be required to do so again.</li>
+</ul>
+
+<p><strong><strong>IMPORTANT</strong></strong> after creating your Configuration file, please ensure you contact us at:
+ <strong>bertha@sensum.co</strong>, including your <em>CLIENT_ID</em> as selected below from the Configuration file generated by the Google Sign-In service (see Figure 37). The format of this ID is typically a combination of numbers and characters followed by <em>apps.googleusercontent.com</em>. Upon confirmation that the <em>CLIENT_ID</em> has been saved, you will be able to successfully authenticate users in your application.</p>
+
+<p><img src="images/figure37.png" title="Figure 37 - Configuration File plist generated from Google Sign In guide." alt="Figure 37 - Configuration File plist generated from Google Sign In guide." /></p>
+
+<h4 id="figure-37-configuration-file-plist-generated-from-google-sign-in-guide"><p style="text-align: center;">Figure 37 - Configuration File plist generated from Google Sign In guide.</p></h4>
+
+<p><br></p>
+
+<ul>
+<li>While the <em>Google Sign-In</em> example showcases the implementation in the <em>AppDelegate.swift</em> file, in our example application we have used a <em>LoginViewController</em> class to implement the delegate methods.</li>
+<li>Where you call the <code class="prettyprint">signIn</code> delegate function in your class, successfully signing a user in will result in a <a href = "https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_google_user">GIDGoogleUser object</a>.</li>
+<li>Pass the <code class="prettyprint">idToken</code> generated by this object to the parameter <code class="prettyprint">authenticationToken</code> of the <strong>SensumKit</strong> <code class="prettyprint">federatedSignIn</code> function.</li>
+<li>This function will respond (via a callback) with the result of the authentication against the <strong>SensumAPI</strong> as successful/unsuccessful. See Code Snippet 26 for an example.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 26</p>
+</blockquote>
+<pre class="highlight swift tab-swift"><code><span class="kd">func</span> <span class="nf">sign</span><span class="p">(</span><span class="n">_</span> <span class="nv">signIn</span><span class="p">:</span> <span class="kt">GIDSignIn</span><span class="o">!</span><span class="p">,</span> <span class="n">didSignInFor</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">GIDGoogleUser</span><span class="o">!</span><span class="p">,</span> <span class="n">withError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">error</span> <span class="p">??</span> <span class="s">"google sign in error"</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">signInStatusLabel</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">"Signed in with Google"</span>
+        <span class="n">sensumSDK</span><span class="p">?</span><span class="o">.</span><span class="n">authentication</span><span class="o">.</span><span class="nf">federatedSignIn</span><span class="p">(</span><span class="nv">provider</span><span class="p">:</span> <span class="s">"accounts.google.com"</span><span class="p">,</span>    
+            <span class="nv">authenticationToken</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">authentication</span><span class="o">.</span><span class="n">idToken</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+          <h1 id="summary-guide">Summary Guide</h1>
+
+<h2 id="api-control">API Control</h2>
+
+<h3 id="setting-server-request-rate">Setting Server Request Rate</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.api.setServerRequestRate(requestRateInSeconds)</code>. The parameter requestRateInSeconds is an integer value.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>When using the <code class="prettyprint">sendToService</code> method ensure that you send the integer parameters <strong>DATA_RATE_SAMPLE</strong> and <strong>DATA_RATE_SEND</strong> as part of your bundle.</p>
+
+<h3 id="getting-the-server-request-rate">Getting the Server Request Rate</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.api.getServerRequestRate()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>There is currently no functionality to return the the current data rate in the Android SDK.</li>
+</ul>
+
+<h3 id="listen-for-api-events">Listen for API events</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method sdkManager?.api.assignListener(self) to register an apiListener.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use a Broadcast Receiver</p>
+
+<ul>
+<li>A <em>BroadcastReceiver</em> ‘listens’ for (receives and handles) <em>Broadcast Intents</em>, sent by the <em>Service</em>.</li>
+<li>The <em>BroadcastReceiver</em> is essential as it manages messages sent from the <strong>sdk-release</strong>, within the front-end application.</li>
+<li>The <em>BroadcastReceiver</em> makes use of <em>Filters</em>, that determine which events the application should ‘listen’ for.</li>
+<li>The over-ridden method <em>.onReceive</em> takes two arguments: <em>Context</em> and <em>Intent</em>. The <em>Intent</em> parameter has an associated action that specifies how the
+<em>BroadcastReceiver</em> should behave.</li>
+<li>Table 1 outlines the filters included in the <em>Service</em> and the <em>Intent Extras</em> they return.</li>
+</ul>
+
+<p>Table 1</p>
+
+<table><thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+<th>IntentExtras</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>BLE_DEVICE_FILTER</strong></td>
+<td>Filters for BLE devices</td>
+<td>ArrayList<BluetoothDevice></td>
+</tr>
+<tr>
+<td><strong>VALUE_FILTER</strong></td>
+<td>Filters for heart rate value</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>GPS_FILTER</strong></td>
+<td>Filters for GPS values</td>
+<td>Bundle</td>
+</tr>
+<tr>
+<td><strong>ACC_FILTER</strong></td>
+<td>Filters for acceleration values</td>
+<td>Bundle</td>
+</tr>
+<tr>
+<td><strong>DEVICE_DISCONNECTED</strong></td>
+<td>Filters for a device disconnected value</td>
+<td>null</td>
+</tr>
+<tr>
+<td><strong>API_RESPONSE</strong></td>
+<td>Filters for responses from the API</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>TOAST_MESSAGE</strong></td>
+<td>Filters for messages from the Service</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>CONNECTION_FILTER</strong></td>
+<td>Filters for connection BLE messages</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>BLUETOOTH_CONNECTION_FILTER</strong></td>
+<td>Filters for bluetooth connection messages</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>BLUETOOTH_DEVICE_FILTER</strong></td>
+<td>Filters for bluetooth devices</td>
+<td>ArrayList<BluetoothDevice></td>
+</tr>
+<tr>
+<td><strong>GSR_FILTER</strong></td>
+<td>Filters for GSR values</td>
+<td>String</td>
+</tr>
+<tr>
+<td><strong>ACC_FAILED_REGISTERED</strong></td>
+<td>Filters for acceleration failure from unsupported devices</td>
+<td>null</td>
+</tr>
+<tr>
+<td><strong>HELLO_FILTER</strong></td>
+<td>Filters for hello message</td>
+<td>String</td>
+</tr>
+</tbody></table>
+
+<h2 id="setting-up-the-broadcast-receiver">Setting up the Broadcast Receiver</h2>
+
+<ul>
+<li>Code Snippet 1 contains all necessary code that will allow you to setup a <em>BroadcastReceiver</em>.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 1</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">action</span><span class="o">){</span>
+                <span class="k">case</span> <span class="nl">HELLO_FILTER:</span>
+                    <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">),</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GPS_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">gpsBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">ACC_FILTER:</span>
+                    <span class="n">Bundle</span> <span class="n">accBundle</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="n">isAcc</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">VALUE_FILTER:</span>
+                    <span class="n">String</span> <span class="n">hrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">GSR_FILTER:</span>
+                    <span class="n">String</span> <span class="n">gsrValue</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">API_RESPONSE:</span>
+                    <span class="n">String</span> <span class="n">apiResponse</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="nl">TOAST_MESSAGE:</span>
+                    <span class="n">String</span> <span class="n">toastMessage</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+<ul>
+<li>The <em>BroadcastReceiver</em> must be registered in order to receive <em>Intents</em> from a <em>Service</em>.</li>
+<li>The <em>registerReceiver</em> method, takes two arguments: <em>BroadcastReceiver</em> and <em>IntentFilter</em>.</li>
+<li>We have included our own method that returns an <em>IntentFilter:</em> <code class="prettyprint">getUpdateIntentFilter()</code> (this method is displayed within Code Snippet 3).</li>
+<li>This method should be called immediately on starting the application, therefore, it is placed within the <code class="prettyprint">.onResume()</code> method, as shown in Code Snippet 2.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 5</p>
+</blockquote>
+<pre class="highlight java tab-java"><code> <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+        <span class="n">registerReceiver</span><span class="o">(</span><span class="n">mMessageReceiver</span><span class="o">,</span> <span class="n">getUpdateIntentFilter</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Code Snippet 3</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>  <span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">getUpdateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">IntentFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">HELLO_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GPS_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">ACC_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">VALUE_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GSR_FILTER</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">API_RESPONSE</span><span class="o">);</span>
+        <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">TOAST_MESSAGE</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">filter</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre>
+<ul>
+<li>When the application is destroyed (on application close/force-close), the <em>BroadcastReceiver</em> must be unregistered. This is handled via the <code class="prettyprint">.onDestroy()</code> method.
+Code Snippet 4 demonstrates how to achieve this.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 4</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mIsBound</span><span class="o">){</span>
+            <span class="n">unbindService</span><span class="o">(</span><span class="n">mConnection</span><span class="o">);</span>
+            <span class="n">mIsBound</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="n">unregisterReceiver</span><span class="o">(</span><span class="n">mMessageReceiver</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+<!-- Accelerometer Control -->
+
+<h2 id="accelerometer-control">Accelerometer Control</h2>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.startUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.stopUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.startRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.stopRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-sendingto-api">Start SendingTo API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.startSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle Accelerometer data using the <strong>ACC_Filter</strong> intent If not done already.</p>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-sending-to-the-api">Stop Sending to the API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.stopSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">ACCELERATION_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="check-update-status">Check Update status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.isUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the update status in Android.</li>
+</ul>
+
+<h3 id="check-recording-status">Check Recording status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.isRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the recording status in Android.</li>
+</ul>
+
+<h3 id="check-api-sending-status">Check API Sending status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.isSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the API sending status in Android.</li>
+</ul>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.assignListener(self)</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle Accelerometer data using the <strong>ACC_Filter</strong> intent.</li>
+</ul>
+
+<h3 id="set-read-frequency">Set Read Frequency</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.accelerometer.setReadFrequency(newIntervalInSeconds)</code> where the parameter newIntervalInSeconds is an integer value.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>When sending the <strong>START_CAPTURE</strong> message to the service using the <code class="prettyprint">sendToService</code> method, Set the rate of capture using the integer variable DATA_RATE_SAMPLE, while the boolean <strong>ACCELERATION_CAPTURE</strong> is <strong>true</strong>.</li>
+</ul>
+
+<!-- Location Control -->
+
+<h2 id="location-control">Location Control</h2>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the methoocation.startUpdating()`.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.stopUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.startRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.stopRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-sending-to-api">Start Sending To API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.startSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle location data using the <strong>GPS_Filter</strong> intent If not done already.</p>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-sending-to-the-api">Stop Sending to the API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.stopSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">GPS_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="check-update-status">Check Update status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.isUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the update status in Android.</li>
+</ul>
+
+<h3 id="check-recording-status">Check Recording status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.isRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the recording status in Android.</li>
+</ul>
+
+<h3 id="check-api-sending-status">Check API Sending status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.isSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the API sending status in Android.</li>
+</ul>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.assignListener(self)</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle location data using the <strong>GPS_Filter</strong> intent.</li>
+</ul>
+
+<h3 id="set-read-frequency">Set Read Frequency</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.location.setReadFrequency(newIntervalInSeconds)</code> where the parameter newIntervalInSeconds is an integer value.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>When sending the <strong>START_CAPTURE</strong> message to the service using the <code class="prettyprint">sendToService</code> method, Set the rate of capture using the integer variable DATA_RATE_SAMPLE, while the boolean <strong>GPS_CAPTURE</strong> is <code class="prettyprint">true</code>.</li>
+</ul>
+
+<!-- Tag Control -->
+
+<h2 id="tag-control">Tag Control</h2>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.startUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.stopUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.startRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.stopRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-sending-to-api">Start Sending To API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.startSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle tag data using the <strong>TOAST_MESSAGE</strong> intent If not done already.</p>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-sending-to-the-api">Stop Sending to the API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.stopSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">INPUT_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="check-update-status">Check Update status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.isUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the update status in Android.</li>
+</ul>
+
+<h3 id="check-recording-status">Check Recording status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.isRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the recording status in Android.</li>
+</ul>
+
+<h3 id="check-api-sending-status">Check API Sending status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.isSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the API sending status in Android.</li>
+</ul>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.assignListener(self)</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle tag data using the <strong>TOAST_MESSAGE</strong> intent.</li>
+</ul>
+
+<h3 id="create-tag">Create Tag</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.tag.createTag(tag)</code> where the parameter tag is an String value.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>When sending the <strong>INPUT_TEXT</strong> message to the service using the <code class="prettyprint">sendToService</code> method, add the string parameter TEXT_MESSAGE.</li>
+</ul>
+
+<!-- Bluetooth Control -->
+
+<h2 id="bluetooth-control">Bluetooth Control</h2>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.startUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.stopUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.startRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.stopRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="start-sending-to-api">Start Sending To API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.startSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle bluetooth data using the <strong>BLE_DEVICE_FILTER</strong>, <strong>BLUETOOTH_CONNECTION_FILTER</strong>, <strong>BLUETOOTH_DEVICE_FILTER</strong>, <strong>DEVICE_DISCONNECTED</strong> and <strong>CONNECTION_FILTER</strong> intents if not done already.</p>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>START_CAPTURE</strong> to the background service.</p>
+
+<h3 id="stop-sending-to-the-api">Stop Sending to the API</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.stopSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>Use the <code class="prettyprint">sendToService</code> method the the boolean <code class="prettyprint">HR_CAPTURE = true</code> with the constant <strong>CANCEL_CAPTURE</strong> to the background service.</p>
+
+<h3 id="check-update-status">Check Update status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.isUpdating()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the update status in Android.</li>
+</ul>
+
+<h3 id="check-recording-status">Check Recording status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.isRecording()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the recording status in Android.</li>
+</ul>
+
+<h3 id="check-api-sending-status">Check API Sending status</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.isSendingToAPI()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>It is currently not possible to check the API sending status in Android.</li>
+</ul>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.assignListener(self)</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Create a <a href = "#use-a-broadcast-receiver">Broadcast Receiver</a>, setting it up to handle bluetooth data using the <strong>BLE_DEVICE_FILTER</strong>, <strong>BLUETOOTH_CONNECTION_FILTER</strong>, <strong>BLUETOOTH_DEVICE_FILTER</strong>, <strong>DEVICE_DISCONNECTED</strong> and <strong>CONNECTION_FILTER</strong> intents.</li>
+</ul>
+
+<h3 id="scan-for-devices">Scan for Devices</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.startScanForDevices()</code> A list of device names and addresses will be generated.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Use the <code class="prettyprint">sendToService</code> method with the constant <strong>BLE_SCAN</strong> or <strong>BLUETOOTH_SCAN</strong>, depending on if the device is compatible with Bluetooth LE or standard, to send the command to the background service.</li>
+</ul>
+
+<h3 id="connect-to-device">Connect to Device</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.connectTo(peripheralDevice)</code> where peripheralDevice is an object containing the required device&rsquo;s name and address.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>Use the <code class="prettyprint">sendToService</code> method with the constant <strong>CONNECT</strong> or <strong>CONNECT_BLUETOOTH_DEVICE</strong>, depending on if the device is compatible with Bluetooth LE or standard, as well a bundle containg the string variables <strong>DEVICE_NAME</strong> and <strong>DEVICE_ADDRESS</strong> to send the command to the background service.</li>
+</ul>
+
+<h3 id="clear-list-of-discovered-devices">Clear List of Discovered Devices</h3>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.clearDeviceList()</code>.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<p>There is no equivalent function in the Android SDK. To perform this function perform another scan by using the <code class="prettyprint">sendToService</code> method with the constant <strong>BLE_SCAN</strong> or <strong>BLUETOOTH_SCAN</strong>, depending on if the device is compatible with Bluetooth LE or standard, to send the command to the background service.</p>
+
+<p>### Disconnect From Device</p>
+
+<h4 id="ios">iOS</h4>
+
+<ul>
+<li>After instantiating the SDK Manager, call the method <code class="prettyprint">sdkManager?.bluetooth.disconnect()</code> to disconnect from the currently connected peripheral.</li>
+</ul>
+
+<h4 id="android">Android</h4>
+
+<ul>
+<li>There is currently no functionality to disconnect the current bluetooth device in the Android SDK.</li>
+</ul>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
