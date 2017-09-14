@@ -1,5 +1,13 @@
 # Tutorial - Android
 
+## Introduction
+
+This tutorial is designed to assist Android Developers working with the **SensumSDK** and **SensumAPI**.
+
+It is intended to provide a detailed guide to using the **Sensum Emotion AI** toolkit, providing code examples and guidelines for use.
+
+Have fun and enjoy!
+
 ## Getting Started
 
 We strongly recommend using Android Studio v2.3.3 and above. We work on Android Studio v2.3.3 at time of our first public **SensumSDK** release.
@@ -147,12 +155,13 @@ private final ServiceConnection mConnection = new ServiceConnection() {
     };
 ```
 
-* Declare the Service within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
+* Declare both the *Service* and the *BLE Service* within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
 
 > Code Snippet 3
 
 ```xml
 <service android:name="co.sensum.sensumservice.SDK.SdkService"/>
+<service android:name="co.sensum.sensumservice.SDK.BLE.BluetoothLeService"/>
 ```
 
 ## Binding and Unbinding the Service
