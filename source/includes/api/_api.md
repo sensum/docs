@@ -1,13 +1,16 @@
 
+
 # SensumAPI
 
 ## Introduction
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+
 **SensumAPI** enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the `Content-Type: application/json` header be specified.
 **SensumAPI** is also cross-origin resource sharing ready.
+
 **SensumSDK** handles many of these requests and responses natively. It can however be useful to utilise the **SensumAPI** directly.
 
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
 ## URI Structure
 
@@ -18,13 +21,13 @@ An example URI:
 
 ## Authorization
 
-**SensumAPI** uses a combination of an API Key and AWS Signature v4 signing to authorize access. You can register a new API Key by contacting us.
+**SensumAPI** uses a combination of an API Key and request signing to authorize access. You can register a new API Key by contacting us.
 
 **SensumAPI** expects each call to contain the following headers to gain access:
 
  * Content-Type: `application/json`
  * Authorization: `$AWSv4Signature`
- * X-API-Key: `$YourAPIKey(For trial usage use "PublicDemoKeyForDocumentation")`
+ * X-API-Key: `$YourAPIKey`(For trial usage use "PublicDemoKeyForDocumentation")
 
 To calculate the value for the Authorization header you must calculate a hash of your request, add extra information, then add the AWS secret key in order to create a signing key and then use this to sign the request.
 To learn more about generating the Signature please read the <a href="https://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html">AWS Documentation on Signature v4</a>
@@ -39,24 +42,24 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 
 |Metric Name|Unit|
 |-----------|----|
-|<a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate">heartrate</a>|bpm|
-|breathingrate|bpm|
-|temperature|<sup>o</sup>C, assumed to be ambient/external|
-|skintemperature|<sup>o</sup>C|
-|<a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr">gsr</a>| microsiemens<sup>*</sup>|
-|location_latitude|deg|
-|location_longitude|deg|
-|location_altitude|m|
-|location_accuracy|or location_accuracy_h/v if available|
-|location_speed|m/s|
-|acceleration|linear acceleration in m/s<sup>2**</sup>|
-|acceleration_x|m/s<sup>2</sup>|
-|acceleration_y|m/s<sup>2</sup>|
-|acceleration_z|m/s<sup>2</sup>|
+|<a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate">`heartrate`</a>|bpm|
+|`breathingrate`|bpm|
+|`temperature`|<sup>o</sup>C, assumed to be ambient/external|
+|`skintemperature`|<sup>o</sup>C|
+|<a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr">`gsr`</a>| microsiemens<sup>*</sup>|
+|`location_latitude`|deg|
+|`location_longitude`|deg|
+|`location_altitude`|m|
+|`location_accuracy`|or location_accuracy_horizontal/vertical if available|
+|`location_speed`|m/s|
+|`acceleration`|linear acceleration in m/s<sup>2**</sup>|
+|`acceleration_x`|m/s<sup>2</sup>|
+|`acceleration_y`|m/s<sup>2</sup>|
+|`acceleration_z`|m/s<sup>2</sup>|
 
-<sup>*</sup> The GSR Conductance unit "microsiemens" is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)
+<sup>*</sup> The GSR Conductance unit 'microsiemens' is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)
 
-<sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the userAcceleration iOS method rather than the acceleration method
+<sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the `userAcceleration` iOS method rather than the `acceleration` method
 
 ## SensumAPI Analysis Responses
 
@@ -68,22 +71,22 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 | `acceleration_[x,y,z]` |                        | `activity`        | `activity` [(See Fuzzy Class Stats)](#fuzzy-class-stats) |
 
 ### Events
-| Event Fields 	| Type                                                         	| Meaning                                                                                                                         	|
+|  Event Fields | Type                                                         	| Meaning                                                                                                                         	|
 |--------------	|--------------------------------------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
-| time         	| UTC Timestamp (ms)                                           	| Time of event                                                                                                                   	|
-| value        	| String: One of ['normal', 'rising', 'falling', 'max', 'min'] 	| Type of event (normal is not currently used)                                                                                    	|
-| severity     	| Float                                                        	| Relative severity of the event, i.e. how much of value change between forward/backward events with respect to the average value 	|
+| `time`         	| UTC Timestamp (ms)                                           	| Time of event                                                                                                                   	|
+| `value`        	| String: One of ['normal', 'rising', 'falling', 'max', 'min'] 	| Type of event (normal is not currently used)                                                                                    	|
+| `severity` &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;    	| Float                                                        	| Relative severity of the event, i.e. how much of value change between forward/backward events with respect to the average value 	|
 
 ### Stats
 
 | Stats Field | Type            | Meaning                                                                            |
 |-------------|-----------------|------------------------------------------------------------------------------------|
-| avg         | Float           | average (mean) value                                                               |
-| duration    | Float (seconds) | time between first and last analysed records                                       |
-| max         | Float           | max value                                                                          |
-| min         | Float           | min value                                                                          |
-| std         | Float           | standard deviation of the record                                                   |
-| percentiles | Object(dict)    | 10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a>|
+| `avg`         | Float           | average (mean) value                                                               |
+| `duration`    | Float (seconds) | time between first and last analysed records                                       |
+| `max`         | Float           | max value                                                                          |
+| `min`         | Float           | min value                                                                          |
+| `std`         | Float           | standard deviation of the record                                                   |
+| `percentiles` | Object(dict)    | 10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a>|
 
 ### Fuzzy Class Stats
 
@@ -91,15 +94,15 @@ For <a href = "https://en.wikipedia.org/wiki/Fuzzy_classification">"fuzzy"</a> c
 
 | Field | Type | Meaning |
 |-------|------|---------|
-| value | Float| [0-1] activation value |
-| dominant | string | label of the dominant classification category |
-| sectors | Object(dict) | per-category-label activivation (`label`:`value`,...)
+| `value` | Float| [0-1] activation value |
+| `dominant` | string | label of the dominant classification category |
+| `sectors` | Object(dict) | per-category-label activivation i.e `{label:value,...}`
 
 Current Sector Labels (highest to lowest activation value):
 
-* Activity : 'active', 'inactive'
-* Arousal : 'excited', 'activated', 'calm', 'passive', 'relaxed'
-* Engagement: 'highly engaged', 'engaged', 'activated', 'neutral'
+* Activity : `active`, `inactive`
+* Arousal : `excited`, `activated`, `calm`, `passive`, `relaxed`
+* Engagement: `highly engaged`, `engaged`, `activated`, `neutral`
 
 
 ## Send text data to analyse emoji and text sentiment  
@@ -123,9 +126,9 @@ API Key, Authorization.
 
 |Term|Description|
 |----|-----------|
-|Positivity| The level of positive emotion expressed in an input(Scale: 0 to +1)|
-|Negativity| The level of negative emotion expressed in an input(Scale: 0 to +1)|
-|Emotionality| The overall strength of emotion contained in an input(Scale: -1 to +1)*|
+|`positivity`| The level of positive emotion expressed in an input(Scale: 0 to +1)|
+|`negativity`| The level of negative emotion expressed in an input(Scale: 0 to +1)|
+|`emotionality`| The overall strength of emotion contained in an input(Scale: -1 to +1)*|
 
 * Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response.
 
@@ -229,10 +232,9 @@ Please refer to the code samples for request and response examples
 {
   "emoji_sentiment": null,
   "text_sentiment": {
-    "compound": 0.0, //Aggregate Emotionality Score from -1,+1
-    "neg": 0.0, // Negativity Score from 0 to +1
-    "neu": 1.0, // Neutrality Score from 0 to +1
-    "pos": 0.0  // Positivity Score from 0 to +1
+    "emotionality": 0.0, //Aggregate Emotionality Score from -1,+1
+    "negativity": 0.0, // Negativity Score from 0 to +1
+    "positivity": 0.0  // Positivity Score from 0 to +1
    }
 }
 ```
@@ -364,9 +366,9 @@ print r.json()
 
 Parameter|Type|Required|Description
 ---|---|---|---|
-start|string|true|<a href = http://www.cl.cam.ac.uk/~mgk25/iso-time.html> Datetime compatible</a> start time for query
-end|string|true|End time for query
-metrics|string|true|List of strings of requested metrics
+`start`|string|true|<a href = http://www.cl.cam.ac.uk/~mgk25/iso-time.html> Datetime compatible</a> start time for query
+`end`|string|true|End time for query
+`metrics`|string|true|List of strings of requested metrics
 
 ### Responses
 
@@ -459,9 +461,9 @@ print r.json()
 
 Parameter|Type|Required|Description
 ---|---|---|---|
-start|string|true|Datetime compatible start time for query
-end|string|true|End time for query
-metrics|string|true|List of strings of requested metrics
+`start`|string|true|Datetime compatible start time for query
+`end`|string|true|End time for query
+`metrics`|string|true|List of strings of requested metrics
 
 ### Responses
 
@@ -575,9 +577,9 @@ print r.json()
 
 Parameter|Type|Required|Description
 ---|---|---|---|
-start|string|true|Datetime compatible start time for query
-end|string|true|End time for query
-metrics|string|true|List of strings of requested metrics
+`start`|string|true|Datetime compatible start time for query
+`end`|string|true|End time for query
+`metrics`|string|true|List of strings of requested metrics
 
 ### Responses
 
@@ -683,9 +685,9 @@ print r.json()
 
 Parameter|Type|Required|Description
 ---|---|---|---|
-start|string|true|Datetime compatible start time for query
-end|string|true|End time for query
-metrics|string|true|List of strings of requested metrics
+`start`|string|true|Datetime compatible start time for query
+`end`|string|true|End time for query
+`metrics`|string|true|List of strings of requested metrics
 
 ### Responses
 
@@ -1104,9 +1106,9 @@ print r.json()
 
 Parameter|Default|Type|Required|Description
 ---|---|---|---|---|
-values|[heartrate]|string|false|An array of the metrics to be generated
-freq|1|string|false|Frequency of generated records in seconds. Determines timestamps
-n|100|string|false|Number of records to be generated per metric
+`values`|[heartrate]|string|false|An array of the metrics to be generated
+`freq`|1|string|false|Frequency of generated records in seconds. Determines timestamps
+`n`|100|string|false|Number of records to be generated per metric
 
 
 ### Responses

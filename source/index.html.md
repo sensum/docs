@@ -4,6 +4,8 @@ language_tabs:
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
   - python: Python
+  - java: Java (Android)
+  - swift: Swift (iOS)
 
 toc_footers:
   - <a href='https://www.sensum.co/'>Sign Up for a Developer Key</a>
@@ -30,6 +32,6 @@ The **SensumAPI** and **SensumSDK** enables you to build services or products wh
 
 |Term|Description|
 |----|-----------|
+|**SensumAPI**|The **SensumAPI** is the RESTful API that is used either directly or through the **SensumSDK**|
 |**SensumSDK**|**SensumSDK** refers to the Android and iOS SDKs|
-|**SensumKit**|**SensumKit** is the framework file that allows an application to use the **SensumSDK**|
-|**SensumAPI**|The **SensumAPI** is the Restful API that is used either directly or through the **SensumSDK**|
+|**SensumKit**|**SensumKit** is the framework file that allows an iOS application to use the **SensumSDK**|
