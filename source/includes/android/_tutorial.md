@@ -67,7 +67,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 #### <p style="text-align: center;"> Figure 9 - Import .JAR/.AAR Package</p>
 <br>
 
- * The Create New Module dialogue window will appear (shown in Figure 10).
+ * The *Create New Module* dialogue window will appear (shown in Figure 10).
  * In order to successfully create a new module, the developer must locate the necessary **sdk-release.aar** file on their system.
 
 
@@ -100,9 +100,9 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 * Select the **sdk-release**, and click **OK**.
 * You will return to the *Project Structure* dialogue window, once again, click **OK**.
 
-## Implementing the Shimmer library or GSR values
+## Implementing the Shimmer library for GSR values
 
- *  To import the Shimmer library repeat all the same steps that you have followed to import the **sensumsdk-release**, but instead locate the **shimmersdk-release.aar** file.
+ *  To import the Shimmer library, repeat the process outlined for importing the **sensumsdk-release**, but instead locate the **shimmersdk-release.aar** file.
 
 ## Including Permissions
 
@@ -118,6 +118,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 ```
 
 ## Creating a Service
@@ -357,10 +358,10 @@ protected void onDestroy() {
 
 ## Testing the Service
 
- * To test the service the developer create a *Button* that will be able to send a *Message* to the *Service*.
+ * To test the service, the developer create a *Button* that will be able to send a *Message* to the *Service*.
  * Within the `onClickListener`, make a call to the `sendToService` method.
  * Enter **null** as the first parameter (*Bundle*) and **HELLO** as the second parameter (*Int*).
- * This will send this the *Message* to the *Service*.
+ * This will send this *Message* to the *Service*.
  * The *Service* will receive this *Message* and send a *Broadcast*, which the *BroadcastReceiver* will listen for.
  * The *BroadcastReceiver* will handle the *action* and in this case the *action* will fall under the **HELLO_FILTER** case.
  * It is up to the developer what they wish to do with the returned *String*.
@@ -791,7 +792,7 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
 
  * In `onActivityResult`, the *Google Sign-In* results should be handled and upon successful sign-in, the *Google Id Token* and *Google Web Client ID* need to be passed to the **SensumSDK** as a *Bundle*.
  * This *Bundle* is utilised to maintain the capture-session whilst using the **SensumSDK**.  
- * For authentication the **SensumAPI** base URL, key and *AWS Identity Pool ID* are also needed to pass as a *Bundle*.
+ * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to pass as a *Bundle*.
  * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
  * Code Snippet 20 provides an example of this.
 
