@@ -56,7 +56,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
  * From the *File* menu, navigate to *File* > *New* > *New Module* (Figure 8).
 
   ![ Figure 8 - New Module](../../images/figure8_android.png " Figure 8 - New Module")
-#### <p style="text-align: center;"> Figure 8 - New Module</p>
+#### <p style="text-align: center;"> Figure 8 - Creating A New Module</p>
 <br>
 
  * The *New Module* dialogue window will appear.
@@ -67,7 +67,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 #### <p style="text-align: center;"> Figure 9 - Import .JAR/.AAR Package</p>
 <br>
 
- * The Create New Module dialogue window will appear (shown in Figure 10).
+ * The *Create New Module* dialogue window will appear (shown in Figure 10).
  * In order to successfully create a new module, the developer must locate the necessary **sdk-release.aar** file on their system.
 
 
@@ -100,9 +100,9 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 * Select the **sdk-release**, and click **OK**.
 * You will return to the *Project Structure* dialogue window, once again, click **OK**.
 
-## Implementing the Shimmer library or GSR values
+## Implementing the Shimmer library for GSR values
 
- *  To import the Shimmer library repeat all the same steps that you have followed to import the **sensumsdk-release**, but instead locate the **shimmersdk-release.aar** file.
+ *  To import the Shimmer library, repeat the process outlined for importing the **sensumsdk-release**, but instead locate the **shimmersdk-release.aar** file.
 
 ## Including Permissions
 
@@ -118,6 +118,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 ```
 
 ## Creating a Service
@@ -204,7 +205,7 @@ protected void onDestroy() {
  *BroadcastReceiver* should behave.
  * Table 1 outlines the filters included in the *Service* and the *Intent Extras* they return.
 
-### Table 1
+### Table 1: Broadcast Receiver Filters
 
 |Action|Description|IntentExtras|
 |------|-----------|------------|
@@ -316,7 +317,7 @@ protected void onDestroy() {
  * This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8).
  * This property (`arg1`) will carry the command you want to request from the *Service*.
 
-### Table 2
+### Table 2: Send to Service Commands
 
 |Constants (of type 'Int')|Required Bundle Data|
 |-------------------------|--------------------|
@@ -357,10 +358,10 @@ protected void onDestroy() {
 
 ## Testing the Service
 
- * To test the service the developer create a *Button* that will be able to send a *Message* to the *Service*.
+ * To test the service, the developer create a *Button* that will be able to send a *Message* to the *Service*.
  * Within the `onClickListener`, make a call to the `sendToService` method.
  * Enter **null** as the first parameter (*Bundle*) and **HELLO** as the second parameter (*Int*).
- * This will send this the *Message* to the *Service*.
+ * This will send this *Message* to the *Service*.
  * The *Service* will receive this *Message* and send a *Broadcast*, which the *BroadcastReceiver* will listen for.
  * The *BroadcastReceiver* will handle the *action* and in this case the *action* will fall under the **HELLO_FILTER** case.
  * It is up to the developer what they wish to do with the returned *String*.
@@ -419,7 +420,7 @@ button.setOnClickListener(new View.OnClickListener() {
 ## Setting up BLE
 
  * To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a *Button* object that will tell the *Service* to start scanning.
- * As in the <a href ="#testing-the-service">__Testing the Service__</a> section, the developer should execute the `sendToService` method within the *Button’s* `onClickListener` (following Table 2).
+ * As in the <a href ="#testing-the-service">__Testing the Service__</a> section, the developer should execute the `sendToService` method within the *Button’s* `onClickListener` (refer to Table 2).
  * The first parameter that the `sendToService` method expects in this instance is `null`, as there is no extra data that the Service needs to execute this task.
  * The second parameter that it takes is **BLE_SCAN** (Code Snippet 13).
 
@@ -491,7 +492,7 @@ sendToService(bundle, CONNECT);
  * Both of these filters receive a bundle that contains multiple value types.
  * Refer to Table 3 to discover the value types returned from the *Service*.
 
-### Table 3
+### Table 3: Broadcast Receiver Filter Examples
 
 |Filter|Bundle|Constants|Example Method Call|
 |------|------|---------|-------------------|
@@ -544,7 +545,7 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 * Receiving the value from the **SensumAPI** works in the same way as receiving values from a device.
 * The *BroadcastReceiver* in your `MainActivity` should implement the ‘filters’ shown in Table 4.
 
-### Table 4
+### Table 4: Additional Broadcast Receiver Filters
 
 |Action|(description)|Intent Extras|
 |------|------|---------|
@@ -628,7 +629,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 * Tables 5 - 12 display the *Realm* objects that the **SensumSDK** holds.
 * These objects contain methods and values associated with the response from the **SensumAPI**.
 
-### Table 5
+### Table 5: Example Event Realm Object
 
 | Realm Object                                  | Associated Methods | Method Type | Description                                                                                |
 |-----------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------------------------|
@@ -636,7 +637,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                                               | `getTime()`          | long        | Event time                                                                                 |
 |                                               | `getSeverity()`      | double      | How much of value change between forward/backward events with respect to the average value |
 
-### Table 6
+### Table 6: SensumSDK Realm Objects
 | Realm Event Objects |
 |---------------------|
 | `ResAccelerometerX`   |
@@ -650,7 +651,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 | `ResGpsSpeed`         |
 | `ResGSR`              |
 
-### Table 7: Statistic Example Objects
+### Table 7: Example Statistics Object
 
 | Realm Object   | Associated Methods | Method Type | Description                               |
 |----------------|--------------------|-------------|-------------------------------------------|
@@ -661,7 +662,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                | `getPercentiles()`   | Percentiles | Returns a percentile object (see Table 9) |
 |                | `getStd()`           | Double      | Returns a standard deviation value        |
 
-### Table 8: Statistics Objects
+### Table 8: SensumSDK Statistics Objects
 
 | Realm Stats Objects |
 |---------------------|
@@ -678,7 +679,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 
 
-### Table 9: Percentiles
+### Table 9: SensumSDK Percentiles Object
 
 | Object      | Associated Methods | Type   | Description                   |
 |-------------|--------------------|--------|-------------------------------|
@@ -687,7 +688,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |             | `get90()`            | double | Returns 90th percentile value |
 
 
-### Table 10
+### Table 10: ArousalStats Realm Object
 
 | Realm Stats Object | Associated Methods | Type           | Description                                                             |
 |--------------------|--------------------|----------------|-------------------------------------------------------------------------|
@@ -695,7 +696,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                    | `getDominant()`      | String         | Label of the dominant classification category                           |
 |                    | `getSectors()`       | ArousalSectors | Returns the sectors associated with the arousal stats object (Table 12) |
 
-### Table 11
+### Table 11: EngagementStats Realm Object
 
 | Realm Stats Object | Associated Methods | Type              | Description                                                             |
 |--------------------|--------------------|-------------------|-------------------------------------------------------------------------|
@@ -703,7 +704,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                    | `getDominant()`      | String            | Label of the dominant classification category                           |
 |                    | `getSectors()`       | EngagementSectors | Returns the sectors associated with the arousal stats object (Table 12) |
 
-### Table 12
+### Table 12: ArousalSectors and EngagmentSectors Realm Objects
 
 | Object                            | Associated Methods | Type   | Description                                 |
 |-----------------------------------|--------------------|--------|---------------------------------------------|
@@ -723,7 +724,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 * The *Bundle* contains three values of type double (see Table 13).
 
-### Table 13
+### Table 13: Sentiment Filter Data
 
 | Object       | Type   | Description                                  |
 |--------------|--------|----------------------------------------------|
@@ -791,7 +792,7 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
 
  * In `onActivityResult`, the *Google Sign-In* results should be handled and upon successful sign-in, the *Google Id Token* and *Google Web Client ID* need to be passed to the **SensumSDK** as a *Bundle*.
  * This *Bundle* is utilised to maintain the capture-session whilst using the **SensumSDK**.  
- * For authentication the **SensumAPI** base URL, key and *AWS Identity Pool ID* are also needed to pass as a *Bundle*.
+ * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to pass as a *Bundle*.
  * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
  * Code Snippet 20 provides an example of this.
 

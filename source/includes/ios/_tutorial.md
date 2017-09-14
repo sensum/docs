@@ -141,7 +141,7 @@ Ensure **Copy items if needed** is selected, then press **Finish**.
 
 > Code Snippet 1
 
-```swift
+```shell
 #If you're not using brew don't run this
 brew upgrade carthage
 #cd to your project (yours may be named differently)
@@ -184,7 +184,7 @@ carthage update
 > Code Snippet 2
 
 ```swift
-AWSCognitoIdentityProvider.framework’
+AWSCognitoIdentityProvider.framework
 AWSCore.framework
 Realm.framework
 RealmSwift.framework
@@ -221,7 +221,7 @@ CryptoSwift.framework
 
 > Code Snippet 3
 
-```swift
+```shell
 /usr/local/bin/carthage copy-frameworks
 ```
 
