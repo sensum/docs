@@ -4,6 +4,8 @@ language_tabs:
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
   - python: Python
+  - java: Java (Android)
+  - swift: Swift (iOS)
 
 toc_footers:
   - <a href='https://www.sensum.co/'>Sign Up for a Developer Key</a>
