@@ -1,11 +1,19 @@
 # Tutorial - Android
 
+## Introduction
+
+This tutorial is designed to assist Android Developers working with the **SensumSDK** and **SensumAPI**.
+
+It is intended to provide a detailed guide to using the **Sensum Emotion AI** toolkit, providing code examples and guidelines for use.
+
+Have fun and enjoy!
+
 ## Getting Started
 
 We strongly recommend using Android Studio v2.3.3 and above. We work on Android Studio v2.3.3 at time of our first public **SensumSDK** release.
 
- * Open Android Studio
- * Select **New Project** displayed in Figure 1
+ * Open Android Studio.
+ * Select **New Project** displayed in Figure 1.
 
  ![Figure 1 - Start New Project](../../images/figure1_android.png "Figure 1 - Start New Project")
 #### <p style="text-align: center;">Figure 1 - Start New Project</p>
@@ -45,7 +53,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 
  * Click **Next**, you will be presented with the *Customize the Activity* dialogue window.  
  * You may optionally alter the default titles of your: *Activity Name*, *Layout Name*, *Round Layout Name*, and *Rectangular Layout Name* (Figure 7).
- * Click **Finish**
+ * Click **Finish**.
 
   ![Figure 7 - Customize the Wear Activity](../../images/figure7_android.png "Figure 7 - Customize the Wear Activity")
 #### <p style="text-align: center;">Figure 7 - Customize the Wear Activity</p>
@@ -61,7 +69,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 
  * The *New Module* dialogue window will appear.
  * Select the **Import .JAR/.AAR Package** option (Figure 9).
- * Click **Next**
+ * Click **Next**.
 
   ![ Figure 9 - Import .JAR/.AAR Package](../../images/figure9_android.png " Figure 9 - Import .JAR/.AAR Package")
 #### <p style="text-align: center;"> Figure 9 - Import .JAR/.AAR Package</p>
@@ -147,12 +155,13 @@ private final ServiceConnection mConnection = new ServiceConnection() {
     };
 ```
 
-* Declare the Service within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
+* Declare both the *Service* and the *BLE Service* within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
 
 > Code Snippet 3
 
 ```xml
 <service android:name="co.sensum.sensumservice.SDK.SdkService"/>
+<service android:name="co.sensum.sensumservice.SDK.BLE.BluetoothLeService"/>
 ```
 
 ## Binding and Unbinding the Service
@@ -400,7 +409,7 @@ protected void onDestroy() {
         }
     };
 ```
- * Set up a button in your front-end activity/fragment
+ * Set up a button in your front-end activity/fragment.
  * Inside the `onClickListener` include the lines shown in Code Snippet 12.
 
 > Code Snippet 12
