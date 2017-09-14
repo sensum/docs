@@ -30,6 +30,6 @@ The **SensumAPI** and **SensumSDK** enables you to build services or products wh
 
 |Term|Description|
 |----|-----------|
+|**SensumAPI**|The **SensumAPI** is the RESTful API that is used either directly or through the **SensumSDK**|
 |**SensumSDK**|**SensumSDK** refers to the Android and iOS SDKs|
-|**SensumKit**|**SensumKit** is the framework file that allows an application to use the **SensumSDK**|
-|**SensumAPI**|The **SensumAPI** is the Restful API that is used either directly or through the **SensumSDK**|
+|**SensumKit**|**SensumKit** is the framework file that allows an iOS application to use the **SensumSDK**|
