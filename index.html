@@ -200,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;python&quot;,&quot;java&quot;,&quot;swift&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,6 +213,8 @@
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
               <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="java">Java (Android)</a>
+              <a href="#" data-language-name="swift">Swift (iOS)</a>
         </div>
   <div id="toc">
   </div>
@@ -239,16 +241,16 @@
 </tr>
 </thead><tbody>
 <tr>
+<td><strong>SensumAPI</strong></td>
+<td>The <strong>SensumAPI</strong> is the RESTful API that is used either directly or through the <strong>SensumSDK</strong></td>
+</tr>
+<tr>
 <td><strong>SensumSDK</strong></td>
 <td><strong>SensumSDK</strong> refers to the Android and iOS SDKs</td>
 </tr>
 <tr>
 <td><strong>SensumKit</strong></td>
-<td><strong>SensumKit</strong> is the framework file that allows an application to use the <strong>SensumSDK</strong></td>
-</tr>
-<tr>
-<td><strong>SensumAPI</strong></td>
-<td>The <strong>SensumAPI</strong> is the Restful API that is used either directly or through the <strong>SensumSDK</strong></td>
+<td><strong>SensumKit</strong> is the framework file that allows an iOS application to use the <strong>SensumSDK</strong></td>
 </tr>
 </tbody></table>
 
@@ -256,13 +258,14 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p><strong>SensumAPI</strong> enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
-<strong>SensumAPI</strong> is also cross-origin resource sharing ready.
-<strong>SensumSDK</strong> handles many of these requests and responses natively. It can however be useful to utilise the <strong>SensumAPI</strong> directly.</p>
-
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
+
+<p><strong>SensumAPI</strong> enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
+<strong>SensumAPI</strong> is also cross-origin resource sharing ready.</p>
+
+<p><strong>SensumSDK</strong> handles many of these requests and responses natively. It can however be useful to utilise the <strong>SensumAPI</strong> directly.</p>
 
 <h2 id="uri-structure">URI Structure</h2>
 
@@ -273,14 +276,14 @@
 
 <h2 id="authorization">Authorization</h2>
 
-<p><strong>SensumAPI</strong> uses a combination of an API Key and AWS Signature v4 signing to authorize access. You can register a new API Key by contacting us.</p>
+<p><strong>SensumAPI</strong> uses a combination of an API Key and request signing to authorize access. You can register a new API Key by contacting us.</p>
 
 <p><strong>SensumAPI</strong> expects each call to contain the following headers to gain access:</p>
 
 <ul>
 <li>Content-Type: <code class="prettyprint">application/json</code></li>
 <li>Authorization: <code class="prettyprint">$AWSv4Signature</code></li>
-<li>X-API-Key: <code class="prettyprint">$YourAPIKey(For trial usage use &quot;PublicDemoKeyForDocumentation&quot;)</code></li>
+<li>X-API-Key: <code class="prettyprint">$YourAPIKey</code>(For trial usage use &ldquo;PublicDemoKeyForDocumentation&rdquo;)</li>
 </ul>
 
 <p>To calculate the value for the Authorization header you must calculate a hash of your request, add extra information, then add the AWS secret key in order to create a signing key and then use this to sign the request.
@@ -301,66 +304,66 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </thead><tbody>
 <tr>
-<td><a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate">heartrate</a></td>
+<td><a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate"><code class="prettyprint">heartrate</code></a></td>
 <td>bpm</td>
 </tr>
 <tr>
-<td>breathingrate</td>
+<td><code class="prettyprint">breathingrate</code></td>
 <td>bpm</td>
 </tr>
 <tr>
-<td>temperature</td>
+<td><code class="prettyprint">temperature</code></td>
 <td><sup>o</sup>C, assumed to be ambient/external</td>
 </tr>
 <tr>
-<td>skintemperature</td>
+<td><code class="prettyprint">skintemperature</code></td>
 <td><sup>o</sup>C</td>
 </tr>
 <tr>
-<td><a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr">gsr</a></td>
-<td>Siemens<sup>*</sup></td>
+<td><a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr"><code class="prettyprint">gsr</code></a></td>
+<td>microsiemens<sup>*</sup></td>
 </tr>
 <tr>
-<td>location_latitude</td>
+<td><code class="prettyprint">location_latitude</code></td>
 <td>deg</td>
 </tr>
 <tr>
-<td>location_longitude</td>
+<td><code class="prettyprint">location_longitude</code></td>
 <td>deg</td>
 </tr>
 <tr>
-<td>location_altitude</td>
+<td><code class="prettyprint">location_altitude</code></td>
 <td>m</td>
 </tr>
 <tr>
-<td>location_accuracy</td>
-<td>or location_accuracy_h/v if available</td>
+<td><code class="prettyprint">location_accuracy</code></td>
+<td>or location_accuracy_horizontal/vertical if available</td>
 </tr>
 <tr>
-<td>location_speed</td>
+<td><code class="prettyprint">location_speed</code></td>
 <td>m/s</td>
 </tr>
 <tr>
-<td>acceleration</td>
+<td><code class="prettyprint">acceleration</code></td>
 <td>linear acceleration in m/s<sup>2**</sup></td>
 </tr>
 <tr>
-<td>acceleration_x</td>
+<td><code class="prettyprint">acceleration_x</code></td>
 <td>m/s<sup>2</sup></td>
 </tr>
 <tr>
-<td>acceleration_y</td>
+<td><code class="prettyprint">acceleration_y</code></td>
 <td>m/s<sup>2</sup></td>
 </tr>
 <tr>
-<td>acceleration_z</td>
+<td><code class="prettyprint">acceleration_z</code></td>
 <td>m/s<sup>2</sup></td>
 </tr>
 </tbody></table>
 
-<p><sup>*</sup> The GSR Conductance unit &ldquo;Siemens&rdquo; is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)</p>
+<p><sup>*</sup> The GSR Conductance unit &lsquo;microsiemens&rsquo; is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)</p>
 
-<p><sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the userAcceleration iOS method rather than the acceleration method</p>
+<p><sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup> i.e. using the <code class="prettyprint">userAcceleration</code> iOS method rather than the <code class="prettyprint">acceleration</code> method</p>
 
 <h2 id="sensumapi-analysis-responses">SensumAPI Analysis Responses</h2>
 
@@ -408,17 +411,17 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </thead><tbody>
 <tr>
-<td>time</td>
+<td><code class="prettyprint">time</code></td>
 <td>UTC Timestamp (ms)</td>
 <td>Time of event</td>
 </tr>
 <tr>
-<td>value</td>
+<td><code class="prettyprint">value</code></td>
 <td>String: One of [&lsquo;normal&rsquo;, &lsquo;rising&rsquo;, &lsquo;falling&rsquo;, &lsquo;max&rsquo;, &lsquo;min&rsquo;]</td>
 <td>Type of event (normal is not currently used)</td>
 </tr>
 <tr>
-<td>severity</td>
+<td><code class="prettyprint">severity</code> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
 <td>Float</td>
 <td>Relative severity of the event, i.e. how much of value change between forward/backward events with respect to the average value</td>
 </tr>
@@ -434,32 +437,32 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </thead><tbody>
 <tr>
-<td>avg</td>
+<td><code class="prettyprint">avg</code></td>
 <td>Float</td>
 <td>average (mean) value</td>
 </tr>
 <tr>
-<td>duration</td>
+<td><code class="prettyprint">duration</code></td>
 <td>Float (seconds)</td>
 <td>time between first and last analysed records</td>
 </tr>
 <tr>
-<td>max</td>
+<td><code class="prettyprint">max</code></td>
 <td>Float</td>
 <td>max value</td>
 </tr>
 <tr>
-<td>min</td>
+<td><code class="prettyprint">min</code></td>
 <td>Float</td>
 <td>min value</td>
 </tr>
 <tr>
-<td>std</td>
+<td><code class="prettyprint">std</code></td>
 <td>Float</td>
 <td>standard deviation of the record</td>
 </tr>
 <tr>
-<td>percentiles</td>
+<td><code class="prettyprint">percentiles</code></td>
 <td>Object(dict)</td>
 <td>10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a></td>
 </tr>
@@ -477,28 +480,28 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </thead><tbody>
 <tr>
-<td>value</td>
+<td><code class="prettyprint">value</code></td>
 <td>Float</td>
 <td>[0-1] activation value</td>
 </tr>
 <tr>
-<td>dominant</td>
+<td><code class="prettyprint">dominant</code></td>
 <td>string</td>
 <td>label of the dominant classification category</td>
 </tr>
 <tr>
-<td>sectors</td>
+<td><code class="prettyprint">sectors</code></td>
 <td>Object(dict)</td>
-<td>per-category-label activivation (<code class="prettyprint">label</code>:<code class="prettyprint">value</code>,&hellip;)</td>
+<td>per-category-label activivation i.e <code class="prettyprint">{label:value,...}</code></td>
 </tr>
 </tbody></table>
 
 <p>Current Sector Labels (highest to lowest activation value):</p>
 
 <ul>
-<li>Activity : &lsquo;active&rsquo;, &lsquo;inactive&rsquo;</li>
-<li>Arousal : &lsquo;excited&rsquo;, &lsquo;activated&rsquo;, &lsquo;calm&rsquo;, &lsquo;passive&rsquo;, &lsquo;relaxed&rsquo;</li>
-<li>Engagement: &lsquo;highly engaged&rsquo;, &lsquo;engaged&rsquo;, &lsquo;activated&rsquo;, &lsquo;neutral&rsquo;</li>
+<li>Activity : <code class="prettyprint">active</code>, <code class="prettyprint">inactive</code></li>
+<li>Arousal : <code class="prettyprint">excited</code>, <code class="prettyprint">activated</code>, <code class="prettyprint">calm</code>, <code class="prettyprint">passive</code>, <code class="prettyprint">relaxed</code></li>
+<li>Engagement: <code class="prettyprint">highly engaged</code>, <code class="prettyprint">engaged</code>, <code class="prettyprint">activated</code>, <code class="prettyprint">neutral</code></li>
 </ul>
 
 <h2 id="send-text-data-to-analyse-emoji-and-text-sentiment">Send text data to analyse emoji and text sentiment</h2>
@@ -525,15 +528,15 @@ API Key, Authorization.
 </tr>
 </thead><tbody>
 <tr>
-<td>Positivity</td>
+<td><code class="prettyprint">positivity</code></td>
 <td>The level of positive emotion expressed in an input(Scale: 0 to +1)</td>
 </tr>
 <tr>
-<td>Negativity</td>
+<td><code class="prettyprint">negativity</code></td>
 <td>The level of negative emotion expressed in an input(Scale: 0 to +1)</td>
 </tr>
 <tr>
-<td>Emotionality</td>
+<td><code class="prettyprint">emotionality</code></td>
 <td>The overall strength of emotion contained in an input(Scale: -1 to +1)*</td>
 </tr>
 </tbody></table>
@@ -641,10 +644,9 @@ API Key, Authorization.
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"emoji_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"text_sentiment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"compound"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//Aggregate</span><span class="w"> </span><span class="err">Emotionality</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="err">+</span><span class="mi">1</span><span class="w">
-    </span><span class="s2">"neg"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Negativity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
-    </span><span class="s2">"neu"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Neutrality</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
-    </span><span class="s2">"pos"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">Positivity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"emotionality"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//Aggregate</span><span class="w"> </span><span class="err">Emotionality</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"negativity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Negativity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
+    </span><span class="s2">"positivity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">Positivity</span><span class="w"> </span><span class="err">Score</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">+</span><span class="mi">1</span><span class="w">
    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -775,19 +777,19 @@ API Key, Authorization.
 </tr>
 </thead><tbody>
 <tr>
-<td>start</td>
+<td><code class="prettyprint">start</code></td>
 <td>string</td>
 <td>true</td>
 <td><a href = http://www.cl.cam.ac.uk/~mgk25/iso-time.html> Datetime compatible</a> start time for query</td>
 </tr>
 <tr>
-<td>end</td>
+<td><code class="prettyprint">end</code></td>
 <td>string</td>
 <td>true</td>
 <td>End time for query</td>
 </tr>
 <tr>
-<td>metrics</td>
+<td><code class="prettyprint">metrics</code></td>
 <td>string</td>
 <td>true</td>
 <td>List of strings of requested metrics</td>
@@ -896,19 +898,19 @@ X-API-Key, Authorization
 </tr>
 </thead><tbody>
 <tr>
-<td>start</td>
+<td><code class="prettyprint">start</code></td>
 <td>string</td>
 <td>true</td>
 <td>Datetime compatible start time for query</td>
 </tr>
 <tr>
-<td>end</td>
+<td><code class="prettyprint">end</code></td>
 <td>string</td>
 <td>true</td>
 <td>End time for query</td>
 </tr>
 <tr>
-<td>metrics</td>
+<td><code class="prettyprint">metrics</code></td>
 <td>string</td>
 <td>true</td>
 <td>List of strings of requested metrics</td>
@@ -1038,19 +1040,19 @@ X-API-Key, Authorization
 </tr>
 </thead><tbody>
 <tr>
-<td>start</td>
+<td><code class="prettyprint">start</code></td>
 <td>string</td>
 <td>true</td>
 <td>Datetime compatible start time for query</td>
 </tr>
 <tr>
-<td>end</td>
+<td><code class="prettyprint">end</code></td>
 <td>string</td>
 <td>true</td>
 <td>End time for query</td>
 </tr>
 <tr>
-<td>metrics</td>
+<td><code class="prettyprint">metrics</code></td>
 <td>string</td>
 <td>true</td>
 <td>List of strings of requested metrics</td>
@@ -1171,19 +1173,19 @@ X-API-Key, Authorization
 </tr>
 </thead><tbody>
 <tr>
-<td>start</td>
+<td><code class="prettyprint">start</code></td>
 <td>string</td>
 <td>true</td>
 <td>Datetime compatible start time for query</td>
 </tr>
 <tr>
-<td>end</td>
+<td><code class="prettyprint">end</code></td>
 <td>string</td>
 <td>true</td>
 <td>End time for query</td>
 </tr>
 <tr>
-<td>metrics</td>
+<td><code class="prettyprint">metrics</code></td>
 <td>string</td>
 <td>true</td>
 <td>List of strings of requested metrics</td>
@@ -1632,21 +1634,21 @@ X-API-Key, Authorization
 </tr>
 </thead><tbody>
 <tr>
-<td>values</td>
+<td><code class="prettyprint">values</code></td>
 <td>[heartrate]</td>
 <td>string</td>
 <td>false</td>
 <td>An array of the metrics to be generated</td>
 </tr>
 <tr>
-<td>freq</td>
+<td><code class="prettyprint">freq</code></td>
 <td>1</td>
 <td>string</td>
 <td>false</td>
 <td>Frequency of generated records in seconds. Determines timestamps</td>
 </tr>
 <tr>
-<td>n</td>
+<td><code class="prettyprint">n</code></td>
 <td>100</td>
 <td>string</td>
 <td>false</td>
@@ -1802,361 +1804,361 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String ENABLE_SCAN = &quot;enable-scan&quot;</code></p>
 
-<p>This passes a message of enabling scan for the devices to the <strong>SensumSDK</strong> service</p>
+<p>This passes a message of enabling scan for the devices to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="device-list">Device List</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_LIST = &quot;device-list&quot;</code></p>
 
-<p>This is used to get a list of scanned devices</p>
+<p>This is used to get a list of scanned devices.</p>
 
 <h3 id="request">Request</h3>
 
 <p><code class="prettyprint">public static final String REQUEST = &quot;send-request&quot;</code></p>
 
-<p>This is used to get request data</p>
+<p>This is used to get request data.</p>
 
 <h3 id="request-filter">Request Filter</h3>
 
 <p><code class="prettyprint">public static final String REQUEST_FILTER = &quot;request-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the request which is made to the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the request which is made to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="device-filter">Device filter</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_FILTER = &quot;device-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the connected device</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the connected device.</p>
 
 <h3 id="value-filter">Value Filter</h3>
 
 <p><code class="prettyprint">public static final String VALUE_FILTER = &quot;value-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate value</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate value.</p>
 
 <h3 id="login-filter">Login Filter</h3>
 
 <p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the user login</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the user login.</p>
 
 <h3 id="gps-filter">GPS Filter</h3>
 
 <p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS values.</p>
 
 <h3 id="accelerometer-filter">Accelerometer Filter</h3>
 
 <p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer values.</p>
 
 <h3 id="extra-data">Extra Data</h3>
 
 <p><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></p>
 
-<p>This is used to bundle up extra data to the intents</p>
+<p>This is used to bundle up extra data to the intents.</p>
 
 <h3 id="device-name">Device Name</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_NAME = &quot;device-name&quot;</code></p>
 
-<p>This is used to get the connected device name</p>
+<p>This is used to get the connected device name.</p>
 
 <h3 id="device-address">Device Address</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_ADDRESS = &quot;device-address&quot;</code></p>
 
-<p>This is used to get the connected device address</p>
+<p>This is used to get the connected device address.</p>
 
 <h3 id="user-name">User Name</h3>
 
 <p><code class="prettyprint">public static final String USER_NAME = &quot;user-name&quot;</code></p>
 
-<p>This is used to pass the username for authentication to the <strong>SensumSDK</strong> service, only authenticated users are able to use the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass the username for authentication to the <strong>SensumSDK</strong> service, only authenticated users are able to use the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="password">Password</h3>
 
 <p><code class="prettyprint">public static final String PASSWORD = &quot;password&quot;</code></p>
 
-<p>This is used to pass the password for authentication to the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass the password for authentication to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="wear-hr-value">Wear HR Value</h3>
 
 <p><code class="prettyprint">public static final String WEAR_HR_VALUE = &quot;wear-hr-value&quot;</code></p>
 
-<p>This is used to pass the Heart Rate value captured using Android Wear to the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass the Heart Rate value captured using Android Wear to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="text-message">Text Message</h3>
 
 <p><code class="prettyprint">public static final String TEXT_MESSAGE = &quot;text-message&quot;</code></p>
 
-<p>This is used to pass Text/Emoji value to the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass Text/Emoji value to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="x-value">X Value</h3>
 
 <p><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></p>
 
-<p>This is used to pass the captured accelerometer x value</p>
+<p>This is used to pass the captured accelerometer x value.</p>
 
 <h3 id="y-value">Y Value</h3>
 
 <p><code class="prettyprint">public static final String Y_VALUE = &quot;y-value&quot;</code></p>
 
-<p>This is used to pass the captured accelerometer y value</p>
+<p>This is used to pass the captured accelerometer y value.</p>
 
 <h3 id="z-value">Z Value</h3>
 
 <p><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></p>
 
-<p>This is used to pass the captured accelerometer z value</p>
+<p>This is used to pass the captured accelerometer z value.</p>
 
 <h3 id="speed-value">Speed Value</h3>
 
 <p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS speed value</p>
+<p>This is used to pass the captured GPS speed value.</p>
 
 <h3 id="latitude-value">Latitude Value</h3>
 
 <p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS latitude value</p>
+<p>This is used to pass the captured GPS latitude value.</p>
 
 <h3 id="longitude-value">Longitude Value</h3>
 
 <p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS longitude value</p>
+<p>This is used to pass the captured GPS longitude value.</p>
 
 <h3 id="altitude-value">Altitude Value</h3>
 
 <p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS altitude value</p>
+<p>This is used to pass the captured GPS altitude value.</p>
 
 <h3 id="bearing-value">Bearing Value</h3>
 
 <p><code class="prettyprint">public static final String BEARING_VALUE = &quot;bearing-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS bearing value</p>
+<p>This is used to pass the captured GPS bearing value.</p>
 
 <h3 id="accuracy-value">Accuracy Value</h3>
 
 <p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS accuracy value</p>
+<p>This is used to pass the captured GPS accuracy value.</p>
 
 <h3 id="acceleration-capture">Acceleration Capture</h3>
 
 <p><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of accelerometer data which is sent to the API</p>
+<p>This is used to enable/disable capturing of accelerometer data which is sent to the API.</p>
 
 <h3 id="gps-capture">GPS Capture</h3>
 
 <p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of GPS data which is sent to the API</p>
+<p>This is used to enable/disable capturing of GPS data which is sent to the API.</p>
 
 <h3 id="hr-capture">HR Capture</h3>
 
 <p><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of heart rate data which is sent to the API</p>
+<p>This is used to enable/disable capturing of heart rate data which is sent to the API.</p>
 
 <h3 id="input-capture">Input Capture</h3>
 
 <p><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of text/emoji data which is sent to the API</p>
+<p>This is used to enable/disable capturing of text/emoji data which is sent to the API.</p>
 
 <h3 id="hr-data-rate">HR Data Rate</h3>
 
 <p><code class="prettyprint">public static final String HEARTRATE_DATA_RATE = &quot;heartrate_data_rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the heart rate data to be sent to the API</p>
+<p>This is used to pass the interval rate (in milliseconds) for the heart rate data to be sent to the API.</p>
 
 <h3 id="accelerometer-data-rate">Accelerometer Data Rate</h3>
 
 <p><code class="prettyprint">public static final String ACCELEROMETER_DATA_RATE = &quot;accelerometer_data_rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the accelerometer data to be sent to the API</p>
+<p>This is used to pass the interval rate (in milliseconds) for the accelerometer data to be sent to the API.</p>
 
 <h3 id="gps-data-rate">GPS Data Rate</h3>
 
 <p><code class="prettyprint">public static final String GPS_DATA_RATE = &quot;gps_data_rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the GPS data to be sent to the API</p>
+<p>This is used to pass the interval rate (in milliseconds) for the GPS data to be sent to the API.</p>
 
 <h3 id="input-tags-data-rate">Input Tags Data Rate</h3>
 
 <p><code class="prettyprint">public static final String INPUT_TAGS_DATA_RATE = &quot;input_tags_data_rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the text/emoji data to be sent to the API</p>
+<p>This is used to pass the interval rate (in milliseconds) for the text/emoji data to be sent to the API.</p>
 
 <h3 id="device-disconnected">Device Disconnected</h3>
 
 <p><code class="prettyprint">public static final String DEVICE_DISCONNECTED = &quot;com.example.bluetooth.le.ACTION_GATT_DISCONNECTED&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service in case of any device disconnection</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service in case of any device disconnection.</p>
 
 <h3 id="api-response">API Response</h3>
 
 <p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
 
-<p>This is used to pass message from the <strong>SensumSDK</strong> service for the API response</p>
+<p>This is used to pass message from the <strong>SensumSDK</strong> service for the API response.</p>
 
 <h3 id="toast-message">Toast Message</h3>
 
 <p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
 
-<p>This is used to pass informative toast message from the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass informative toast message from the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="api-base-url">API Base URL</h3>
 
 <p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
 
-<p>This is used to pass the base url for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API</p>
+<p>This is used to pass the base url for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API.</p>
 
 <h3 id="auth-token">Auth Token</h3>
 
 <p><code class="prettyprint">public static final String AUTH_TOKEN = &quot;auth-token&quot;</code></p>
 
-<p>This is used to pass the authentication token for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API</p>
+<p>This is used to pass the authentication token for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the API.</p>
 
 <h3 id="user-pool-id">User Pool Id</h3>
 
 <p><code class="prettyprint">public static final String USER_POOL_ID = &quot;user-poolid&quot;</code></p>
 
-<p>This is used to pass the user pool id to the <strong>SensumSDK</strong> service which is used for user authentication</p>
+<p>This is used to pass the user pool id to the <strong>SensumSDK</strong> service which is used for user authentication.</p>
 
 <h3 id="client-id">Client Id</h3>
 
 <p><code class="prettyprint">public static final String CLIENT_ID = &quot;client-id&quot;</code></p>
 
-<p>This is used to pass the client id to the <strong>SensumSDK</strong> service which is used for user authentication</p>
+<p>This is used to pass the client id to the <strong>SensumSDK</strong> service which is used for user authentication.</p>
 
 <h3 id="connect">Connect</h3>
 
 <p><code class="prettyprint">public static final int CONNECT = 101</code></p>
 
-<p>This is used to connect to the selected device from the list of the devices</p>
+<p>This is used to connect to the selected device from the list of the devices.</p>
 
 <h3 id="bind-service">Bind Service</h3>
 
 <p><code class="prettyprint">public static final int BIND_SERVICE = 103</code></p>
 
-<p>This is used for binding to the service</p>
+<p>This is used for binding to the service.</p>
 
 <h3 id="unbind-service">Unbind Service</h3>
 
 <p><code class="prettyprint">public static final int UNBIND_SERVICE = 104</code></p>
 
-<p>This is used for unbinding from the service</p>
+<p>This is used for unbinding from the service.</p>
 
 <h3 id="scan">Scan</h3>
 
 <p><code class="prettyprint">public static final int SCAN = 105</code></p>
 
-<p>This is used internally in the <strong>SensumSDK</strong> service to filter scan for devices</p>
+<p>This is used internally in the <strong>SensumSDK</strong> service to filter scan for devices.</p>
 
 <h3 id="devices">Devices</h3>
 
 <p><code class="prettyprint">public static final int DEVICES = 106</code></p>
 
-<p>This is used to filter for devices</p>
+<p>This is used to filter for devices.</p>
 
 <h3 id="send">Send</h3>
 
 <p><code class="prettyprint">public static final int SEND = 108</code></p>
 
-<p>This is used to filter send from the front end</p>
+<p>This is used to filter send from the front end.</p>
 
 <h3 id="connecting">Connecting</h3>
 
 <p><code class="prettyprint">public static final int CONNECTING = 109</code></p>
 
-<p>This is used to filter connecting from the front end</p>
+<p>This is used to filter connecting from the front end.</p>
 
 <h3 id="start-service">Start Service</h3>
 
 <p><code class="prettyprint">public static final int START_SERVICE = 111</code></p>
 
-<p>This is used to start the service</p>
+<p>This is used to start the service.</p>
 
 <h3 id="cancel-capture">Cancel Capture</h3>
 
 <p><code class="prettyprint">public static final int CANCEL_CAPTURE = 112</code></p>
 
-<p>This is used to cancel sending of the captured data to the API</p>
+<p>This is used to cancel sending of the captured data to the API.</p>
 
 <h3 id="start-capture">Start Capture</h3>
 
 <p><code class="prettyprint">public static final int START_CAPTURE = 113</code></p>
 
-<p>This is used to start sending of the captured data to the API</p>
+<p>This is used to start sending of the captured data to the API.</p>
 
 <h3 id="enable-storing">Enable Storing</h3>
 
 <p><code class="prettyprint">public static final int ENABLE_STORING = 114</code></p>
 
-<p>This is used to enable storing of the captured data locally on the device</p>
+<p>This is used to enable storing of the captured data locally on the device.</p>
 
 <h3 id="disable-storing">Disable Storing</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_STORING = 115</code></p>
 
-<p>This is used to disable storing of the captured data locally on the device</p>
+<p>This is used to disable storing of the captured data locally on the device.</p>
 
 <h3 id="enable-hr-timer">Enable HR Timer</h3>
 
 <p><code class="prettyprint">public static final int ENABLE_HRTIMER = 116</code></p>
 
-<p>This is used to enable the timer for sending the heart rate data to the API</p>
+<p>This is used to enable the timer for sending the heart rate data to the API.</p>
 
 <h3 id="disable-hr-timer">Disable HR Timer</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_HRTIMER = 117</code></p>
 
-<p>This is used to disable the timer for sending the heart rate data to the API</p>
+<p>This is used to disable the timer for sending the heart rate data to the API.</p>
 
 <h3 id="enable-accelerometer-timer">Enable Accelerometer Timer</h3>
 
 <p><code class="prettyprint">public static final int ENABLE_ACCTIMER = 118</code></p>
 
-<p>This is used to enable the timer for sending the accelerometer data to the API</p>
+<p>This is used to enable the timer for sending the accelerometer data to the API.</p>
 
 <h3 id="disable-accelerometer-timer">Disable Accelerometer Timer</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_ACCTIMER = 119</code></p>
 
-<p>This is used to disable the timer for sending the accelerometer data to the API</p>
+<p>This is used to disable the timer for sending the accelerometer data to the API.</p>
 
 <h3 id="enable-gps-timer">Enable GPS Timer</h3>
 
 <p><code class="prettyprint">public static final int ENABLE_GPSTIMER = 120</code></p>
 
-<p>This is used to enable the timer for sending the GPS data to the API</p>
+<p>This is used to enable the timer for sending the GPS data to the API.</p>
 
 <h3 id="disable-gps-timer">Disable GPS Timer</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_GPSTIMER = 121</code></p>
 
-<p>This is used to disable the timer for sending the GPS data to the API</p>
+<p>This is used to disable the timer for sending the GPS data to the API.</p>
 
 <h3 id="enable-input-timer">Enable Input Timer</h3>
 
 <p><code class="prettyprint">public static final int ENABLE_INPUTTIMER = 122</code></p>
 
-<p>This is used to enable the timer for sending the text/emoji data to the API</p>
+<p>This is used to enable the timer for sending the text/emoji data to the API.</p>
 
 <h3 id="disable-input-timer">Disable Input Timer</h3>
 
 <p><code class="prettyprint">public static final int DISABLE_INPUTTIMER = 123</code></p>
 
-<p>This is used to enable the timer for sending the text/emoji data to the API</p>
+<p>This is used to enable the timer for sending the text/emoji data to the API.</p>
 
 <h3 id="login">Login</h3>
 
@@ -2172,11 +2174,9 @@ X-API-Key, Authorization
 
 <h2 id="example-methods">Example Methods</h2>
 
-<h2 id="initiate-connection-to-service">Initiate connection to service</h2>
+<p>Examples available in the &lsquo;Android&rsquo; tab.</p>
 
-<p><code class="prettyprint">private final ServiceConnection mConnection = new ServiceConnection()</code></p>
-
-<p>Connection made to the service. Once bound to the service, the binder object is passed through to messenger to set it up</p>
+<h3 id="initiate-connection-to-service">Initiate connection to service</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ServiceConnection</span> <span class="n">mConnection</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">binder</span><span class="o">)</span> <span class="o">{</span>
@@ -2190,11 +2190,21 @@ X-API-Key, Authorization
         <span class="o">}</span>
     <span class="o">};</span>
 </code></pre>
-<h2 id="submit-credentials-to-service-for-authorization-cognito-user-pools">Submit Credentials to service for authorization (Cognito User Pools)</h2>
+<p><code class="prettyprint">private final ServiceConnection mConnection = new ServiceConnection()</code></p>
 
-<p><code class="prettyprint">void submit()</code></p>
+<p>Connection made to the service. </p>
 
-<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service</p>
+<p>Once bound to the service, the binder object is passed through to messenger to set it up.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="submit-credentials-to-service-for-authorization-cognito-user-pools">Submit Credentials to service for authorization (Cognito User Pools)</h3>
 <pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
         <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">USER_NAME</span><span class="o">,</span> <span class="s">"username"</span><span class="o">);</span>
@@ -2206,38 +2216,46 @@ X-API-Key, Authorization
         <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">LOGIN</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="submit-credentials-to-service-for-authorization-google-sign-in">Submit Credentials to service for authorization (Google Sign-In)</h2>
+<p><code class="prettyprint">void submit()</code></p>
 
+<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="submit-credentials-to-service-for-authorization-google-sign-in">Submit Credentials to service for authorization (Google Sign-In)</h3>
+<pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_BASEURL</span><span class="o">,</span> <span class="n">apiBaseUrl</span><span class="o">);</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_KEY</span><span class="o">,</span> <span class="n">apiKey</span><span class="o">);</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">IDENTITY_POOL_ID</span><span class="o">,</span> <span class="n">identityPoolId</span><span class="o">);</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_ID_TOKEN</span><span class="o">,</span> <span class="n">googleIdToken</span><span class="o">);</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_WEB_CLIENT_ID</span><span class="o">,</span> <span class="n">googleWebClientId</span><span class="o">);</span>
+        <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">GOOGLE_LOGIN</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre>
 <p>Follow Google&rsquo;s <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.</p>
 
-<p>Once successfully implemented you must send the Google Id token for the Google Sign-In application to us</p>
+<p>Once successfully implemented you must send the Google Id token for the Google Sign-In application to us.</p>
 
 <p><code class="prettyprint">void submit()</code></p>
 
-<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service</p>
-<pre class="highlight java tab-java"><code>    <span class="kt">void</span> <span class="nf">submit</span><span class="o">()</span> <span class="o">{</span>
-       <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_BASEURL</span><span class="o">,</span> <span class="n">apiBaseUrl</span><span class="o">);</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">API_KEY</span><span class="o">,</span> <span class="n">apiKey</span><span class="o">);</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">IDENTITY_POOL_ID</span><span class="o">,</span> <span class="n">identityPoolId</span><span class="o">);</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_ID_TOKEN</span><span class="o">,</span> <span class="n">googleIdToken</span><span class="o">);</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">GOOGLE_WEB_CLIENT_ID</span><span class="o">,</span> <span class="n">googleWebClientId</span><span class="o">);</span>
-            <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">GOOGLE_LOGIN</span><span class="o">);</span>
-</code></pre>
-<h2 id="send-a-data-message-to-the-service">Send a data message to the service</h2>
+<p>Sets up the credential bundle to be sent to the <strong>SensumSDK</strong> service this needs to be sent first to the <strong>SensumSDK</strong> service as only authenticated users can use the service.</p>
 
-<p><code class="prettyprint">public void sendToService(Bundle bundle, int argValue)</code></p>
+<p>&nbsp;</p>
 
-<p>Send message to the service</p>
+<p>&nbsp;</p>
 
-<ul>
-<li><strong>Parameters:</strong>
+<p>&nbsp;</p>
 
-<ul>
-<li><code class="prettyprint">bundle</code> — any data that needs passed to the service</li>
-<li><code class="prettyprint">argValue</code> — for service handler to switch on</li>
-</ul></li>
-</ul>
+<p>&nbsp;</p>
+
+<h3 id="send-a-data-message-to-the-service">Send a data message to the service</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendToService</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">,</span> <span class="kt">int</span> <span class="n">argValue</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
         <span class="n">message</span><span class="o">.</span><span class="na">arg1</span> <span class="o">=</span> <span class="n">argValue</span><span class="o">;</span>
@@ -2250,11 +2268,28 @@ X-API-Key, Authorization
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="create-new-broadcast-receiver-object">Create New Broadcast Receiver Object</h2>
+<p><code class="prettyprint">public void sendToService(Bundle bundle, int argValue)</code></p>
 
-<p><code class="prettyprint">private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()</code></p>
+<p>Send message to the service.</p>
 
-<p>Broadcast receiver with the list of registered filters</p>
+<ul>
+<li><strong>Parameters:</strong>
+
+<ul>
+<li><code class="prettyprint">bundle</code> — any data that needs passed to the service</li>
+<li><code class="prettyprint">argValue</code> — for service handler to switch on</li>
+</ul></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="create-new-broadcast-receiver-object">Create New Broadcast Receiver Object</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
@@ -2292,13 +2327,47 @@ X-API-Key, Authorization
         <span class="o">}</span>
     <span class="o">};</span>
 </code></pre>
-<h2 id="update-intentfilter-with-new-actions">Update IntentFilter with new Actions</h2>
+<p><code class="prettyprint">private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()</code></p>
 
-<p><code class="prettyprint">private IntentFilter updateIntentFilter()</code></p>
+<p>Broadcast receiver with the list of registered filters.</p>
 
-<ul>
-<li><strong>Returns:</strong> an intent filter with a list of actions</li>
-</ul>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="update-intentfilter-with-new-actions">Update IntentFilter with new Actions</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">updateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
         <span class="kd">final</span> <span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
 
@@ -2314,26 +2383,52 @@ X-API-Key, Authorization
         <span class="k">return</span> <span class="n">intentFilter</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="start-biometric-data-capture">Start Biometric Data Capture</h2>
+<p><code class="prettyprint">private IntentFilter updateIntentFilter()</code></p>
 
-<p><code class="prettyprint">private void startCaptureSetUp()</code></p>
+<ul>
+<li><strong>Returns:</strong> an intent filter with a list of actions.
+&nbsp;</li>
+</ul>
 
-<p>Starts capturing of biometric/contextual data</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="start-biometric-data-capture">Start Biometric Data Capture</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">startCaptureSetUp</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"Started capturing"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
         <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Started capturing"</span><span class="o">);</span>
         <span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">START_CAPTURE</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="get-capture-bundle">Get Capture Bundle</h2>
+<p><code class="prettyprint">private void startCaptureSetUp()</code></p>
 
-<p><code class="prettyprint">private Bundle getCaptureBundle()</code></p>
+<p>Starts capturing of biometric/contextual data.
+&nbsp;</p>
 
-<p>Sets up the bundle data for capture using the service constants</p>
+<p>&nbsp;</p>
 
-<ul>
-<li><strong>Returns:</strong> capture bundle</li>
-</ul>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="get-capture-bundle">Get Capture Bundle</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">Bundle</span> <span class="nf">getCaptureBundle</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
         <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">ACCELERATION_CAPTURE</span><span class="o">,</span> <span class="n">adapter</span><span class="o">.</span><span class="na">accelerationView</span><span class="o">.</span><span class="na">getSwitchValue</span><span class="o">());</span>
@@ -2347,16 +2442,48 @@ X-API-Key, Authorization
         <span class="k">return</span> <span class="n">bundle</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre>
-<h2 id="stop-biometric-data-capture">Stop Biometric Data Capture</h2>
+<p><code class="prettyprint">private Bundle getCaptureBundle()</code></p>
 
-<p><code class="prettyprint">private void stopCaptureSetUp()</code></p>
+<p>Sets up the bundle data for capture using the service constants.</p>
 
-<p>Stops capturing of biometric/contextual data</p>
+<ul>
+<li><strong>Returns:</strong> capture bundle</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3 id="stop-biometric-data-capture">Stop Biometric Data Capture</h3>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">stopCaptureSetUp</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"Stopped capturing"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
         <span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">ServiceConstants</span><span class="o">.</span><span class="na">CANCEL_CAPTURE</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre>
+<p><code class="prettyprint">private void stopCaptureSetUp()</code></p>
+
+<p>Stops capturing of biometric/contextual data.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
           <h1 id="sensumsdk-ios">SensumSDK - iOS</h1>
 
 <h2 id="ios-device-compatibility">iOS Device Compatibility</h2>
@@ -3615,13 +3742,21 @@ Subscribers will be notified of updates to the Location object.</p>
 
           <h1 id="tutorial-android">Tutorial - Android</h1>
 
+<h2 id="introduction">Introduction</h2>
+
+<p>This tutorial is designed to assist Android Developers working with the <strong>SensumSDK</strong> and <strong>SensumAPI</strong>.</p>
+
+<p>It is intended to provide a detailed guide to using the <strong>Sensum Emotion AI</strong> toolkit, providing code examples and guidelines for use.</p>
+
+<p>Have fun and enjoy!</p>
+
 <h2 id="getting-started">Getting Started</h2>
 
 <p>We strongly recommend using Android Studio v2.3.3 and above. We work on Android Studio v2.3.3 at time of our first public <strong>SensumSDK</strong> release.</p>
 
 <ul>
-<li>Open Android Studio</li>
-<li>Select <strong>New Project</strong> displayed in Figure X</li>
+<li>Open Android Studio.</li>
+<li>Select <strong>New Project</strong> displayed in Figure 1.</li>
 </ul>
 
 <p><img src="images/figure1_android.png" title="Figure 1 - Start New Project" alt="Figure 1 - Start New Project" /></p>
@@ -3631,7 +3766,7 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>Provide a name for your project, for example: &lsquo;<em>SensumTutorialApplication</em>&rsquo;, then click <strong>Next</strong>.</li>
+<li>Provide a name for your project, for example: &lsquo;<em>SensumTutorialApplication</em>&rsquo;, then click <strong>Next</strong> (see Figure 2).</li>
 </ul>
 
 <p><img src="images/figure2_android.png" title="Figure 2 - Create New Project" alt="Figure 2 - Create New Project" /></p>
@@ -3642,7 +3777,7 @@ Subscribers will be notified of updates to the Location object.</p>
 
 <ul>
 <li>Select the <strong>Phone and Tablet</strong>, and <strong>Wear</strong> options from the <em>Target Android Devices</em> dialogue window.</li>
-<li>We recommend you use API 22: Android 5.1 (Lollipop) or greater for best performance.</li>
+<li>We recommend you use API 22: Android 5.1 (Lollipop) or greater for best performance (see Figure 3).</li>
 </ul>
 
 <p><img src="images/figure3_android.png" title="Figure 3 - Select Platforms" alt="Figure 3 - Select Platforms" /></p>
@@ -3662,7 +3797,7 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>Click <strong>Next</strong> in order to configure the Empty Activity, provide an appropriate title for the <em>Activity</em> (for example ‘MainActivity’, as shown in Figure 5).</li>
+<li>Click <strong>Next</strong> in order to configure the <em>Empty Activity</em>, provide an appropriate title for the <em>Activity</em> (for example ‘MainActivity’, as shown in Figure 5).</li>
 </ul>
 
 <p><img src="images/figure5_android.png" title="Figure 5 - Customize the Activity" alt="Figure 5 - Customize the Activity" /></p>
@@ -3672,7 +3807,7 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>Click <strong>Next</strong>, then select <strong>Blank Wear Activity</strong> in the Add an <em>Activity to Wear</em> dialogue window(Figure 6).</li>
+<li>Click <strong>Next</strong>, then select <strong>Blank Wear Activity</strong> in the Add an <em>Activity to Wear</em> dialogue window (Figure 6).</li>
 </ul>
 
 <p><img src="images/figure6_android.png" title="Figure 6 - Add an Activity to Wear" alt="Figure 6 - Add an Activity to Wear" /></p>
@@ -3682,8 +3817,9 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>Click <strong>Next</strong>, you will be presented with the <em>Customize the Activity</em> dialogue window.  You may optionally alter the default titles of your: <em>Activity Name</em>, <em>Layout Name</em>, <em>Round Layout Name</em>, and <em>Rectangular Layout Name</em> (Figure 7).</li>
-<li>Click <strong>Finish</strong></li>
+<li>Click <strong>Next</strong>, you will be presented with the <em>Customize the Activity</em> dialogue window.<br></li>
+<li>You may optionally alter the default titles of your: <em>Activity Name</em>, <em>Layout Name</em>, <em>Round Layout Name</em>, and <em>Rectangular Layout Name</em> (Figure 7).</li>
+<li>Click <strong>Finish</strong>.</li>
 </ul>
 
 <p><img src="images/figure7_android.png" title="Figure 7 - Customize the Wear Activity" alt="Figure 7 - Customize the Wear Activity" /></p>
@@ -3700,13 +3836,14 @@ Subscribers will be notified of updates to the Location object.</p>
 
 <p><img src="images/figure8_android.png" title=" Figure 8 - New Module" alt=" Figure 8 - New Module" /></p>
 
-<h4 id="figure-8-new-module"><p style="text-align: center;"> Figure 8 - New Module</p></h4>
+<h4 id="figure-8-creating-a-new-module"><p style="text-align: center;"> Figure 8 - Creating A New Module</p></h4>
 
 <p><br></p>
 
 <ul>
-<li>The <em>New Module</em> dialogue window will appear. Select the <strong>Import .JAR/.AAR Package</strong> option (Figure 9).</li>
-<li>Click <strong>Next</strong></li>
+<li>The <em>New Module</em> dialogue window will appear.</li>
+<li>Select the <strong>Import .JAR/.AAR Package</strong> option (Figure 9).</li>
+<li>Click <strong>Next</strong>.</li>
 </ul>
 
 <p><img src="images/figure9_android.png" title=" Figure 9 - Import .JAR/.AAR Package" alt=" Figure 9 - Import .JAR/.AAR Package" /></p>
@@ -3716,8 +3853,8 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>The Create New Module dialogue window will appear (shown in Figure 10).</li>
-<li>In order to successfully create a new module, the developer must locate the necessary <strong>sdk-release</strong> file on their system.</li>
+<li>The <em>Create New Module</em> dialogue window will appear (shown in Figure 10).</li>
+<li>In order to successfully create a new module, the developer must locate the necessary <strong>sdk-release.aar</strong> file on their system.</li>
 </ul>
 
 <p><img src="images/figure10_android.png" title=" Figure 10 - Create New Module" alt=" Figure 10 - Create New Module" /></p>
@@ -3727,7 +3864,7 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li><p>Once the <strong>sdk-release</strong> file has been located, click <em>Finish</em>.</p></li>
+<li><p>Once the <strong>sdk-release</strong> file has been located, click <strong>Finish</strong>.</p></li>
 <li><p>In order to link the <strong>sdk-release</strong> file to the project as a dependency, the developer must navigate to <em>File</em> &gt; <em>Project Structure</em>, from the <em>File</em> menu (Figure 11).</p></li>
 </ul>
 
@@ -3738,7 +3875,7 @@ Subscribers will be notified of updates to the Location object.</p>
 <p><br></p>
 
 <ul>
-<li>You will be presented with the Project Structure dialogue window.</li>
+<li>You will be presented with the <em>Project Structure</em> dialogue window.</li>
 <li>At the left-hand-side of the dialogue, select <strong>mobile</strong> from the <em>Modules</em> section.</li>
 <li>Click the <em>Dependencies</em> tab, then click the ‘<strong>+</strong>’ button (top right-hand-side of dialogue), then select the third option: <strong>3 Module Dependency</strong> (Figure 12).</li>
 </ul>
@@ -3764,6 +3901,12 @@ Subscribers will be notified of updates to the Location object.</p>
 <li>You will return to the <em>Project Structure</em> dialogue window, once again, click <strong>OK</strong>.</li>
 </ul>
 
+<h2 id="implementing-the-shimmer-library-for-gsr-values">Implementing the Shimmer library for GSR values</h2>
+
+<ul>
+<li> To import the Shimmer library, repeat the process outlined for importing the <strong>sensumsdk-release</strong>, but instead locate the <strong>shimmersdk-release.aar</strong> file.</li>
+</ul>
+
 <h2 id="including-permissions">Including Permissions</h2>
 
 <ul>
@@ -3778,16 +3921,19 @@ Subscribers will be notified of updates to the Location object.</p>
 <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.BLUETOOTH_ADMIN"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_FINE_LOCATION"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span><span class="nt">/&gt;</span>
- <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_NETWORK_STATE"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_NETWORK_STATE"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.WRITE_EXTERNAL_STORAGE"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.READ_PHONE_STATE"</span><span class="nt">/&gt;</span>
 </code></pre>
 <h2 id="creating-a-service">Creating a Service</h2>
 
 <ul>
-<li>The <strong>SensumSDK</strong> runs in the background of the application.
-The developer is required to create a <em>ServiceConnection</em>, that is responsible for communication between the application front-end and the <strong>SensumSDK</strong>.
+<li>The <strong>SensumSDK</strong> runs in the background of the application.</li>
+<li>The developer is required to create a <em>ServiceConnection</em>, that is responsible for communication between the application front-end and the <strong>SensumSDK</strong>.
 In order to create this <em>ServiceConnection</em>, follow the steps outlined within Code Snippet 2.</li>
-<li>The developer will need to create an instance of the <em>Messenger</em> object. This object has the ability to send <em>Message</em> objects to the <em>Service</em>. Once the over-ridden <code class="prettyprint">onServiceConnected</code> method is called, the <code class="prettyprint">Messenger</code> object is initialised using the passed in <code class="prettyprint">IBinder</code> object.</li>
+<li>The developer will need to create an instance of the <em>Messenger</em> object.</li>
+<li>This object has the ability to send <em>Message</em> objects to the <em>Service</em>.</li>
+<li>Once the over-ridden <code class="prettyprint">onServiceConnected</code> method is called, the <code class="prettyprint">Messenger</code> object is initialised using the passed in <code class="prettyprint">IBinder</code> object.</li>
 </ul>
 
 <blockquote>
@@ -3807,13 +3953,48 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
     <span class="o">};</span>
 </code></pre>
 <ul>
-<li>Declare the Service within your manifest file (<em>AndroidManifest.xml</em>) as shown in Code Snippet 3.</li>
+<li>Declare both the <em>Service</em> and the <em>BLE Service</em> within your manifest file (<em>AndroidManifest.xml</em>) as shown in Code Snippet 3.</li>
 </ul>
 
 <blockquote>
 <p>Code Snippet 3</p>
 </blockquote>
 <pre class="highlight xml tab-xml"><code><span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">"co.sensum.sensumservice.SDK.SdkService"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">"co.sensum.sensumservice.SDK.BLE.BluetoothLeService"</span><span class="nt">/&gt;</span>
+</code></pre>
+<h2 id="binding-and-unbinding-the-service">Binding and Unbinding the Service</h2>
+
+<ul>
+<li>To bind the <em>Service</em> the developer will have to override the <code class="prettyprint">onStart</code> method and include the lines in Code Snippet 4.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 4</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onStart</span><span class="o">();</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">SdkService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">bindService</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">mConnection</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">BIND_AUTO_CREATE</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+<ul>
+<li>When the app is closed (destroyed) the <em>Service</em>  will need to be unbound, otherwise it will continue running (see Code Snippet 5).</li>
+<li>A boolean variable named <code class="prettyprint">mIsBound</code> is initialised as <strong>true</strong>, once the <em>Service</em> is connected.<br></li>
+<li>When the <em>Service</em> is unbound, <code class="prettyprint">mIsBound</code> is set to <strong>false</strong>.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 5</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mIsBound</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">unbindService</span><span class="o">(</span><span class="n">mConnection</span><span class="o">);</span>
+        <span class="n">mIsBound</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 <h2 id="using-a-broadcast-receiver">Using a Broadcast Receiver</h2>
 
@@ -3821,12 +4002,13 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <li>A <em>BroadcastReceiver</em> ‘listens’ for (receives and handles) <em>Broadcast Intents</em>, sent by the <em>Service</em>.</li>
 <li>The <em>BroadcastReceiver</em> is essential as it manages messages sent from the <strong>sdk-release</strong>, within the front-end application.</li>
 <li>The <em>BroadcastReceiver</em> makes use of <em>Filters</em>, that determine which events the application should ‘listen’ for.</li>
-<li>The over-ridden method <em>.onReceive</em> takes two arguments: <em>Context</em> and <em>Intent</em>. The <em>Intent</em> parameter has an associated action that specifies how the
+<li>The over-ridden method <code class="prettyprint">.onReceive</code> takes two arguments: <em>Context</em> and <em>Intent</em>.</li>
+<li>The <em>Intent</em> parameter has an associated action that specifies how the
 <em>BroadcastReceiver</em> should behave.</li>
 <li>Table 1 outlines the filters included in the <em>Service</em> and the <em>Intent Extras</em> they return.</li>
 </ul>
 
-<h3 id="table-1">Table 1</h3>
+<h3 id="table-1-broadcast-receiver-filters">Table 1: Broadcast Receiver Filters</h3>
 
 <table><thead>
 <tr>
@@ -3905,11 +4087,11 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <h2 id="setting-up-the-broadcast-receiver">Setting up the Broadcast Receiver</h2>
 
 <ul>
-<li>Code Snippet 4 contains all necessary code that will allow you to setup a <em>BroadcastReceiver</em>.</li>
+<li>Code Snippet 6 contains all necessary code that will allow you to setup a <em>BroadcastReceiver</em>.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 4</p>
+<p>Code Snippet 6</p>
 </blockquote>
 <pre class="highlight java tab-java"><code>    <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
@@ -3945,12 +4127,12 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <ul>
 <li>The <em>BroadcastReceiver</em> must be registered in order to receive <em>Intents</em> from a <em>Service</em>.</li>
 <li>The <code class="prettyprint">registerReceiver</code> method, takes two arguments: <em>BroadcastReceiver</em> and <em>IntentFilter</em>.</li>
-<li>We have included our own method that returns an <em>IntentFilter:</em> <code class="prettyprint">getUpdateIntentFilter</code> (this method is displayed within Code Snippet 6).</li>
-<li>This method should be called immediately on starting the application, therefore, it is placed within the <code class="prettyprint">.onResume</code> method, as shown in Code Snippet 5.</li>
+<li>We have included our own method that returns an <em>IntentFilter:</em> <code class="prettyprint">getUpdateIntentFilter</code> (this method is displayed within Code Snippet 8).</li>
+<li>This method should be called immediately on starting the application, therefore, it is placed within the <code class="prettyprint">.onResume</code> method, as shown in Code Snippet 7.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 5</p>
+<p>Code Snippet 7</p>
 </blockquote>
 <pre class="highlight java tab-java"><code> <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
@@ -3959,7 +4141,7 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
     <span class="o">}</span>
 </code></pre>
 <blockquote>
-<p>Code Snippet 6</p>
+<p>Code Snippet 8</p>
 </blockquote>
 <pre class="highlight java tab-java"><code>  <span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">getUpdateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">IntentFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
@@ -3974,12 +4156,12 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
     <span class="o">}</span>
 </code></pre>
 <ul>
-<li>When the application is destroyed (on application close/force-close), the <em>BroadcastReceiver</em> must be unregistered. This is handled via the <code class="prettyprint">.onDestroy</code> method.
-Code Snippet 7 demonstrates how to achieve this.</li>
+<li>When the application is destroyed (on application close/force-close), the <em>BroadcastReceiver</em> must be unregistered.</li>
+<li>This is handled via the <code class="prettyprint">.onDestroy</code> method. Code Snippet 9 demonstrates how to achieve this.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 7</p>
+<p>Code Snippet 9</p>
 </blockquote>
 <pre class="highlight java tab-java"><code>    <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
@@ -3995,10 +4177,12 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 
 <ul>
 <li>The application’s communication with the <em>Service</em> requires that commands be sent via <em>Message</em> objects.</li>
-<li>The <em>Message</em> object contains a property called <code class="prettyprint">arg1</code> (which is an Integer value). This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8). This property (<code class="prettyprint">arg1</code>) will carry the command you want to request from the <em>Service</em>.</li>
+<li>The <em>Message</em> object contains a property called <code class="prettyprint">arg1</code> (which is an Integer value).</li>
+<li>This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8).</li>
+<li>This property (<code class="prettyprint">arg1</code>) will carry the command you want to request from the <em>Service</em>.</li>
 </ul>
 
-<h3 id="table-2">Table 2</h3>
+<h3 id="table-2-send-to-service-commands">Table 2: Send to Service Commands</h3>
 
 <table><thead>
 <tr>
@@ -4008,7 +4192,7 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 </thead><tbody>
 <tr>
 <td><strong>CONNECT</strong></td>
-<td><code class="prettyprint">String DEVICE_NAME, String DEVICE_ADDRESS</code></td>
+<td><code class="prettyprint">String DEVICE_NAME</code>, <br> <code class="prettyprint">String DEVICE_ADDRESS</code></td>
 </tr>
 <tr>
 <td><strong>BLE_SCAN</strong></td>
@@ -4016,19 +4200,19 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 </tr>
 <tr>
 <td><strong>START_CAPTURE</strong></td>
-<td><code class="prettyprint">boolean ACCELERATION_CAPTURE, boolean HR_CAPTURE, boolean GPS_CAPTURE, boolean INPUT_CAPTURE, int DATA_RATE_SAMPLE, int DATA_RATE_SEND</code></td>
+<td><code class="prettyprint">boolean ACCELERATION_CAPTURE</code>,<br> <code class="prettyprint">boolean HR_CAPTURE, boolean GPS_CAPTURE</code>,<br> <code class="prettyprint">boolean INPUT_CAPTURE</code>,<br> <code class="prettyprint">int DATA_RATE_SAMPLE</code>,<br> <code class="prettyprint">int DATA_RATE_SEND</code></td>
 </tr>
 <tr>
 <td><strong>CANCEL_CAPTURE</strong></td>
-<td><code class="prettyprint">boolean ACCELERATION_CAPTURE, boolean HR_CAPTURE, boolean GPS_CAPTURE, boolean INPUT_CAPTURE</code></td>
+<td><code class="prettyprint">boolean ACCELERATION_CAPTURE</code>,<br> <code class="prettyprint">boolean HR_CAPTURE</code>, <br> <code class="prettyprint">boolean GPS_CAPTURE</code>,<br> <code class="prettyprint">boolean INPUT_CAPTURE</code></td>
 </tr>
 <tr>
 <td><strong>LOGIN</strong></td>
-<td><code class="prettyprint">String USER_NAME, String PASSWORD, String API_BASEURL, String AUTH_TOKEN</code></td>
+<td><code class="prettyprint">String USER_NAME</code>,<br> <code class="prettyprint">String PASSWORD</code>,<br> <code class="prettyprint">String API_BASEURL</code>,<br> <code class="prettyprint">String AUTH_TOKEN</code></td>
 </tr>
 <tr>
 <td><strong>GOOGLE_LOGIN</strong></td>
-<td><code class="prettyprint">String API_BASEURL_IAM, String API_KEY, String IDENTITY_POOL_ID, String GOOGLE_ID_TOKEN, String GOOGLE_AUTH_CODE</code></td>
+<td><code class="prettyprint">String API_BASEURL_IAM</code>,<br> <code class="prettyprint">String API_KEY</code>,<br> <code class="prettyprint">String IDENTITY_POOL_ID</code>,<br> <code class="prettyprint">String GOOGLE_ID_TOKEN</code>,<br> <code class="prettyprint">String GOOGLE_AUTH_CODE</code></td>
 </tr>
 <tr>
 <td><strong>INPUT_TEXT</strong></td>
@@ -4040,7 +4224,7 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 </tr>
 <tr>
 <td><strong>CONNECT_BLUETOOTH_DEVICE</strong></td>
-<td><code class="prettyprint">String DEVICE_NAME, String DEVICE_ADDRESS</code></td>
+<td><code class="prettyprint">String DEVICE_NAME</code>,<br> <code class="prettyprint">String DEVICE_ADDRESS</code></td>
 </tr>
 <tr>
 <td><strong>HELLO</strong></td>
@@ -4062,14 +4246,14 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <li>Table 2 indicates the relationship between selected Constants, and the requirements for a <em>Bundle</em> of a particular type.
 
 <ul>
-<li>e.g. If using the CONNECT constant, then the associated <em>Bundle</em> should contain two Strings, one for DEVICE_NAME, the other for DEVICE_ADDRESS.</li>
+<li>e.g. If using the <strong>CONNECT</strong> constant, then the associated <em>Bundle</em> should contain two Strings, one for <strong>DEVICE_NAME</strong>, the other for <strong>DEVICE_ADDRESS</strong>.</li>
 </ul></li>
-<li>Code Snippet 8 illustrates how to construct a <em>Message</em> object, and how to send it on to the <em>Service</em>.</li>
+<li>Code Snippet 10 illustrates how to construct a <em>Message</em> object, and how to send it on to the <em>Service</em>.</li>
 <li>The <em>Messenger</em> object, <code class="prettyprint">mServiceMessenger</code>, is able to execute its associated <code class="prettyprint">.send</code> method. This sends the constructed <em>Message</em> object to the <em>Service</em>.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 8</p>
+<p>Code Snippet 10</p>
 </blockquote>
 <pre class="highlight java tab-java"><code>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendToService</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">,</span> <span class="kt">int</span> <span class="n">argValue</span><span class="o">){</span>
         <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
@@ -4085,16 +4269,17 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <h2 id="testing-the-service">Testing the Service</h2>
 
 <ul>
-<li>To test the service the developer create a <em>Button</em> that will be able to send a <em>Message</em> to the <em>Service</em>.</li>
-<li>Within the <code class="prettyprint">onClickListener</code> make a call to the <code class="prettyprint">sendToService</code> method. Enter <strong>null</strong> as the first parameter (<em>Bundle</em>) and <strong>HELLO</strong> as the second parameter (<em>int</em>).</li>
-<li>This will send this the <em>Message</em> to the <em>Service</em>.</li>
-<li>The <em>Service</em> will receive this <em>Message</em> and send a <em>Broadcast</em> on which the <em>BroadcastReceiver</em> will listen for.</li>
-<li>The <em>BroadcastReceiver</em> will handle the <em>action</em> and in this case the <em>action</em> will fall under the HELLO_FILTER case.</li>
+<li>To test the service, the developer create a <em>Button</em> that will be able to send a <em>Message</em> to the <em>Service</em>.</li>
+<li>Within the <code class="prettyprint">onClickListener</code>, make a call to the <code class="prettyprint">sendToService</code> method.</li>
+<li>Enter <strong>null</strong> as the first parameter (<em>Bundle</em>) and <strong>HELLO</strong> as the second parameter (<em>Int</em>).</li>
+<li>This will send this <em>Message</em> to the <em>Service</em>.</li>
+<li>The <em>Service</em> will receive this <em>Message</em> and send a <em>Broadcast</em>, which the <em>BroadcastReceiver</em> will listen for.</li>
+<li>The <em>BroadcastReceiver</em> will handle the <em>action</em> and in this case the <em>action</em> will fall under the <strong>HELLO_FILTER</strong> case.</li>
 <li>It is up to the developer what they wish to do with the returned <em>String</em>.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 9</p>
+<p>Code Snippet 11</p>
 </blockquote>
 <pre class="highlight java tab-java"><code>  <span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mMessageReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
@@ -4128,12 +4313,12 @@ Code Snippet 7 demonstrates how to achieve this.</li>
     <span class="o">};</span>
 </code></pre>
 <ul>
-<li>Set up a button in your front-end activity/fragment</li>
-<li>Inside the <code class="prettyprint">onClickListener</code> include the lines shown in Code Snippet 10.</li>
+<li>Set up a button in your front-end activity/fragment.</li>
+<li>Inside the <code class="prettyprint">onClickListener</code> include the lines shown in Code Snippet 12.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 10</p>
+<p>Code Snippet 12</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">hello_button</span><span class="o">);</span>
 <span class="n">button</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
@@ -4150,14 +4335,14 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <h2 id="setting-up-ble">Setting up BLE</h2>
 
 <ul>
-<li>To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a Button object that will tell the <em>Service</em> to start scanning.</li>
-<li>As in the <a href ="#testing-the-service"><strong>Testing the Service</strong></a> section, the developer should execute the <code class="prettyprint">sendToService</code> method within the <em>Button’s</em> <code class="prettyprint">onClickListener</code> (following Table 2).</li>
+<li>To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a <em>Button</em> object that will tell the <em>Service</em> to start scanning.</li>
+<li>As in the <a href ="#testing-the-service"><strong>Testing the Service</strong></a> section, the developer should execute the <code class="prettyprint">sendToService</code> method within the <em>Button’s</em> <code class="prettyprint">onClickListener</code> (refer to Table 2).</li>
 <li>The first parameter that the <code class="prettyprint">sendToService</code> method expects in this instance is <code class="prettyprint">null</code>, as there is no extra data that the Service needs to execute this task.</li>
-<li>The second parameter that it takes is <strong>BLE_SCAN</strong> (Code Snippet 11).</li>
+<li>The second parameter that it takes is <strong>BLE_SCAN</strong> (Code Snippet 13).</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 11</p>
+<p>Code Snippet 13</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">scanButton</span><span class="o">);</span>
 <span class="n">button</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
@@ -4172,32 +4357,40 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <ul>
 <li>To receive devices from the <em>Service</em> the developer will have to set up the <em>BroadcastReceiver</em> to listen for the <strong>BLE_DEVICE_FILTER</strong> constant.</li>
 <li>Table 1 displays the data that the <em>Intent</em> received by the <em>BroadcastReceiver</em> carries.</li>
-<li>In this case, the data that is received is an <em>ArrayList</em> of <em>BluetoothDevice’s</em>.</li>
-<li>It is then up to the developer as to how they wish to display these devices. We would recommend that the user sets up a <em>ListView</em> or <em>RecyclerView</em>.</li>
+<li>In this case, the data that is received is an <em>ArrayList</em> of <em>BluetoothDevices</em>.</li>
+<li>It is then up to the developer as to how they wish to display these devices.</li>
+<li>We would recommend that the user sets up a <em>ListView</em> or <em>RecyclerView</em>.</li>
 </ul>
 
 <h2 id="connecting-a-ble-device">Connecting a BLE Device</h2>
 
 <ul>
-<li>To connect a BLE device the developer will need to send two <em>String</em> objects as part of the <em>Bundle</em> object that will be sent to the <em>Service</em> as part of the <code class="prettyprint">sendToService</code> method (Code Snippet 12).</li>
-<li>According to Table 2, the two Strings that are required are the BLE devices’ name and address.</li>
-<li>These are both required in order to create a connection between the Android device and the BLE device.</li>
-<li>The developer should include the <strong>CONNECTION_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> overridden method. According to Table 1, the data received is of type <em>String</em>. This <em>String</em> is a connection message sent back from the <em>Service</em> to notify the user whether the connection was successful or not.</li>
+<li>To connect a BLE device the developer will need to send two <em>String</em> objects as part of the <em>Bundle</em> object that will be sent to the <em>Service</em> as part of the <code class="prettyprint">sendToService</code> method (Code Snippet 14).</li>
+<li>According to Table 2, the two Strings required are the BLE device&rsquo;s name and address.</li>
+<li>These are necessary in order to create a connection between the Android device and the BLE device.</li>
+<li>The developer should include the <strong>CONNECTION_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> overridden <code class="prettyprint">onReceive</code> method.</li>
+<li>According to Table 1, the data received is of type <em>String</em>.</li>
+<li>This <em>String</em> provides a connection message, sent back from the <em>Service</em>, to notify the user whether the connection was successful or not.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 12</p>
+<p>Code Snippet 14</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span>  <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
 <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">ServiceConstants</span><span class="o">.</span><span class="na">DEVICE_NAME</span><span class="o">,</span> <span class="n">deviceName</span><span class="o">);</span>
 <span class="n">bundle</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">ServiceConstants</span><span class="o">.</span><span class="na">DEVICE_ADDRESS</span><span class="o">,</span> <span class="n">deviceAddress</span><span class="o">);</span>
 <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">CONNECT</span><span class="o">);</span>
 </code></pre>
+<ul>
+<li><strong>SensumSDK</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</li>
+</ul>
+
 <h2 id="receiving-values">Receiving Values</h2>
 
 <ul>
 <li>This version of the <strong>SensumSDK</strong> only returns heart rate values from the BLE device, therefore the developer should ensure that the BLE device that they are using can detect heart rate.</li>
-<li>On connection the BLE device will send values to the <em>Service</em>. The <em>Service</em> will then broadcast these values to the application that the developer has built.</li>
+<li>On connection the BLE device will send values to the <em>Service</em>.</li>
+<li>The <em>Service</em> will then broadcast these values to the application that the developer has built.</li>
 <li>The developer should include the <strong>VALUE_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
 <li>According to Table 1, the value received will be of type <em>String</em>. This value will be the heart rate.</li>
 </ul>
@@ -4207,25 +4400,23 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <ul>
 <li>To scan for, receive, and read values from Bluetooth devices, please follow the steps previously outlined within the <a href = "#setting-up-the-ble">Setting up BLE</a> section of this tutorial.</li>
 <li>The same steps should be taken, however bear in mind that the constants should change i.e. replace BLE_SCAN with <strong>BLUETOOTH_SCAN</strong>.</li>
-<li>This version of the <strong>SensumSDK</strong> will only connect to a <em>Shimmer</em> device. This device returns GSR values.</li>
-<li>The developer should include the GSR_FILTER constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
+<li>This version of the <strong>SensumSDK</strong> will only connect to a <em>Shimmer 2r</em> device. This device returns GSR values.</li>
+<li>The developer should include the <strong>GSR_FILTER</strong> constant within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
 <li>According to Table 1 the value received will be of type <em>String</em>. This value will be the GSR value.</li>
 </ul>
 
-<p><strong>SensumSDK</strong> supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.</p>
-
-<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.</p>
+<p><strong>Note:</strong> This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from <em>Shimmer 2r</em> devices at present.</p>
 
 <h2 id="receiving-gps-and-acceleration-values">Receiving GPS and Acceleration Values</h2>
 
 <ul>
-<li>GPS and Acceleration values will automatically be sent from the <em>Service</em> to the application’s frontend once the user has started the application and is authenticated (See <a href = "#google-sign-in">Google Sign-In Section</a>).</li>
+<li>GPS and Acceleration values will automatically be sent from the <em>Service</em> to the application’s frontend once the user has started the application and is authenticated (see <a href = "#google-sign-in">Google Sign-In Section</a>).</li>
 <li>The developer should include the <strong>GPS_FILTER</strong> and the <strong>ACC_FILTER</strong> constants within the <em>BroadcastReceiver’s</em> <code class="prettyprint">onReceive</code> method.</li>
 <li>Both of these filters receive a bundle that contains multiple value types.</li>
 <li>Refer to Table 3 to discover the value types returned from the <em>Service</em>.</li>
 </ul>
 
-<h3 id="table-3">Table 3</h3>
+<h3 id="table-3-broadcast-receiver-filter-examples">Table 3: Broadcast Receiver Filter Examples</h3>
 
 <table><thead>
 <tr>
@@ -4296,62 +4487,528 @@ Code Snippet 7 demonstrates how to achieve this.</li>
 <ul>
 <li>Once the developer is able to receive data from the <em>Service</em> and is authorised (See <a href ="#google-sign-in">Google Sign-In Section</a>), they can start to send data to the <strong>SensumAPI</strong>.</li>
 <li>To do this the developer should create a <em>Button</em> object that implements the <code class="prettyprint">sendToService</code> method (See <a href = "testing-the-service">Hello example</a> &amp; <a href ="#table-2">Table 2</a> for more info).</li>
-<li><p>This will send a message to the Service to start sending captured data to the <strong>SensumAPI</strong>.</p></li>
-<li><p>The API will send back the analysed data to the service.</p></li>
-<li><p>Within your activity set up a button that will scan for BLE devices</p></li>
-<li><p>Just like the example before and using the table above setup the <code class="prettyprint">sendToService</code> method within the <code class="prettyprint">onClickListener</code></p></li>
-<li><p>To scan for BLE it will take <strong>null</strong> as the first parameter and <strong>BLE_SCAN</strong> for the second</p></li>
-<li><p>To retrieve your device list you will have to include the intent filter in your receiver as like before</p></li>
-<li><p>The intent filter for ble devices is BLE_DEVICE_FILTER</p></li>
-</ul>
-
-<blockquote>
-<p>Code Snippet 13</p>
-</blockquote>
-<pre class="highlight java tab-java"><code><span class="k">case</span> <span class="nl">BLE_DEVICE_FILTER:</span>
-    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">BluetoothDevice</span><span class="o">&gt;</span> <span class="n">bleDevices</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableArrayListExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
-</code></pre>
-<ul>
-<li>The bundle which is returned from the broadcast intent includes an <em>ArrayList</em> of <em>BluetoothDevices</em>.</li>
-<li>It is up to you how you want to display this list i.e. <em>ListView</em> or <em>RecyclerView</em>.</li>
-</ul>
-
-<h2 id="connecting-a-ble-device">Connecting a BLE Device</h2>
-
-<ul>
-<li>To connect a BLE device you will need to send a bundle to the <em>Service</em> which includes two Strings: <strong>DEVICE_NAME</strong> and <strong>DEVICE_ADDRESS</strong>.</li>
-<li>These will be used to create the connection to the BLE device</li>
-<li>In your <em>BroadcastReceiver</em> you should include the <strong>CONNECTION_FILTER</strong> constant to listen for a response from the service in regards to your connection request.</li>
-</ul>
-
-<blockquote>
-<p>Code Snippet 14</p>
-</blockquote>
-<pre class="highlight java tab-java"><code><span class="k">case</span> <span class="nl">CONNECTION_FILTER:</span>
-    <span class="n">String</span> <span class="n">connectionMessage</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">EXTRA_DATA</span><span class="o">);</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">connectionMessage</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"connected"</span><span class="o">)){</span>
-    <span class="n">onConnection</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-</code></pre>
-<h2 id="google-sign-in">Google Sign-In</h2>
-
-<ul>
-<li>For <em>Google Sign-In</em> the following <em>Play Service</em> dependency needs to be added to Gradle:</li>
-</ul>
-
-<blockquote>
-<p>Code Snippet 14</p>
-</blockquote>
-<pre class="highlight java tab-java"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">play</span><span class="o">-</span><span class="n">services</span><span class="o">-</span><span class="nl">auth:</span><span class="o">+</span><span class="err">'</span>
-</code></pre>
-<ul>
-<li>As part of enabling <em>Google APIs</em> or <em>Firebase</em> services in your Android application the <code class="prettyprint">google-services.json</code> is processed by the <code class="prettyprint">google-services</code> plugin. The <code class="prettyprint">google-services.json</code> is created using <em>Firebase</em> during enabling <em>Google Services</em> for your Android application and is generally placed in the app/ directory (at the root of the Android Studio app module).</li>
-<li><p>For <em>Google Sign-In</em> to work with <em>AWS</em> authentication, <code class="prettyprint">OAuth 2.0 client ID</code> (<em>Google Android Client ID</em>) is required by <em>AWS</em>. The <em>Google Android Client ID</em> is created using <em>Google Developer Console</em> by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio. The generated <em>Google Android Client ID</em> needs to be given to us for adding it to <em>AWS</em> for authentication.</p></li>
-<li><p>In the <code class="prettyprint">onCreate()</code> method of your sign-in <code class="prettyprint">Activity</code>, the <code class="prettyprint">GoogleSignInOptions</code> object should be instantiated which is used to create the <code class="prettyprint">GoogleApiClient</code> which is used for accessing the <em>Google Sign-In API</em>.</p></li>
-<li><p>The <em>Google Web Client ID</em> which is created in the <em>Google Developer Console</em> is required during the creation of the <em>Google Sign-In</em> object (shown in Code Snippet 15 as the <code class="prettyprint">gso</code> object).</p></li>
+<li>The arguments that this method expects are: a <em>Bundle</em> object and the <strong>START_CAPTURE</strong> command.</li>
+<li>This will send a message to the Service to start sending captured data to the <strong>SensumAPI</strong>.</li>
+<li>The content of Code Snippet 15 displays a method that we have created that returns a bundle holding data relevant to the <strong>START_CAPTURE</strong> command.</li>
+<li>The data held in this bundle informs the <strong>SensumSDK</strong> which metrics are to be recorded, in addition to the frequency at which these metrics should be sent to the <strong>SensumAPI</strong>.</li>
 </ul>
 
 <blockquote>
 <p>Code Snippet 15</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">public</span> <span class="n">Bundle</span> <span class="nf">getCaptureBundle</span><span class="o">()</span> <span class="o">{</span>
+ <span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+ <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">ACCELERATION_CAPTURE</span><span class="o">,</span> <span class="n">isAcc</span><span class="o">);</span>
+ <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">HR_CAPTURE</span><span class="o">,</span> <span class="n">isHr</span><span class="o">);</span>
+ <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">GPS_CAPTURE</span><span class="o">,</span> <span class="n">isGps</span><span class="o">);</span>
+ <span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">INPUT_CAPTURE</span><span class="o">,</span> <span class="n">isInput</span><span class="o">);</span>
+ <span class="n">bundle</span><span class="o">.</span><span class="na">putLong</span><span class="o">(</span><span class="n">DATA_RATE_SEND</span><span class="o">,</span> <span class="n">dataRate</span><span class="o">);</span>
+ <span class="k">return</span> <span class="n">bundle</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+<ul>
+<li>In the same way another <em>Button</em> should be created to stop the recording.</li>
+<li>This <em>Button</em> should implement the <code class="prettyprint">sendToService</code> method, the arguments that it expects are identical to those used for the <strong>START_CAPTURE</strong> command (see Code Snippet 16).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 16</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">START_CAPTURE</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">sendToService</span><span class="o">(</span><span class="n">getCaptureBundle</span><span class="o">(),</span> <span class="n">CANCEL_CAPTURE</span><span class="o">);</span>
+</code></pre>
+<h2 id="receiving-values-from-sensumapi">Receiving Values from SensumAPI</h2>
+
+<ul>
+<li>Receiving the value from the <strong>SensumAPI</strong> works in the same way as receiving values from a device.</li>
+<li>The <em>BroadcastReceiver</em> in your <code class="prettyprint">MainActivity</code> should implement the ‘filters’ shown in Table 4.</li>
+</ul>
+
+<h3 id="table-4-additional-broadcast-receiver-filters">Table 4: Additional Broadcast Receiver Filters</h3>
+
+<table><thead>
+<tr>
+<th>Action</th>
+<th>(description)</th>
+<th>Intent Extras</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>HR_EVENTS_FILTER</strong></td>
+<td>Filters for heart rate events</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>ACC_EVENT_FILTER</strong></td>
+<td>Filters for acceleration events</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>AROUSAL_EVENT_FILTER</strong></td>
+<td>Filters for arousal events</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>GPS_EVENT_FILTER</strong></td>
+<td>Filters for GPS events</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>GSR_EVENT_FILTER</strong></td>
+<td>Filters for GSR events</td>
+<td><code class="prettyprint">null</code></td>
+</tr>
+<tr>
+<td><strong>EMOJI_SENTIMENT_FILTER</strong></td>
+<td>Filters for Emoji Sentiment values</td>
+<td><code class="prettyprint">Bundle</code></td>
+</tr>
+<tr>
+<td><strong>TEXT_SENTIMENT_FILTER</strong></td>
+<td>Filters for Text Sentiment values</td>
+<td><code class="prettyprint">Bundle</code></td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>These filters should also be added to your <code class="prettyprint">getUpdateFilter</code> method (Code Snippet 17).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 17</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="n">IntentFilter</span> <span class="nf">getUpdateIntentFilter</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">IntentFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">();</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">HELLO_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GPS_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">ACC_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">VALUE_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GSR_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">API_RESPONSE</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">TOAST_MESSAGE</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">HR_EVENTS_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">ACC_EVENT_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">AROUSAL_EVENT_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GPS_EVENT_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">GSR_EVENT_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">EMOJI_SENTIMENT_FILTER</span><span class="o">);</span>
+      <span class="n">filter</span><span class="o">.</span><span class="na">addAction</span><span class="o">(</span><span class="n">TEXT_SENTIMENT_FILTER</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">filter</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre>
+<h2 id="realm-queries">Realm Queries</h2>
+
+<ul>
+<li><em>Realm</em> is a Mobile Database that provides an alternative to <em>SQLite</em> &amp; <em>Core Data</em>.</li>
+<li>We use <em>Realm</em> to safely and efficiently store/query data from the response the <strong>SensumAPI</strong> returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/"> here</a>.</li>
+<li>A significant advantage for developers using the <strong>SensumSDK</strong> is the ability to query the <em>Realm</em> database from the front-end to see what data has been captured/stored.</li>
+<li>When an event has been received by the <em>BroadcastReceiver</em>, the developer can query the <em>Realm</em> database to retrieve the values received from the <strong>SensumAPI</strong>.</li>
+<li>The <strong>AROUSAL_EVENT_FILTER</strong> lets the developer know that the <strong>SensumSDK</strong> has received an ‘arousal event’.</li>
+<li>Code Snippet 18 displays how the developer could query <em>Realm</em> to see the values stored.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 18</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">queryRealmForArousalStats</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">try</span> <span class="o">{</span>
+       <span class="n">realm</span> <span class="o">=</span> <span class="n">Realm</span><span class="o">.</span><span class="na">getDefaultInstance</span><span class="o">().</span><span class="na">getDefaultInstance</span><span class="o">();</span>
+       <span class="n">RealmResults</span><span class="o">&lt;</span><span class="n">ArousalStats</span><span class="o">&gt;</span> <span class="n">realmResults</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">ArousalStats</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">findAll</span><span class="o">();</span>
+       <span class="n">realmResults</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+       <span class="k">if</span> <span class="o">(!</span><span class="n">realmResults</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+           <span class="k">for</span> <span class="o">(</span><span class="n">ArousalStats</span> <span class="n">realmRecords</span> <span class="o">:</span> <span class="n">realmResults</span><span class="o">)</span> <span class="o">{</span>
+               <span class="n">updateArousalStats</span><span class="o">(</span><span class="n">realmRecords</span><span class="o">);</span>
+           <span class="o">}</span>
+       <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"No arousal stats data found in the database"</span><span class="o">);</span>
+       <span class="o">}</span>
+   <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Unable to get arousal stats data from the database "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">updateArousalStats</span><span class="o">(</span><span class="n">ArousalStats</span> <span class="n">arousalStats</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">ArousalSectors</span> <span class="n">arousalSectors</span> <span class="o">=</span> <span class="n">arousalStats</span><span class="o">.</span><span class="na">getArousalSectors</span><span class="o">();</span>
+   <span class="kt">double</span> <span class="n">activated</span> <span class="o">=</span> <span class="n">arousalSectors</span><span class="o">.</span><span class="na">getActivated</span><span class="o">();</span>
+   <span class="kt">double</span> <span class="n">calm</span> <span class="o">=</span> <span class="n">arousalSectors</span><span class="o">.</span><span class="na">getCalm</span><span class="o">();</span>
+   <span class="kt">double</span> <span class="n">excited</span> <span class="o">=</span> <span class="n">arousalSectors</span><span class="o">.</span><span class="na">getExcited</span><span class="o">();</span>
+   <span class="kt">double</span> <span class="n">passive</span> <span class="o">=</span> <span class="n">arousalSectors</span><span class="o">.</span><span class="na">getPassive</span><span class="o">();</span>
+   <span class="kt">double</span> <span class="n">relaxed</span> <span class="o">=</span> <span class="n">arousalSectors</span><span class="o">.</span><span class="na">getRelaxed</span><span class="o">();</span>
+
+<span class="o">}</span>
+
+</code></pre>
+<ul>
+<li>Code Snippet 18 shows the <code class="prettyprint">ArousalStats</code> object.</li>
+<li><p>Each record of the object has associated values attached, displayed in the <code class="prettyprint">updateArousalStats</code> method.</p></li>
+<li><p>Tables 5 - 12 display the <em>Realm</em> objects that the <strong>SensumSDK</strong> holds.</p></li>
+<li><p>These objects contain methods and values associated with the response from the <strong>SensumAPI</strong>.</p></li>
+</ul>
+
+<h3 id="table-5-example-event-realm-object">Table 5: Example Event Realm Object</h3>
+
+<table><thead>
+<tr>
+<th>Realm Object</th>
+<th>Associated Methods</th>
+<th>Method Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">ResHeartRate</code> Events associated with Heart Rate</td>
+<td><code class="prettyprint">getValue()</code></td>
+<td>String</td>
+<td>Retrieves a value associated with the event event - min, max, normal, rising, falling</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getTime()</code></td>
+<td>long</td>
+<td>Event time</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getSeverity()</code></td>
+<td>double</td>
+<td>How much of value change between forward/backward events with respect to the average value</td>
+</tr>
+</tbody></table>
+
+<h3 id="table-6-sensumsdk-realm-objects">Table 6: SensumSDK Realm Objects</h3>
+
+<table><thead>
+<tr>
+<th>Realm Event Objects</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">ResAccelerometerX</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResAccelerometerY</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResAccelerometerZ</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsAccuracy</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsAltitude</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsBearing</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsLatitude</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsLongitude</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGpsSpeed</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">ResGSR</code></td>
+</tr>
+</tbody></table>
+
+<h3 id="table-7-example-statistics-object">Table 7: Example Statistics Object</h3>
+
+<table><thead>
+<tr>
+<th>Realm Object</th>
+<th>Associated Methods</th>
+<th>Method Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">HeartRateStats</code></td>
+<td><code class="prettyprint">getAvg()</code></td>
+<td>Double</td>
+<td>Returns an average value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getDuration()</code></td>
+<td>Double</td>
+<td>Returns duration value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getMax()</code></td>
+<td>Double</td>
+<td>Returns max value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getMin()</code></td>
+<td>double</td>
+<td>Returns min value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getPercentiles()</code></td>
+<td>Percentiles</td>
+<td>Returns a percentile object (see Table 9)</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getStd()</code></td>
+<td>Double</td>
+<td>Returns a standard deviation value</td>
+</tr>
+</tbody></table>
+
+<h3 id="table-8-sensumsdk-statistics-objects">Table 8: SensumSDK Statistics Objects</h3>
+
+<table><thead>
+<tr>
+<th>Realm Stats Objects</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">AccelerometerXStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">AccelerometerYStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">AccelerometerZStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsAccuracyStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsAltitudeStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsBearingStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsLatitudeStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsLongitudeStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GpsSpeedStats</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">GsrStats</code></td>
+</tr>
+</tbody></table>
+
+<h3 id="table-9-sensumsdk-percentiles-object">Table 9: SensumSDK Percentiles Object</h3>
+
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Associated Methods</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">Percentiles</code></td>
+<td><code class="prettyprint">get10()</code></td>
+<td>double</td>
+<td>Returns 10th percentile value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">get50()</code></td>
+<td>double</td>
+<td>Returns 50th percentile value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">get90()</code></td>
+<td>double</td>
+<td>Returns 90th percentile value</td>
+</tr>
+</tbody></table>
+
+<h3 id="table-10-arousalstats-realm-object">Table 10: ArousalStats Realm Object</h3>
+
+<table><thead>
+<tr>
+<th>Realm Stats Object</th>
+<th>Associated Methods</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">ArousalStats</code></td>
+<td><code class="prettyprint">getValue()</code></td>
+<td>double</td>
+<td>Returns an activation value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getDominant()</code></td>
+<td>String</td>
+<td>Label of the dominant classification category</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getSectors()</code></td>
+<td>ArousalSectors</td>
+<td>Returns the sectors associated with the arousal stats object (Table 12)</td>
+</tr>
+</tbody></table>
+
+<h3 id="table-11-engagementstats-realm-object">Table 11: EngagementStats Realm Object</h3>
+
+<table><thead>
+<tr>
+<th>Realm Stats Object</th>
+<th>Associated Methods</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">EngagementStats</code></td>
+<td><code class="prettyprint">getValue()</code></td>
+<td>double</td>
+<td>Returns an activation value</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getDominant()</code></td>
+<td>String</td>
+<td>Label of the dominant classification category</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getSectors()</code></td>
+<td>EngagementSectors</td>
+<td>Returns the sectors associated with the arousal stats object (Table 12)</td>
+</tr>
+</tbody></table>
+
+<h3 id="table-12-arousalsectors-and-engagmentsectors-realm-objects">Table 12: ArousalSectors and EngagmentSectors Realm Objects</h3>
+
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Associated Methods</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">ArousalSectors</code> and <code class="prettyprint">EngagmentSectors</code></td>
+<td><code class="prettyprint">getExcited()</code></td>
+<td>double</td>
+<td>Returns a value associated with excitement</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getActivated()</code></td>
+<td>double</td>
+<td>Returns a value associated with activity</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getCalm()</code></td>
+<td>double</td>
+<td>Returns a value associated with calmness</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getPassive()</code></td>
+<td>double</td>
+<td>Returns a value associated with passiveness</td>
+</tr>
+<tr>
+<td></td>
+<td><code class="prettyprint">getRelaxed()</code></td>
+<td>double</td>
+<td>Returns a value associated with relaxation</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>Sentiment values are returned via the <em>BroadcastReceiver</em> (see Table 4).</li>
+<li>When the developer sends a message to the service using the <strong>INPUT_TEXT</strong> command, the associated <em>String</em> object that is sent to the <em>Service</em> (see Table 2) is also sent to the <strong>SensumAPI</strong>, before a value is returned to the <strong>SensumSDK</strong>.</li>
+<li>Depending on the type of input (i.e. text or emoji), a <em>Bundle</em> is returned to the front-end.</li>
+<li>To receive this bundle the developer should include the <strong>TEXT_SENTIMENT_FILTER</strong> and <strong>EMOJI_SENTIMENT_FILTER</strong>  within the BroadcastReceivers <code class="prettyprint">onReceive</code> method.</li>
+</ul>
+
+<!-- TEST COMMENT FOR GIT ISSUE-->
+
+<ul>
+<li>The <em>Bundle</em> contains three values of type double (see Table 13).</li>
+</ul>
+
+<h3 id="table-13-sentiment-filter-data">Table 13: Sentiment Filter Data</h3>
+
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">EMOTIONALITY</code></td>
+<td>double</td>
+<td>Returns a value associated with emotionality</td>
+</tr>
+<tr>
+<td><code class="prettyprint">POSITIVITY</code></td>
+<td>double</td>
+<td>Returns a value associated with positivity</td>
+</tr>
+<tr>
+<td><code class="prettyprint">NEGATIVITY</code></td>
+<td>double</td>
+<td>Returns a value associated with negativity</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>These events are returned via a <em>BroadcastIntent</em> rather than retrieved from the <em>Realm</em> database; therefore they should be listened for in the <em>BroadcastReceiver</em>&lsquo;s <code class="prettyprint">onReceive</code> method.</li>
+</ul>
+
+<!-- NEW EDITS FINISH HERE-->
+
+<ul>
+<li>The values returned can be used to display data in a variety of ways.</li>
+<li>We recommend using a charting library to show this data coming in from the <strong>SensumSDK</strong>.</li>
+<li>To access these objects the developer should query the <em>Realm</em> database (see previous example in Code Snippet 18) to access the desired values.</li>
+</ul>
+
+<h2 id="google-sign-in">Google Sign-In</h2>
+
+<ul>
+<li>For <em>Google Sign-In</em>, a <em>Play Service</em> dependency needs to be added to Gradle (Code Snippet 19).</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 19</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">gms</span><span class="o">:</span><span class="n">play</span><span class="o">-</span><span class="n">services</span><span class="o">-</span><span class="nl">auth:</span><span class="o">+</span><span class="err">'</span>
+</code></pre>
+<ul>
+<li>As part of enabling <em>Google APIs</em> or <em>Firebase</em> services in your Android application the <code class="prettyprint">google-services.json</code> is processed by the <code class="prettyprint">google-services</code> plugin.</li>
+<li>The <code class="prettyprint">google-services.json</code> is created using <em>Firebase</em> during enabling <em>Google Services</em> for your Android application and is generally placed in the <strong>app/</strong> directory (at the root of the Android Studio app module).</li>
+<li>For <em>Google Sign-In</em> to work with <em>AWS</em> authentication, <code class="prettyprint">OAuth 2.0 client ID</code> (<em>Google Android Client ID</em>) is required by <em>AWS</em>.</li>
+<li>The <em>Google Android Client ID</em> is created using <em>Google Developer Console</em> by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio.</li>
+<li><p>The generated <em>Google Android Client ID</em> needs to be given to us for adding it to <em>AWS</em> for authentication.</p></li>
+<li><p>In the <code class="prettyprint">onCreate()</code> method of your sign-in <code class="prettyprint">Activity</code>, the <code class="prettyprint">GoogleSignInOptions</code> object should be instantiated.</p></li>
+<li><p>This object is used to create the <code class="prettyprint">GoogleApiClient</code> which is used for accessing the <em>Google Sign-In API</em>.</p></li>
+<li><p>The <em>Google Web Client ID</em> which is created in the <em>Google Developer Console</em> is required during the creation of the <em>Google Sign-In</em> object (shown in Code Snippet 20 as the <code class="prettyprint">gso</code> object).</p></li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 20</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">GoogleSignInOptions</span> <span class="n">gso</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GoogleSignInOptions</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">GoogleSignInOptions</span><span class="o">.</span><span class="na">DEFAULT_SIGN_IN</span><span class="o">)</span>
        <span class="o">.</span><span class="na">requestEmail</span><span class="o">()</span>
@@ -4367,21 +5024,25 @@ Code Snippet 7 demonstrates how to achieve this.</li>
        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </code></pre>
 <ul>
-<li>The Google Sign-In needs to be triggered, this is achieved via an <em>Intent</em>. Code Snippet 16 provides an example of this.</li>
+<li>The <em>Google Sign-In</em> needs to be triggered, this is achieved via an <em>Intent</em>. Code Snippet 21 illustrates this.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 16</p>
+<p>Code Snippet 21</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">Intent</span> <span class="n">signInIntent</span> <span class="o">=</span> <span class="n">Auth</span><span class="o">.</span><span class="na">GoogleSignInApi</span><span class="o">.</span><span class="na">getSignInIntent</span><span class="o">(</span><span class="n">googleApiClient</span><span class="o">);</span>
 <span class="k">this</span><span class="o">.</span><span class="na">startActivityForResult</span><span class="o">(</span><span class="n">signInIntent</span><span class="o">,</span> <span class="n">RC_SIGN_IN</span><span class="o">);</span>
 </code></pre>
 <ul>
-<li>In <code class="prettyprint">onActivityResult</code>, the <em>Google Sign-In</em> results should be handled and upon successful sign-in the <em>Google Id Token</em> and <em>Google Web Client ID</em> needs to be passed to the <strong>SensumSDK</strong> as a Bundle which is used for maintaining the user session for using the <strong>SensumSDK</strong>. Also for authentication the <strong>SensumAPI</strong> base URL, key and <em>AWS Identity Pool ID</em> are also needed to pass as a bundle. The <strong>SensumSDK</strong> ServiceConstants are used to pass the authentication parameters to the <strong>SensumSDK</strong> through Bundle. Code Snippet 17 provides an example of this.</li>
+<li>In <code class="prettyprint">onActivityResult</code>, the <em>Google Sign-In</em> results should be handled and upon successful sign-in, the <em>Google Id Token</em> and <em>Google Web Client ID</em> need to be passed to the <strong>SensumSDK</strong> as a <em>Bundle</em>.</li>
+<li>This <em>Bundle</em> is utilised to maintain the capture-session whilst using the <strong>SensumSDK</strong>.<br></li>
+<li>For authentication the <strong>SensumAPI</strong> <em>base URL</em>, <em>key</em> and <em>AWS Identity Pool ID</em> are also needed to pass as a <em>Bundle</em>.</li>
+<li>The <strong>SensumSDK</strong> <em>ServiceConstants</em> are used to pass the authentication parameters to the <strong>SensumSDK</strong> via a <em>Bundle</em>.</li>
+<li>Code Snippet 20 provides an example of this.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 17</p>
+<p>Code Snippet 20</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
@@ -4398,6 +5059,28 @@ Code Snippet 7 demonstrates how to achieve this.</li>
        <span class="n">sendToService</span><span class="o">(</span><span class="n">bundle</span><span class="o">,</span> <span class="n">GOOGLE_LOGIN</span><span class="o">);</span>
    <span class="o">}</span>
 <span class="o">}</span>
+</code></pre>
+<h2 id="gradle-dependencies">Gradle Dependencies</h2>
+
+<ul>
+<li>Code Snippet 21 displays the Gradle Dependencies that the developer will need to include to successfully run the application.</li>
+</ul>
+
+<blockquote>
+<p>Code Snippet 21</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">core:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">s3:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">cognito:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">ddb:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">cognitoidentityprovider:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">retrofit2</span><span class="o">:</span><span class="nl">retrofit:</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">retrofit2</span><span class="o">:</span><span class="n">converter</span><span class="o">-</span><span class="nl">moshi:</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">moshi</span><span class="o">:</span><span class="nl">moshi:</span><span class="mf">1.2</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">okhttp3</span><span class="o">:</span><span class="nl">okhttp:</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">1</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">okhttp3</span><span class="o">:</span><span class="n">logging</span><span class="o">-</span><span class="nl">interceptor:</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">1</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">code</span><span class="o">.</span><span class="na">gson</span><span class="o">:</span><span class="nl">gson:</span><span class="mf">2.8</span><span class="o">.</span><span class="mi">0</span><span class="err">'</span>
+<span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">guava</span><span class="o">:</span><span class="nl">guava:</span><span class="mf">19.0</span><span class="err">'</span>
 </code></pre>
           <h1 id="tutorial-ios">Tutorial - iOS</h1>
 
@@ -4600,12 +5283,12 @@ Ensure <strong>Copy items if needed</strong> is selected, then press <strong>Fin
 <blockquote>
 <p>Code Snippet 1</p>
 </blockquote>
-<pre class="highlight swift tab-swift"><code><span class="cp">#If you're not using brew don't run this</span>
-<span class="n">brew</span> <span class="n">upgrade</span> <span class="n">carthage</span>
-<span class="cp">#cd to your project (yours may be named differently)</span>
-<span class="n">cd</span> <span class="o">&lt;</span><span class="kt">Root</span> <span class="kt">Project</span> <span class="kt">Directory</span><span class="o">&gt;</span>
-<span class="cp">#Update brings in all new changes</span>
-<span class="n">carthage</span> <span class="n">update</span>
+<pre class="highlight shell tab-shell"><code><span class="c">#If you're not using brew don't run this</span>
+brew upgrade carthage
+<span class="c">#cd to your project (yours may be named differently)</span>
+<span class="nb">cd</span> &lt;Root Project Directory&gt;
+<span class="c">#Update brings in all new changes</span>
+carthage update
 </code></pre>
 <ul>
 <li>This process may take quite some time, please be patient.</li>
@@ -4656,7 +5339,7 @@ Ensure <strong>Copy items if needed</strong> is selected, then press <strong>Fin
 <blockquote>
 <p>Code Snippet 2</p>
 </blockquote>
-<pre class="highlight swift tab-swift"><code><span class="kt">AWSCognitoIdentityProvider</span><span class="o">.</span><span class="n">framework</span><span class="err">’</span>
+<pre class="highlight swift tab-swift"><code><span class="kt">AWSCognitoIdentityProvider</span><span class="o">.</span><span class="n">framework</span>
 <span class="kt">AWSCore</span><span class="o">.</span><span class="n">framework</span>
 <span class="kt">Realm</span><span class="o">.</span><span class="n">framework</span>
 <span class="kt">RealmSwift</span><span class="o">.</span><span class="n">framework</span>
@@ -4703,7 +5386,7 @@ Ensure <strong>Copy items if needed</strong> is selected, then press <strong>Fin
 <blockquote>
 <p>Code Snippet 3</p>
 </blockquote>
-<pre class="highlight swift tab-swift"><code><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">carthage</span> <span class="n">copy</span><span class="o">-</span><span class="n">frameworks</span>
+<pre class="highlight shell tab-shell"><code>/usr/local/bin/carthage copy-frameworks
 </code></pre>
 <ul>
 <li>The run script should now appear as shown in Figure 25.</li>
@@ -6143,6 +6826,8 @@ Code Snippet 4 demonstrates how to achieve this.</li>
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
                 <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="java">Java (Android)</a>
+                <a href="#" data-language-name="swift">Swift (iOS)</a>
           </div>
       </div>
     </div>
