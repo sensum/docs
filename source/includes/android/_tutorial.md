@@ -56,7 +56,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
  * From the *File* menu, navigate to *File* > *New* > *New Module* (Figure 8).
 
   ![ Figure 8 - New Module](../../images/figure8_android.png " Figure 8 - New Module")
-#### <p style="text-align: center;"> Figure 8 - New Module</p>
+#### <p style="text-align: center;"> Figure 8 - Creating A New Module</p>
 <br>
 
  * The *New Module* dialogue window will appear.
@@ -204,7 +204,7 @@ protected void onDestroy() {
  *BroadcastReceiver* should behave.
  * Table 1 outlines the filters included in the *Service* and the *Intent Extras* they return.
 
-### Table 1
+### Table 1: Broadcast Receiver Filters
 
 |Action|Description|IntentExtras|
 |------|-----------|------------|
@@ -316,7 +316,7 @@ protected void onDestroy() {
  * This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8).
  * This property (`arg1`) will carry the command you want to request from the *Service*.
 
-### Table 2
+### Table 2: Send to Service Commands
 
 |Constants (of type 'Int')|Required Bundle Data|
 |-------------------------|--------------------|
@@ -419,7 +419,7 @@ button.setOnClickListener(new View.OnClickListener() {
 ## Setting up BLE
 
  * To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a *Button* object that will tell the *Service* to start scanning.
- * As in the <a href ="#testing-the-service">__Testing the Service__</a> section, the developer should execute the `sendToService` method within the *Button’s* `onClickListener` (following Table 2).
+ * As in the <a href ="#testing-the-service">__Testing the Service__</a> section, the developer should execute the `sendToService` method within the *Button’s* `onClickListener` (refer to Table 2).
  * The first parameter that the `sendToService` method expects in this instance is `null`, as there is no extra data that the Service needs to execute this task.
  * The second parameter that it takes is **BLE_SCAN** (Code Snippet 13).
 
@@ -491,7 +491,7 @@ sendToService(bundle, CONNECT);
  * Both of these filters receive a bundle that contains multiple value types.
  * Refer to Table 3 to discover the value types returned from the *Service*.
 
-### Table 3
+### Table 3: Broadcast Receiver Filter Examples
 
 |Filter|Bundle|Constants|Example Method Call|
 |------|------|---------|-------------------|
@@ -544,7 +544,7 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 * Receiving the value from the **SensumAPI** works in the same way as receiving values from a device.
 * The *BroadcastReceiver* in your `MainActivity` should implement the ‘filters’ shown in Table 4.
 
-### Table 4
+### Table 4: Additional Broadcast Receiver Filters
 
 |Action|(description)|Intent Extras|
 |------|------|---------|
@@ -628,7 +628,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 * Tables 5 - 12 display the *Realm* objects that the **SensumSDK** holds.
 * These objects contain methods and values associated with the response from the **SensumAPI**.
 
-### Table 5
+### Table 5: Example Event Realm Object
 
 | Realm Object                                  | Associated Methods | Method Type | Description                                                                                |
 |-----------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------------------------|
@@ -636,7 +636,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                                               | `getTime()`          | long        | Event time                                                                                 |
 |                                               | `getSeverity()`      | double      | How much of value change between forward/backward events with respect to the average value |
 
-### Table 6
+### Table 6: SensumSDK Realm Objects
 | Realm Event Objects |
 |---------------------|
 | `ResAccelerometerX`   |
@@ -650,7 +650,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 | `ResGpsSpeed`         |
 | `ResGSR`              |
 
-### Table 7: Statistic Example Objects
+### Table 7: Example Statistics Object
 
 | Realm Object   | Associated Methods | Method Type | Description                               |
 |----------------|--------------------|-------------|-------------------------------------------|
@@ -661,7 +661,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                | `getPercentiles()`   | Percentiles | Returns a percentile object (see Table 9) |
 |                | `getStd()`           | Double      | Returns a standard deviation value        |
 
-### Table 8: Statistics Objects
+### Table 8: SensumSDK Statistics Objects
 
 | Realm Stats Objects |
 |---------------------|
@@ -678,7 +678,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 
 
-### Table 9: Percentiles
+### Table 9: SensumSDK Percentiles Object
 
 | Object      | Associated Methods | Type   | Description                   |
 |-------------|--------------------|--------|-------------------------------|
@@ -687,7 +687,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |             | `get90()`            | double | Returns 90th percentile value |
 
 
-### Table 10
+### Table 10: ArousalStats Realm Object
 
 | Realm Stats Object | Associated Methods | Type           | Description                                                             |
 |--------------------|--------------------|----------------|-------------------------------------------------------------------------|
@@ -695,7 +695,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                    | `getDominant()`      | String         | Label of the dominant classification category                           |
 |                    | `getSectors()`       | ArousalSectors | Returns the sectors associated with the arousal stats object (Table 12) |
 
-### Table 11
+### Table 11: EngagementStats Realm Object
 
 | Realm Stats Object | Associated Methods | Type              | Description                                                             |
 |--------------------|--------------------|-------------------|-------------------------------------------------------------------------|
@@ -703,7 +703,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 |                    | `getDominant()`      | String            | Label of the dominant classification category                           |
 |                    | `getSectors()`       | EngagementSectors | Returns the sectors associated with the arousal stats object (Table 12) |
 
-### Table 12
+### Table 12: ArousalSectors and EngagmentSectors Realm Objects
 
 | Object                            | Associated Methods | Type   | Description                                 |
 |-----------------------------------|--------------------|--------|---------------------------------------------|
@@ -723,7 +723,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 * The *Bundle* contains three values of type double (see Table 13).
 
-### Table 13
+### Table 13: Sentiment Filter Data
 
 | Object       | Type   | Description                                  |
 |--------------|--------|----------------------------------------------|
