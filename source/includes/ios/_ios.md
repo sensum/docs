@@ -376,6 +376,7 @@ Returns a list of dictionaries containing bluetooth peripheral information with 
         let peripheralToAdd = peripheralDictionary as! CBPeripheral
      }
 ````
+
 ## Location Command
 
 All available commands for the **SensumSDK** location component.
@@ -891,7 +892,7 @@ extension BluetoothTableViewController: BluetoothListener {
 |dateTime|Date|A native `Date()` object of when the reading was generated.|  
 
 
-##LocationListener
+## LocationListener
 
 Location listeners handles updates from the Location **SensumSDK** component.
 Subscribers will be notified of updates to the Location object.
@@ -932,7 +933,7 @@ This listener can be used to handle the response to Tag objects of unicode text/
 
  Called when a new tag object is created.
 
-###Parameters
+### Parameters
 
 |Parameter|Type|Description|
 |---------|----|-----------|
@@ -950,6 +951,8 @@ This is NOT used for retrieving Sentiment from the **SensumSDK**. Please use the
 `func func sentimentCreated(sentimentText: String, dateTime: Date)`
 
 Used to nofity listeners that a new sentiment object was created locally.
+
+### Parameters
 
 |Parameter|Type|Description|
 |---------|----|-----------|
