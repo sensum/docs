@@ -4988,7 +4988,8 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <h2 id="google-sign-in">Google Sign-In</h2>
 
 <ul>
-<li>For <em>Google Sign-In</em>, a <em>Play Service</em> dependency needs to be added to Gradle (Code Snippet 19).</li>
+<li><p>For more detailed instuctions on how to implement <em>Google Sign-In</em> please refer to Google&rsquo;s <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.</p></li>
+<li><p>For <em>Google Sign-In</em>, a <em>Play Service</em> dependency needs to be added to Gradle (Code Snippet 19).</p></li>
 </ul>
 
 <blockquote>
@@ -5036,13 +5037,49 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <ul>
 <li>In <code class="prettyprint">onActivityResult</code>, the <em>Google Sign-In</em> results should be handled and upon successful sign-in, the <em>Google Id Token</em> and <em>Google Web Client ID</em> need to be passed to the <strong>SensumSDK</strong> as a <em>Bundle</em>.</li>
 <li>This <em>Bundle</em> is utilised to maintain the capture-session whilst using the <strong>SensumSDK</strong>.<br></li>
-<li>For authentication the <strong>SensumAPI</strong> <em>base URL</em>, <em>key</em> and <em>AWS Identity Pool ID</em> are also needed to pass as a <em>Bundle</em>.</li>
+<li>For authentication the <strong>SensumAPI</strong> <em>base URL</em>, <em>key</em> and <em>AWS Identity Pool ID</em> are also needed to be defined and passed as a <em>Bundle</em>.</li>
 <li>The <strong>SensumSDK</strong> <em>ServiceConstants</em> are used to pass the authentication parameters to the <strong>SensumSDK</strong> via a <em>Bundle</em>.</li>
-<li>Code Snippet 20 provides an example of this.</li>
+<li>Code Snippet 22 provides an example of this.</li>
 </ul>
 
+<h4 id="bundle-parameters">Bundle Parameters</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">apiBaseUrl</code></td>
+<td>String</td>
+<td>This is the base url for the API, currently this is <code class="prettyprint">http://api.sensum.co/v0</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">apiKey</code></td>
+<td>String</td>
+<td>This is the API Key that will be required to access the <strong>SensumAPI</strong>(For trial usage use <code class="prettyprint">PublicDemoKeyForDocumentation</code>)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">identityPoolId</code></td>
+<td>String</td>
+<td>The CognitoIdentityPoolId required to successfully authenticate with the <strong>SensumAPI</strong>. We will provide you with this.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">googleIdToken</code></td>
+<td>String</td>
+<td>This is the google id token returned when successfully logged in with a valid Google account</td>
+</tr>
+<tr>
+<td><code class="prettyprint">googleWebClientId</code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td>String</td>
+<td>This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under &#39;APIs and Service&rsquo; in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page</td>
+</tr>
+</tbody></table>
+
 <blockquote>
-<p>Code Snippet 20</p>
+<p>Code Snippet 22</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
@@ -5063,11 +5100,11 @@ In order to create this <em>ServiceConnection</em>, follow the steps outlined wi
 <h2 id="gradle-dependencies">Gradle Dependencies</h2>
 
 <ul>
-<li>Code Snippet 21 displays the Gradle Dependencies that the developer will need to include to successfully run the application.</li>
+<li>Code Snippet 23 displays the Gradle Dependencies that the developer will need to include to successfully run the application.</li>
 </ul>
 
 <blockquote>
-<p>Code Snippet 21</p>
+<p>Code Snippet 23</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">core:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
 <span class="n">compile</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">amazonaws</span><span class="o">:</span><span class="n">aws</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="nl">s3:</span><span class="mf">2.4</span><span class="o">.+</span><span class="err">'</span>
