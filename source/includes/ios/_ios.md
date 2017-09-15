@@ -536,6 +536,92 @@ Creates a tag object composed of a string and timestamp pair.
 |tag|String|A string object of a message or emoticon|
 
 
+## Sentiment Command
+
+All available commands for our sentiment module. This runs analysis on the text input and returns it's emotionality data. 
+
+
+### Start Updating
+
+`sdkManager?sentiment.startUpdating()`
+
+Start the updates from the sentiment text system which notifies listeners of new sentiment text .
+
+### Stop Updating
+
+`sdkManager?sentiment.stopUpdating()`
+
+ Stop the updates from the sentiment system.
+
+### Start Recording
+
+`sdkManager?sentiment.startRecording()`
+
+Start recording senrtiment text created.
+
+### Stop Recording
+
+`sdkManager?sentiment.stopRecording()`
+
+Stop recording sentiment text created.
+
+### Start Sending to SensumAPI
+
+`sdkManager?sentiment.startSendingToAPI()`
+
+ Start sending sentiment text to the **SensumAPI**.
+
+### Stop Sending to SensumAPI
+
+`sdkManager?sentiment.stopSendingToAPI()`
+
+ Stop sending sentiment text to the **SensumAPI**.
+
+
+### Check Module Update Status
+
+`sdkManager?sentiment.isUpdating()`
+
+Check if the sentiment text module is updating. Returns a boolean value.
+
+### Check Module Recording Status
+
+`sdkManager?sentiment.isRecording()`
+
+Check if the sentiment text module is recording. Returns a boolean value.
+
+### Check SensumAPI Update Status
+
+`sdkManager?sentiment.isSendingToAPI()`
+
+Check if the sentiment text module is sending to the **SensumAPI**.
+
+### Assign Listener
+
+`sdkManager?sentiment.assignListener(listener)`
+
+Assign a listener to the sentiment text module to receive sentiment updates.
+
+
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|listener|SentimentListener|An instance of a class that conforms to the SentimentListener extension|
+
+### Create Sentiment
+
+`sdkManager?sentiment.createSentiment(tag)`
+
+Creates a sentiment object composed of a string and timestamp pair.
+
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|sentiment|String|A string object of a message or emoticon|
+
+
 ## APIListener
 
 To be able to listen for updates from the API you must extend your class using an extension of type `API Listener` using the following example code.
@@ -617,12 +703,58 @@ Used to notify listeners that a request made to the **SensumAPI** was successful
 |arousalScore|Double|Double value of the calculated arousal from the **SensumAPI**|
 
 
+### API Listener Functions: *Realm* Sentiment Response Saved
+
+ `func realmSentimentResponseSaved()`
+
+Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in *Realm*.
+Called immediately after `sentimentEmotion.save()` is called.
+
+
+### API Listener Functions: Retrieve JSON From **SensumAPI**
+
+`func retrieveJSONFromSensumAPI(json: [String:Any]?)`
+
+Used to notify listeners that a successful request body has been safely parsed and is available for use in the users application.
+
+
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|json|JSON|A dictionary of JSON returned from the **SensumSDK**|
+
+
 ### API Listener Functions: Sentiment Response Received
 
   ` func sentimentResponseReceived()`
 
-  Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in *Realm*.
-  Called immediately after `sentimentEmotion.save()` is called.
+Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in *Realm*.
+Called immediately after `sentimentEmotion.save()` is called.
+  
+  
+### API Listener Functions: Sentiment Request Successful
+
+  ` func sentimentRequestSuccesful()`
+
+Used to notify listeners that a request made to the **SensumAPI** sentiment endpoint was successful. Note this is only for sentiment analysis and not general requests.
+ Called immediately after a 200 HTTP response is received but not before the data received has been safely saved to the *Realm* instance of **SensumKit**.
+ 
+### API Listener Functions: Sentiment Request Failure
+
+  `func sentimentRequestFailure(message: String, statusCode: Int?)`
+  
+Used to notify listeners that a request made to the **SensumAPI** sentiment endpoint was unsuccessful. Note this is only for sentiment analysis and not general requests.
+Called immediately after a HTTP response that was not 200.
+
+
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|message|String|The error message from the HTTP request|
+|statusCode|Int|Optional URLResponse HTTP status code from the HTTP request|
+
 
 ## AccelerometerListener
 
@@ -807,6 +939,22 @@ This listener can be used to handle the response to Tag objects of unicode text/
 |newTag|String|The literal string tag that was created.|
 |dateTime|Date|A native `Date()` object representing time and date when the tag was created.|
 
+
+## SentimentListener
+
+This listener can be used to handle the event of a newly created Sentiment object of unicode text/emoji objects from local user input.
+This is NOT used for retrieving Sentiment from the **SensumSDK**. Please use the *APIListener.swift* protocols instead.
+
+### SentimentListener Functions: Sentiment Created
+
+`func func sentimentCreated(sentimentText: String, dateTime: Date)`
+
+Used to nofity listeners that a new sentiment object was created locally.
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|sentimentText|String|The literal string sentiment that was created.|
+|dateTime|Date|A native `Date()` object representing time and date when the sentiment was created.|
 
 
 ## ServerRequestEngine
