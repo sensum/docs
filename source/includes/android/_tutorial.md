@@ -754,7 +754,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ## Google Sign-In
 
- * For more detailed instuctions on how to implement *Google Sign-In* please refer to google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating"> documentation</a>
+ * For more detailed instuctions on how to implement *Google Sign-In* please refer to google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating"> documentation</a>.
 
  * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 19).
 
