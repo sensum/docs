@@ -807,15 +807,15 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
  * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
  * Code Snippet 22 provides an example of this.
  
- #### Bundle Parameters
+#### Bundle Parameters
  
- |Parameter|Type|Description|
- |---------|----|-----------|
- |`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
- |`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
- |`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
- |`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
- |`googleWebClientId`|String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
+|Parameter|Type|Description|
+|---------|----|-----------|
+|`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
+|`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
+|`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
+|`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
+|`googleWebClientId`|String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
 
 > Code Snippet 22
 
