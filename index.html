@@ -3130,6 +3130,108 @@ These events are automatically timestamped.</p>
 </tr>
 </tbody></table>
 
+<h2 id="sentiment-command">Sentiment Command</h2>
+
+<p>All available commands for our sentiment module. This runs analysis on the text input and returns it&rsquo;s emotionality data. </p>
+
+<h3 id="start-updating">Start Updating</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.startUpdating()</code></p>
+
+<p>Start the updates from the sentiment text system which notifies listeners of new sentiment text .</p>
+
+<h3 id="stop-updating">Stop Updating</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.stopUpdating()</code></p>
+
+<p>Stop the updates from the sentiment system.</p>
+
+<h3 id="start-recording">Start Recording</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.startRecording()</code></p>
+
+<p>Start recording senrtiment text created.</p>
+
+<h3 id="stop-recording">Stop Recording</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.stopRecording()</code></p>
+
+<p>Stop recording sentiment text created.</p>
+
+<h3 id="start-sending-to-sensumapi">Start Sending to SensumAPI</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.startSendingToAPI()</code></p>
+
+<p>Start sending sentiment text to the <strong>SensumAPI</strong>.</p>
+
+<h3 id="stop-sending-to-sensumapi">Stop Sending to SensumAPI</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.stopSendingToAPI()</code></p>
+
+<p>Stop sending sentiment text to the <strong>SensumAPI</strong>.</p>
+
+<h3 id="check-module-update-status">Check Module Update Status</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.isUpdating()</code></p>
+
+<p>Check if the sentiment text module is updating. Returns a boolean value.</p>
+
+<h3 id="check-module-recording-status">Check Module Recording Status</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.isRecording()</code></p>
+
+<p>Check if the sentiment text module is recording. Returns a boolean value.</p>
+
+<h3 id="check-sensumapi-update-status">Check SensumAPI Update Status</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.isSendingToAPI()</code></p>
+
+<p>Check if the sentiment text module is sending to the <strong>SensumAPI</strong>.</p>
+
+<h3 id="assign-listener">Assign Listener</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.assignListener(listener)</code></p>
+
+<p>Assign a listener to the sentiment text module to receive sentiment updates.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>listener</td>
+<td>SentimentListener</td>
+<td>An instance of a class that conforms to the SentimentListener extension</td>
+</tr>
+</tbody></table>
+
+<h3 id="create-sentiment">Create Sentiment</h3>
+
+<p><code class="prettyprint">sdkManager?sentiment.createSentiment(sentiment)</code></p>
+
+<p>Creates a sentiment object composed of a string and timestamp pair.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sentiment</td>
+<td>String</td>
+<td>A string object of a message or emoticon</td>
+</tr>
+</tbody></table>
+
 <h2 id="apilistener">APIListener</h2>
 
 <p>To be able to listen for updates from the API you must extend your class using an extension of type <code class="prettyprint">API Listener</code> using the following example code.</p>
@@ -3230,12 +3332,76 @@ These events are automatically timestamped.</p>
 </tr>
 </tbody></table>
 
+<h3 id="api-listener-functions-realm-sentiment-response-saved">API Listener Functions: <em>Realm</em> Sentiment Response Saved</h3>
+
+<p><code class="prettyprint">func realmSentimentResponseSaved()</code></p>
+
+<p>Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in <em>Realm</em>.
+Called immediately after <code class="prettyprint">sentimentEmotion.save()</code> is called.</p>
+
+<h3 id="api-listener-functions-retrieve-json-from-sensumapi">API Listener Functions: Retrieve JSON From <strong>SensumAPI</strong></h3>
+
+<p><code class="prettyprint">func retrieveJSONFromSensumAPI(json: [String:Any]?)</code></p>
+
+<p>Used to notify listeners that a successful request body has been safely parsed and is available for use in the users application.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>json</td>
+<td>JSON</td>
+<td>A dictionary of JSON returned from the <strong>SensumSDK</strong></td>
+</tr>
+</tbody></table>
+
 <h3 id="api-listener-functions-sentiment-response-received">API Listener Functions: Sentiment Response Received</h3>
 
 <p><code class="prettyprint">func sentimentResponseReceived()</code></p>
 
 <p>Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in <em>Realm</em>.
-  Called immediately after <code class="prettyprint">sentimentEmotion.save()</code> is called.</p>
+Called immediately after <code class="prettyprint">sentimentEmotion.save()</code> is called.</p>
+
+<h3 id="api-listener-functions-sentiment-request-successful">API Listener Functions: Sentiment Request Successful</h3>
+
+<p><code class="prettyprint">func sentimentRequestSuccesful()</code></p>
+
+<p>Used to notify listeners that a request made to the <strong>SensumAPI</strong> sentiment endpoint was successful. Note this is only for sentiment analysis and not general requests.
+ Called immediately after a 200 HTTP response is received but not before the data received has been safely saved to the <em>Realm</em> instance of <strong>SensumKit</strong>.</p>
+
+<h3 id="api-listener-functions-sentiment-request-failure">API Listener Functions: Sentiment Request Failure</h3>
+
+<p><code class="prettyprint">func sentimentRequestFailure(message: String, statusCode: Int?)</code></p>
+
+<p>Used to notify listeners that a request made to the <strong>SensumAPI</strong> sentiment endpoint was unsuccessful. Note this is only for sentiment analysis and not general requests.
+Called immediately after a HTTP response that was not 200.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>The error message from the HTTP request</td>
+</tr>
+<tr>
+<td>statusCode</td>
+<td>Int</td>
+<td>Optional URLResponse HTTP status code from the HTTP request</td>
+</tr>
+</tbody></table>
 
 <h2 id="accelerometerlistener">AccelerometerListener</h2>
 
@@ -3491,6 +3657,38 @@ Subscribers will be notified of updates to the Location object.</p>
 <td>dateTime</td>
 <td>Date</td>
 <td>A native <code class="prettyprint">Date()</code> object representing time and date when the tag was created.</td>
+</tr>
+</tbody></table>
+
+<h2 id="sentimentlistener">SentimentListener</h2>
+
+<p>This listener can be used to handle the event of a newly created Sentiment object of unicode text/emoji objects from local user input.
+This is NOT used for retrieving Sentiment from the <strong>SensumSDK</strong>. Please use the <em>APIListener.swift</em> protocols instead.</p>
+
+<h3 id="sentimentlistener-functions-sentiment-created">SentimentListener Functions: Sentiment Created</h3>
+
+<p><code class="prettyprint">func func sentimentCreated(sentimentText: String, dateTime: Date)</code></p>
+
+<p>Used to nofity listeners that a new sentiment object was created locally.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sentimentText</td>
+<td>String</td>
+<td>The literal string sentiment that was created.</td>
+</tr>
+<tr>
+<td>dateTime</td>
+<td>Date</td>
+<td>A native <code class="prettyprint">Date()</code> object representing time and date when the sentiment was created.</td>
 </tr>
 </tbody></table>
 
