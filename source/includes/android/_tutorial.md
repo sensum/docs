@@ -754,6 +754,8 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ## Google Sign-In
 
+ * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.
+
  * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 19).
 
 > Code Snippet 19
@@ -801,11 +803,21 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
 
  * In `onActivityResult`, the *Google Sign-In* results should be handled and upon successful sign-in, the *Google Id Token* and *Google Web Client ID* need to be passed to the **SensumSDK** as a *Bundle*.
  * This *Bundle* is utilised to maintain the capture-session whilst using the **SensumSDK**.  
- * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to pass as a *Bundle*.
+ * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to be defined and passed as a *Bundle*.
  * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
- * Code Snippet 20 provides an example of this.
+ * Code Snippet 22 provides an example of this.
+ 
+ #### Bundle Parameters
+ 
+ |Parameter|Type|Description|
+ |---------|----|-----------|
+ |`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
+ |`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
+ |`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
+ |`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
+ |`googleWebClientId`|String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
 
-> Code Snippet 20
+> Code Snippet 22
 
 ```java
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -827,9 +839,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 ## Gradle Dependencies
 
-* Code Snippet 21 displays the Gradle Dependencies that the developer will need to include to successfully run the application.
+* Code Snippet 23 displays the Gradle Dependencies that the developer will need to include to successfully run the application.
 
-> Code Snippet 21
+> Code Snippet 23
 
 ```java
 compile 'com.amazonaws:aws-android-sdk-core:2.4.+'
