@@ -612,7 +612,7 @@ Assign a listener to the sentiment text module to receive sentiment updates.
 
 ### Create Sentiment
 
-`sdkManager?sentiment.createSentiment(tag)`
+`sdkManager?sentiment.createSentiment(sentiment)`
 
 Creates a sentiment object composed of a string and timestamp pair.
 
