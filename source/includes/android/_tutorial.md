@@ -129,16 +129,125 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 ```
 
+## Google Sign-In
+
+ * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.
+
+ * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 2).
+
+> Code Snippet 2
+
+```java
+compile 'com.google.android.gms:play-services-auth:+'
+```
+
+**NOTE:** As part of the setup procedure you will need to add `apply plugin: 'com.google.gms.google-services'` to your app-level `build.gradle` file. This can have issues building when added at the top of the file so it is advisable to add this entry under the `dependencies` block. 
+
+ * As part of enabling *Google APIs* or *Firebase* services in your Android application the `google-services.json` is processed by the `google-services` plugin.
+ * The `google-services.json` is created using *Firebase* during enabling *Google Services* for your Android application and is generally placed in the **app/** directory (at the root of the Android Studio app module).
+ * For *Google Sign-In* to work with *AWS* authentication, `OAuth 2.0 client ID` (*Google Android Client ID*) is required by *AWS*.
+ * The *Google Android Client ID* is created using *Google Developer Console* by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio.
+ * The generated *Google Android Client ID* needs to be given to us for add it to *AWS* for authentication.
+
+ * In the `onCreate()` method of your sign-in `Activity`, the `GoogleSignInOptions` object should be instantiated.
+ * This object is used to create the `GoogleApiClient` which is used for accessing the *Google Sign-In API*.
+ * The *Google Web Client ID* which is created in the *Google Developer Console* is required during the creation of the *Google Sign-In* object (shown in Code Snippet 3 as the `gso` object).
+
+> Code Snippet 3
+
+```java
+GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+       .requestEmail()
+       .requestProfile()
+       .requestIdToken(googleWebClientId)
+       .requestServerAuthCode(googleWebClientId)
+       .requestId()
+       .build();
+
+googleApiClient = new GoogleApiClient.Builder(this)
+       .enableAutoManage(this, this )
+       .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+       .build();
+```
+
+
+* The *Google Sign-In* needs to be triggered, this is achieved via an *Intent*. Code Snippet 4 illustrates this.
+
+> Code Snippet 4
+
+```java
+Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+this.startActivityForResult(signInIntent, RC_SIGN_IN);
+```
+
+ * In `onActivityResult`, the *Google Sign-In* results should be handled and upon successful sign-in, the *Google Id Token* and *Google Web Client ID* need to be passed to the **SensumSDK** as a *Bundle*.
+ * This *Bundle* is utilised to maintain the capture-session whilst using the **SensumSDK**.  
+ * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to be defined and passed as a *Bundle*.
+ * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
+ * Code Snippet 5 provides an example of this.
+
+#### Bundle Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
+|`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
+|`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
+|`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
+|`googleWebClientId`&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
+
+> Code Snippet 5
+
+```java
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   super.onActivityResult(requestCode, resultCode, data);
+   if (requestCode == RC_SIGN_IN) {
+       GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+       GoogleSignInAccount acct = result.getSignInAccount();
+       String googleIdToken = acct.getIdToken();
+       Bundle bundle = new Bundle();
+       bundle.putString(API_BASEURL, apiBaseUrl);
+       bundle.putString(API_KEY, apiKey);
+       bundle.putString(IDENTITY_POOL_ID, identityPoolId);
+       bundle.putString(GOOGLE_ID_TOKEN, googleIdToken);
+       bundle.putString(GOOGLE_WEB_CLIENT_ID, googleWebClientId);
+       sendToService(bundle, GOOGLE_LOGIN);
+   }
+}
+```
+
+## Gradle Dependencies
+
+* Code Snippet 6 displays the Gradle Dependencies that the developer will need to include to successfully run the application.
+
+> Code Snippet 6
+
+```java
+compile 'com.amazonaws:aws-android-sdk-core:2.4.+'
+compile 'com.amazonaws:aws-android-sdk-s3:2.4.+'
+compile 'com.amazonaws:aws-android-sdk-cognito:2.4.+'
+compile 'com.amazonaws:aws-android-sdk-ddb:2.4.+'
+compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.4.+'
+compile 'com.squareup.retrofit2:retrofit:2.1.0'
+compile 'com.squareup.retrofit2:converter-moshi:2.1.0'
+compile 'com.squareup.moshi:moshi:1.2.0'
+compile 'com.squareup.okhttp3:okhttp:3.4.1'
+compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+compile 'com.google.code.gson:gson:2.8.0'
+compile 'com.google.guava:guava:19.0'
+```
+
+
 ## Creating a Service
 
  * The **SensumSDK** runs in the background of the application.
  * The developer is required to create a *ServiceConnection*, that is responsible for communication between the application front-end and the **SensumSDK**.
-In order to create this *ServiceConnection*, follow the steps outlined within Code Snippet 2.
+In order to create this *ServiceConnection*, follow the steps outlined within Code Snippet 7.
  * The developer will need to create an instance of the *Messenger* object.
  * This object has the ability to send *Message* objects to the *Service*.
  * Once the over-ridden `onServiceConnected` method is called, the `Messenger` object is initialised using the passed in `IBinder` object.
 
-> Code Snippet 2
+> Code Snippet 7
 
 ```java
 private final ServiceConnection mConnection = new ServiceConnection() {
@@ -155,9 +264,9 @@ private final ServiceConnection mConnection = new ServiceConnection() {
     };
 ```
 
-* Declare both the *Service* and the *BLE Service* within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
+* Declare both the *Service* and the *BLE Service* within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 8.
 
-> Code Snippet 3
+> Code Snippet 8
 
 ```xml
 <service android:name="co.sensum.sensumservice.SDK.SdkService"/>
@@ -165,9 +274,9 @@ private final ServiceConnection mConnection = new ServiceConnection() {
 ```
 
 ## Binding and Unbinding the Service
- * To bind the *Service* the developer will have to override the `onStart` method and include the lines in Code Snippet 4.
+ * To bind the *Service* the developer will have to override the `onStart` method and include the lines in Code Snippet 9.
 
-> Code Snippet 4
+> Code Snippet 9
 
 ```java
 @Override
@@ -177,11 +286,11 @@ protected void onStart() {
     bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 }
 ```
- * When the app is closed (destroyed) the *Service*  will need to be unbound, otherwise it will continue running (see Code Snippet 5).
+ * When the app is closed (destroyed) the *Service*  will need to be unbound, otherwise it will continue running (see Code Snippet 10).
  * A boolean variable named `mIsBound` is initialised as **true**, once the *Service* is connected.  
  * When the *Service* is unbound, `mIsBound` is set to **false**.
 
-> Code Snippet 5
+> Code Snippet 10
 
 ```java
 @Override
@@ -234,9 +343,9 @@ protected void onDestroy() {
 
 ## Setting up the Broadcast Receiver
 
-  * Code Snippet 6 contains all necessary code that will allow you to setup a *BroadcastReceiver*.
+  * Code Snippet 11 contains all necessary code that will allow you to setup a *BroadcastReceiver*.
 
-> Code Snippet 6
+> Code Snippet 11
 
   ```java
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -273,10 +382,10 @@ protected void onDestroy() {
 
  * The *BroadcastReceiver* must be registered in order to receive *Intents* from a *Service*.
  * The `registerReceiver` method, takes two arguments: *BroadcastReceiver* and *IntentFilter*.
- * We have included our own method that returns an *IntentFilter:* `getUpdateIntentFilter` (this method is displayed within Code Snippet 8).
- * This method should be called immediately on starting the application, therefore, it is placed within the `.onResume` method, as shown in Code Snippet 7.
+ * We have included our own method that returns an *IntentFilter:* `getUpdateIntentFilter` (this method is displayed within Code Snippet 13).
+ * This method should be called immediately on starting the application, therefore, it is placed within the `.onResume` method, as shown in Code Snippet 12.
 
-> Code Snippet 7
+> Code Snippet 12
 
 ```java
  @Override
@@ -286,7 +395,7 @@ protected void onDestroy() {
     }
 ```
 
-> Code Snippet 8
+> Code Snippet 13
 
 ```java
   private IntentFilter getUpdateIntentFilter() {
@@ -303,9 +412,9 @@ protected void onDestroy() {
 ```
 
  * When the application is destroyed (on application close/force-close), the *BroadcastReceiver* must be unregistered.
- * This is handled via the `.onDestroy` method. Code Snippet 9 demonstrates how to achieve this.
+ * This is handled via the `.onDestroy` method. Code Snippet 14 demonstrates how to achieve this.
 
-> Code Snippet 9
+> Code Snippet 14
 
 ```java
     @Override
@@ -347,10 +456,10 @@ protected void onDestroy() {
  * A *Bundle* contains associated data that can be interpreted by the *Service*.
  * Table 2 indicates the relationship between selected Constants, and the requirements for a *Bundle* of a particular type.
   * e.g. If using the **CONNECT** constant, then the associated *Bundle* should contain two Strings, one for **DEVICE_NAME**, the other for **DEVICE_ADDRESS**.
- * Code Snippet 10 illustrates how to construct a *Message* object, and how to send it on to the *Service*.
+ * Code Snippet 15 illustrates how to construct a *Message* object, and how to send it on to the *Service*.
  * The *Messenger* object, `mServiceMessenger`, is able to execute its associated `.send` method. This sends the constructed *Message* object to the *Service*.
 
-> Code Snippet 10
+> Code Snippet 15
 
  ```java
    public void sendToService(Bundle bundle, int argValue){
@@ -375,7 +484,7 @@ protected void onDestroy() {
  * The *BroadcastReceiver* will handle the *action* and in this case the *action* will fall under the **HELLO_FILTER** case.
  * It is up to the developer what they wish to do with the returned *String*.
 
-> Code Snippet 11
+> Code Snippet 16
 
 ```java
   private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -410,9 +519,9 @@ protected void onDestroy() {
     };
 ```
  * Set up a button in your front-end activity/fragment.
- * Inside the `onClickListener` include the lines shown in Code Snippet 12.
+ * Inside the `onClickListener` include the lines shown in Code Snippet 17.
 
-> Code Snippet 12
+> Code Snippet 17
 
 ```java
 Button button = (Button) findViewById(R.id.hello_button);
@@ -431,9 +540,9 @@ button.setOnClickListener(new View.OnClickListener() {
  * To scan for Bluetooth Low Energy (BLE) devices, the developer will have to create a *Button* object that will tell the *Service* to start scanning.
  * As in the <a href ="#testing-the-service">__Testing the Service__</a> section, the developer should execute the `sendToService` method within the *Button’s* `onClickListener` (refer to Table 2).
  * The first parameter that the `sendToService` method expects in this instance is `null`, as there is no extra data that the Service needs to execute this task.
- * The second parameter that it takes is **BLE_SCAN** (Code Snippet 13).
+ * The second parameter that it takes is **BLE_SCAN** (Code Snippet 18).
 
-> Code Snippet 13
+> Code Snippet 18
 
 ```java
 Button button = (Button) findViewById(R.id.scanButton);
@@ -455,14 +564,14 @@ button.setOnClickListener(new View.OnClickListener() {
 
 ## Connecting a BLE Device
 
- * To connect a BLE device the developer will need to send two *String* objects as part of the *Bundle* object that will be sent to the *Service* as part of the `sendToService` method (Code Snippet 14).
+ * To connect a BLE device the developer will need to send two *String* objects as part of the *Bundle* object that will be sent to the *Service* as part of the `sendToService` method (Code Snippet 19).
  * According to Table 2, the two Strings required are the BLE device's name and address.
  * These are necessary in order to create a connection between the Android device and the BLE device.
  * The developer should include the **CONNECTION_FILTER** constant within the *BroadcastReceiver’s* overridden `onReceive` method.
  * According to Table 1, the data received is of type *String*.
  * This *String* provides a connection message, sent back from the *Service*, to notify the user whether the connection was successful or not.
 
-> Code Snippet 14
+> Code Snippet 19
 
 ```java
 Bundle bundle =  new Bundle();
@@ -522,10 +631,10 @@ sendToService(bundle, CONNECT);
  * To do this the developer should create a *Button* object that implements the `sendToService` method (See <a href = "testing-the-service">Hello example</a> & <a href ="#table-2">Table 2</a> for more info).
  * The arguments that this method expects are: a *Bundle* object and the **START_CAPTURE** command.
  * This will send a message to the Service to start sending captured data to the **SensumAPI**.
- * The content of Code Snippet 15 displays a method that we have created that returns a bundle holding data relevant to the **START_CAPTURE** command.
+ * The content of Code Snippet 20 displays a method that we have created that returns a bundle holding data relevant to the **START_CAPTURE** command.
  * The data held in this bundle informs the **SensumSDK** which metrics are to be recorded, in addition to the frequency at which these metrics should be sent to the **SensumAPI**.
 
-> Code Snippet 15
+> Code Snippet 20
 
 ```java
 public Bundle getCaptureBundle() {
@@ -539,9 +648,9 @@ public Bundle getCaptureBundle() {
 }
 ```
 * In the same way another *Button* should be created to stop the recording.
-* This *Button* should implement the `sendToService` method, the arguments that it expects are identical to those used for the **START_CAPTURE** command (see Code Snippet 16).
+* This *Button* should implement the `sendToService` method, the arguments that it expects are identical to those used for the **START_CAPTURE** command (see Code Snippet 21).
 
-> Code Snippet 16
+> Code Snippet 21
 
 ```java
 sendToService(getCaptureBundle(), START_CAPTURE);
@@ -566,9 +675,9 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 |**EMOJI_SENTIMENT_FILTER**|Filters for Emoji Sentiment values|`Bundle`|
 |**TEXT_SENTIMENT_FILTER**|Filters for Text Sentiment values|`Bundle`|
 
-* These filters should also be added to your `getUpdateFilter` method (Code Snippet 17).
+* These filters should also be added to your `getUpdateFilter` method (Code Snippet 22).
 
-> Code Snippet 17
+> Code Snippet 22
 
 ```java
 private IntentFilter getUpdateIntentFilter() {
@@ -598,9 +707,9 @@ private IntentFilter getUpdateIntentFilter() {
 * A significant advantage for developers using the **SensumSDK** is the ability to query the *Realm* database from the front-end to see what data has been captured/stored.
 * When an event has been received by the *BroadcastReceiver*, the developer can query the *Realm* database to retrieve the values received from the **SensumAPI**.
 * The **AROUSAL_EVENT_FILTER** lets the developer know that the **SensumSDK** has received an ‘arousal event’.
-* Code Snippet 18 displays how the developer could query *Realm* to see the values stored.
+* Code Snippet 23 displays how the developer could query *Realm* to see the values stored.
 
-> Code Snippet 18
+> Code Snippet 23
 
 ```java
 private void queryRealmForArousalStats() {
@@ -632,7 +741,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ```
 
-* Code Snippet 18 shows the `ArousalStats` object.
+* Code Snippet 23 shows the `ArousalStats` object.
 * Each record of the object has associated values attached, displayed in the `updateArousalStats` method.
 
 * Tables 5 - 12 display the *Realm* objects that the **SensumSDK** holds.
@@ -748,112 +857,3 @@ private void updateArousalStats(ArousalStats arousalStats) {
 * The values returned can be used to display data in a variety of ways.
 * We recommend using a charting library to show this data coming in from the **SensumSDK**.
 * To access these objects the developer should query the *Realm* database (see previous example in Code Snippet 18) to access the desired values.
-
-
-
-
-## Google Sign-In
-
- * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.
-
- * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 19).
-
-> Code Snippet 19
-
-```java
-compile 'com.google.android.gms:play-services-auth:+'
-```
-
- * As part of enabling *Google APIs* or *Firebase* services in your Android application the `google-services.json` is processed by the `google-services` plugin.
- * The `google-services.json` is created using *Firebase* during enabling *Google Services* for your Android application and is generally placed in the **app/** directory (at the root of the Android Studio app module).
- * For *Google Sign-In* to work with *AWS* authentication, `OAuth 2.0 client ID` (*Google Android Client ID*) is required by *AWS*.
- * The *Google Android Client ID* is created using *Google Developer Console* by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio.
- * The generated *Google Android Client ID* needs to be given to us for adding it to *AWS* for authentication.
-
- * In the `onCreate()` method of your sign-in `Activity`, the `GoogleSignInOptions` object should be instantiated.
- * This object is used to create the `GoogleApiClient` which is used for accessing the *Google Sign-In API*.
- * The *Google Web Client ID* which is created in the *Google Developer Console* is required during the creation of the *Google Sign-In* object (shown in Code Snippet 20 as the `gso` object).
-
-> Code Snippet 20
-
-```java
-GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-       .requestEmail()
-       .requestProfile()
-       .requestIdToken(googleWebClientId)
-       .requestServerAuthCode(googleWebClientId)
-       .requestId()
-       .build();
-
-googleApiClient = new GoogleApiClient.Builder(this)
-       .enableAutoManage(this, this )
-       .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-       .build();
-```
-
-
-* The *Google Sign-In* needs to be triggered, this is achieved via an *Intent*. Code Snippet 21 illustrates this.
-
-> Code Snippet 21
-
-```java
-Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-this.startActivityForResult(signInIntent, RC_SIGN_IN);
-```
-
- * In `onActivityResult`, the *Google Sign-In* results should be handled and upon successful sign-in, the *Google Id Token* and *Google Web Client ID* need to be passed to the **SensumSDK** as a *Bundle*.
- * This *Bundle* is utilised to maintain the capture-session whilst using the **SensumSDK**.  
- * For authentication the **SensumAPI** *base URL*, *key* and *AWS Identity Pool ID* are also needed to be defined and passed as a *Bundle*.
- * The **SensumSDK** *ServiceConstants* are used to pass the authentication parameters to the **SensumSDK** via a *Bundle*.
- * Code Snippet 22 provides an example of this.
- 
-#### Bundle Parameters
- 
-|Parameter|Type|Description|
-|---------|----|-----------|
-|`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
-|`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
-|`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
-|`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
-|`googleWebClientId`&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
-
-> Code Snippet 22
-
-```java
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-   super.onActivityResult(requestCode, resultCode, data);
-   if (requestCode == RC_SIGN_IN) {
-       GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-       GoogleSignInAccount acct = result.getSignInAccount();
-       String googleIdToken = acct.getIdToken();
-       Bundle bundle = new Bundle();
-       bundle.putString(API_BASEURL, apiBaseUrl);
-       bundle.putString(API_KEY, apiKey);
-       bundle.putString(IDENTITY_POOL_ID, identityPoolId);
-       bundle.putString(GOOGLE_ID_TOKEN, googleIdToken);
-       bundle.putString(GOOGLE_WEB_CLIENT_ID, googleWebClientId);
-       sendToService(bundle, GOOGLE_LOGIN);
-   }
-}
-```
-
-## Gradle Dependencies
-
-* Code Snippet 23 displays the Gradle Dependencies that the developer will need to include to successfully run the application.
-
-> Code Snippet 23
-
-```java
-compile 'com.amazonaws:aws-android-sdk-core:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-s3:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-cognito:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-ddb:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.4.+'
-compile 'com.squareup.retrofit2:retrofit:2.1.0'
-compile 'com.squareup.retrofit2:converter-moshi:2.1.0'
-compile 'com.squareup.moshi:moshi:1.2.0'
-compile 'com.squareup.okhttp3:okhttp:3.4.1'
-compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-compile 'com.google.code.gson:gson:2.8.0'
-compile 'com.google.guava:guava:19.0'
-```
