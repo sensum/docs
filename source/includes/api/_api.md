@@ -86,11 +86,13 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 | `max`         | Float           | max value                                                                          |
 | `min`         | Float           | min value                                                                          |
 | `std`         | Float           | standard deviation of the record                                                   |
-| `percentiles` | Object(dict)    | 10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a>|
+| `percentiles` | Object(dict)    | 10th, 50th, and 90th percentile values<sup>*</sup> |
+
+<sup>*</sup> Percentile values indicate the value under which a given percentage of records reside, i.e. the if the 10th percentile is 0.2; 10% of records in the record set are less than or equal to 0.2.
 
 ### Fuzzy Class Stats
 
-For <a href = "https://en.wikipedia.org/wiki/Fuzzy_classification">"fuzzy"</a> classification outputs such as `arousal`, `engagement` and `activity`, an additional stats structure is used containing 3 fields:
+For "fuzzy" classification outputs such as `arousal`, `engagement` and `activity`, an additional stats structure is used containing 3 fields:
 
 | Field | Type | Meaning |
 |-------|------|---------|
@@ -98,12 +100,13 @@ For <a href = "https://en.wikipedia.org/wiki/Fuzzy_classification">"fuzzy"</a> c
 | `dominant` | string | label of the dominant classification category |
 | `sectors` | Object(dict) | per-category-label activivation i.e `{label:value,...}`
 
+The fuzzy sector values returned in the `sectors` object are ranged from 0.0 to 1.0, indicating the relative confidence that a the current user is in a particular "class" or sector. These do not sum to 1.0, and it is possible that a user may be similarily activated in multiple classes depending on the domain of classification.
+
 Current Sector Labels (highest to lowest activation value):
 
 * Activity : `active`, `inactive`
 * Arousal : `excited`, `activated`, `calm`, `passive`, `relaxed`
 * Engagement: `highly engaged`, `engaged`, `activated`, `neutral`
-
 
 ## Send text data to analyse emoji and text sentiment  
 
