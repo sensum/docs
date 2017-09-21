@@ -623,7 +623,7 @@ Use the `sendToService` method the the boolean `HR_CAPTURE = true` with the cons
 
 There is no equivalent function in the Android SDK. To perform this function perform another scan by using the `sendToService` method with the constant **BLE_SCAN** or **BLUETOOTH_SCAN**, depending on if the device is compatible with Bluetooth LE or standard, to send the command to the background service.
 
- ### Disconnect From Device
+### Disconnect From Device
 
 #### iOS
 
