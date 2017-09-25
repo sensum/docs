@@ -12,9 +12,9 @@ We recommend the **iPhone 5 and up** as devices to use with the **SensumSDK**.
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details.
 
-## Accepted Biometric Data Inputs
+## Accepted Data Inputs
 
-The iOS **SensumSDK** can accept the following <a href = "#available-metrics">metrics</a>:
+The iOS **SensumSDK** can accept the following <a href = "../api/#available-metrics" target="_blank">metrics</a>:
 
   * Heart Rate
   * GPS latitude
@@ -105,7 +105,7 @@ This single instance of the `SensumSDKManager` can then be referenced from elsew
 
 ## Authentication
 
-To get started working with the `SensumSDKManager` you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of *Google Sign-In*, you must provide use with the *Google Applications Client ID*. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google's documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.
+To get started working with the `SensumSDKManager` you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of *Google Sign-In*, you must provide use with the *Google Applications Client ID*. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google's documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating" target="_blank"> here</a>.
 
 
 ## Authentication Command
@@ -253,7 +253,7 @@ Set the frequency of the updates from the accelerometer.
 
 Below are all available commands relating to Bluetooth within the **SensumSDK**.
 
-* **SensumKit** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
+* **SensumKit** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use" target="_blank"> list of compatible devices</a> at our Knowledge Centre.
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.
 
@@ -539,7 +539,7 @@ Creates a tag object composed of a string and timestamp pair.
 
 ## Sentiment Command
 
-All available commands for our sentiment module. This runs analysis on the text input and returns it's emotionality data. 
+All available commands for our sentiment module. This runs analysis on the text input and returns it's emotionality data.
 
 
 ### Start Updating
@@ -732,19 +732,19 @@ Used to notify listeners that a successful request body has been safely parsed a
 
 Used to notify listeners that a successful request body for a text/emoji object has been parsed and is ready for querying in *Realm*.
 Called immediately after `sentimentEmotion.save()` is called.
-  
-  
+
+
 ### API Listener Functions: Sentiment Request Successful
 
   ` func sentimentRequestSuccesful()`
 
 Used to notify listeners that a request made to the **SensumAPI** sentiment endpoint was successful. Note this is only for sentiment analysis and not general requests.
  Called immediately after a 200 HTTP response is received but not before the data received has been safely saved to the *Realm* instance of **SensumKit**.
- 
+
 ### API Listener Functions: Sentiment Request Failure
 
   `func sentimentRequestFailure(message: String, statusCode: Int?)`
-  
+
 Used to notify listeners that a request made to the **SensumAPI** sentiment endpoint was unsuccessful. Note this is only for sentiment analysis and not general requests.
 Called immediately after a HTTP response that was not 200.
 

@@ -131,7 +131,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 
 ## Google Sign-In
 
- * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.
+ * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating" target="_blank">documentation</a>.
 
  * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 2).
 
@@ -141,7 +141,7 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 compile 'com.google.android.gms:play-services-auth:+'
 ```
 
-**NOTE:** As part of the setup procedure you will need to add `apply plugin: 'com.google.gms.google-services'` to your app-level `build.gradle` file. This can have issues building when added at the top of the file so it is advisable to add this entry under the `dependencies` block. 
+**NOTE:** As part of the setup procedure you will need to add `apply plugin: 'com.google.gms.google-services'` to your app-level `build.gradle` file. This can have issues building when added at the top of the file so it is advisable to add this entry under the `dependencies` block.
 
  * As part of enabling *Google APIs* or *Firebase* services in your Android application the `google-services.json` is processed by the `google-services` plugin.
  * The `google-services.json` is created using *Firebase* during enabling *Google Services* for your Android application and is generally placed in the **app/** directory (at the root of the Android Studio app module).
@@ -194,7 +194,7 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
 |`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
 |`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
 |`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|
-|`googleWebClientId`&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication">Google Cloud Platform</a> page|
+|`googleWebClientId`&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |String|This is the web client id that was created when you set up sign-in with Google. It can be found in the Credentials page under 'APIs and Service' in the <a href = "https://console.cloud.google.com/home/dashboard?project=firebase-tutorialapplication" target="_blank">Google Cloud Platform</a> page|
 
 > Code Snippet 5
 
@@ -580,7 +580,7 @@ bundle.putString(ServiceConstants.DEVICE_ADDRESS, deviceAddress);
 sendToService(bundle, CONNECT);
 ```
 
-* **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
+* **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use" target="_blank"> list of compatible devices</a> at our Knowledge Centre.
 
 ## Receiving Values
 
@@ -592,7 +592,7 @@ sendToService(bundle, CONNECT);
 
 ## Bluetooth
 
- * To scan for, receive, and read values from Bluetooth devices, please follow the steps previously outlined within the <a href = "#setting-up-the-ble">Setting up BLE</a> section of this tutorial.
+ * To scan for, receive, and read values from Bluetooth devices, please follow the steps previously outlined within the <a href = "#setting-up-ble">Setting up BLE</a> section of this tutorial.
  * The same steps should be taken, however bear in mind that the constants should change i.e. replace BLE_SCAN with **BLUETOOTH_SCAN**.
  * This version of the **SensumSDK** will only connect to a *Shimmer 2r* device. This device returns GSR values.
  * The developer should include the **GSR_FILTER** constant within the *BroadcastReceiver’s* `onReceive` method.
@@ -703,7 +703,7 @@ private IntentFilter getUpdateIntentFilter() {
 ## Realm Queries
 
 * *Realm* is a Mobile Database that provides an alternative to *SQLite* & *Core Data*.
-* We use *Realm* to safely and efficiently store/query data from the response the **SensumAPI** returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/"> here</a>.
+* We use *Realm* to safely and efficiently store/query data from the response the **SensumAPI** returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/" target="_blank"> here</a>.
 * A significant advantage for developers using the **SensumSDK** is the ability to query the *Realm* database from the front-end to see what data has been captured/stored.
 * When an event has been received by the *BroadcastReceiver*, the developer can query the *Realm* database to retrieve the values received from the **SensumAPI**.
 * The **AROUSAL_EVENT_FILTER** lets the developer know that the **SensumSDK** has received an ‘arousal event’.
