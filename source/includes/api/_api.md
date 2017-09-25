@@ -8,8 +8,7 @@
 **SensumAPI** enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the `Content-Type: application/json` header be specified.
 **SensumAPI** is also cross-origin resource sharing ready.
 
-**SensumSDK** handles many of these requests and responses natively. It can however be useful to utilise the **SensumAPI** directly.
-
+The **SensumSDKs**(iOS & Android) handle many of these requests and responses natively. It can however be useful to utilise the **SensumAPI** directly.
 
 
 ## URI Structure
@@ -30,7 +29,7 @@ An example URI:
  * X-API-Key: `$YourAPIKey`(For trial usage use "PublicDemoKeyForDocumentation")
 
 To calculate the value for the Authorization header you must calculate a hash of your request, add extra information, then add the AWS secret key in order to create a signing key and then use this to sign the request.
-To learn more about generating the Signature please read the <a href="https://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html">AWS Documentation on Signature v4</a>
+To learn more about generating the Signature please read the <a href="https://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html" target="_blank">AWS Documentation on Signature v4</a>
 
 When using the SDK, the signature will be automatically generated when making API calls through it.
 
@@ -42,11 +41,11 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 
 |Metric Name|Unit|
 |-----------|----|
-|<a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate">`heartrate`</a>|bpm|
+|<a href = "http://help.sensum.co/knowledge_base/topics/why-measure-heart-rate" target="_blank">`heartrate`</a>|bpm|
 |`breathingrate`|bpm|
 |`temperature`|<sup>o</sup>C, assumed to be ambient/external|
 |`skintemperature`|<sup>o</sup>C|
-|<a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr">`gsr`</a>| microsiemens<sup>*</sup>|
+|<a href = "http://help.sensum.co/knowledge_base/topics/what-is-gsr" target="_blank">`gsr`</a>| microsiemens<sup>*</sup>|
 |`location_latitude`|deg|
 |`location_longitude`|deg|
 |`location_altitude`|m|
@@ -86,17 +85,21 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 | `max`         | Float           | max value                                                                          |
 | `min`         | Float           | min value                                                                          |
 | `std`         | Float           | standard deviation of the record                                                   |
-| `percentiles` | Object(dict)    | 10th, 50th, and 90th <a href = "https://en.wikipedia.org/wiki/Percentile"> percentile values </a>|
+| `percentiles` | Object(dict)    | 10th, 50th, and 90th percentile values <sup>*</sup>|
+
+<sup>*</sup> Percentile values indicate the value under which a given percentage of records reside, i.e. the if the 10th percentile is 0.2; 10% of records in the record set are less than or equal to 0.2.
 
 ### Fuzzy Class Stats
 
-For <a href = "https://en.wikipedia.org/wiki/Fuzzy_classification">"fuzzy"</a> classification outputs such as `arousal`, `engagement` and `activity`, an additional stats structure is used containing 3 fields:
+For "fuzzy" classification outputs such as `arousal`, `engagement` and `activity`, an additional stats structure is used containing 3 fields:
 
 | Field | Type | Meaning |
 |-------|------|---------|
 | `value` | Float| [0-1] activation value |
 | `dominant` | string | label of the dominant classification category |
-| `sectors` | Object(dict) | per-category-label activivation i.e `{label:value,...}`
+| `sectors` | Object(dict) | per-category-label activivation i.e `{label:value,...}`|
+
+The fuzzy sector values returned in the `sectors` object are ranged from 0.0 to 1.0, indicating the relative confidence that a the current user is in a particular "class" or sector. These do not sum to 1.0, and it is possible that a user may be similarily activated in multiple classes depending on the domain of classification.
 
 Current Sector Labels (highest to lowest activation value):
 
@@ -210,7 +213,7 @@ print r.json()
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|200 response
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|200 response
 
 ### Examples
 
@@ -366,7 +369,7 @@ print r.json()
 
 Parameter|Type|Required|Description
 ---|---|---|---|
-`start`|string|true|<a href = http://www.cl.cam.ac.uk/~mgk25/iso-time.html> Datetime compatible</a> start time for query
+`start`|string|true|<a href = "http://www.cl.cam.ac.uk/~mgk25/iso-time.html" target="_blank"> Datetime compatible</a> start time for query
 `end`|string|true|End time for query
 `metrics`|string|true|List of strings of requested metrics
 
@@ -374,7 +377,7 @@ Parameter|Type|Required|Description
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|Successful request
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
@@ -585,7 +588,7 @@ Parameter|Type|Required|Description
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|Successful request
 
 > Example Response
 
@@ -693,7 +696,7 @@ Parameter|Type|Required|Description
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|Successful request
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
@@ -968,7 +971,7 @@ print r.json()
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|Successful request
 
 ### Response Headers
 
@@ -1115,7 +1118,7 @@ Parameter|Default|Type|Required|Description
 
 Status|Meaning|Description
 ---|---|---|
-200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful request
+200|<a href = "https://tools.ietf.org/html/rfc7231#section-6.3.1" target="_blank">OK</a>|Successful request
 
 ### Response Headers
 

@@ -8,13 +8,13 @@ We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the 
 
 ## Bluetooth Device Compatibility
 
-* The Android **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
+* The Android **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use" target="_blank"> list of compatible devices</a> at our Knowledge Centre.
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.
 
-## Accepted Biometric Data Inputs
+## Accepted Data Inputs
 
-The Android **SensumSDK** can accept the following <a href = "#available-metrics">metrics</a>:
+The Android **SensumSDK** can accept the following <a href = "../api/#available-metrics" target="_blank">metrics</a>:
 
   * Heart Rate
   * GSR
@@ -370,7 +370,7 @@ Examples available in the 'Android' tab.
 
 `private final ServiceConnection mConnection = new ServiceConnection()`
 
-Connection made to the service. 
+Connection made to the service.
 
 Once bound to the service, the binder object is passed through to messenger to set it up.
 
@@ -424,7 +424,7 @@ Sets up the credential bundle to be sent to the **SensumSDK** service this needs
         sendToService(bundle, GOOGLE_LOGIN);
     }
 ```
-Follow Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.
+Follow Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating" target="_blank">instructions</a> to add Google Sign-In to your application.
 
 Once successfully implemented you must send the Google Id token for the Google Sign-In application to us.
 
@@ -693,6 +693,3 @@ Stops capturing of biometric/contextual data.
 &nbsp;
 
 &nbsp;
-
-
-
