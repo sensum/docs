@@ -17,7 +17,7 @@
 **SensumAPI** uses URI resources to provide access to its services. To use a RESTful API, your application will use HTTP Methods(GET, POST, etc.) to request and parse a response. **SensumAPI** uses JSON for communication between your application and the server.
 
 An example URI:
-<a href="">https://api.sensum.co/v0/testdata</a>
+<a href="">https://emotionai.sensum.co/v0/testdata</a>
 
 ## Authorization
 
@@ -115,7 +115,7 @@ The service will return a JSON object that contain Positivity, Negativity and Em
 
 ### HTTP Request
 
-`POST https://api.sensum.co/v0/sentiment`
+`POST https://emotionai.sensum.co/v0/sentiment`
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
@@ -148,7 +148,7 @@ var data = {
 };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/sentiment',
+  url: 'https://emotionai.sensum.co/v0/sentiment',
   method: 'post',
   data: JSON.stringify(data);
   headers: headers,
@@ -173,7 +173,7 @@ var data = {
 };
 
 
-fetch('https://api.sensum.co/v0/sentiment',
+fetch('https://emotionai.sensum.co/v0/sentiment',
 {
   method: 'POST',
   body : body,
@@ -200,7 +200,7 @@ data = {
   "text":"👌👌👌"
 }
 
-r = requests.post('https://api.sensum.co/v0/sentiment', data=data, headers = headers)
+r = requests.post('https://emotionai.sensum.co/v0/sentiment', data=data, headers = headers)
 
 print r.json()
 ```
@@ -291,7 +291,7 @@ Please refer to the code samples for request and response examples
 This endpoint allows the user to retrieve previously entered data by providing a start time, an end time and the metrics to be retrieved.
 
 ### HTTP Request
-`GET https://api.sensum.co/v0/data/`
+`GET https://emotionai.sensum.co/v0/data/`
 
 > Code samples
 
@@ -309,7 +309,7 @@ var params = {
 };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/data/',
+  url: 'https://emotionai.sensum.co/v0/data/',
   method: 'get',
   data : params,
   headers: headers,
@@ -329,7 +329,7 @@ const headers = {
 
 };
 
-fetch('https://api.sensum.co/v0/data?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
+fetch('https://emotionai.sensum.co/v0/data?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
 {
   method: 'get',
 
@@ -357,7 +357,7 @@ params = {
 }
 
 
-r = requests.get('https://api.sensum.co/v0/data/', params = params, headers = headers)
+r = requests.get('https://emotionai.sensum.co/v0/data/', params = params, headers = headers)
 
 print r.json()
 ```
@@ -386,7 +386,7 @@ X-API-Key, Authorization
 This endpoint allows the user to retrieve a list of available records based on the supplied query information.
 
 ### HTTP Request
-`GET https://api.sensum.co/data/records.json`
+`GET https://emotionai.sensum.co/data/records.json`
 
 > Code samples
 
@@ -404,7 +404,7 @@ var params = {
 };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/data/records.json',
+  url: 'https://emotionai.sensum.co/v0/data/records.json',
   method: 'get',
   data: 'params',
   headers: headers,
@@ -423,7 +423,7 @@ const headers = {
   'x-api-key' : 'PublicDemoKeyForDocumentation'
 };
 
-fetch('https://api.sensum.co/v0/data/records.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
+fetch('https://emotionai.sensum.co/v0/data/records.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
 {
   method: 'get',
 
@@ -452,7 +452,7 @@ params = {
 }
 
 
-r = requests.get('https://api.sensum.co/v0/data/records.json', params = params, headers = headers)
+r = requests.get('https://emotionai.sensum.co/v0/data/records.json', params = params, headers = headers)
 
 print r.json()
 ```
@@ -502,7 +502,7 @@ X-API-Key, Authorization
 This endpoint allows the user to retrieve a list of available metrics in the requested records.
 
 ### HTTP Request
-`GET https://api.sensum.co/v0/data/metrics.json`
+`GET https://emotionai.sensum.co/v0/data/metrics.json`
 
 > Code samples
 
@@ -520,7 +520,7 @@ var params = {
 };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/data/metrics.json',
+  url: 'https://emotionai.sensum.co/v0/data/metrics.json',
   method: 'get',
   data: params,
   headers: headers,
@@ -540,7 +540,7 @@ const headers = {
 
 };
 
-fetch('https://api.sensum.co/v0/data/metrics.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
+fetch('https://emotionai.sensum.co/v0/data/metrics.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
 {
   method: 'get',
 
@@ -568,7 +568,7 @@ params = {
 };
 
 
-r = requests.get('https://api.sensum.co/v0/data/metrics.json', params= params, headers = headers)
+r = requests.get('https://emotionai.sensum.co/v0/data/metrics.json', params= params, headers = headers)
 
 print r.json()
 ```
@@ -607,7 +607,7 @@ X-API-Key, Authorization
 This endpoint allows the user to retrieve a wide-format array of time series records for the available metrics, filled with null values for unavailable values.
 
 ### HTTP Request
-`GET https://api.sensum.co/v0/data/wide.json`
+`GET https://emotionai.sensum.co/v0/data/wide.json`
 
 > Code samples
 
@@ -628,7 +628,7 @@ var params = {
 
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/data/wide.json',
+  url: 'https://emotionai.sensum.co/v0/data/wide.json',
   method: 'get',
   data: params,
   headers: headers,
@@ -648,7 +648,7 @@ const headers = {
 
 };
 
-fetch('https://api.sensum.co/v0/data/wide.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
+fetch('https://emotionai.sensum.co/v0/data/wide.json?start=2017-08-15&end=2017-08-25&metrics=['heartrate','breathingrate']',
 {
   method: 'get',
 
@@ -676,7 +676,7 @@ params = {
 };
 
 
-r = requests.get('https://api.sensum.co/v0/data/wide.json', params = params, headers = headers)
+r = requests.get('https://emotionai.sensum.co/v0/data/wide.json', params = params, headers = headers)
 
 print r.json()
 ```
@@ -714,7 +714,7 @@ How "isolated" the event is with respect to any events identified before / after
 
 ### HTTP Request
 
-`POST https://api.sensum.co/v0/events`
+`POST https://emotionai.sensum.co/v0/events`
 
 > Code samples
 
@@ -774,7 +774,7 @@ var data = {
   };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/events',
+  url: 'https://emotionai.sensum.co/v0/events',
   method: 'post',
   data: JSON.stringify(data),
   headers: headers,
@@ -840,7 +840,7 @@ const headers = {
 
 };
 
-fetch('https://api.sensum.co/v0/events',
+fetch('https://emotionai.sensum.co/v0/events',
 {
   method: 'POST',
   body: inputBody,
@@ -909,7 +909,7 @@ data = {
   }
 
 
-r = requests.post('https://api.sensum.co/v0/events', params = data, headers = headers)
+r = requests.post('https://emotionai.sensum.co/v0/events', params = data, headers = headers)
 
 print r.json()
 ```
@@ -1023,7 +1023,7 @@ X-API-Key, Authorization
 This endpoint allows the user to generate a series of test data streams that can be fed into the events endpoint to test the analysis service. When testing the events endpoint only POST the "records" JSON object in the request body.
 
 ### HTTP Request
-`GET https://api.sensum.co/v0/testdata`
+`GET https://emotionai.sensum.co/v0/testdata`
 
 
 > Code samples
@@ -1043,7 +1043,7 @@ var params = {
 };
 
 $.ajax({
-  url: 'https://api.sensum.co/v0/testdata',
+  url: 'https://emotionai.sensum.co/v0/testdata',
   method: 'get',
   data : params,
   headers: headers,
@@ -1069,7 +1069,7 @@ var params = {
 	'values' : ['heartrate']
 };
 
-fetch('https://api.sensum.co/v0/testdata?n=10&freq=1&values=['heartrate']',
+fetch('https://emotionai.sensum.co/v0/testdata?n=10&freq=1&values=['heartrate']',
 {
   method: 'GET',
   data: params,
@@ -1096,7 +1096,7 @@ params = {
 	'values' : ['heartrate']
 }
 
-r = requests.get('https://api.sensum.co/v0/testdata', params = params, headers = headers)
+r = requests.get('https://emotionai.sensum.co/v0/testdata', params = params, headers = headers)
 
 print r.json()
 ```
