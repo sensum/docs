@@ -811,7 +811,7 @@ this.startActivityForResult(signInIntent, RC_SIGN_IN);
  
 |Parameter|Type|Description|
 |---------|----|-----------|
-|`apiBaseUrl`|String|This is the base url for the API, currently this is `http://api.sensum.co/v0`|
+|`apiBaseUrl`|String|This is the base url for the API, currently this is `http://emotionai.sensum.co/v0`|
 |`apiKey`|String|This is the API Key that will be required to access the **SensumAPI**(For trial usage use `PublicDemoKeyForDocumentation`)|
 |`identityPoolId`|String|The CognitoIdentityPoolId required to successfully authenticate with the **SensumAPI**. We will provide you with this.|
 |`googleIdToken`|String|This is the google id token returned when successfully logged in with a valid Google account|

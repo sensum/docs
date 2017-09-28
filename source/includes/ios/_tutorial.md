@@ -369,7 +369,7 @@ pod 'GoogleSignIn', '4.0.1'
     * and a *stage URL*.
 
 * We will provide you with the *API Key* as a string, all you have to do is pass this string into the *SensumSDKManager* .
-* By default, the *host URL* and *stage URL* should be **api.sensum.co** and **v0** respectively, unless we have instructed you otherwise.
+* By default, the *host URL* and *stage URL* should be **emotionai.sensum.co** and **v0** respectively, unless we have instructed you otherwise.
 * In order to create a single instance of the *SensumSDKManager*, follow the example within Code Snippet 9 (the example makes use of a *ViewController* to do this, but this could be achieved within any file)
 * This single instance of the *SensumSDKManager* can then be referenced from elsewhere within your application.
 
@@ -389,7 +389,7 @@ class TabBarController: UITabBarController {
            sensumSDK = SensumSDKManager(
                requestEngineInternalInSeconds: 30,
                apiKey: "PublicDemoKeyForDocumentation",
-               host: "api.sensum.co",
+               host: "emotionai.sensum.co",
                stage: "v0")
 	    startEverythingUpdating()
        }

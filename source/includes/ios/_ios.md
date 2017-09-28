@@ -64,7 +64,7 @@ To start the **SensumSDK** you will need:
  * A stage URL.
 We will provide you with the API Key as a string, all you have to do is pass this string into the `SensumSDKManager`.
 
-By default, the host URL and stage URL should be **"api.sensum.co"** and **"v0"** respectively, unless we have instructed you otherwise.
+By default, the host URL and stage URL should be **"emotionai.sensum.co"** and **"v0"** respectively, unless we have instructed you otherwise.
 
  The `SensumSDKManager` is the root object in the **SensumKit** which starts the service.
 The manager prepares all objects you can use to interface with your device motion, location and bluetooth peripheral frameworks.
@@ -87,7 +87,7 @@ class TabBarController: UITabBarController {
            sensumSDK = SensumSDKManager(
                requestEngineInternalInSeconds: 30,
                apiKey: "PublicDemoKeyForDocumentation",
-               host: "api.sensum.co",
+               host: "emotionai.sensum.co",
                stage: "v0")
 	    startEverythingUpdating()
        }
