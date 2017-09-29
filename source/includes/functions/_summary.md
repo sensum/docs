@@ -10,7 +10,7 @@
 
 #### Android
 
-When using the `sendToService` method ensure that you send the integer parameters **DATA_RATE_SAMPLE** and **DATA_RATE_SEND** as part of your bundle.
+When using the `sendToService` method ensure that you send the integer parameters **DATA_RATE_SEND** as part of your bundle.
 
 
 ### Getting the Server Request Rate
@@ -45,19 +45,25 @@ Table 1
 
 |Action|Description|IntentExtras|
 |------|-----------|------------|
-|**BLE_DEVICE_FILTER**|Filters for BLE devices|ArrayList<BluetoothDevice>|
-|**VALUE_FILTER**|Filters for heart rate value|String|
-|**GPS_FILTER**|Filters for GPS values|Bundle|
-|**ACC_FILTER**|Filters for acceleration values|Bundle|
-|**DEVICE_DISCONNECTED**|Filters for a device disconnected value|null|
-|**API_RESPONSE**|Filters for responses from the API|String|
-|**TOAST_MESSAGE**|Filters for messages from the Service|String|
-|**CONNECTION_FILTER**|Filters for connection BLE messages|String|
-|**BLUETOOTH_CONNECTION_FILTER**|Filters for bluetooth connection messages|String|
-|**BLUETOOTH_DEVICE_FILTER**|Filters for bluetooth devices|ArrayList<BluetoothDevice>|
-|**GSR_FILTER**|Filters for GSR values|String|
-|**ACC_FAILED_REGISTERED**|Filters for acceleration failure from unsupported devices|null|
-|**HELLO_FILTER**|Filters for hello message|String|
+|**BLE_DEVICE_FILTER**|Filters for BLE devices|`ArrayList<BluetoothDevice>`|
+|**HR_FILTER**|Filters for heart rate value|`String`|
+|**GPS_FILTER**|Filters for GPS values|`Bundle`|
+|**ACC_FILTER**|Filters for acceleration values|`Bundle`|
+|**DEVICE_DISCONNECTED**|Filters for a device disconnected value|`null`|
+|**API_RESPONSE**|Filters for responses from the API|`String`|
+|**TOAST_MESSAGE**|Filters for messages from the Service|`String`|
+|**CONNECTION_FILTER**|Filters for connection BLE messages|`String`|
+|**BLUETOOTH_CONNECTION_FILTER**|Filters for bluetooth connection messages|`String`|
+|**BLUETOOTH_DEVICE_FILTER**|Filters for bluetooth devices|`ArrayList<BluetoothDevice>`|
+|**GSR_FILTER**|Filters for GSR values|`String`|
+|**ACC_FAILED_REGISTERED**|Filters for acceleration failure from unsupported devices|`null`|
+|**HELLO_FILTER**|Filters for hello message|`String`|
+|**HR_EVENT_FILTER**|Filters for heart rate events from the API|`String`|
+|**AROUSAL_FILTER**|Filters for heart rate arousals from the API|`String`|
+|**GSR_EVENT_FILTER**|Filters for GSR events from the API|`String`|
+|**EMOJI_SENTIMENT_FILTER**|Filters for emoji sentiment from the API|`String`|
+|**TEXT_SENTIMENT_FILTER**|Filters for text sentiment from the API|`String`|
+|**HR_TEST_DATA_FILTER**|Filters for generated heart rate test data from the API|`String`|
 
 ## Setting up the Broadcast Receiver
 
@@ -81,7 +87,7 @@ Table 1
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
                     isAcc = true;
                     break;
-                case VALUE_FILTER:
+                case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
                     break;
                 case GSR_FILTER:
@@ -93,6 +99,20 @@ Table 1
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
+               case HR_EVENT_FILTER:
+                   Break;
+               case AROUSAL_FILTER:
+                   break;
+               case GSR_EVENT_FILTER:
+                   break;
+               case EMOJI_SENTIMENT_FILTER:
+                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case TEXT_SENTIMENT_FILTER:
+                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case HR_TEST_DATA_FILTER:
+                   break;
             }
         }
     };
@@ -121,10 +141,16 @@ Table 1
         filter.addAction(HELLO_FILTER);
         filter.addAction(GPS_FILTER);
         filter.addAction(ACC_FILTER);
-        filter.addAction(VALUE_FILTER);
+        filter.addAction(HR_FILTER);
         filter.addAction(GSR_FILTER);
         filter.addAction(API_RESPONSE);
         filter.addAction(TOAST_MESSAGE);
+        filter.addAction(HR_EVENT_FILTER);
+        filter.addAction(AROUSAL_FILTER);
+        filter.addAction(GSR_EVENT_FILTER);
+        filter.addAction(EMOJI_SENTIMENT_FILTER);
+        filter.addAction(TEXT_SENTIMENT_FILTER);
+        filter.addAction(HR_TEST_DATA_FILTER);
         return filter;
     }
 ```
@@ -258,7 +284,7 @@ Use the `sendToService` method the the boolean `ACCELERATION_CAPTURE = true` wit
 
 #### Android
 
-* When sending the **START_CAPTURE** message to the service using the `sendToService` method, Set the rate of capture using the integer variable DATA_RATE_SAMPLE, while the boolean **ACCELERATION_CAPTURE** is **true**.
+* When sending the **START_CAPTURE** message to the service using the `sendToService` method, Set the rate of capture using the integer variable DATA_RATE_SEND, while the boolean **ACCELERATION_CAPTURE** is **true**.
 
 
 <!-- Location Control -->

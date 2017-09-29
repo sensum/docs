@@ -219,7 +219,7 @@ protected void onDestroy() {
 |Action|Description|IntentExtras|
 |------|-----------|------------|
 |**BLE_DEVICE_FILTER**|Filters for BLE devices|`ArrayList<BluetoothDevice>`|
-|**VALUE_FILTER**|Filters for heart rate value|`String`|
+|**HR_FILTER**|Filters for heart rate value|`String`|
 |**GPS_FILTER**|Filters for GPS values|`Bundle`|
 |**ACC_FILTER**|Filters for acceleration values|`Bundle`|
 |**DEVICE_DISCONNECTED**|Filters for a device disconnected value|`null`|
@@ -231,6 +231,12 @@ protected void onDestroy() {
 |**GSR_FILTER**|Filters for GSR values|`String`|
 |**ACC_FAILED_REGISTERED**|Filters for acceleration failure from unsupported devices|`null`|
 |**HELLO_FILTER**|Filters for hello message|`String`|
+|**HR_EVENT_FILTER**|Filters for heart rate events from the API|`String`|
+|**AROUSAL_FILTER**|Filters for heart rate arousals from the API|`String`|
+|**GSR_EVENT_FILTER**|Filters for GSR events from the API|`String`|
+|**EMOJI_SENTIMENT_FILTER**|Filters for emoji sentiment from the API|`String`|
+|**TEXT_SENTIMENT_FILTER**|Filters for text sentiment from the API|`String`|
+|**HR_TEST_DATA_FILTER**|Filters for generated heart rate test data from the API|`String`|
 
 ## Setting up the Broadcast Receiver
 
@@ -254,7 +260,7 @@ protected void onDestroy() {
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
                     isAcc = true;
                     break;
-                case VALUE_FILTER:
+                case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
                     break;
                 case GSR_FILTER:
@@ -266,6 +272,20 @@ protected void onDestroy() {
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
+               case HR_EVENT_FILTER:
+                   Break;
+               case AROUSAL_FILTER:
+                   break;
+               case GSR_EVENT_FILTER:
+                   break;
+               case EMOJI_SENTIMENT_FILTER:
+                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case TEXT_SENTIMENT_FILTER:
+                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case HR_TEST_DATA_FILTER:
+                   break;
             }
         }
     };
@@ -294,10 +314,16 @@ protected void onDestroy() {
         filter.addAction(HELLO_FILTER);
         filter.addAction(GPS_FILTER);
         filter.addAction(ACC_FILTER);
-        filter.addAction(VALUE_FILTER);
+        filter.addAction(HR_FILTER);
         filter.addAction(GSR_FILTER);
         filter.addAction(API_RESPONSE);
         filter.addAction(TOAST_MESSAGE);
+        filter.addAction(HR_EVENT_FILTER);
+        filter.addAction(AROUSAL_FILTER);
+        filter.addAction(GSR_EVENT_FILTER);
+        filter.addAction(EMOJI_SENTIMENT_FILTER);
+        filter.addAction(TEXT_SENTIMENT_FILTER);
+        filter.addAction(HR_TEST_DATA_FILTER);
         return filter;
     }
 ```
@@ -332,16 +358,16 @@ protected void onDestroy() {
 |-------------------------|--------------------|
 |**CONNECT**|`String DEVICE_NAME`, <br> `String DEVICE_ADDRESS`|
 |**BLE_SCAN**|`null`|
-|**START_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE, boolean GPS_CAPTURE`,<br> `boolean INPUT_CAPTURE`,<br> `int DATA_RATE_SAMPLE`,<br> `int DATA_RATE_SEND`|
-|**CANCEL_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`, <br> `boolean GPS_CAPTURE`,<br> `boolean INPUT_CAPTURE`|
-|**LOGIN**|`String USER_NAME`,<br> `String PASSWORD`,<br> `String API_BASEURL`,<br> `String AUTH_TOKEN`|
-|**GOOGLE_LOGIN**|`String API_BASEURL_IAM`,<br> `String API_KEY`,<br> `String IDENTITY_POOL_ID`,<br> `String GOOGLE_ID_TOKEN`,<br> `String GOOGLE_AUTH_CODE`|
+|**START_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`,<br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`,<br> `int DATA_RATE_SEND`|
+|**CANCEL_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`, <br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`|
+|**LOGIN**|`String USER_NAME`,<br> `String PASSWORD`,<br> `String API_BASEURL`,<br> `String API_KEY`,<br> `String USER_POOL_ID`<br> `String CLIENT_ID`|
+|**GOOGLE_LOGIN**|`String API_BASEURL`,<br> `String API_KEY`,<br> `String IDENTITY_POOL_ID`,<br> `String GOOGLE_ID_TOKEN`,<br> `String GOOGLE_WEB_CLIENT_ID`|
 |**INPUT_TEXT**|`String TEXT_MESSAGE`|
 |**BLUETOOTH_SCAN**|`null`|
 |**CONNECT_BLUETOOTH_DEVICE**|`String DEVICE_NAME`,<br> `String DEVICE_ADDRESS`|
 |**HELLO**|`null`|
-|**EXPORT_DATABASE**|`null`|
-|**DELETE_ALL_DATA**|`null`|
+|**INPUT_SENTIMENT_TEXT**|`String TEXT_MESSAGE`|
+|**GENERATE_TEST_DATA**|`int GENERATE_NUMBER_OF_RECORDS`|
 
  * This *Message* object also has the capacity to transmit data in the form of a *Bundle*.
  * A *Bundle* contains associated data that can be interpreted by the *Service*.
@@ -393,7 +419,7 @@ protected void onDestroy() {
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
                     isAcc = true;
                     break;
-                case VALUE_FILTER:
+                case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
                     break;
                 case GSR_FILTER:
@@ -405,6 +431,20 @@ protected void onDestroy() {
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
+               case HR_EVENT_FILTER:
+                   break;
+               case AROUSAL_FILTER:
+                   break;
+               case GSR_EVENT_FILTER:
+                   break;
+               case EMOJI_SENTIMENT_FILTER:
+                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case TEXT_SENTIMENT_FILTER:
+                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                   break;
+               case HR_TEST_DATA_FILTER:
+                   break;
             }
         }
     };
@@ -533,6 +573,7 @@ public Bundle getCaptureBundle() {
  bundle.putBoolean(ACCELERATION_CAPTURE, isAcc);
  bundle.putBoolean(HR_CAPTURE, isHr);
  bundle.putBoolean(GPS_CAPTURE, isGps);
+ bundle.putBoolean(GSR_CAPTURE, isGsr);
  bundle.putBoolean(INPUT_CAPTURE, isInput);
  bundle.putLong(DATA_RATE_SEND, dataRate);
  return bundle;
@@ -558,13 +599,14 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 
 |Action|(description)|Intent Extras|
 |------|------|---------|
-|**HR_EVENTS_FILTER**|Filters for heart rate events|`null`|
+|**HR_EVENT_FILTER**|Filters for heart rate events|`null`|
 |**ACC_EVENT_FILTER**|Filters for acceleration events|`null`|
-|**AROUSAL_EVENT_FILTER**|Filters for arousal events|`null`|
+|**AROUSAL_FILTER**|Filters for arousal events|`null`|
 |**GPS_EVENT_FILTER**|Filters for GPS events|`null`|
 |**GSR_EVENT_FILTER**|Filters for GSR events|`null`|
 |**EMOJI_SENTIMENT_FILTER**|Filters for Emoji Sentiment values|`Bundle`|
 |**TEXT_SENTIMENT_FILTER**|Filters for Text Sentiment values|`Bundle`|
+|**HR_TEST_DATA_FILTER**||`null`|
 
 * These filters should also be added to your `getUpdateFilter` method (Code Snippet 17).
 
@@ -573,20 +615,19 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 ```java
 private IntentFilter getUpdateIntentFilter() {
       IntentFilter filter = new IntentFilter();
-      filter.addAction(HELLO_FILTER);
-      filter.addAction(GPS_FILTER);
-      filter.addAction(ACC_FILTER);
-      filter.addAction(VALUE_FILTER);
-      filter.addAction(GSR_FILTER);
-      filter.addAction(API_RESPONSE);
-      filter.addAction(TOAST_MESSAGE);
-      filter.addAction(HR_EVENTS_FILTER);
-      filter.addAction(ACC_EVENT_FILTER);
-      filter.addAction(AROUSAL_EVENT_FILTER);
-      filter.addAction(GPS_EVENT_FILTER);
-      filter.addAction(GSR_EVENT_FILTER);
-      filter.addAction(EMOJI_SENTIMENT_FILTER);
-      filter.addAction(TEXT_SENTIMENT_FILTER);
+        filter.addAction(HELLO_FILTER);
+        filter.addAction(GPS_FILTER);
+        filter.addAction(ACC_FILTER);
+        filter.addAction(HR_FILTER);
+        filter.addAction(GSR_FILTER);
+        filter.addAction(API_RESPONSE);
+        filter.addAction(TOAST_MESSAGE);
+        filter.addAction(HR_EVENT_FILTER);
+        filter.addAction(AROUSAL_FILTER);
+        filter.addAction(GSR_EVENT_FILTER);
+        filter.addAction(EMOJI_SENTIMENT_FILTER);
+        filter.addAction(TEXT_SENTIMENT_FILTER);
+        filter.addAction(HR_TEST_DATA_FILTER);
       return filter;
   }
 ```
@@ -649,16 +690,17 @@ private void updateArousalStats(ArousalStats arousalStats) {
 ### Table 6: SensumSDK Realm Objects
 | Realm Event Objects |
 |---------------------|
-| `ResAccelerometerX`   |
-| `ResAccelerometerY`   |
-| `ResAccelerometerZ`   |
-| `ResGpsAccuracy`      |
-| `ResGpsAltitude`      |
-| `ResGpsBearing`       |
-| `ResGpsLatitude`      |
-| `ResGpsLongitude`     |
-| `ResGpsSpeed`         |
-| `ResGSR`              |
+| `ResAccelerometerX`    |
+| `ResAccelerometerY`    |
+| `ResAccelerometerZ`    |
+| `ResGpsAccuracy`       |
+| `ResGpsAltitude`       |
+| `ResGpsBearing`        |
+| `ResGpsLatitude`       |
+| `ResGpsLongitude`      |
+| `ResGpsSpeed`          |
+| `ResGSR`               |
+| `ResHeartRateTestData` |
 
 ### Table 7: Example Statistics Object
 
@@ -743,6 +785,14 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 * These events are returned via a *BroadcastIntent* rather than retrieved from the *Realm* database; therefore they should be listened for in the *BroadcastReceiver*'s `onReceive` method.
 
+### Table 14: Example Heart Rate Test Data Realm Object 
+
+| Realm Object                                                     | Associated Methods   | Method Type | Description                                                                                |
+|------------------------------------------------------------------|----------------------|-------------|--------------------------------------------------------------------------------------------|
+| `ResHeartRateTestData` Heart rate test data generated by the API | `getValue()`         | double      | Retrieves a heart rate value                                                               |
+|                                                                  | `getTime()`          | long        | Retrieves the timestamp in milliseconds for the generated heart rate value                 |
+
+
 
 <!-- NEW EDITS FINISH HERE-->
 * The values returned can be used to display data in a variety of ways.
@@ -761,7 +811,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 > Code Snippet 19
 
 ```java
-compile 'com.google.android.gms:play-services-auth:+'
+compile 'com.google.android.gms:play-services-auth:11.0.4'
 ```
 
  * As part of enabling *Google APIs* or *Firebase* services in your Android application the `google-services.json` is processed by the `google-services` plugin.
@@ -849,11 +899,11 @@ compile 'com.amazonaws:aws-android-sdk-s3:2.4.+'
 compile 'com.amazonaws:aws-android-sdk-cognito:2.4.+'
 compile 'com.amazonaws:aws-android-sdk-ddb:2.4.+'
 compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.4.+'
-compile 'com.squareup.retrofit2:retrofit:2.1.0'
-compile 'com.squareup.retrofit2:converter-moshi:2.1.0'
-compile 'com.squareup.moshi:moshi:1.2.0'
-compile 'com.squareup.okhttp3:okhttp:3.4.1'
-compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+compile 'com.squareup.retrofit2:retrofit:2.3.0'
+compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
+compile 'com.squareup.moshi:moshi:1.5.0'
+compile 'com.squareup.okhttp3:okhttp:3.9.0'
+compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 compile 'com.google.code.gson:gson:2.8.0'
 compile 'com.google.guava:guava:19.0'
 ```
