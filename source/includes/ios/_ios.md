@@ -2,7 +2,7 @@
 
 ## iOS Device Compatibility
 
-The iOS version of the **SensumSDK** can be installed on devices with **v10.3.3 and up**.
+The iOS version of the **SensumSDK** can be installed on devices with **v9.0 and up**.
 
 We recommend the **iPhone 5 and up** as devices to use with the **SensumSDK**.
 
@@ -30,14 +30,13 @@ The iOS **SensumSDK** can accept the following <a href = "#available-metrics">me
 
 ## SDK Module Command Protocol
 
-Every **SensumSDK** module conforms to the module command protocol.
-At present these can be switched on and off independently. Every **SensumSDK**-managed object has three states that can be toggled independently:
+Each **SensumSDK** module conforms to the module command protocol.
+At present these can be switched on and off independently. Each **SensumSDK**-managed object has two states that can be toggled independently:
 
 * Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object, its update methods will be called by the SDK and you can reflect these and carry out actions in your app.
-* Recording: Data updates will be stored only. If you do not enable updates no data can be recorded as updates will not be read.
 * Sending To API: Data updates will be recorded and sent to the **SensumAPI**.
 
-> Protocol Code - **SensumSDK** written in Swift 3
+> Protocol Code - **SensumSDK** 
 
 ```swift
 import foundation
@@ -45,32 +44,30 @@ import foundation
 public protocol SDKModuleCommandProtocol {
     func startUpdating()
     func stopUpdating()
-    func startRecording()
     func stopRecording()
     func startSendingToAPI()
     func stopSendingToAPI()
     func isUpdating() -> Bool
-    func isRecording() -> Bool
     func isSendingToAPI() -> Bool
 }
 ```
 
 ## Starting the SensumSDK
 
-To start the **SensumSDK** you will need:
+To initialize the **SensumSDK** you will need:
 
  * An API Key,
  * A host URL,
  * A stage URL.
-We will provide you with the API Key as a string, all you have to do is pass this string into the `SensumSDKManager`.
+
+We will provide you with the API Key as a string. You will need to pass this string into the `SensumSDKManager`.
 
 By default, the host URL and stage URL should be **"emotionai.sensum.co"** and **"v0"** respectively, unless we have instructed you otherwise.
 
- The `SensumSDKManager` is the root object in the **SensumKit** which starts the service.
-The manager prepares all objects you can use to interface with your device motion, location and bluetooth peripheral frameworks.
-As well as all the data required to send data to the **SensumAPI**.
+The `SensumSDKManager` is the root object in the **SensumKit** which starts the service.
+The manager prepares all objects you can use to interface with the native `CoreMotion`, `CoreLocation` and `CoreBluetooth` frameworks.
 
-In order to create a single instance of the `SensumSDKManager`, follow the example within the Code Snippet below (the example makes use of a `TabBarController` to do this, but this could be achieved within any file).
+In order to create a single instance of the `SensumSDKManager`, follow the example within the Code Snippet below (the example makes use of a `TabBarController` to do this, but this could be achieved within any file, such as an `AppDelegate` or `ViewController`').
 
 > Code Snippet
 
@@ -142,7 +139,7 @@ Set the frequency of data uploads to the **SensumAPI**.
 
 |Name|Description|
 |----|-----------|
-|requestRateInSeconds|Frequency of server updates in seconds|
+|requestRateInSeconds|Frequency of requests made to the Sensum API in seconds|
 
 ### Get Server Request Rate
 
@@ -171,50 +168,32 @@ All available commands for the **SensumSDK** accelerometer component.
 
 `sdkManager?.accelerometer.startUpdating()`
 
-Start the updates from *CoreMotion*.
+Start requesting updates from the *CoreMotion* framework.
 
 ### Stop Updating
 
 `sdkManager?accelerometer.stopUpdating()`
 
-Stop the updates from *CoreMotion*.
-
-### Start Recording
-
-`sdkManager?accelerometer.startRecording()`
-
-Start recording the updates from *CoreMotion*.
-
-### Stop Recording
-
-`sdkManager?accelerometer.stopRecording()`
-
-Stop recording the updates from *CoreMotion*.
+Stop requesting updates from *CoreMotion* framework.
 
 ### Start Sending to API
 
 `sdkManager?accelerometer.startSendingToAPI()`
 
-Start sending the updates of *CoreMotion* to the **SensumAPI**.
+Start sending updates from *CoreMotion* to the **SensumAPI**.
 
 ### Stop Sending to API
 
 `sdkManager?accelerometer.stopSendingToAPI()`
 
-Stop sending the updates of *CoreMotion* to the **SensumAPI**.
-
+Stop sending updates from *CoreMotion* to the **SensumAPI**.
 
 ### Check Module Update Status
 
 `sdkManager?accelerometer.isUpdating()`
 
-Check if *CoreMotion* Accelerometer is updating. Returns a boolean value.
+CCheck if SensumKit is sending *CoreMotion* updates to the **SensumAPI**. Returns a boolean value.
 
-### Check Module Recording Status
-
-`sdkManager?accelerometer.isRecording()`
-
-Check if *CoreMotion* Accelerometer is recording. Returns a boolean value.
 
 ### Check SensumAPI Update Status
 
