@@ -27,14 +27,13 @@ The iOS **SensumSDK** can accept the following <a href = "#available-metrics">me
   * acceleration Y
   * acceleration Z
 
-
 ## SDK Module Command Protocol
 
 Each **SensumSDK** module conforms to the module command protocol.
 At present these can be switched on and off independently. Each **SensumSDK**-managed object has two states that can be toggled independently:
 
 * Updating: You will get live data updates from the respective managed object. If you have defined a listener for that object, its update methods will be called by the SDK and you can reflect these and carry out actions in your app.
-* Sending To API: Data updates will be recorded and sent to the **SensumAPI**.
+* Sending To API: Data internally collected will be sent to the **SensumAPI**.
 
 > Protocol Code - **SensumSDK** 
 
@@ -102,7 +101,6 @@ This instance of the `SensumSDKManager` can then be referenced from elsewhere wi
 ## Authentication
 
 To get started with the `SensumSDKManager` you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of *Google Sign-In*, you must provide use with the *Google Applications Client ID*. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google's documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.
-
 
 ## Authentication Command
 
@@ -237,7 +235,6 @@ Set the frequency of the updates from the accelerometer.
 |Parameter|Type|Description|
 |---------|----|-----------|
 |newIntervalInSeconds|Double|Set the interval time in seconds, (minimum interval is 0.01s)|
-
 
 ## Bluetooth Command
 
@@ -537,28 +534,22 @@ To be able to listen for updates from the API you must extend your class using a
 > APIListener extension
 
 ```swift
- extension RecordingMasterViewController: APIListener {
-
+ extension ViewController: APIListener {
     func apiRequestSuccessful() {
-
+      // update a label or log success
     }
-	
 	  func apiRequestFailure(message: String, statusCode: Int?) {
-
+      // inform the user or log failed attempt
     }
-
 	  func retrieveJSONFromSensumAPI(json: [String:Any]?) {
-
+      // parse serialised json here, pass to view labels or persist to database
     }
-	
 	  func sentimentRequestSuccesful() {
-
+      // update a label or log success
     }
-	
 	  func sentimentRequestFailure(message: String, statusCode: Int?) {
-
+      // inform the user or log failed attempt
     }
-
 }
 ```
 
@@ -624,7 +615,7 @@ Subscribers will be notified of updates to the Accelerometer object. To use this
 ```swift
 extension AccelerometerViewController: AccelerometerListener {
   func accelerationUpdated(newAcceleration: CMAcceleration, dateTime: Date) {
-        
+      // update a label or persist to a database  
     }
 }
 ```
@@ -687,13 +678,20 @@ To use a BluetoothListener extend your class as in the following example code:
 
 ```swift
 extension BluetoothTableViewController: BluetoothListener {
-
-  public func deviceDiscovered() {}
-
-  public func bpmUpdated(newBpm: Int, dateTime: Date) {}
-  public func deviceConnectionSuccess() {}
-  public func deviceConnectionFailure() {}
+  public func deviceDiscovered() {
+    // reload tableView to show more devices coming in
+  }
+  public func bpmUpdated(newBpm: Int, dateTime: Date) {
+    // save bpm to database or update a view
+  }
+  public func deviceConnectionSuccess() {
+    // show the user a confirmation connection
+  }
+  public func deviceConnectionFailure() {
+    // inform the user the connection process failed
+  }
   public func deviceDisconnected(disconnectedPeripheral: CBPeripheral) {}
+    // show the user their device disconnected, prompt a reconnection
 }
 ```
 
@@ -752,7 +750,7 @@ To use a LocationListener, extend your class as seen in the following example co
 ```swift
 extension GPSViewController: LocationListener {
     func locationUpdated(newLocation: CLLocation) {
-        
+        // update a label or persist locally to a datbase
     }
 }
 ```
@@ -804,7 +802,6 @@ Used to nofity listeners that a new sentiment object was created locally.
 |sentimentText|String|The literal string sentiment that was created.|
 |dateTime|Date|A native `Date()` object representing time and date when the sentiment was created.|
 
-
 ## ServerRequestEngine
 
 ### ServerRequestEngine Functions: Set Request Interval
@@ -818,19 +815,3 @@ This changes the interval immediately, destroying the old timer and starting a n
 Parameter|Type|Description|
 |--------|----|-----------|
 |newUpdateInterval|Int|The new update interval in seconds|
-
-## BluetoothPeripheral
-
-`public struct BluetoothPeripheral`
-
-> BluetoothPeripheral
-
-```swift
-public struct BluetoothPeripheral {
-    var advertisedName: String = ""
-    var peripheral: CBPeripheral
-    var type: String = "ble"
-}
-```
-
-  Struct composing a Bluetooth Device, including name, type and peripheral value.
