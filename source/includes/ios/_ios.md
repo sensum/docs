@@ -44,7 +44,6 @@ import foundation
 public protocol SDKModuleCommandProtocol {
     func startUpdating()
     func stopUpdating()
-    func stopRecording()
     func startSendingToAPI()
     func stopSendingToAPI()
     func isUpdating() -> Bool
