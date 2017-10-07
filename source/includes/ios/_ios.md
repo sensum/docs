@@ -143,10 +143,6 @@ Return the authentication status of the user. Authentication takes place on succ
 
 All available commands for configuring and enabling API communication.
 
-### Initialisation
-
-`var apiCommand = APICommand()`
-
 ### Set Server Request Rate
 
 `apiCommand.setServerRequestRate(requestRateInSeconds)`
