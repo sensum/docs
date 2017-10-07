@@ -1,8 +1,8 @@
-# SensumSDK - iOS
+# SensumSDK - iOS v0.2
 
 ## iOS Device Compatibility
 
-The iOS version of the **SensumSDK** can be installed on devices with **v9.0 and up**.
+The iOS version of the **SensumSDK** can be installed on devices with **iOS 9.0 and up**.
 
 We recommend the **iPhone 5 and up** as devices to use with the **SensumSDK**.
 
@@ -97,11 +97,11 @@ class TabBarController: UITabBarController {
 }
 ```
 
-This single instance of the `SensumSDKManager` can then be referenced from elsewhere within your application.
+This instance of the `SensumSDKManager` can then be referenced from elsewhere within your application.
 
 ## Authentication
 
-To get started working with the `SensumSDKManager` you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of *Google Sign-In*, you must provide use with the *Google Applications Client ID*. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google's documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.
+To get started with the `SensumSDKManager` you’re going to need a valid Authentication session. Create an instance of this object and give it valid sign-in details. When using third-party login providers you must provide us with an Audience ID. In the case of *Google Sign-In*, you must provide use with the *Google Applications Client ID*. You can find this id contained inside the plist configuration file generated when you set up the login application. For more details please read Google's documentation <a href="https://developers.google.com/identity/sign-in/ios/start-integrating"> here</a>.
 
 
 ## Authentication Command
@@ -110,7 +110,7 @@ To get started working with the `SensumSDKManager` you’re going to need a vali
 
 In order to authenticate you must sign in using *Google Sign-in*. Once this has been implemented, use this function to sign in to access the **SensumAPI**.
 
-`sdkManager?authentication.federatedSignIn(provider: provider, authenticationToken: authenticationToken)`  
+`sdkManager?.authentication.federatedSignIn(provider: provider, authenticationToken: authenticationToken)`  
 
 ### Parameters
 
@@ -121,7 +121,7 @@ In order to authenticate you must sign in using *Google Sign-in*. Once this has 
 
 ## Assign a Listener
 
-`sdkManager.authentication.assignListener(listener)`
+`sdkManager?.authentication.assignListener(listener)`
 
 Assign a listener to listen for **SensumAPI** events.
 
@@ -189,37 +189,37 @@ Start requesting updates from the *CoreMotion* framework.
 
 ### Stop Updating
 
-`sdkManager?accelerometer.stopUpdating()`
+`sdkManager?.accelerometer.stopUpdating()`
 
 Stop requesting updates from *CoreMotion* framework.
 
 ### Start Sending to API
 
-`sdkManager?accelerometer.startSendingToAPI()`
+`sdkManager?.accelerometer.startSendingToAPI()`
 
 Start sending updates from *CoreMotion* to the **SensumAPI**.
 
 ### Stop Sending to API
 
-`sdkManager?accelerometer.stopSendingToAPI()`
+`sdkManager?.accelerometer.stopSendingToAPI()`
 
 Stop sending updates from *CoreMotion* to the **SensumAPI**.
 
 ### Check Module Update Status
 
-`sdkManager?accelerometer.isUpdating()`
+`sdkManager?.accelerometer.isUpdating()`
 
 Check if SensumKit is sending *CoreMotion* updates to the **SensumAPI**. Returns a boolean value.
 
 ### Check SensumAPI Update Status
 
-`sdkManager?accelerometer.isSendingToAPI()`
+`sdkManager?.accelerometer.isSendingToAPI()`
 
 Check if *CoreMotion* Accelerometer is sending to the **SensumAPI**.
 
 ### Assign Listener
 
-`sdkManager?accelerometer.assignListener(listener)`
+`sdkManager?.accelerometer.assignListener(listener)`
 
 Assign a listener to the accelerometer module to receive *CoreMotion* event updates.
 
@@ -232,7 +232,7 @@ Assign a listener to the accelerometer module to receive *CoreMotion* event upda
 
 ### Set Read Frequency
 
-`sdkManager?accelerometer.setReadFrequency(newIntervalInSeconds)`
+`sdkManager?.accelerometer.setReadFrequency(newIntervalInSeconds)`
 
 Set the frequency of the updates from the accelerometer.
 
@@ -253,43 +253,43 @@ Below are all available commands relating to Bluetooth within the **SensumSDK**.
 
 ### Start Updating
 
-`sdkManager?bluetooth.startUpdating()`
+`sdkManager?.bluetooth.startUpdating()`
 
 Start requesting updates from any connected heart rate peripheral.
 
 ### Stop Updating
 
- `sdkManager?bluetooth.stopUpdating()`
+ `sdkManager?.bluetooth.stopUpdating()`
 
 Stop requesting updates of any connected heart rate peripheral.
 
 ### Start Sending to SensumAPI
 
-`sdkManager?bluetooth.startSendingToAPI()`
+`sdkManager?.bluetooth.startSendingToAPI()`
 
 Start sending the updates of any connected heart rate peripheral to the **SensumAPI**.
 
 ### Stop Sending to SensumAPI
 
-`sdkManager?bluetooth.stopSendingToAPI()`
+`sdkManager?.bluetooth.stopSendingToAPI()`
 
 Stop sending the updates of any connected heart rate peripheral to the **SensumAPI**.
 
 ### Check Module Update Status
 
-`sdkManager?bluetooth.isUpdating()`
+`sdkManager?.bluetooth.isUpdating()`
 
 Check if module is updating. Returns a boolean value.
 
 ### Check SensumAPI Update Status
 
-`sdkManager?bluetooth.isSendingToAPI()`
+`sdkManager?.bluetooth.isSendingToAPI()`
 
 Check if module is sending heart rate device updates to the **SensumAPI**.
 
 ### Assign Listener
 
-`sdkManager?bluetooth.assignListener(listener)`
+`sdkManager?.bluetooth.assignListener(listener)`
 
 Assign a listener to the bluetooth module to receive bluetooth event updates.
 
@@ -301,13 +301,13 @@ Assign a listener to the bluetooth module to receive bluetooth event updates.
 
 ### Start Scan for Devices
 
-`sdkManager?bluetooth.startScanForDevices()`
+`sdkManager?.bluetooth.startScanForDevices()`
 
 Start scanning for discoverable peripheral devices.
 
 ### Connect to peripheral device
 
-`sdkManager?bluetooth.connectTo(peripheralDevice)`
+`sdkManager?.bluetooth.connectTo(peripheralDevice)`
 
 Connect to a discovered peripheral device. Discovered devices can be acquired from the listOfDevices returned by the `getDeviceList()` function.
 
@@ -319,19 +319,19 @@ Connect to a discovered peripheral device. Discovered devices can be acquired fr
 
 ### Clear List of Discovered Devices
 
-`sdkManager?bluetooth.clearDeviceList()`
+`sdkManager?.bluetooth.clearDeviceList()`
 
 Clear the list of devices discovered (equivalent to a refresh).
 
 ### Disconnect from Device
 
-`sdkManager?bluetooth.disconnect()`
+`sdkManager?.bluetooth.disconnect()`
 
 Disconnect from the currently connected peripheral device.
 
 ### Get Device List
 
-`sdkManager?bluetooth.getDeviceList()`
+`sdkManager?.bluetooth.getDeviceList()`
 
 Return a list of all discovered peripherals. The list will begin populating after `startScanForDevices()` is called.
 
@@ -357,43 +357,43 @@ All available commands for the **SensumSDK** location component.
 
 ### Start Updating
 
-`sdkManager?location.startUpdating()`
+`sdkManager?.location.startUpdating()`
 
 Start the updates from *CoreLocation*.
 
 ### Stop Updating
 
-`sdkManager?location.stopUpdating()`
+`sdkManager?.location.stopUpdating()`
 
 Stop the updates from *CoreLocation*.
 
 ### Start Sending to API
 
-`sdkManager?location.startSendingToAPI()`
+`sdkManager?.location.startSendingToAPI()`
 
 Start sending the updates of *CoreLocation* to the **SensumAPI**.
 
 ### Stop Sending to API
 
-`sdkManager?location.stopSendingToAPI()`
+`sdkManager?.location.stopSendingToAPI()`
 
 Stop sending the updates of *CoreLocation* to the **SensumAPI**.
 
 ### Check Module Update Status
 
-`sdkManager?location.isUpdating()`
+`sdkManager?.location.isUpdating()`
 
 Check if the location module is updating. Returns a boolean value.
 
 ### Check SensumAPI Update Status
 
-`sdkManager?location.isSendingToAPI()`
+`sdkManager?.location.isSendingToAPI()`
 
 Check if SensumKit is sending updates from the *CoreLocation* framework to the **SensumAPI**.
 
 ### Assign Listener
 
-`sdkManager?location.assignListener()`
+`sdkManager?.location.assignListener()`
 
 Assign a listener to the location module to receive *CoreLocation* event updates.
 
@@ -410,43 +410,43 @@ These events are automatically timestamped.
 
 ### Start Updating
 
-`sdkManager?unicodeTag.startUpdating()`
+`sdkManager?.unicodeTag.startUpdating()`
 
 Start receiving updates from the unicodeTag system which notifies listeners of new tags.
 
 ### Stop Updating
 
-`sdkManager?unicodeTag.stopUpdating()`
+`sdkManager?.unicodeTag.stopUpdating()`
 
 Stop receiving updates from the unicodeTag system.
 
 ### Start Sending to SensumAPI
 
-`sdkManager?unicodeTag.startSendingToAPI()`
+`sdkManager?.unicodeTag.startSendingToAPI()`
 
 Start sending new unicodeTags to the **Sensum API**.
 
 ### Stop Sending to SensumAPI
 
-`sdkManager?unicodeTag.stopSendingToAPI()`
+`sdkManager?.unicodeTag.stopSendingToAPI()`
 
 Stop sending new unicodeTags to the **Sensum API**.
 
 ### Check Module Update Status
 
-`sdkManager?unicodeTag.isUpdating()`
+`sdkManager?.unicodeTag.isUpdating()`
 
 Check if the unicodeTag module is updating. Returns a boolean value.
 
 ### Check SensumAPI Update Status
 
-`sdkManager?unicodeTag.isSendingToAPI()`
+`sdkManager?.unicodeTag.isSendingToAPI()`
 
 Check if the unicodeTag module is sending to the **SensumAPI**.
 
 ### Assign Listener
 
-`sdkManager?unicodeTag.assignListener(listener)`
+`sdkManager?.unicodeTag.assignListener(listener)`
 
 Assign a listener to the unicodeTag module to receive tag event updates.
 
@@ -458,7 +458,7 @@ Assign a listener to the unicodeTag module to receive tag event updates.
 
 ### Create Tag
 
-`sdkManager?unicodeTag.createTag(tag)`
+`sdkManager?.unicodeTag.createTag(tag)`
 
 Creates a unicodeTag object composed of a string and timestamp.
 
@@ -474,44 +474,44 @@ All available commands for our sentiment module. This runs analysis on the text 
 
 ### Start Updating
 
-`sdkManager?sentiment.startUpdating()`
+`sdkManager?.sentiment.startUpdating()`
 
 Start the updates from the sentiment text system which notifies listeners of new sentiment text .
 
 ### Stop Updating
 
-`sdkManager?sentiment.stopUpdating()`
+`sdkManager?.sentiment.stopUpdating()`
 
  Stop the updates from the sentiment system.
 
 ### Start Sending to SensumAPI
 
-`sdkManager?sentiment.startSendingToAPI()`
+`sdkManager?.sentiment.startSendingToAPI()`
 
  Start sending sentiment text to the **SensumAPI**.
 
 ### Stop Sending to SensumAPI
 
-`sdkManager?sentiment.stopSendingToAPI()`
+`sdkManager?.sentiment.stopSendingToAPI()`
 
  Stop sending sentiment text to the **SensumAPI**.
 
 ### Check Module Update Status
 
-`sdkManager?sentiment.isUpdating()`
+`sdkManager?.sentiment.isUpdating()`
 
 Check if the sentiment text module is updating. Returns a boolean value.
 
 
 ### Check SensumAPI Update Status
 
-`sdkManager?sentiment.isSendingToAPI()`
+`sdkManager?.sentiment.isSendingToAPI()`
 
 Check if the sentiment text module is sending to the **SensumAPI**.
 
 ### Assign Listener
 
-`sdkManager?sentiment.assignListener(listener)`
+`sdkManager?.sentiment.assignListener(listener)`
 
 Assign a listener to the sentiment text module to receive sentiment updates.
 
@@ -524,7 +524,7 @@ Assign a listener to the sentiment text module to receive sentiment updates.
 
 ### Create Sentiment
 
-`sdkManager?sentiment.createSentiment(sentiment)`
+`sdkManager?.sentiment.createSentiment(sentiment)`
 
 Creates a sentiment object composed of a string and timestamp pair.
 
