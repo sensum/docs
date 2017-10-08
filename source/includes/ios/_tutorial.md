@@ -180,6 +180,8 @@ extension ViewController: AccelerometerListener {
 sensumSDK?.accelerometer.assignListener(self)
 ```
 
+* You should now see the output as displayed in Figure 9. As a *CMAcceleration* object you can query the x, y and z values independently.
+
 ![Figure 9 - Example output from AccelerometerListener ](../../images/figure9_iOS.png "Figure 9 - Example output from AccelerometerListener")
 #### <p style="text-align: center;">Figure 9 - Example output from AccelerometerListener</p>
 <br>
@@ -187,7 +189,7 @@ sensumSDK?.accelerometer.assignListener(self)
 
 * To obtain location update from **SensumKit** you can follow the same approach. First import *CoreLocation* so you can handle the objects in your class.
 
-> Code Snippet 7
+> Code Snippet 7 - CoreLocation import statement
 
 ```swift
 import CoreLocation
@@ -195,9 +197,7 @@ import CoreLocation
 
 * Now extend your ViewController as below by implementing the **SensumSDK** Listener protocol for *LocationListener*:
 
-// TODO: CONTINUE FROM HERE
-
-> Code Snippet 14
+> Code Snippet 8 - SensumKit LocationListener extension
 
 ```swift
 extension ViewController: LocationListener {
@@ -207,25 +207,87 @@ extension ViewController: LocationListener {
 }
 ```
 
-* Finally register the listener in your class, (preferably in your `viewDidLoad()` method), referencing the **SensumSDK** variable you first created (see Code Snippet 15).
+* Register the listener in your class, (preferably in your `viewDidLoad()` method), implementing the **SensumSDK** Listener protocol for *LocationListener*:
 
-> Code Snippet 15
+> Code Snippet 9 - Registering Location Listener
 
 ```swift
 sdkManager?.location.assignListener(self)
 ```
 
-* Please note that if you intend to set *UIView* objects from the output of the listeners, it is necessary to dispatch them to the main queue as shown in Code Snippet 14. The output of Code Snippet 14 should result in the following:
+* Due to the nature of accessing location data of the user, you will be required to implement usage reasons in the app **Info.plist** to access CoreLocation data. 
+* To quickly implement these usage permissions, find your **Info.plist** in the Project navigator and right click > Open As > Source Code. This will present the file in XML view.
+* Paste the below snippet into the plist: 
 
-`<+54.58727634,-5.90740191> +/- 50.00m (speed 0.00 mps / course -1.00) @ 01/09/2017, 10:51:08 British Summer Time`
+> Code Snippet 10 - Adding usage descriptions for Location
+
+```xml
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Track user location</string>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Track user location</string>
+```
+
+* You should now see the output as displayed in Figure 10. As a *CLLocation* object you can query the latitude, longitude, course, location, accuracy, time and speed values independently.
+
+
+// TODO: screencap from Sensum
+![Figure 10 - Example output from LocationListener ](../../images/figure10_iOS.png "Figure 10 - Example output from LocationListener")
+#### <p style="text-align: center;">Figure 10 - Example output from LocationListener</p>
+<br>
+
 
 ## Scanning for BLE devices
 
 * **SensumKit** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
 
-**Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.
+**Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present which is not supported on iOS due to the device using an older bluetooth protocol not officially supported on iOS.
 
-* To connect a BLE device through the **SensumSDK**, you may wish to introduce a tableView or list style UI element which users can select and connect to. In this example we have added a *UITableView* element to a *ViewController* and created a *Prototype Cell* with the *identifier* as BLE_CELL.
+* To connect a BLE device through the **SensumSDK manager**, you may wish to introduce a tableView or list style UI element which users can select and connect to. 
+In this example we use a *UITableViewController*, a *Prototype Cell* with a custom identifier.
+
+* File > New > File > Cocoa Touch Class. Set the name to BLE and set the subclass as *UITableViewController* to create a table view controller where we can create a list of bluetooth peripherals to display when scanning. See figure 11 below as an example:
+
+
+![Figure 11 - Creating a TableViewController ](../../images/figure11_iOS.png "Figure 11 - Creating a TableViewController")
+#### <p style="text-align: center;">Figure 11 - Creating a TableViewController</p>
+<br>
+
+* We will need a custom cell class to assign the devices to. Like before, File > New > File > Cocoa Touch Class. Set the name to BluetoothPeripheral and set the subclass as *UITableViewCell*. See figure 12 below as an example:
+
+![Figure 12 - Creating a UITableViewCell ](../../images/figure12_iOS.png "Figure 12 - Creating a UITableViewCell")
+#### <p style="text-align: center;">Figure 12 - Creating a UITableViewCell</p>
+<br>
+
+* First, navigate to your *Main.storyboard* file. Select the *View Controller scene* and delete it.
+* Using the Object library drag a *Table View Controller* into the storyboard.
+
+> Code Snippet 11 - BluetoothPeripheralTableViewCell content
+
+```swift
+import UIKit
+import CoreBluetooth
+
+class BluetoothPeripheralTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var deviceName: UILabel!
+    
+    var peripheral: CBPeripheral? {
+        didSet {
+            if let newValue = peripheral {
+                self.textLabel?.text = newValue.name
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}
+```
+
+
+
 * Ensure your table datasource and delegate is set to your *ViewController* and implement the required functions. Ensure you have a tableView variable from your outlet in the class file.
 
 * Next, import *CoreBluetooth* so you can manage the *CBPeripheral* type which is a parameter in the listener function (see Code Snippet 16). If you are working in a new class, don't forget to `import SensumKit`.
