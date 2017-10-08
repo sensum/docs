@@ -1,387 +1,132 @@
 # Tutorial - iOS
 
+Last updated **October 9th 2017**. Current **SensumKit** release: **0.2**.
+
 ## Getting Started
 
-The **SensumKit** framework is only compatible with **Swift 3** and above. We strongly recommend using **Xcode version 8 and above**. We work on **Xcode 8.3.3** at time of our first public framework release.
+The **SensumKit** framework is developed on **Xcode 9** and we recommend using this version. iOS 9 targets and up are currently supported. Running apps usign **SensumKit** on the Simulator is not currently supported.
 
-<!-- (UPDATE WITH ACCURATE DATE) -->
+This tutorial takes you through creating a basic iOS application that demonstrates how to use the **SensumKit** framework in a Swift project.
 
-### Create a project
+If you encounter any issues or would like to provide feedback, please contact <a href = "kharron@sensum.co">Kelvin Harron via email</a>. 
 
- * Select **Create a new Xcode project** displayed in Figure 1.
+## Requirements
 
-![Figure 1 - Project Creation in Xcode](../../images/figure1.png "Figure 1 - Project Creation in Xcode")
+* Xcode 9 or newer.
+* iOS device running iOS 9 or higher. 
+* SensumKit.framework version 0.2.
+* Cocoapods installed. <a href = "https://guides.cocoapods.org/using/getting-started.html">https://guides.cocoapods.org/using/getting-started.html</a>
+
+### Create a new project
+
+* Create a new project in Xcode. In this example we are using a **Single View Applicaiton**.
+* Choose an appropriate name and identifier. This example uses Swift as the language. 
+
+![Figure 1 - Project Creation in Xcode](../../images/figure1_iOS.png "Figure 1 - Project Creation in Xcode")
 #### <p style="text-align: center;">Figure 1 - Project Creation in Xcode</p>
+
+* You will now have an overview of your Xcode project as shown in **Figure 2**. Close out of Xcode to prepare the installation of Cocoapods.
+
+![Figure 2 - Overview of Xcode Environment](../../images/figure2_iOS.png "Figure 2 - Overview of Xcode Environment")
+#### <p style="text-align: center;">Figure 2 - Overview of Xcode Environment</p>
 <br>
 
- * Select **Single View Application**.
- * Select **Swift** as the language and **iPhone** as the target device.
+## Installing Cococapods
 
-![Figure 2 - Project template selection in Xcode ](../../images/figure2.png "Figure 2 - Project template selection in Xcode ")
-#### <p style="text-align: center;">Figure 2 - Project template selection in Xcode</p>
-<br>
+### "Why do I need Cocoapods to use your framework"?
 
- * Name your application, for example: “SensumTutorialApplication” (as shown in Figure 3 below).
- * Enter your specific details for the: *Team*, *Organization Name*, and *Organization Identifier* fields.
- * Include *Unit Tests* and include *UI Tests* (*Core Data* can be omitted as *Realm* is the database framework employed, available from <a href = "https://realm.io/">https://realm.io/</a>).
+The **SensumKit** framework internally manages the upload of data collected to the **Sensum API**. By using the CryptoSwift and AWSCognito frameworks we are able to securely sign each upload request which ensures user data is handled securely on upload.
 
+Google SignIn is used to the authentication of end users in your application. While the **SensumKit** framework does not dependent on its code, it is a dependency required by the front end of your application to permit end users to upload data to the **Sensum API**.
 
+We specify the version numbers here to ensure full compatability with **SensumKit**. If you find any conflicts with the versions specified here, please contact us to help find a solution for your application.
 
-![Figure 3 - Project options in Xcode ](../../images/figure3.png "Figure 3 - Project options in Xcode")
-#### <p style="text-align: center;">Figure 3 - Project options in Xcode</p>
-<br>
+* If you haven't used Cocoapods before, we recommend using the CocoaPods app that is available <a href = "https://cocoapods.org/app">here</a>. This example uses the app.
+* Create a new podfile from the Xcode project. File > New Podfile from Xcode Project
+* Add the following pods to your podfile:
 
- * On completion of the above steps, select the **Next** button in order to save the project.
- * Once the project has been saved you should now be presented with the Xcode project file, indicated in Figures 4 and 5 (in this instance, "SensumTutorialApplication.xcodeproj", hereafter referred to as ‘the Xcode project file’).
+> Code Snippet 1 - Cocoapods for the Podfile 
 
-![Figure 4 - Overview of Xcode Environment](../../images/figure4.png "Figure 4 - Overview of Xcode Environment")
-#### <p style="text-align: center;">Figure 4 - Overview of Xcode Environment</p>
-<br>
+```shell
+  # Pods for SensumKitTutorial
+  pod 'Google/SignIn'
+  pod 'CryptoSwift', '0.7.1'
+  pod 'AWSCognito', '2.6.2'
+  pod 'AWSCognitoIdentityProvider', '2.6.2'
+``` 
 
-![Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected ](../../images/figure5.png "Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected ")
-#### <p style="text-align: center;">Figure 5 - Overview of Project Navigator (top left-hand-side of Figure 4), Xcode project file selected </p>
-<br>
+* Click the install button to install the required CocoaPods.
 
+![Figure 3 - Cocoapods app with the Cocoapods added ](../../images/figure3_iOS.png "Figure 3 - Cocoapods app with the Cocoapods added")
+#### <p style="text-align: center;">Figure 3 - Cocoapods app with the Cocoapods added </p>
+
+* Allow a few moments for the pods to install. Google and AWS have further dependencies to function.
+
+![Figure 4 - Cocoapods app with the Cocoapods added ](../../images/figure4_iOS.png "Figure 4 - Cocoapods app with the Cocoapods added")
+#### <p style="text-align: center;">Figure 4 - Cocoapods app with the Cocoapods installed </p>
+
+* You are now ready to install the SensumKit.framework. 
 
 ## Installing the SensumKit framework
 
- * Select the Xcode project file, navigate to the *General* tab, scroll down the page to the *Embedded Binaries* section (highlighted in Figure 6)
+* Navigate to the directory where you first created the Xcode project.
+* After installing the Cocoapods, you will find a **SensumKitTutorial.xcworkspace** file. **Ensure this is the project file you use from now on**. Open this file to launch Xcode.
+* Select the Xcode project file, navigate to the *General* tab, scroll down the page to the *Embedded Binaries* section (highlighted in Figure 6)
 
-![Figure 6 - Accessing *Embedded Binaries* within *General* tab of the Xcode project file](../../images/figure6.png "Figure 6 - Accessing Embedded Binaries within General tab of the Xcode project file")
-#### <p style="text-align: center;">Figure 6 - Accessing Embedded Binaries within General tab of the Xcode project file</p>
+![Figure 5 - Accessing *Embedded Binaries* within *General* tab of the Xcode project file](../../images/figure5_iOS.png "Figure 5 - Accessing Embedded Binaries within General tab of the Xcode project file")
+#### <p style="text-align: center;">Figure 5 - Accessing Embedded Binaries within General tab of the Xcode project file</p>
 <br>
 
- * Locate the provided **SensumKit.framework** file.
-
-![Figure 7 - SensumKit.framework](../../images/figure7.png "Figure 7 - SensumKit.framework")
-#### <p style="text-align: center;">Figure 7 - SensumKit.framework </p>
-<br>
-
-
- * Drag the **SensumKit.framework** into the *Embedded Binaries* section of the Xcode project file, as shown in Figure 8.
-
-![Figure 8 - Import SensumKit.framework](../../images/figure8.png "Figure 8 - Import SensumKit.framework")
-#### <p style="text-align: center;">Figure 8 - Import SensumKit.framework</p>
-<br>
-
- * A dialogue box will present you with options relating to adding the framework (Figure 9).  
+* Locate the provided **SensumKit.framework** file included in the zip file you downloaded. 
+* Drag the **SensumKit.framework** into the *Embedded Binaries* section of the Xcode project file, as shown in Figure 6. Alternatively you can use the + button to select it from its directory.
+* A dialogue box will present you with options relating to adding the framework (Figure 9).  
 Ensure **Copy items if needed** is selected, then press **Finish**.
 
-![Figure 9 - Embedded Binaries import dialogue box ](../../images/figure9.png "Figure 9 - Embedded Binaries import dialogue box")
-#### <p style="text-align: center;">Figure 9 - Embedded Binaries import dialogue box</p>
+![Figure 6 - Embedded Binaries import dialogue box ](../../images/figure6_iOS.png "Figure 6 - Embedded Binaries import dialogue box")
+#### <p style="text-align: center;">Figure 6 - Embedded Binaries import dialogue box</p>
 <br>
 
- * The successfully imported framework should then appear as displayed in Figure 10 below.
+* The successfully imported framework should then appear as displayed in Figure 7 below.
 
-![Figure 10 - SensumKit.framework imported into Embedded Libraries](../../images/figure10.png "Figure 10 - SensumKit.framework imported into Embedded Libraries")
-#### <p style="text-align: center;">Figure 10 - SensumKit.framework imported into Embedded Libraries</p>
+![Figure 7 - SensumKit.framework imported into Embedded Libraries](../../images/figure7_iOS.png "Figure 7 - SensumKit.framework imported into Embedded Libraries")
+#### <p style="text-align: center;">Figure 7 - SensumKit.framework imported correctly</p>
 <br>
 
- * Select the Xcode project file within the Project Navigator.
- * Navigate to *Linked Frameworks and Libraries*.
- * Ensure **SensumKit.framework** is listed as both an *Embedded Binary*, and as a *Linked Framework and Library* (as shown below in Figure 11). N.B. Adding an embedded binary should automatically create a linked framework.
+* Ensure you connect an iOS device to your mac and from the device targets, select it to ensure the framework can expose its functions.
 
-![Figure 11 - SensumKit.framework as a Linked Framework and Library](../../images/figure11.png "Figure 11 - SensumKit.framework as a Linked Framework and Library")
-#### Figure 11 - SensumKit.framework as a Linked Framework and Library
-
-
-## Carthage and Dependencies
-
- * Any attempt to run the project in its current state will result in error, as shown in Figure 12.
-
-![Figure 12 - Xcode error message due to missing dependencies](../../images/figure12.png "Figure 12 - Xcode error message due to missing dependencies")
-#### <p style="text-align: center;"> Figure 12 - Xcode error message due to missing dependencies</p>
+![Figure 8 - Choosing Device build target ](../../images/figure8_iOS.png "Figure 8 - Choosing Device build target")
+#### <p style="text-align: center;">Figure 8 - Choosing Device build target</p>
 <br>
 
- * This error is due to the fact that the project is missing essential framework dependencies.
- * In order to solve this issue, Carthage must be installed (a very useful dependency manager, available from: <a href = "https://github.com/Carthage/Carthage#installing-carthage">Carthage Install Guide</a>
+* Use ⌘B or select Product > Build to build the project, ensuring everything is in order.
+* In order to make use of the **SensumKit**, add the code shown in Code Snippet 2 to your *ViewController* class. If any errors appear ensure all steps were followed correctly and you have selected an iOS device as your target.
 
-
- * We recommend using Homebrew as the install method (available from: <a href = "https://brew.sh">Homebrew Install Guide</a>).
-
-### Process
- * Locate the Cartfile provided with the **SensumKit.framework**.
- * Drag it into the Xcode project as shown in Figures 13-14.
-
-![Figure 13 - Dragging Cartfile from source ](../../images/figure13.png "Figure 13 - Dragging Cartfile from source")
-#### <p style="text-align: center;">Figure 13 - Dragging Cartfile from source</p>
-<br>
-
-
-
-
-![Figure 14 - Dragging Cartfile to destination within Xcode](../../images/figure14.png "Figure 14 - Dragging Cartfile to destination within Xcode")
-#### <p style="text-align: center;">Figure 14 - Dragging Cartfile to destination within Xcode</p>
-<br>
-
- * A dialogue box will present you with options relating to adding the Cartfile (Figure 15).  
- * Ensure **Copy items if needed** is selected, then press **Finish**.
-
-![Figure 15 - Cartfile import dialogue box](../../images/figure15.png "Figure 15 - Cartfile import dialogue box")
-#### <p style="text-align: center;">Figure 15 - Cartfile import dialogue box</p>
-<br>
-
-![Figure 16 - Overview of Project Navigator on successful import of Cartfile](../../images/figure16.png "Figure 16 - Overview of Project Navigator on successful import of Cartfile")
-#### <p style="text-align: center;">Figure 16 - Overview of Project Navigator on successful import of Cartfile</p>
-<br>
-
- * Alternatively, if you are already using Carthage, and working with a pre-existing project Cartfile, copy the contents of the Cartfile provided with the **SensumKit.framework** into your own Cartfile.
-
- * In order to make use of successfully imported/altered Cartfile, navigate to your project’s root directory via the Terminal application, ensuring that the installed Carthage software is up to date (as shown in Figures 17 and 18).
-
-![Figure 17 - Updating Carthage via Terminal](../../images/figure17.png "Figure 17 - Updating Carthage via Terminal")
-#### <p style="text-align: center;">Figure 17 - Updating Carthage via Terminal</p>
-<br>
-
-![Figure 18 - Updating Carthage via Terminal (detailed output displayed )](../../images/figure18.png " Figure 18 - Updating Carthage via Terminal (detailed output displayed )")
-#### <p style="text-align: center;">Figure 18 - Updating Carthage via Terminal (detailed output displayed )</p>
-<br>
-
- * The necessary commands can be found in Code Snippet 1.
-
-> Code Snippet 1
-
-```shell
-#If you're not using brew don't run this
-brew upgrade carthage
-#cd to your project (yours may be named differently)
-cd <Root Project Directory>
-#Update brings in all new changes
-carthage update
-```
-
- * This process may take quite some time, please be patient.
-
-## Link frameworks provided via Carthage
-
- * It is necessary to link the frameworks Carthage has downloaded to our project/application.
- * Select the Xcode project file, navigate to the *General* tab, scroll down the page to the *Linked Frameworks and Libraries* section (highlighted in Figure 19).
-
-![Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file](../../images/figure19.png "Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file")
-#### <p style="text-align: center;">Figure 19 - Linked Frameworks and Libraries section, within General tab of the Xcode project file</p>
-<br>
-
- * Within this view, click the ‘**+**’ button .
- * Click on **Add other...** at the lower left-hand-side of the pop-up window (Figure 20).
-
-
-![Figure 20 - Selecting frameworks/libraries to add to the Xcode project](../../images/figure20.png "Figure 20 - Selecting frameworks/libraries to add to the Xcode project")
-#### <p style="text-align: center;">Figure 20 - Selecting frameworks/libraries to add to the Xcode project</p>
-<br>
-
- * A file system navigation window should appear, navigate to the root folder of the Xcode project.
- * Within this root project folder, a Carthage folder should be present.
- * Navigate to Carthage > Build > iOS (Figure 21).
-
-![Figure 21 - Navigating to Carthage iOS frameworks ](../../images/figure21.png "Figure 21 - Navigating to Carthage iOS frameworks ")
-#### <p style="text-align: center;">Figure 21 - Navigating to Carthage iOS frameworks</p>  
-<br>
-
- * It is convenient/more efficient to search by file type in this file navigation window.
- * Select the column labelled *Kind* within the iOS folder, all of the framework files should now be listed at the top of the list.
- * Use the **Command** button (**cmd ⌘**), to select the five frameworks listed within Code Snippet 2.
-
-> Code Snippet 2
-
-```swift
-AWSCognitoIdentityProvider.framework
-AWSCore.framework
-Realm.framework
-RealmSwift.framework
-CryptoSwift.framework
-```
-
- * Add these five to your project’s frameworks by clicking on the **Open** button.
- * On successful completion of the above steps, your frameworks list should now appear as shown in Figure 22.
-
-
-
-![Figure 22 - Overview of successfully linked frameworks within the *Linked Frameworks and Libraries*](../../images/figure22.png "Figure 22 - Overview of successfully linked frameworks within the *Linked Frameworks and Libraries*")
-#### <p style="text-align: center;">Figure 22 - Overview of successfully linked frameworks within the *Linked Frameworks and Libraries*</p>
-<br>
-
-
-## Create a run script
-
- *  Navigate to the *Build Phases* section of the Xcode project file (Figure 23).
-
-
-![Figure 23 - Build Phases section of the Xcode project file](../../images/figure23.png "Figure 23 - Build Phases section of the Xcode project file")
-#### <p style="text-align: center;">Figure 23 - Build Phases section of the Xcode project file</p>
-<br>
-
- * Click the ‘**+**’ button at the top of this view (above the *Target Dependencies* header).
- * Select **New Run Script Phase** (Figure 24).
-
-![Figure 24 - Adding a New Script Run Phase](../../images/figure24.png "Figure 24 - Adding a New Script Run Phase")
-#### <p style="text-align: center;">Figure 24 - Adding a New Script Run Phase</p>
-<br>
-
- * In the body of the script enter the following line from Code Snippet 3.
-
-> Code Snippet 3
-
-```shell
-/usr/local/bin/carthage copy-frameworks
-```
-
- * The run script should now appear as shown in Figure 25.
-
-![Figure 25 - View of successfully added Run Script](../../images/figure25.png "Figure 25 - View of successfully added Run Script")
-#### <p style="text-align: center;">Figure 25 - View of successfully added Run Script</p>
-<br>
-
- * Click the ‘**+**’ icon again in order to add input files to this newly created *Run Script*.
- * Add the five lines show in Code Snippet 4.
-
-> Code Snippet 4 - Adding input files to the *Run Script*
-
-```swift
-$(SRCROOT)/Carthage/Build/iOS/Realm.framework
-$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework
-$(SRCROOT)/Carthage/Build/iOS/AWSCore.framework
-$(SRCROOT)/Carthage/Build/iOS/AWSCognitoIdentityProvider.framework
-$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework
-```
-
- * On completion of the above steps, the *Input Files* section should appear as shown in Figure 26.
-
-![Figure 26 - Overview of updated Input Files section](../../images/figure26.png "Figure 26 - Overview of updated Input Files section")
-#### <p style="text-align: center;">Figure 26 - Overview of updated Input Files section</p>
-<br>
-
- * The steps outlined above need to be repeated to create output files.
- * Click the ‘**+**’ icon again in order to add output files to this newly created *Run Script*.
- * Add the five lines of code shown in Code Snippet 5.
-
-> Code Snippet 5 - Adding output files to the Run Script
-
-```swift
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AWSCore.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AWSCognitoIdentityProvider.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework
-```
-
- * On completion of the above steps, the *Output Files* section should appear as shown in Figure 27.
-
-![Figure 27 - Overview of updated *Output Files* section](../../images/figure27.png "Figure 27 - Overview of updated *Output Files* section")
-#### <p style="text-align: center;">Figure 27 - Overview of updated *Output Files* section</p>
-<br>
-
- * At this stage, the project should be able to build successfully without errors.
- * In order to build the project, click the **Run** button within Xcode (Figure 28).
-
-![Figure 28 - Xcode ‘Run’ button](../../images/figure28.png "Figure 28 - Xcode ‘Run’ button")
-#### <p style="text-align: center;">Figure 28 - Xcode ‘Run’ button</p>
-<br>
-
- * Following a successful build, the **SensumKit** can now be utilised within your own Xcode project.
- * In order to make use of the **SensumKit**, add the code shown in Code Snippet 6 to your *ViewController* class. No errors should appear.
-
-> Code Snippet 6 - Importing the SensumKit into your own project
+> Code Snippet 2 - SensumKit import statement
 
 ```swift
 import SensumKit
 ```
 
- * Your project should now also contain a Frameworks group where you should drag-and-drop the **SensumKit.framework** folder into.
-
-## Using CocoaPods (for Google Sign-In)
-
- * CocoaPods must be installed (available from: <a href = "https://cocoapods.org/app">https://cocoapods.org/app</a> ).
- * Ensure CocoaPods is both installed and up to date by running the code shown in Code Snippet 7 within the Terminal application.
-
-> Code Snippet 7 - Installing CocoaPods
-
-```shell
-sudo gem install cocoapods
-```
-
- * The user has the option of using the command-line-interface or the CocoaPods GUI to manage their pods. We have utilised the GUI application in-house.
- * On opening the CocoaPods GUI you will be presented with the view shown in Figure 29.
-
-![Figure 29 - CocoaPods GUI](../../images/figure29.png "Figure 29 - CocoaPods GUI")
-#### <p style="text-align: center;">Figure 29 - CocoaPods GUI</p>
-<br>
-
- * To generate a new Podfile from your desired Xcode project, follow the steps shown in Figures 30-32.
-
-
-
-![Figure 30 - Creating a new Podfile from an Xcode Project](../../images/figure30.png "Figure 30 - Creating a new Podfile from an Xcode Project")
-#### <p style="text-align: center;">Figure 30 - Creating a new Podfile from an Xcode Project</p>
-<br>
-
-![Figure 31 - Selecting the Xcode Project](../../images/figure31.png "Figure 31 - Selecting the Xcode Project")
-#### <p style="text-align: center;">Figure 31 - Selecting the Xcode Project file</p>
-<br>
-
-![Figure 32 - Overview of newly created Podfile for selected Xcode Project](../../images/figure32.png "Figure 32 - Overview of newly created Podfile for selected Xcode Project")
-#### <p style="text-align: center;">Figure 32 - Overview of newly created Podfile for selected Xcode Project</p>
-<br>
-
- * Below the comment `# Pods for SensumTutorialApplication` (Line 10 in Figure 32), add the text shown in Code Snippet 8.
-
-> Code Snippet 8 - Adding a pod to the Podfile
-
-```swift
-pod 'GoogleSignIn', '4.0.1'
-```
-
- * Once the above line has been added, select **Install(verbose)** as shown in Figure 33.
-
-![Figure 33 - Installing specified pods](../../images/figure33.png "Figure 33 - Installing specified pods")
-#### <p style="text-align: center;">Figure 33 - Installing specified pods</p>
-<br>
-
- * CocoaPods will now download the necessary files to use any pods present within the Podfile.
- * As CocoaPods downloads and installs the required files, the view should appear as shown in Figure 34.
-
-![Figure 34 - CocoaPods fetching necessary pods ](../../images/figure34.png "Figure 34 - CocoaPods fetching necessary pods ")
-#### <p style="text-align: center;">Figure 34 - CocoaPods fetching necessary pods</p>
-<br>
-
- * Once the above process has completed, close your Xcode project.
- * **IMPORTANT:** In order for the newly associated pods to function correctly, it is __imperative__ that the Xcode project be opened using the project’s **.xcworkspace** file (white icon in macOS Finder); __NOT__ via the *.xcodeproj* file (blue icon in macOS Finder)!
- * Figure 35 displays an overview of the root folder of your Xcode project, the *.xcworkspace* file is highlighted with a green icon.
-
-![Figure 35 - Overview of Xcode Project folder](../../images/figure35.png "Figure 35 - Overview of Xcode Project folder")
-#### <p style="text-align: center;">Figure 35 - Overview of Xcode Project folder</p>
-<br>
-
- * To run the app:
- * Navigate to *ViewController.swift* within the Xcode Project.
- * Add the line “import SensumKit” (shown in Line 10 of Figure 36).
- * Press the **Run** button (top left-hand-side of Figure 36).
- * A successful build will display an empty white screen on your iOS device, no errors should be shown.
-
-![Figure 36 - Utilising the SensumKit within an Xcode project](../../images/figure36.png "Figure 36 - Utilising the SensumKit within an Xcode project")
-#### <p style="text-align: center;">Figure 36 - Utilising the SensumKit within an Xcode project</p>
-<br>
-
 ## Starting the SensumSDK
-
 * To start the **SensumSDK** you will need:
     * an *API Key*,
     * a *host URL*,
-    * and a *stage URL*.
+    * a *stage URL*.
 
-* We will provide you with the *API Key* as a string, all you have to do is pass this string into the *SensumSDKManager* .
+* We will provide you with the *API Key* as a string, all you have to do is pass this string into the *SensumSDKManager*.
 * By default, the *host URL* and *stage URL* should be **emotionai.sensum.co** and **v0** respectively, unless we have instructed you otherwise.
-* In order to create a single instance of the *SensumSDKManager*, follow the example within Code Snippet 9 (the example makes use of a *ViewController* to do this, but this could be achieved within any file)
-* This single instance of the *SensumSDKManager* can then be referenced from elsewhere within your application.
+* In order to create an instance of the *SensumSDKManager*, follow the example within Code Snippet 9.
 
+<br>
 
-> Code Snippet 9
+> Code Snippet 3 - Starting the sensumSDK
 
 ```swift
 import UIKit
 import SensumKit
 
-class TabBarController: UITabBarController {
-	var sensumSDK : SensumSDKManager?
+class ViewController: UIViewController {
+	var sensumSDK: SensumSDKManager?
 
 	override func viewDidLoad() {
            super.viewDidLoad()
@@ -398,67 +143,66 @@ class TabBarController: UITabBarController {
 		sensumSDK?.accelerometer.startUpdating()
 		sensumSDK?.location.startUpdating()
 		sensumSDK?.bluetooth.startUpdating()
-		sensumSDK?.tag.startUpdating()
+		sensumSDK?.unicodeTag.startUpdating()
 	}
 }
 ```
 
-## Getting Accelerometer and GPS Data from the SensumSDK
+## Retrieving Accelerometer and Data from the SensumSDK
 
-* Once you have started the **SensumSDK** as shown in the previous example, you can query for both location (GPS) and accelerometer data locally.
+* Once you have started the **SensumSDK** as shown in the previous example, you can query for both location (GPS) and accelerometer (motion) data locally.
 
-* **SensumKit** uses listener protocols to provide classes with a means to query and listen for updates. To implement an accelerometer listener, first you must import *CoreMotion* at the top of your class:
+* **SensumKit** uses listener protocols to provide classes with a means to listen for and handle updates. To implement an accelerometer listener, first you must import *CoreMotion* at the top of your class:
 
-> Code Snippet 10
+> Code Snippet 4 - CoreMotion import statement
 
 ```swift
 import CoreMotion
 ```
 
-* Now extend your *ViewController* (shown in Code Snippet 11) by implementing the **SensumSDK** Listener protocol for *AccelerometerListener*:
+* Add an extension to your ViewController (shown below Code in Snippet 5) by implementing the **SensumSDK** Listener protocol for *AccelerometerListener*:
 
-> Code Snippet 11
+> Code Snippet 5 - SensumKit AccelerometerListener extension
 
 ```swift
-extension AccelerometerViewController: AccelerometerListener {
+extension ViewController: AccelerometerListener {
 	func accelerationUpdated(newAcceleration: CMAcceleration, dateTime: Date) {
-        DispatchQueue.main.async {
             print(newAcceleration)
-        }
     }
 }
 ```
 
-* Finally register the listener in your class (preferably in your `viewDidLoad()` method), referencing the **SensumSDK** variable you first created (see Code Snippet 12).
+* Register the listener in your class (preferably in your `viewDidLoad()` method), referencing the **SensumSDK** variable you first created (see Code Snippet 6).
 
-> Code Snippet 12
+> Code Snippet 6 - Registering Accelerometer Listener
 
 ```swift
-sdkManager?.accelerometer.assignListener(self)
+sensumSDK?.accelerometer.assignListener(self)
 ```
 
-* Please note that if you intend to set *UIView* objects from the output of the listeners, it is necessary to dispatch them to the main queue as shown in Code Snippet 11. The output of Code Snippet 11 should result in the following:
+![Figure 9 - Example output from AccelerometerListener ](../../images/figure9_iOS.png "Figure 9 - Example output from AccelerometerListener")
+#### <p style="text-align: center;">Figure 9 - Example output from AccelerometerListener</p>
+<br>
 
-`CMAcceleration(x: 0.00097714154981076717, y: -0.001684999093413353, z: -0.010779784061014652)`
 
-* To get GPS updates you can follow the same approach. First import *CoreLocation* so you can handle the objects in your class.
+* To obtain location update from **SensumKit** you can follow the same approach. First import *CoreLocation* so you can handle the objects in your class.
 
-> Code Snippet 13
+> Code Snippet 7
 
 ```swift
 import CoreLocation
 ```
 
-* Now extend your *ViewController* as below by implementing the **SensumSDK** Listener protocol for *AccelerometerListener*:
+* Now extend your ViewController as below by implementing the **SensumSDK** Listener protocol for *LocationListener*:
+
+// TODO: CONTINUE FROM HERE
 
 > Code Snippet 14
 
 ```swift
-extension GPSViewController: LocationListener {
+extension ViewController: LocationListener {
     func locationUpdated(newLocation: CLLocation) {
-        DispatchQueue.main.async {
-			print(newLocation)
-        }
+        print(newLocation)
     }
 }
 ```
