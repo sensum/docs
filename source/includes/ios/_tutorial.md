@@ -230,8 +230,6 @@ sdkManager?.location.assignListener(self)
 
 * You should now see the output as displayed in Figure 10. As a *CLLocation* object you can query the latitude, longitude, course, location, accuracy, time and speed values independently.
 
-
-// TODO: screencap from Sensum
 ![Figure 10 - Example output from LocationListener ](../../images/figure10_iOS.png "Figure 10 - Example output from LocationListener")
 #### <p style="text-align: center;">Figure 10 - Example output from LocationListener</p>
 <br>
@@ -239,54 +237,41 @@ sdkManager?.location.assignListener(self)
 
 ## Scanning for BLE devices
 
-* **SensumKit** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
+**SensumKit** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present which is not supported on iOS due to the device using an older bluetooth protocol not officially supported on iOS.
 
-* To connect a BLE device through the **SensumSDK manager**, you may wish to introduce a tableView or list style UI element which users can select and connect to. 
-In this example we use a *UITableViewController*, a *Prototype Cell* with a custom identifier.
+* To connect a BLE device through the **SensumSDK manager**, you may wish to introduce a tableView or list style UI element. 
+In this example we use a *UITableViewController*.
 
-* File > New > File > Cocoa Touch Class. Set the name to BLE and set the subclass as *UITableViewController* to create a table view controller where we can create a list of bluetooth peripherals to display when scanning. See figure 11 below as an example:
+* Go to File > New > File > Cocoa Touch Class. Set the name to BLE and set the subclass as *UITableViewController* to create a table view controller where we can create a list of bluetooth peripherals to display when scanning. See figure 11 below as an example:
 
 
 ![Figure 11 - Creating a TableViewController ](../../images/figure11_iOS.png "Figure 11 - Creating a TableViewController")
 #### <p style="text-align: center;">Figure 11 - Creating a TableViewController</p>
 <br>
 
-* We will need a custom cell class to assign the devices to. Like before, File > New > File > Cocoa Touch Class. Set the name to BluetoothPeripheral and set the subclass as *UITableViewCell*. See figure 12 below as an example:
+* First, navigate to your *Main.storyboard* file.
+* Using the Object library drag a *Table View Controller* into the storyboard as shown below in Figure 12.
 
-![Figure 12 - Creating a UITableViewCell ](../../images/figure12_iOS.png "Figure 12 - Creating a UITableViewCell")
-#### <p style="text-align: center;">Figure 12 - Creating a UITableViewCell</p>
+![Figure 12 - Selecting a TableViewController ](../../images/figure12_iOS.png "Figure 12 - Selecting a TableViewController") 
+#### <p style="text-align: center;">Figure 12 - Selecting a TableViewController</p>
 <br>
 
-* First, navigate to your *Main.storyboard* file. Select the *View Controller scene* and delete it.
-* Using the Object library drag a *Table View Controller* into the storyboard.
 
-> Code Snippet 11 - BluetoothPeripheralTableViewCell content
+* Under the attributes inspector, ensure you tick the box for *Is Initial View Controller*.
 
-```swift
-import UIKit
-import CoreBluetooth
+![Figure 13 - Assigning Is Initial View Controller ](../../images/figure13_iOS.png "Figure 13 - Assigning Is Initial View Controller") 
+#### <p style="text-align: center;">Figure 13 - Assigning Is Initial View Controller</p>
+<br>
 
-class BluetoothPeripheralTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var deviceName: UILabel!
-    
-    var peripheral: CBPeripheral? {
-        didSet {
-            if let newValue = peripheral {
-                self.textLabel?.text = newValue.name
-            }
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-}
-```
+* Under the identity inspector, ensure you set the class to what we just created as *BLETableViewController*.
 
+![Figure 14 - Setting class in Storyboard](../../images/figure14_iOS.png "Figure 14 - Setting class in Storyboard") 
+#### <p style="text-align: center;">Figure 14 - Setting class in Storyboard</p>
+<br>
 
+// TODO: CONTINUE FROM HERE
 
 * Ensure your table datasource and delegate is set to your *ViewController* and implement the required functions. Ensure you have a tableView variable from your outlet in the class file.
 
