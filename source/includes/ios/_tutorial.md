@@ -259,105 +259,100 @@ In this example we use a *UITableViewController*.
 <br>
 
 
-* Under the attributes inspector, ensure you tick the box for *Is Initial View Controller*.
+* Under the Attributes inspector, ensure you tick the box for *Is Initial View Controller*.
 
 ![Figure 13 - Assigning Is Initial View Controller ](../../images/figure13_iOS.png "Figure 13 - Assigning Is Initial View Controller") 
 #### <p style="text-align: center;">Figure 13 - Assigning Is Initial View Controller</p>
 <br>
 
-* Under the identity inspector, ensure you set the class to what we just created as *BLETableViewController*.
+* Under the Identity inspector, ensure you set the class to what we just created as *BLETableViewController*.
 
 ![Figure 14 - Setting class in Storyboard](../../images/figure14_iOS.png "Figure 14 - Setting class in Storyboard") 
 #### <p style="text-align: center;">Figure 14 - Setting class in Storyboard</p>
 <br>
 
-// TODO: CONTINUE FROM HERE
+* As we are using a *UITableViewController* over a *UITableView* within a *UIViewContoller*, the delegate and datasource are already set and we can already access the required override functions.
+* Before we finish in the Storyboard we must give the prototype cell already defined in the tableView an identifier, so we can handle it on our class file. Select the prototype cell and under the Attributes inspector, provide the identifier ```bleCell```.
 
-* Ensure your table datasource and delegate is set to your *ViewController* and implement the required functions. Ensure you have a tableView variable from your outlet in the class file.
 
-* Next, import *CoreBluetooth* so you can manage the *CBPeripheral* type which is a parameter in the listener function (see Code Snippet 16). If you are working in a new class, don't forget to `import SensumKit`.
+![Figure 15 - Assigning the prototype cell an identifier](../../images/figure15_iOS.png "Figure 15 - Assigning the prototype cell an identifier") 
+#### <p style="text-align: center;">Figure 15 - Assigning the prototype cell an identifier</p>
+<br>
 
-> Code Snippet 16
+* Open the class you just created.
+* Next, `import CoreBluetooth` so you can manage the *CBPeripheral* type which is a parameter in the listener function.
+* To access the SensumKit in this class you will need to add `import SensumKit`.
+* We can create a new instance of the *SensumSDKManager* in this class. Use the following snippet:
 
+> Code Snippet 17 - SensumSDKManager used in BLETableViewController
 ```swift
-import CoreBluetooth
+    var sensumSDK: SensumSDKManager?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        sensumSDK = SensumSDKManager(
+            requestEngineInternalInSeconds: 30,
+            apiKey: "PublicDemoKeyForDocumentation",
+            host: "emotionai.sensum.co",
+            stage: "v0")
+        
+        sensumSDK?.bluetooth.startUpdating()
+        sensumSDK?.bluetooth.assignListener(self)
+        sensumSDK?.bluetooth.startScanForDevices()
+    }
 ```
 
-* Next, implement the *BluetoothListener* extension as shown in Code Snippet 17.
+* This snippet will instantiate *SensumKit*, request updates to be collected from connected BluetoothDevices, set our listener so we can handle updates and scan for devices that we can attempt to connect to.
 
-> Code Snippet 17
+*Note*: The list of devices returned through the Bluetooth module is not set to ignore any devices that are not capable of returning a heart rate reading. 
+
+* Next, implement the *BluetoothListener* extension as shown in Code Snippet 17 at the bottom of the class file.
+
+> Code Snippet 18 - Bluetooth Listener extension
 
 ```swift
-extension BluetoothTableViewController: BluetoothListener {
-
-	public func deviceDiscovered() {
-		DispatchQueue.main.async {
-			self.tableView.reloadData()
-		}
-	}
-
-	public func bpmUpdated(newBpm: Int, dateTime: Date) {}
-	public func deviceConnectionSuccess() {}
-	public func deviceConnectionFailure() {}
-	public func deviceDisconnected(disconnectedPeripheral: CBPeripheral) {}
+extension BLETableViewController: BluetoothListener {
+  
+    func deviceConnectionSuccess(peripheral: CBPeripheral) {
+        print(peripheral)
+    }
+    
+    func deviceConnectionFailure(peripheral: CBPeripheral) {
+        print(peripheral)
+    }
+    
+    func deviceDisconnected(peripheral: CBPeripheral) {
+        print(peripheral)
+    }
+    
+    func deviceDiscovered() {
+        tableView.reloadData()
+    }
+ 
+    func heartrateUpdated(beatsPerMinute: Int, dateTime: Date) {
+        print(beatsPerMinute)
+    }
+    
 }
 ```
 
 * Each time a device is discovered, call `reloadData()` on your tableView variable in the class (demonstrated in Code Snippet 17).
-* Assign your **SensumSDK** listener as shown in Code Snippet 18.
+* A simple print out will confirm the details of the bluetooth devices you are working with.
 
-> Code Snippet 18
 
-```swift
-sdkManager?.bluetooth.assignListener(self)
-```
-
-* You will not see updates fired from the **SensumSDK** until you call `sdkManager?.bluetooth.startScanForDevices()` which we have previously done in `viewDidAppear()` or `viewDidLoad()`, or alternatively, these can be set via a button press.
-* For these updates to appear in the *UITableView•, you will need to customise two of its functions implemented as part of the *UITableView*,in addition to creating a custom class that inherits from the properties of *UITableViewCell*.
-* Create a new Cocoa Touch Class, call it `BluetoothPeripheralTableViewCell` and ensure it inherits from *UITableViewCell*. Then use the contents of Code Snippet 19 to quickly launch a basic example that will simply display the name of the device.
-
-> Code Snippet 19
+// TODO CONTINUE FROM HERE
+> Code Snippet 19 - cellForRowAt override function
 
 ```swift
-import UIKit
-import CoreBluetooth
-
-class BluetoothPeripheralTableViewCell: UITableViewCell {
-
-    var peripheral: CBPeripheral? {
-        didSet {
-            if let newValue = peripheral {
-                self.textLabel?.text = newValue.name
-            }
+override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bleCell", for: indexPath)
+        if let bleDevice = sensumSDK?.bluetooth.getDeviceList()![indexPath.item]?["peripheral"] {
+            let peripheral = bleDevice as! CBPeripheral
+            cell.textLabel?.text = peripheral.name
         }
+        return cell
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-}
-```
-
-* Turning attention back to the *ViewController* where you implemented the **SensumSDK**. The `cellForRowAt` function from the tableView will define how the cells in the table are customised, demonstrated in Code Snippet 20.
-
-> Code Snippet 20
-
-```swift
-func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    // the identifier is what was set in your .storyboard in the attributes inspector
-		let bleCell = self.tableView.dequeueReusableCell(withIdentifier: "bleCell", for: indexPath) as! BluetoothPeripheralTableViewCell
-		if let dictValue = sdkManager?.bluetooth.getDeviceList()[indexPath.item]?["peripheral"] {
-			let peripheralToAdd = dictValue as! CBPeripheral
-			bleCell.peripheral = peripheralToAdd
-		}
-		return bleCell
-	}
 ```
 
 * Set your `numberOfRowsInSection` to match the example shown in Code Snippet 21.
