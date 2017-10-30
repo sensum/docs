@@ -681,16 +681,16 @@ extension BluetoothTableViewController: BluetoothListener {
   public func deviceDiscovered() {
     // reload tableView to show more devices coming in
   }
-  public func bpmUpdated(newBpm: Int, dateTime: Date) {
+  public func heartrateUpdated(beatsPerMinute: Int, dateTime: Date) {
     // save bpm to database or update a view
   }
-  public func deviceConnectionSuccess() {
+  public func deviceConnectionSuccess(peripheral: CBPeripheral) {
     // show the user a confirmation connection
   }
-  public func deviceConnectionFailure() {
+  public func deviceConnectionFailure(peripheral: CBPeripheral) {
     // inform the user the connection process failed
   }
-  public func deviceDisconnected(disconnectedPeripheral: CBPeripheral) {}
+  public func deviceDisconnected(peripheral: CBPeripheral) {}
     // show the user their device disconnected, prompt a reconnection
 }
 ```
@@ -703,19 +703,31 @@ extension BluetoothTableViewController: BluetoothListener {
 
 ### BluetoothListener Functions: Device Connection Success
 
-  `func deviceConnectionSuccess()`  
+  `func deviceConnectionSuccess(peripheral: CBPeripheral)`  
 
   Called when the users device has successfully connected to a BLE device.
 
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|peripheral|CBPeripheral|The CoreBluetooth device peripheral connected to.|
+
 ### BluetoothListener Functions: Device Connection Failure
 
-  `func deviceConnectionFailure()`  
+  `func deviceConnectionFailure(peripheral: CBPeripheral)`  
 
   Called when the users device has failed to connect to a BLE device.
 
+### Parameters
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|peripheral|CBPeripheral|The CoreBluetooth device peripheral that failed to connect.|
+
 ### BluetoothListener Functions: Device Disconnected
 
-  `func deviceDisconnected(disconnectedPeripheral: CBPeripheral)`  
+  `func deviceDisconnected(peripheral: CBPeripheral)`  
 
   Called when the users device has been disconnected from a BLE device.
 
@@ -723,11 +735,11 @@ extension BluetoothTableViewController: BluetoothListener {
 
 |Parameter|Type|Description|
 |---------|----|-----------|
-|disconnectedPeripheral|CBPeripheral|The CoreBluetooth BLE device that disconnected.|
+|peripheral|CBPeripheral|The CoreBluetooth device peripheral that disconnected.|
 
 ### BluetoothListener Functions: BPM Updated
 
-  `func bpmUpdated(newBpm: Int, dateTime: Date)`
+  `func heartrateUpdated(beatsPerMinute: Int, dateTime: Date)`
 
   Called when the BLE device connected to the users device has a processed update value ready.
 
@@ -735,7 +747,7 @@ extension BluetoothTableViewController: BluetoothListener {
 
 |Parameter|Type|Description|
 |---------|----|-----------|
-|newBpm|Int|A heart rate value in beats per minute.|
+|beatsPerMinute|Int|A heart rate value represented beats per minute.|
 |dateTime|Date|A native `Date()` object of when the reading was generated.|  
 
 ## LocationListener

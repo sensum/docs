@@ -357,7 +357,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 
 * Set your `numberOfRowsInSection` to match the example shown in Code Snippet 21.
 
-> Code Snippet 21
+> Code Snippet 21 - numberOfRowsInSection function to return list of devices
 ```swift
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (sdkManager?.bluetooth.getDeviceList().count)!
@@ -368,27 +368,16 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 
 ## Connecting to a BLE Device
 
-* Following on from the previous section, to connect to a selected BLE device, pass the selected cell to ` sdkManager?.bluetooth.connectTo(peripheralDevice: blePeripheral!)`.
-* This will initiate a connection and, depending on the device, should after a few seconds start generating heart rate values that are passed to *BluetoothListener* protocol functions you have implemented.
-* We have currently included additional *NSLog* outputs internally to **SensumKit** to detail the connection process. Your console output within Xcode should appear as shown in Code Snippet 22.
+* Following on from the previous section, to connect to a selected BLE device, pass the selected cell to `sdkManager?.bluetooth.connectTo(peripheralDevice: blePeripheral!)`. See the below snippet:
 
-> Code Snippet 22
-
-```swift
-Scanning for bluetooth devices
-Connecting to device: MIO GLOBAL-LINK
-Stopping device scan
-Device connected.
-Device Connected
-Discovered service: Heart Rate
-Discovered service: Battery
-```
+// TODO continue from here
+* This will initiate a connection and, depending on the device, after a few seconds start generating heart rate values that are passed to *BluetoothListener* protocol functions you have implemented.
 
 * You can update the `bpmUpdated()` function in your listener which will output the user's heart rate.
 
 
 ## Listening for Updates from the SensumAPI
-* **SensumKit** handles the process of collecting both raw and contextual data from the device, before uploading to the **SensumAPI** without the user having to configure HTTP requests and responses.
+* **SensumKit** handles the process of collecting contextual data from the device, before uploading to the **SensumAPI** without the user having to configure HTTP requests and responses.
 * Before you can get updates from the **SensumAPI**, you must ensure that you  call recording on your contextual data.
 * As an example, you must first call `sdkManager?.accelerometer.startRecording()` to initiate the collection of accelerometer data. After this, call `sdkManager?.accelerometer.startSendingToAPI()`.
 * Depending on when you instantiated the **SensumSDK** and the time value you declared as the upload interval, data collected within the interval will be sent with the resulting response fired to all `APIListener` objects.
@@ -399,77 +388,20 @@ Discovered service: Battery
 
 ```swift
  func startEverythingRecording() {
-        sdkManager?.accelerometer.startRecording()
-        sdkManager?.location.startRecording()
-        sdkManager?.bluetooth.startRecording()
-        sdkManager?.tag.startRecording()
         sdkManager?.accelerometer.startSendingToAPI()
         sdkManager?.location.startSendingToAPI()
         sdkManager?.bluetooth.startSendingToAPI()
         sdkManager?.tag.startSendingToAPI()
     }
 ```
-* At the top of your class `import RealmSwift` to query the response data. We save parsed data from the **SensumAPI** to Realm so it can safely persist on the device.
+
 * Next implement an extension at the end of your class of type `APIListener`, follow the example as shown in Code Snippet 24.
 > Code Snippet 24
 
 ```swift
-extension RecordingMasterViewController: APIListener {
-
-    func realmResponseSaved() {
-        // saved to Realm, lets query it and print the values
-        if let realmResponse = try? Realm().objects(Response.self).last {
-            print(realmResponse)
-        }
-    }
-
-    func realmSentimentResponseSaved() {
-        if let realmSentiment = try? Realm().objects(SentimentResponse.self).last {
-            print(realmSentiment)
-        }
-    }
-
-    func arousalReceived(arousalScore: Double) {
-        print("arousalScore \(arousalScore)")
-    }
-
-    func apiRequestFailure(message: String, statusCode: Int?) {
-        print("Failed to send to SensumAPI \(message) \(statusCode)")
-    }
-
-    func apiRequestSuccessful() {
-        print("api request successful")
-    }
+extension ViewController: APIListener {
 
 }
-```
-* Don't forget to register the listener in the `viewDidLoad()` method using `sdkManager?.api.assignListener(self)`.  
-* You are now ready to receive updates on any class that implements the listener extensions.
-* We use Realm to safely and efficiently store/query data from the response the **SensumAPI** returns. <a href = "https://realm.io/docs/swift/latest/">We recommend you take some time to study the RealmDocs here</a>. The examples above will return the latest saved object from the **SensumAPI**.
-* A Response object is the parent object saved from a request made to the **SensumAPI** with contextual sensor, accelerometer, and GPS data. The object is made up of the following components:
-* Response:
-    * `HeartRateResponse` - Processed Heart Rate data.
-    * `AccelerometerResponse` - Processed Accelerometer data.
-    * `LocationResponse` - Processed Location data.
-* Each of the three sub-response objects are made up of *Stat* and *Event* objects. Feel free to examine the public Realm objects that we use to store data.
-* `SentimentResponse` is a seperate object that represents processed emoji and text data. Code Snippet 25 illustrates how it should appear when printed from `sentimentResponseReceived()`:
-> Code Snippet 25
-
-```swift
-Optional(SentimentResponse {
-    textSentiment = Emotion {
-        emotionality = 0;
-        negativity = 0;
-        positivity = 0;
-    };
-    emojiSentiment = Emotion {
-        emotionality = 0.4236068641;
-        negativity = 0.0936431989;
-        positivity = 0.6575529733;
-    };
-})
-```
-* `ArousalResponse` is also a seperate object that represents processed heart rate data. Please see the <a href = "http://docs.sensum.co/#emotion-ai-api">**SensumAPI** documentation</a> for more information on processed data outputs.
 
 ## Third Party Authentication
 
