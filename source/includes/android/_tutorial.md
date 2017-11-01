@@ -223,20 +223,21 @@ protected void onDestroy() {
 |**GPS_FILTER**|Filters for GPS values|`Bundle`|
 |**ACC_FILTER**|Filters for acceleration values|`Bundle`|
 |**DEVICE_DISCONNECTED**|Filters for a device disconnected value|`null`|
-|**API_RESPONSE**|Filters for responses from the API|`String`|
+|**API_RESPONSE**|Filters for responses from the **SensumAPI**|`String`|
 |**TOAST_MESSAGE**|Filters for messages from the Service|`String`|
-|**CONNECTION_FILTER**|Filters for connection BLE messages|`String`|
+|**BLE_CONNECTION_FILTER**|Filters for connection BLE messages|`String`|
 |**BLUETOOTH_CONNECTION_FILTER**|Filters for bluetooth connection messages|`String`|
 |**BLUETOOTH_DEVICE_FILTER**|Filters for bluetooth devices|`ArrayList<BluetoothDevice>`|
 |**GSR_FILTER**|Filters for GSR values|`String`|
 |**ACC_FAILED_REGISTERED**|Filters for acceleration failure from unsupported devices|`null`|
 |**HELLO_FILTER**|Filters for hello message|`String`|
-|**HR_EVENT_FILTER**|Filters for heart rate events from the API|`String`|
-|**AROUSAL_FILTER**|Filters for heart rate arousals from the API|`String`|
-|**GSR_EVENT_FILTER**|Filters for GSR events from the API|`String`|
-|**EMOJI_SENTIMENT_FILTER**|Filters for emoji sentiment from the API|`String`|
-|**TEXT_SENTIMENT_FILTER**|Filters for text sentiment from the API|`String`|
-|**HR_TEST_DATA_FILTER**|Filters for generated heart rate test data from the API|`String`|
+|**HR_EVENT_FILTER**|Filters for heart rate events from the **SensumAPI**|`String`|
+|**AROUSAL_FILTER**|Filters for heart rate arousals from the **SensumAPI**|`String`|
+|**GSR_EVENT_FILTER**|Filters for GSR events from the **SensumAPI**|`String`|
+|**EMOJI_SENTIMENT_FILTER**|Filters for emoji sentiment from the **SensumAPI**|`String`|
+|**TEXT_SENTIMENT_FILTER**|Filters for text sentiment from the **SensumAPI**|`String`|
+|**HR_TEST_DATA_FILTER**|Filters for generated heart rate test data from the **SensumAPI**|`String`|
+|**CONNECTED_DEVICES_FILTER**|Filters for connected devices|`String`|
 
 ## Setting up the Broadcast Receiver
 
@@ -286,6 +287,10 @@ protected void onDestroy() {
                    break;
                case HR_TEST_DATA_FILTER:
                    break;
+               case CONNECTED_DEVICES_FILTER:
+                    String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
+                    String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
+                   break;
             }
         }
     };
@@ -324,6 +329,7 @@ protected void onDestroy() {
         filter.addAction(EMOJI_SENTIMENT_FILTER);
         filter.addAction(TEXT_SENTIMENT_FILTER);
         filter.addAction(HR_TEST_DATA_FILTER);
+        filter.addAction(CONNECTED_DEVICES_FILTER);
         return filter;
     }
 ```
@@ -368,6 +374,12 @@ protected void onDestroy() {
 |**HELLO**|`null`|
 |**INPUT_SENTIMENT_TEXT**|`String TEXT_MESSAGE`|
 |**GENERATE_TEST_DATA**|`int GENERATE_NUMBER_OF_RECORDS`|
+|**START_OFFLINE_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`,<br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`|
+|**CANCEL_OFFLINE_CAPTURE**|`null`|
+|**START_SDK_SERVER**|`boolean`|
+|**DISCONNECT_BLE**|`null`|
+|**DISCONNECT_BLUETOOTH**|`null`|
+|**CONNECTED_DEVICES**|`null`|
 
  * This *Message* object also has the capacity to transmit data in the form of a *Bundle*.
  * A *Bundle* contains associated data that can be interpreted by the *Service*.
@@ -445,6 +457,10 @@ protected void onDestroy() {
                    break;
                case HR_TEST_DATA_FILTER:
                    break;
+               case CONNECTED_DEVICES_FILTER:
+                    String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
+                    String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
+                   break;
             }
         }
     };
@@ -498,7 +514,7 @@ button.setOnClickListener(new View.OnClickListener() {
  * To connect a BLE device the developer will need to send two *String* objects as part of the *Bundle* object that will be sent to the *Service* as part of the `sendToService` method (Code Snippet 14).
  * According to Table 2, the two Strings required are the BLE device's name and address.
  * These are necessary in order to create a connection between the Android device and the BLE device.
- * The developer should include the **CONNECTION_FILTER** constant within the *BroadcastReceiver’s* overridden `onReceive` method.
+ * The developer should include the **BLE_CONNECTION_FILTER** constant within the *BroadcastReceiver’s* overridden `onReceive` method.
  * According to Table 1, the data received is of type *String*.
  * This *String* provides a connection message, sent back from the *Service*, to notify the user whether the connection was successful or not.
 
@@ -518,7 +534,7 @@ sendToService(bundle, CONNECT);
  * This version of the **SensumSDK** only returns heart rate values from the BLE device, therefore the developer should ensure that the BLE device that they are using can detect heart rate.
  * On connection the BLE device will send values to the *Service*.
  * The *Service* will then broadcast these values to the application that the developer has built.
- * The developer should include the **VALUE_FILTER** constant within the *BroadcastReceiver’s* `onReceive` method.
+ * The developer should include the **HR_FILTER** constant within the *BroadcastReceiver’s* `onReceive` method.
  * According to Table 1, the value received will be of type *String*. This value will be the heart rate.
 
 ## Bluetooth
