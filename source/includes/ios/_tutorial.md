@@ -4,7 +4,7 @@ Last updated **October 9th 2017**. Current **SensumKit** release: **0.2**.
 
 ## Getting Started
 
-The **SensumKit** framework is developed on **Xcode 9** and we recommend using this version. iOS 9 targets and up are currently supported. Running apps usign **SensumKit** on the Simulator is not currently supported.
+The **SensumKit** framework is developed on **Xcode 9** and we recommend using this version. iOS 9 targets and up are currently supported. Running apps using **SensumKit** on the Simulator is not currently supported.
 
 This tutorial takes you through creating a basic iOS application that demonstrates how to use the **SensumKit** framework in a Swift project.
 
@@ -402,6 +402,7 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 extension ViewController: APIListener {
 
 }
+```
 
 ## Third Party Authentication
 
