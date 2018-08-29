@@ -8,7 +8,7 @@ We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the 
 
 ## Bluetooth Device Compatibility
 
-* The Android **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
+* The Android **SensumSDK** supports connecting to BLE and Bluetooth devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.  // TODO FIX THIS LINK
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.
 
@@ -31,9 +31,9 @@ The Android **SensumSDK** can accept the following <a href = "#available-metrics
 
 ## Service Constants
 
-These constants can used to construct message bundled that are then relayed to the Emotion AI service to send and retrieve data.
+These constants can be used to construct message bundles that are then relayed to the Emotion AI service to send and retrieve data.
 
-One example of a call to the service would be to send credentials in order to authorize a user. See <a href = "#submit-credentials-to-service-for-authorization">"Submit Credentials to service for authorization"</a> for an example in how these bundles are constructed.
+One example of a call to the service would be to send credentials in order to authenticate a user. See <a href = "#submit-credentials-to-service-for-authorization">"Submit Credentials to service for authorization"</a> for an example in how these bundles are constructed.
 
 ### API Base URL
 `public static final String API_BASEURL = "api-baseurl"`
@@ -108,7 +108,7 @@ This is used to pass the captured GPS longitude value
 ### Altitude Value
 `public static final String ALTITUDE_VALUE = "altitude-value"`
 
-This is used to pass the captured gps altitude value
+This is used to pass the captured GPS altitude value
 
 ### Bearing Value
 `public static final String BEARING_VALUE = "bearing-value"`
@@ -419,7 +419,7 @@ Once bound to the service, the binder object is passed through to messenger to s
 ```
 Follow Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.
 
-Once successfully implemented you must send the Google Id token for the Google Sign-In application to us.
+Once successfully implemented you must send the Google Id token for the Google Sign-In application to us to authenticate access. You can contact // TODO INSERT CONTACT DETAILS FOR ADDING GOOGLE ID TO AWS IAM
 
 `void submit()`
 
@@ -597,8 +597,6 @@ Broadcast receiver with the list of registered filters.
 
 ```java
     private void startCaptureSetUp() {
-        Toast.makeText(this, "Started capturing", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Started capturing");
         sendToService(getCaptureBundle(), START_CAPTURE);
     }
 ```
@@ -664,7 +662,6 @@ Sets up the bundle data for capture using the service constants.
 
 ```java
     private void stopCaptureSetUp() {
-        Toast.makeText(this, "Stopped capturing", Toast.LENGTH_SHORT).show();
         sendToService(getCaptureBundle(), CANCEL_CAPTURE);
     }
 ```
