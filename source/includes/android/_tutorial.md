@@ -434,7 +434,6 @@ protected void onDestroy() {
                     break;
                 case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
-                    Log.d(TAG, "onReceive: " + hrValue);
                     break;
                 case GSR_FILTER:
                     String gsrValue = intent.getStringExtra(EXTRA_DATA);
@@ -597,14 +596,15 @@ sendToService(bundle, CONNECT_BLE);
 
 ```java
 public Bundle getCaptureBundle() {
- Bundle bundle = new Bundle();
- bundle.putBoolean(ACCELERATION_CAPTURE, isAcc);
- bundle.putBoolean(HR_CAPTURE, isHr);
- bundle.putBoolean(GPS_CAPTURE, isGps);
- bundle.putBoolean(GSR_CAPTURE, isGsr);
- bundle.putBoolean(INPUT_CAPTURE, isInput);
- bundle.putLong(DATA_RATE_SEND, dataRate);
- return bundle;
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ServiceConstants.ACCELERATION_CAPTURE, true);
+        bundle.putBoolean(ServiceConstants.HR_CAPTURE, true);
+        bundle.putBoolean(ServiceConstants.GPS_CAPTURE, true);
+        bundle.putBoolean(ServiceConstants.GSR_CAPTURE, true);
+        bundle.putBoolean(ServiceConstants.INPUT_CAPTURE, true);
+        bundle.putLong(ServiceConstants.DATA_RATE_SEND, 1000);
+        return bundle;
+    }
 }
 ```
 * In the same way another *Button* should be created to stop the recording.
@@ -666,13 +666,15 @@ private IntentFilter getUpdateIntentFilter() {
 * When an event has been received by the *BroadcastReceiver*, the developer can query the *Realm* database to retrieve the values received from the **SensumAPI**.
 * The **AROUSAL_EVENT_FILTER** lets the developer know that the **SensumSDK** has received an ‘arousal event’.
 * Code Snippet 18 displays how the developer could query *Realm* to see the values stored.
+* Please note, on application launch ensure you call `Realm.init(context)` prior to querying Realm to avoid throwing an exception.
 
 > Code Snippet 18
 
 ```java
 private void queryRealmForArousalStats() {
    try {
-       realm = Realm.getDefaultInstance().getDefaultInstance();
+       Realm.init(this);
+       Realm realm = Realm.getDefaultInstance().getDefaultInstance();
        RealmResults<ArousalStats> realmResults = realm.where(ArousalStats.class).findAll();
        realmResults.load();
        if (!realmResults.isEmpty()) {
@@ -849,12 +851,12 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
  * For more detailed instuctions on how to implement *Google Sign-In* please refer to Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">documentation</a>.
 
- * For *Google Sign-In*, a *Play Service* dependency needs to be added to Gradle (Code Snippet 19).
+ * For *Google Sign-In*, a *Play Service* dependency needs to be added to the app Gradle (Code Snippet 19).
 
 > Code Snippet 19
 
 ```java
-compile 'com.google.android.gms:play-services-auth:11.0.4'
+implementation 'com.google.android.gms:play-services-auth:11.0.4'
 ```
 
  * As part of enabling *Google APIs* or *Firebase* services in your Android application the `google-services.json` is processed by the `google-services` plugin.
@@ -878,7 +880,7 @@ GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DE
        .requestId()
        .build();
 
-googleApiClient = new GoogleApiClient.Builder(this)
+GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
        .enableAutoManage(this, this )
        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
        .build();
