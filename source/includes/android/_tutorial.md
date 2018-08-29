@@ -10,7 +10,7 @@ Have fun and enjoy!
 
 ## Getting Started
 
- * Open Android Studio.
+ * Open Android Studio. We recommend Android Studio 3.0 or newer.
  * Select **New Project** displayed in Figure 1.
 
  ![Figure 1 - Start New Project](../../images/figure1_android.png "Figure 1 - Start New Project")
@@ -620,8 +620,7 @@ private IntentFilter getUpdateIntentFilter() {
 
 ## Realm Queries
 
-* *Realm* is a Mobile Database that provides an alternative to *SQLite* & *Core Data*.
-* We use *Realm* to safely and efficiently store/query data from the response the **SensumAPI** returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/"> here</a>.
+* We use *Realm* to safely and efficiently store and query data from the response the **SensumAPI** returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/"> here</a>. We are using version 4.2.0.
 * A significant advantage for developers using the **SensumSDK** is the ability to query the *Realm* database from the front-end to see what data has been captured/stored.
 * Data is persisted in *Realm* for a session as long as the user doesn't start a new session using **START_CAPTURE**, before staring a new session the data for the old session is deleted from *Realm* to avoid mixing user's data accross multiple sessions, therefore if the data for a session needs to be persisted it would need to be saved before starting a new session.
 * When an event has been received by the *BroadcastReceiver*, the developer can query the *Realm* database to retrieve the values received from the **SensumAPI**.
