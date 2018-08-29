@@ -10,8 +10,6 @@ Have fun and enjoy!
 
 ## Getting Started
 
-We strongly recommend using Android Studio v2.3.3 and above. We work on Android Studio v2.3.3 at time of our first public **SensumSDK** release.
-
  * Open Android Studio.
  * Select **New Project** displayed in Figure 1.
 
@@ -25,8 +23,8 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 #### <p style="text-align: center;">Figure 2 - Create New Project</p>
 <br>
 
- * Select the **Phone and Tablet**, and **Wear** options from the *Target Android Devices* dialogue window.
- * We recommend you use API 22: Android 5.1 (Lollipop) or greater for best performance (see Figure 3).
+ * Select the **Phone and Tablet** option from the *Target Android Devices* dialogue window.
+ * We recommend you use API 23: Android 6.0 (Marshmallow) or greater for best performance (see Figure 3).
 
  ![Figure 3 - Select Platforms](../../images/figure3_android.png "Figure 3 - Select Platforms")
 #### <p style="text-align: center;">Figure 3 - Select Platforms</p>
@@ -44,65 +42,50 @@ We strongly recommend using Android Studio v2.3.3 and above. We work on Android 
 #### <p style="text-align: center;">Figure 5 - Customize the Activity</p>
 <br>
 
- * Click **Next**, then select **Blank Wear Activity** in the Add an *Activity to Wear* dialogue window (Figure 6).
-
-
- ![Figure 6 - Add an Activity to Wear](../../images/figure6_android.png "Figure 6 - Add an Activity to Wear")
-#### <p style="text-align: center;">Figure 6 - Add an Activity to Wear</p>
-<br>
-
- * Click **Next**, you will be presented with the *Customize the Activity* dialogue window.  
- * You may optionally alter the default titles of your: *Activity Name*, *Layout Name*, *Round Layout Name*, and *Rectangular Layout Name* (Figure 7).
- * Click **Finish**.
-
-  ![Figure 7 - Customize the Wear Activity](../../images/figure7_android.png "Figure 7 - Customize the Wear Activity")
-#### <p style="text-align: center;">Figure 7 - Customize the Wear Activity</p>
-<br>
-
 ## Managing Project Dependencies
 
- * From the *File* menu, navigate to *File* > *New* > *New Module* (Figure 8).
+ * From the *File* menu, navigate to *File* > *New* > *New Module* (Figure 6).
 
-  ![ Figure 8 - New Module](../../images/figure8_android.png " Figure 8 - New Module")
-#### <p style="text-align: center;"> Figure 8 - Creating A New Module</p>
+  ![ Figure 6 - New Module](../../images/figure6_android.png " Figure 6 - New Module")
+#### <p style="text-align: center;"> Figure 6 - Creating A New Module</p>
 <br>
 
  * The *New Module* dialogue window will appear.
- * Select the **Import .JAR/.AAR Package** option (Figure 9).
+ * Select the **Import .JAR/.AAR Package** option (Figure 7).
  * Click **Next**.
 
-  ![ Figure 9 - Import .JAR/.AAR Package](../../images/figure9_android.png " Figure 9 - Import .JAR/.AAR Package")
-#### <p style="text-align: center;"> Figure 9 - Import .JAR/.AAR Package</p>
+  ![ Figure 7 - Import .JAR/.AAR Package](../../images/figure7_android.png " Figure 7 - Import .JAR/.AAR Package")
+#### <p style="text-align: center;"> Figure 7 - Import .JAR/.AAR Package</p>
 <br>
 
- * The *Create New Module* dialogue window will appear (shown in Figure 10).
+ * The *Create New Module* dialogue window will appear (shown in Figure 8).
  * In order to successfully create a new module, the developer must locate the necessary **sdk-release.aar** file on their system.
 
 
-  ![ Figure 10 - Create New Module](../../images/figure10_android.png " Figure 10 - Create New Module")
-#### <p style="text-align: center;"> Figure 10 - Create New Module</p>
+  ![ Figure 8 - Create New Module](../../images/figure8_android.png " Figure 8 - Create New Module")
+#### <p style="text-align: center;"> Figure 8 - Create New Module</p>
 <br>
 
  * Once the **sdk-release** file has been located, click **Finish**.
 
- * In order to link the **sdk-release** file to the project as a dependency, the developer must navigate to *File* > *Project Structure*, from the *File* menu (Figure 11).
+ * In order to link the **sdk-release** file to the project as a dependency, the developer must navigate to *File* > *Project Structure*, from the *File* menu (Figure 9).
 
-  ![Figure 11 - Project Structure](../../images/figure11_android.png "Figure 11 - Project Structure")
-#### <p style="text-align: center;">Figure 11 - Project Structure</p>
+  ![Figure 9 - Project Structure](../../images/figure9_android.png "Figure 9 - Project Structure")
+#### <p style="text-align: center;">Figure 9 - Project Structure</p>
 <br>
 
  * You will be presented with the *Project Structure* dialogue window.
  * At the left-hand-side of the dialogue, select **mobile** from the *Modules* section.
- * Click the *Dependencies* tab, then click the ‘**+**’ button (top right-hand-side of dialogue), then select the third option: **3 Module Dependency** (Figure 12).
+ * Click the *Dependencies* tab, then click the ‘**+**’ button (top right-hand-side of dialogue), then select the third option: **3 Module Dependency** (Figure 10).
 
-  ![Figure 12 - Module Dependency](../../images/figure12_android.png "Figure 12 - Module Dependency")
-#### <p style="text-align: center;">Figure 12 - Module Dependency</p>
+  ![Figure 10 - Module Dependency](../../images/figure10_android.png "Figure 10 - Module Dependency")
+#### <p style="text-align: center;">Figure 10 - Module Dependency</p>
 </br>
 
- * You will be presented with the *Choose Modules* dialogue window (Figure 13).
+ * You will be presented with the *Choose Modules* dialogue window (Figure 11).
 
-  ![Figure 13 - Choose Modules](../../images/figure13_android.png "Figure 13 - Choose Modules")
-#### <p style="text-align: center;">Figure 13 - Choose Modules</p>
+  ![Figure 11 - Choose Modules](../../images/figure11_android.png "Figure 11 - Choose Modules")
+#### <p style="text-align: center;">Figure 11 - Choose Modules</p>
 <br>
 
 * Select the **sdk-release**, and click **OK**.
@@ -141,16 +124,17 @@ In order to create this *ServiceConnection*, follow the steps outlined within Co
 > Code Snippet 2
 
 ```java
-private final ServiceConnection mConnection = new ServiceConnection() {
+    private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            mIsBound = true;
-            mServiceMessenger = new Messenger(iBinder);
+            SdkService.LocalBinder binder = (SdkService.LocalBinder) iBinder;
+            mService = binder.getService();
+            mServiceMessenger = mService.mServiceMessenger;
         }
 
-       @Override
+        @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            Log.d(TAG, "onServiceDisconnected: ");
+
         }
     };
 ```
@@ -236,7 +220,6 @@ protected void onDestroy() {
 |**GSR_EVENT_FILTER**|Filters for GSR events from the **SensumAPI**|`String`|
 |**EMOJI_SENTIMENT_FILTER**|Filters for emoji sentiment from the **SensumAPI**|`String`|
 |**TEXT_SENTIMENT_FILTER**|Filters for text sentiment from the **SensumAPI**|`String`|
-|**HR_TEST_DATA_FILTER**|Filters for generated heart rate test data from the **SensumAPI**|`String`|
 |**CONNECTED_DEVICES_FILTER**|Filters for connected devices|`String`|
 
 ## Setting up the Broadcast Receiver
@@ -285,8 +268,6 @@ protected void onDestroy() {
                case TEXT_SENTIMENT_FILTER:
                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
                    break;
-               case HR_TEST_DATA_FILTER:
-                   break;
                case CONNECTED_DEVICES_FILTER:
                     String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
@@ -328,7 +309,6 @@ protected void onDestroy() {
         filter.addAction(GSR_EVENT_FILTER);
         filter.addAction(EMOJI_SENTIMENT_FILTER);
         filter.addAction(TEXT_SENTIMENT_FILTER);
-        filter.addAction(HR_TEST_DATA_FILTER);
         filter.addAction(CONNECTED_DEVICES_FILTER);
         return filter;
     }
@@ -355,28 +335,22 @@ protected void onDestroy() {
 
  * The application’s communication with the *Service* requires that commands be sent via *Message* objects.
  * The *Message* object contains a property called `arg1` (which is an Integer value).
- * This Integer value represents one of the possible options listed in the Constants column of Table 2 (corresponding to an integer value between 0 and 8).
+ * This Integer value represents one of the possible options listed in the Constants column of Table 2.
  * This property (`arg1`) will carry the command you want to request from the *Service*.
 
 ### Table 2: Send to Service Commands
 
 |Constants (of type 'Int')|Required Bundle Data|
 |-------------------------|--------------------|
-|**CONNECT**|`String DEVICE_NAME`, <br> `String DEVICE_ADDRESS`|
+|**CONNECT_BLE**|`String DEVICE_NAME`, <br> `String DEVICE_ADDRESS`|
 |**BLE_SCAN**|`null`|
 |**START_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`,<br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`,<br> `int DATA_RATE_SEND`|
 |**CANCEL_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`, <br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`|
-|**LOGIN**|`String USER_NAME`,<br> `String PASSWORD`,<br> `String API_BASEURL`,<br> `String API_KEY`,<br> `String USER_POOL_ID`<br> `String CLIENT_ID`|
 |**GOOGLE_LOGIN**|`String API_BASEURL`,<br> `String API_KEY`,<br> `String IDENTITY_POOL_ID`,<br> `String GOOGLE_ID_TOKEN`,<br> `String GOOGLE_WEB_CLIENT_ID`|
-|**INPUT_TEXT**|`String TEXT_MESSAGE`|
 |**BLUETOOTH_SCAN**|`null`|
 |**CONNECT_BLUETOOTH_DEVICE**|`String DEVICE_NAME`,<br> `String DEVICE_ADDRESS`|
 |**HELLO**|`null`|
 |**INPUT_SENTIMENT_TEXT**|`String TEXT_MESSAGE`|
-|**GENERATE_TEST_DATA**|`int GENERATE_NUMBER_OF_RECORDS`|
-|**START_OFFLINE_CAPTURE**|`boolean ACCELERATION_CAPTURE`,<br> `boolean HR_CAPTURE`,<br> `boolean GPS_CAPTURE`,<br> `boolean GSR_CAPTURE`,<br> `boolean INPUT_CAPTURE`|
-|**CANCEL_OFFLINE_CAPTURE**|`null`|
-|**START_SDK_SERVER**|`boolean`|
 |**DISCONNECT_BLE**|`null`|
 |**DISCONNECT_BLUETOOTH**|`null`|
 |**CONNECTED_DEVICES**|`null`|
@@ -384,7 +358,7 @@ protected void onDestroy() {
  * This *Message* object also has the capacity to transmit data in the form of a *Bundle*.
  * A *Bundle* contains associated data that can be interpreted by the *Service*.
  * Table 2 indicates the relationship between selected Constants, and the requirements for a *Bundle* of a particular type.
-  * e.g. If using the **CONNECT** constant, then the associated *Bundle* should contain two Strings, one for **DEVICE_NAME**, the other for **DEVICE_ADDRESS**.
+  * e.g. If using the **CONNECT_BLE** constant, then the associated *Bundle* should contain two Strings, one for **DEVICE_NAME**, the other for **DEVICE_ADDRESS**.
  * Code Snippet 10 illustrates how to construct a *Message* object, and how to send it on to the *Service*.
  * The *Messenger* object, `mServiceMessenger`, is able to execute its associated `.send` method. This sends the constructed *Message* object to the *Service*.
 
@@ -455,8 +429,6 @@ protected void onDestroy() {
                case TEXT_SENTIMENT_FILTER:
                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
                    break;
-               case HR_TEST_DATA_FILTER:
-                   break;
                case CONNECTED_DEVICES_FILTER:
                     String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
@@ -522,9 +494,9 @@ button.setOnClickListener(new View.OnClickListener() {
 
 ```java
 Bundle bundle =  new Bundle();
-bundle.putString(ServiceConstants.DEVICE_NAME, deviceName);
-bundle.putString(ServiceConstants.DEVICE_ADDRESS, deviceAddress);
-sendToService(bundle, CONNECT);
+bundle.putString(DEVICE_NAME, deviceName);
+bundle.putString(DEVICE_ADDRESS, deviceAddress);
+sendToService(bundle, CONNECT_BLE);
 ```
 
 * **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.
@@ -622,7 +594,6 @@ sendToService(getCaptureBundle(), CANCEL_CAPTURE);
 |**GSR_EVENT_FILTER**|Filters for GSR events|`null`|
 |**EMOJI_SENTIMENT_FILTER**|Filters for Emoji Sentiment values|`Bundle`|
 |**TEXT_SENTIMENT_FILTER**|Filters for Text Sentiment values|`Bundle`|
-|**HR_TEST_DATA_FILTER**||`null`|
 
 * These filters should also be added to your `getUpdateFilter` method (Code Snippet 17).
 
@@ -643,7 +614,6 @@ private IntentFilter getUpdateIntentFilter() {
         filter.addAction(GSR_EVENT_FILTER);
         filter.addAction(EMOJI_SENTIMENT_FILTER);
         filter.addAction(TEXT_SENTIMENT_FILTER);
-        filter.addAction(HR_TEST_DATA_FILTER);
       return filter;
   }
 ```
@@ -653,6 +623,7 @@ private IntentFilter getUpdateIntentFilter() {
 * *Realm* is a Mobile Database that provides an alternative to *SQLite* & *Core Data*.
 * We use *Realm* to safely and efficiently store/query data from the response the **SensumAPI** returns. We recommend you take some time to study the RealmDocs <a href = "https://realm.io/docs/java/latest/"> here</a>.
 * A significant advantage for developers using the **SensumSDK** is the ability to query the *Realm* database from the front-end to see what data has been captured/stored.
+* Data is persisted in *Realm* for a session as long as the user doesn't start a new session using **START_CAPTURE**, before staring a new session the data for the old session is deleted from *Realm* to avoid mixing user's data accross multiple sessions, therefore if the data for a session needs to be persisted it would need to be saved before starting a new session.
 * When an event has been received by the *BroadcastReceiver*, the developer can query the *Realm* database to retrieve the values received from the **SensumAPI**.
 * The **AROUSAL_EVENT_FILTER** lets the developer know that the **SensumSDK** has received an ‘arousal event’.
 * Code Snippet 18 displays how the developer could query *Realm* to see the values stored.
@@ -692,19 +663,19 @@ private void updateArousalStats(ArousalStats arousalStats) {
 * Code Snippet 18 shows the `ArousalStats` object.
 * Each record of the object has associated values attached, displayed in the `updateArousalStats` method.
 
-* Tables 5 - 12 display the *Realm* objects that the **SensumSDK** holds.
+* Tables 5 - 16 display the *Realm* objects that the **SensumSDK** holds.
 * These objects contain methods and values associated with the response from the **SensumAPI**.
 
 ### Table 5: Example Event Realm Object
 
-| Realm Object                                  | Associated Methods | Method Type | Description                                                                                |
+| Object                                        | Associated Methods | Method Type | Description                                                                                |
 |-----------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------------------------|
 | `ResHeartRate` Events associated with Heart Rate | `getValue()`         | String      | Retrieves a value associated with the event event - min, max, normal, rising, falling      |
 |                                               | `getTime()`          | long        | Event time                                                                                 |
 |                                               | `getSeverity()`      | double      | How much of value change between forward/backward events with respect to the average value |
 
 ### Table 6: SensumSDK Realm Objects
-| Realm Event Objects |
+| Objects                |
 |---------------------|
 | `ResAccelerometerX`    |
 | `ResAccelerometerY`    |
@@ -720,7 +691,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ### Table 7: Example Statistics Object
 
-| Realm Object   | Associated Methods | Method Type | Description                               |
+| Object         | Associated Methods | Method Type | Description                               |
 |----------------|--------------------|-------------|-------------------------------------------|
 | `HeartRateStats` | `getAvg()`           | Double      | Returns an average value                  |
 |                | `getDuration()`      | Double      | Returns duration value                    |
@@ -731,7 +702,7 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ### Table 8: SensumSDK Statistics Objects
 
-| Realm Stats Objects |
+| Objects               |
 |---------------------|
 | `AccelerometerXStats` |
 | `AccelerometerYStats` |
@@ -757,41 +728,50 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 ### Table 10: ArousalStats Realm Object
 
-| Realm Stats Object | Associated Methods | Type           | Description                                                             |
+| Object             | Associated Methods | Type           | Description                                                             |
 |--------------------|--------------------|----------------|-------------------------------------------------------------------------|
 | `ArousalStats`       | `getValue()`         | double         | Returns an activation value                                             |
 |                    | `getDominant()`      | String         | Label of the dominant classification category                           |
-|                    | `getSectors()`       | ArousalSectors | Returns the sectors associated with the arousal stats object (Table 12) |
+|                    | `getSectors()`       | ArousalSectors | Returns the sectors associated with the arousal stats object (Table 11) |
 
-### Table 11: EngagementStats Realm Object
-
-| Realm Stats Object | Associated Methods | Type              | Description                                                             |
-|--------------------|--------------------|-------------------|-------------------------------------------------------------------------|
-| `EngagementStats`    | `getValue()`         | double            | Returns an activation value                                             |
-|                    | `getDominant()`      | String            | Label of the dominant classification category                           |
-|                    | `getSectors()`       | EngagementSectors | Returns the sectors associated with the arousal stats object (Table 12) |
-
-### Table 12: ArousalSectors and EngagmentSectors Realm Objects
+### Table 11: ArousalSectors Realm Object
 
 | Object                            | Associated Methods | Type   | Description                                 |
 |-----------------------------------|--------------------|--------|---------------------------------------------|
-| `ArousalSectors` and `EngagmentSectors` | `getExcited()`       | double | Returns a value associated with excitement  |
+| `ArousalSectors`                  | `getExcited()`       | double | Returns a value associated with excitement  |
 |                                   | `getActivated()`     | double | Returns a value associated with activity    |
 |                                   | `getCalm()`          | double | Returns a value associated with calmness    |
 |                                   | `getPassive()`       | double | Returns a value associated with passiveness |
 |                                   | `getRelaxed()`       | double | Returns a value associated with relaxation  |
 
+### Table 12: EngagementStats Realm Object
+
+| Object             | Associated Methods | Type              | Description                                                             |
+|--------------------|--------------------|-------------------|-------------------------------------------------------------------------|
+| `EngagementStats`  | `getValue()`         | double            | Returns an activation value                                             |
+|                    | `getDominant()`      | String            | Label of the dominant classification category                           |
+|                    | `getSectors()`       | EngagementSectors | Returns the sectors associated with the engagement stats object (Table 13) |
+
+### Table 13: EngagmentSectors Realm Object
+
+| Object                            | Associated Methods | Type   | Description                                 |
+|-----------------------------------|--------------------|--------|---------------------------------------------|
+| `EngagmentSectors`                | `getHighlyEngaged()`       | double | Returns a value associated with highly engaged  |
+|                                   | `getEngaged()`     | double | Returns a value associated with engaged    |
+|                                   | `getActivated()`          | double | Returns a value associated with activiated    |
+|                                   | `getNeutral()`       | double | Returns a value associated with neutral |
+
 
 * Sentiment values are returned via the *BroadcastReceiver* (see Table 4).
-* When the developer sends a message to the service using the **INPUT_TEXT** command, the associated *String* object that is sent to the *Service* (see Table 2) is also sent to the **SensumAPI**, before a value is returned to the **SensumSDK**.
+* When the developer sends a message to the service using the **INPUT_SENTIMENT_TEXT** command, the associated *String* object that is sent to the *Service* (see Table 2) is also sent to the **SensumAPI**, before a value is returned to the **SensumSDK**.
 * Depending on the type of input (i.e. text or emoji), a *Bundle* is returned to the front-end.
 * To receive this bundle the developer should include the **TEXT_SENTIMENT_FILTER** and **EMOJI_SENTIMENT_FILTER**  within the BroadcastReceivers `onReceive` method.
 
 <!-- TEST COMMENT FOR GIT ISSUE-->
 
-* The *Bundle* contains three values of type double (see Table 13).
+* The *Bundle* contains three values of type double (see Table 14).
 
-### Table 13: Sentiment Filter Data
+### Table 14: Sentiment Filter Data
 
 | Object       | Type   | Description                                  |
 |--------------|--------|----------------------------------------------|
@@ -801,12 +781,20 @@ private void updateArousalStats(ArousalStats arousalStats) {
 
 * These events are returned via a *BroadcastIntent* rather than retrieved from the *Realm* database; therefore they should be listened for in the *BroadcastReceiver*'s `onReceive` method.
 
-### Table 14: Example Heart Rate Test Data Realm Object 
+### Table 15: ActivityStats Realm Object
 
-| Realm Object                                                     | Associated Methods   | Method Type | Description                                                                                |
-|------------------------------------------------------------------|----------------------|-------------|--------------------------------------------------------------------------------------------|
-| `ResHeartRateTestData` Heart rate test data generated by the API | `getValue()`         | double      | Retrieves a heart rate value                                                               |
-|                                                                  | `getTime()`          | long        | Retrieves the timestamp in milliseconds for the generated heart rate value                 |
+| Object             | Associated Methods | Type              | Description                                                             |
+|--------------------|--------------------|-------------------|-------------------------------------------------------------------------|
+| `ActivityStats`    | `getValue()`         | double            | Returns an activation value                                             |
+|                    | `getDominant()`      | String            | Label of the dominant classification category                           |
+|                    | `getSectors()`       | ActivitySectors   | Returns the sectors associated with the activity stats object (Table 16) |
+
+### Table 16: ActivitySectors Realm Object
+
+| Object                            | Associated Methods | Type   | Description                                 |
+|-----------------------------------|--------------------|--------|---------------------------------------------|
+| `ActivitySectors`                 | `getActive()`       | double | Returns a value associated with active  |
+|                                   | `getInactive()`     | double | Returns a value associated with inactive    |
 
 
 
@@ -905,21 +893,37 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 ## Gradle Dependencies
 
-* Code Snippet 23 displays the Gradle Dependencies that the developer will need to include to successfully run the application.
+* Code Snippet 23 displays the top level Gradle Dependencies that the developer will need to include to successfully run the application.
 
 > Code Snippet 23
 
 ```java
-compile 'com.amazonaws:aws-android-sdk-core:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-s3:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-cognito:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-ddb:2.4.+'
-compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.4.+'
-compile 'com.squareup.retrofit2:retrofit:2.3.0'
-compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
-compile 'com.squareup.moshi:moshi:1.5.0'
-compile 'com.squareup.okhttp3:okhttp:3.9.0'
-compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-compile 'com.google.code.gson:gson:2.8.0'
-compile 'com.google.guava:guava:19.0'
+    classpath "io.realm:realm-gradle-plugin:4.2.0"
+    allprojects {
+    repositories {
+        maven { url  "http://dl.bintray.com/shimmerengineering/Shimmer" }
+        google()
+    }
+}
+```
+
+* Code Snippet 24 displays the app level Gradle Dependencies that the developer will need to include to successfully run the application.
+
+> Code Snippet 24
+
+```java
+    compile 'com.amazonaws:aws-android-sdk-core:2.6.18'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.6.18'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.6.18'
+    compile 'com.amazonaws:aws-android-sdk-ddb:2.6.18'
+    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.6.18'
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile 'com.squareup.retrofit2:converter-moshi:2.4.0'
+    compile 'com.squareup.moshi:moshi:1.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.guava:guava:19.0'
+    compile 'com.shimmerresearch.managers.bluetoothmanager:ShimmerBluetoothManager:0.9.33beta'
+    compile 'com.shimmerresearch.driver:ShimmerDriver:0.9.120beta'
 ```

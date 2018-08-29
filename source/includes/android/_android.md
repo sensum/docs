@@ -2,7 +2,7 @@
 
 ## Android Device Compatibility
 
-The Android version of **SensumSDK** can be installed on devices with **5.1.1 (Lollipop)** up to **7.0 (Nougat)**.
+The Android version of **SensumSDK** can be installed on devices with **6.0 (Marshmallow)** up to **8.0 (Oreo)**.
 
 We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the **Google Pixel** as suitable devices
 
@@ -18,15 +18,15 @@ The Android **SensumSDK** can accept the following <a href = "#available-metrics
 
   * Heart Rate
   * GSR
-  * GPS latitude
-  * GPS longitude
-  * GPS altitude
-  * GPS accuracy
-  * GPS speed
-  * acceleration
-  * acceleration X
-  * acceleration Y
-  * acceleration Z
+  * Location Latitude
+  * Location Longitude
+  * Location Altitude
+  * Location Accuracy
+  * Location Speed
+  * Acceleration
+  * Acceleration X
+  * Acceleration Y
+  * Acceleration Z
 
 
 ## Service Constants
@@ -53,52 +53,22 @@ This is used to pass the Google id token to the **SensumSDK** service which is u
 ### Google Web Client Id
 `public static final String GOOGLE_WEB_CLIENT_ID = "google-web-client-id"`
 
-This is used to pass the API key to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
+This is used to pass the Google web client id to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
 
 ### Google Login
 `public static final int GOOGLE_LOGIN = 126`
 
 This is used to pass a google login message to the **SensumSDK** service
 
-### User Pool Id
-`public static final String USER_POOL_ID = "user-poolid"`
+### Login Filter
+`public static final String LOGIN_FILTER = "login-filter"`
 
-This is used to pass the AWS user pool id to the **SensumSDK** service which is used for user authentication
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the user login
 
 ### Identity Pool Id
 `public static final String IDENTITY_POOL_ID = "identity-poolid"`
 
 This is used to pass the AWS identity pool id to the **SensumSDK** service which is used for user authentication
-
-### Client Id
-`public static final String CLIENT_ID = "client-id"`
-
-This is used to pass a login message (AWS Cognito) to the **SensumSDK** service
-
-### Login
-`public static final int LOGIN = 105`
-
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the user login (AWS Cognito)
-
-### Login Filter
-`public static final String LOGIN_FILTER = "login-filter"`
-
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the user login (AWS Cognito)
-
-### Username
-`public static final String USER_NAME = "user-name"`
-
-This is used to pass the username (AWS Cognito) for authentication to the **SensumSDK** service, only authenticated users are able to use the **SensumSDK** service
-
-### Password
-`public static final String PASSWORD = "password"`
-
-This is used to pass the password (AWS Cognito) for authentication to the **SensumSDK** service
-
-### BLE Device Filter
-`public static final String DEVICE_FILTER = "ble-filter"`
-
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the connected ble device
 
 ### Heart Rate Filter
 `public static final String HR_FILTER = "hr-filter"`
@@ -114,11 +84,6 @@ This is used to pass a message from the **SensumSDK** service which is used as a
 `public static final String AROUSAL_FILTER = "arousal-filter"`
 
 This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate arousal from the **SensumAPI**
-
-### Wear_HR_Value
-`public static final String WEAR_HR_VALUE = "wear-hr-value"`
-
-This is used to pass the Heart Rate value captured using Android Wear to the **SensumSDK** service
 
 ### GPS Filter
 `public static final String GPS_FILTER = "gps-filter"`
@@ -200,30 +165,10 @@ This is used to pass a message from the **SensumSDK** service which is used as a
 
 This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GSR events from the **SensumAPI**
 
-### Input Text
-`public static final int INPUT_TEXT = 106`
-
-This is used to filter/pass text & emoji message to the **SensumSDK** service
-
-### Text Message
-`public static final String TEXT_MESSAGE = "text-message"`
-
-This is used to pass Text/Emoji value to the **SensumSDK** service
-
 ### Extra Data
 `public static final String EXTRA_DATA = "extra-data"`
 
 This is used to bundle up extra data to the intents
-
-### Device Name
-`public static final String DEVICE_NAME = "device-name"`
-
-This is used to get the connected device name
-
-### Device Address
-`public static final String DEVICE_ADDRESS = "device-address"`
-
-This is used to get the connected device address
 
 ### Acceleration Capture
 `public static final String ACCELERATION_CAPTURE = "acceleration-capture"`
@@ -250,16 +195,6 @@ This is used to enable/disable capturing of text/emoji data which is sent to the
 
 This is used to enable/disable capturing of GSR data which is sent to the **SensumAPI**
 
-### Re Cancel Capture
-`public static final String RE_CANCEL = "re-cancel"`
-
-This is used to check if there is data to send and re-cancel the session 
-
-### Device Disconnected
-`public static final String DEVICE_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"`
-
-This is used to pass a message from the **SensumSDK** service in case of any device disconnection
-
 ### Data Rate Send
 `public static final String DATA_RATE_SEND = "send-rate"`
 
@@ -274,21 +209,6 @@ This is used to pass message from the **SensumSDK** service for the **SensumAPI*
 `public static final String TOAST_MESSAGE = "toast-message"`
 
 This is used to pass informative toast message from the **SensumSDK** service
-
-### Generate Number Of Test Data Records
-`public static final String GENERATE_NUMBER_OF_RECORDS = "generate_number_of_records"`
-
-This is used to pass a message to the **SensumSDK** service to get the desired number of test data records from the **SensumAPI**
-
-### Generate Test Data
-`public static final int GENERATE_TEST_DATA = 129`
-
-This is used to pass a message to the **SensumSDK** service to get test data from the **SensumAPI**
-
-### Heart Rate Test Data
-`public static final String HR_TEST_DATA_FILTER = "hr-test-data-filter"`
-
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate test data from the **SensumAPI**
 
 ### Input Sentiment Text
 `public static final int INPUT_SENTIMENT_TEXT = 128`
@@ -320,46 +240,6 @@ This is used to pass a message from the **SensumSDK** service which is used as a
 
 This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving Negativity value (Sentiment Analysis) from the **SensumAPI**
 
-### Connect
-`public static final int CONNECT = 101`
-
-This is used to connect to the selected device from the list of the devices
-
-### Connection 
-`public static final String CONNECTION = "connection"`
-
-This is used to pass a connection message from the **SensumSDK** service to the front end
-
-### BLE Scan
-`public static final int BLE_SCAN = 102`
-
-This is used to pass a BLE scan message to the **SensumSDK** service
-
-### BLE Connection Filter
-`public static final String BLE_CONNECTION_FILTER = "ble-connection-filter"`
-
-This is used to pass a BLE connection message from the **SensumSDK** service which is used as an intent filter at the front end
-
-### Bluetooth Scan
-`public static final int BLE_SCAN = 107`
-
-This is used to pass a bluetooth scan message to the **SensumSDK** service
-
-### Bluetooth Connection Filter
-`public static final String BLUETOOTH_CONNECTION_FILTER = "bluetooth-connection-filter"`
-
-This is used to filter for bluetooth connection at the front end
-
-### Bluetooth Device Filter
-`public static final String BLUETOOTH_DEVICE_FILTER = "bluetooth-device-filter"`
-
-This is used to filter for bluetooth device at the front end
-
-### Connect Bluetooth Device
-`public static final int CONNECT_BLUETOOTH_DEVICE = 108`
-
-This is used to pass a connect bluetooth device message to the **SensumSDK** service
-
 ### Cancel Capture
 `public static final int CANCEL_CAPTURE = 112`
 
@@ -380,50 +260,110 @@ This is used for the initial communication between developer and frontend to dem
 
 This is used to filter for hello at the front end
 
-### Cancel Offline Capture
-`public static final int CANCEL_OFFLINE_CAPTURE = 132`
+### Device Name
+`public static final String DEVICE_NAME = "device-name"`
 
-This is used to cancel offline capturing of the data
+This is used to get the connected device name
 
-### Start Offline Capture
-`public static final int START_OFFLINE_CAPTURE = 133`
+### Device Address
+`public static final String DEVICE_ADDRESS = "device-address"`
 
-This is used to start offline capturing of the data
+This is used to get the connected device address
 
-### Start SDK Server
-`public static final String START_SDK_SERVER = "start-sdk-server"`
+### Connection 
+`public static final String CONNECTION = "connection"`
 
-This is used to start a server locally on the device which listens on port 8080 as a localhost. The server serves the request and returns a json which contains the raw biometric data recorded and the process data returned from the **SensumAPI**
+This is used to pass a connection message from the **SensumSDK** service to the front end
 
-### Disconnect BLE Device
-`public static final int DISCONNECT_BLE = 134`
+### BLE Scan
+`public static final int BLE_SCAN = 102`
 
-This is used to disconnect a BLE device
+This is used to pass a BLE scan message to the **SensumSDK** service
 
-### Disconnect Bluetooth Device
-`public static final int DISCONNECT_BLUETOOTH = 135`
+### Connect BLE Device
+`public static final int CONNECT_BLE = 101`
 
-This is used to disconnect a bluetooth device
+This is used to pass a connect BLE device message to the **SensumSDK** service
 
-### Connected Devices
-`public static final int CONNECTED_DEVICES = 136`
+### BLE Connection Filter
+`public static final String BLE_CONNECTION_FILTER = "ble-connected-filter"`
 
-This is used to pass a message to the sdk to get the connected device names
+This is used to pass a BLE connection message from the **SensumSDK** service which is used as an intent filter at the front end
 
-### Connected Devices Filter
-`public static final String CONNECTED_DEVICES_FILTER = "connected-devices-filter"`
+### BLE Device Filter
+`public static final String BLE_DEVICE_FILTER = "ble-filter"`
 
-This is used to filter for the connected devices
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the connected ble device
 
 ### BLE Device Name
 `public static final String BLE_DEVICE_NAME = "ble-device-name"`
 
 This is used to pass the BLE device name from the **SensumSDK** service
 
+### Disconnect BLE Device
+`public static final int DISCONNECT_BLE = 134`
+
+This is used to disconnect a BLE device
+
+### BLE Connectivity
+`public static final String BLE_CONNECTIVITY = "ble-connectivity"`
+
+This is used to pass a BLE connectivity message from the **SensumSDK** service to the front end
+
+### Connected Devices
+`public static final int CONNECTED_DEVICES = 136`
+
+This is used to pass a message to the **SensumSDK** to get the connected device names
+
+### Connected Devices Filter
+`public static final String CONNECTED_DEVICES_FILTER = "connected-devices-filter"`
+
+This is used to filter for the connected devices
+
 ### Bluetooth Device Name
 `public static final String BLUETOOTH_DEVICE_NAME = "bluetooth-device-name"`
 
 This is used to pass the bluetooth device name from the **SensumSDK** service
+
+### Bluetooth Scan
+`public static final int BLUETOOTH_SCAN = 107`
+
+This is used to pass a bluetooth scan message to the **SensumSDK** service
+
+### Disconnect Bluetooth Device
+`public static final int DISCONNECT_BLUETOOTH = 135`
+
+This is used to disconnect a bluetooth device
+
+### Connect Bluetooth Device
+`public static final int CONNECT_BLUETOOTH_DEVICE = 108`
+
+This is used to pass a connect bluetooth device message to the **SensumSDK** service
+
+### Bluetooth Connectivity
+`public static final String BT_CONNECTIVITY = "bt-connectivity"`
+
+This is used to pass a bluetooth connectivity message from the **SensumSDK** service to the front end
+
+### Bluetooth Connection Filter
+`public static final String BLUETOOTH_CONNECTION_FILTER = "bluetooth-connected-filter"`
+
+This is used to filter for bluetooth connection at the front end
+
+### Bluetooth Device Filter
+`public static final String BLUETOOTH_DEVICE_FILTER = "bluetooth-device-filter"`
+
+This is used to filter for bluetooth device at the front end
+
+### Device Disconnected
+`public static final String DEVICE_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"`
+
+This is used to pass a message from the **SensumSDK** service in case of any device disconnection
+
+### Realm Response
+`public static final String REALM_RESPONSE = "realm-response"`
+
+This is used to pass message from the **SensumSDK** service for data manipulation in realm for a session
 
 
 
@@ -436,13 +376,14 @@ Examples available in the 'Android' tab.
 ```java
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName name, IBinder binder) {
-            mIsBound = true;
-            mServiceMessenger = new Messenger(binder);
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            SdkService.LocalBinder binder = (SdkService.LocalBinder) iBinder;
+            mService = binder.getService();
+            mServiceMessenger = mService.mServiceMessenger;
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName name) {
+        public void onServiceDisconnected(ComponentName componentName) {
 
         }
     };
@@ -462,34 +403,6 @@ Once bound to the service, the binder object is passed through to messenger to s
 
 &nbsp;
 
-
-
-### Submit Credentials to service for authorization (Cognito User Pools)
-
-```java
-    void submit() {
-        Bundle bundle = new Bundle();
-        bundle.putString(USER_NAME, "username");
-        bundle.putString(PASSWORD, "password");
-        bundle.putString(USER_POOL_ID, "userPoolId");
-        bundle.putString(CLIENT_ID, "clientId");
-        bundle.putString(API_BASEURL, "apiBaseUrl");
-        bundle.putString(API_KEY, "apiKey");
-        sendToService(bundle, LOGIN);
-    }
-```
-
-`void submit()`
-
-Sets up the credential bundle to be sent to the **SensumSDK** service this needs to be sent first to the **SensumSDK** service as only authenticated users can use the service.
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 
 ### Submit Credentials to service for authorization (Google Sign-In)
 
@@ -531,7 +444,6 @@ Sets up the credential bundle to be sent to the **SensumSDK** service this needs
         message.setData(bundle);
         try {
             mServiceMessenger.send(message);
-            Toast.makeText(this, "Requested the service", Toast.LENGTH_SHORT).show();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -600,8 +512,6 @@ Send message to the service.
                case TEXT_SENTIMENT_FILTER:
                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
                    break;
-               case HR_TEST_DATA_FILTER:
-                   break;
                case CONNECTED_DEVICES_FILTER:
                     String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
@@ -636,23 +546,6 @@ Broadcast receiver with the list of registered filters.
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 
 ### Update IntentFilter with new Actions
 
@@ -672,8 +565,7 @@ Broadcast receiver with the list of registered filters.
         intentFilter.addAction(GSR_EVENT_FILTER);
         intentFilter.addAction(EMOJI_SENTIMENT_FILTER);
         intentFilter.addAction(TEXT_SENTIMENT_FILTER);
-        intentFilter.addAction(HR_TEST_DATA_FILTER);
-        filter.addAction(CONNECTED_DEVICES_FILTER);
+        intentFilter.addAction(CONNECTED_DEVICES_FILTER);
         return intentFilter;
     }
 ```
@@ -690,7 +582,6 @@ Broadcast receiver with the list of registered filters.
 
 &nbsp;
 
-
 &nbsp;
 
 &nbsp;
@@ -698,7 +589,6 @@ Broadcast receiver with the list of registered filters.
 &nbsp;
 
 &nbsp;
-
 
 &nbsp;
 
@@ -775,7 +665,7 @@ Sets up the bundle data for capture using the service constants.
 ```java
     private void stopCaptureSetUp() {
         Toast.makeText(this, "Stopped capturing", Toast.LENGTH_SHORT).show();
-        sendToService(getCaptureBundle(), ServiceConstants.CANCEL_CAPTURE);
+        sendToService(getCaptureBundle(), CANCEL_CAPTURE);
     }
 ```
 `private void stopCaptureSetUp()`
