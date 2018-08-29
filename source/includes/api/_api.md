@@ -285,7 +285,7 @@ Please refer to the code samples for request and response examples
   }
 }
 ```
-
+<!--
 ## Retrieve previously recorded data
 
 This endpoint allows the user to retrieve previously entered data by providing a start time, an end time and the metrics to be retrieved.
@@ -700,6 +700,8 @@ To perform this operation, you must be authenticated by means of the following h
 X-API-Key, Authorization
 </aside>
 
+-->
+
 
 ## Send data for events analysis
 
@@ -1017,7 +1019,7 @@ To perform this operation, you must be authenticated by means of the following h
 X-API-Key, Authorization
 </aside>
 
-
+<!--
 ## Get test data
 
 This endpoint allows the user to generate a series of test data streams that can be fed into the events endpoint to test the analysis service. When testing the events endpoint only POST the "records" JSON object in the request body.
@@ -1150,6 +1152,8 @@ Status|Header|Type|Format|Description
 To perform this operation, you must be authenticated by means of the following headers:
 X-API-Key, Authorization
 </aside>
+
+-->
 
 ## Errors
 

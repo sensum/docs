@@ -1,3 +1,4 @@
+<!--
 # SensumSDK - iOS
 
 ## iOS Device Compatibility
@@ -1202,3 +1203,5 @@ Emotion is a collection of inferred emotions from the sentiment analysis perform
 ### Emotion Functions: Save
 
  `func save()`
+
+ -->

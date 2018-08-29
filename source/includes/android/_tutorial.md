@@ -821,7 +821,7 @@ compile 'com.google.android.gms:play-services-auth:11.0.4'
  * The `google-services.json` is created using *Firebase* during enabling *Google Services* for your Android application and is generally placed in the **app/** directory (at the root of the Android Studio app module).
  * For *Google Sign-In* to work with *AWS* authentication, `OAuth 2.0 client ID` (*Google Android Client ID*) is required by *AWS*.
  * The *Google Android Client ID* is created using *Google Developer Console* by providing your Android application package name and the SHA-1 signing-certificate fingerprint from Android Studio.
- * The generated *Google Android Client ID* needs to be given to us for adding it to *AWS* for authentication.
+ * The generated *Google Android Client ID* needs to be given to us for adding it to *AWS* for authentication. You can contact us at hello@sensum.co.
 
  * In the `onCreate()` method of your sign-in `Activity`, the `GoogleSignInOptions` object should be instantiated.
  * This object is used to create the `GoogleApiClient` which is used for accessing the *Google Sign-In API*.

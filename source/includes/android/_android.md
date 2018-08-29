@@ -419,7 +419,7 @@ Once bound to the service, the binder object is passed through to messenger to s
 ```
 Follow Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.
 
-Once successfully implemented you must send the Google Id token for the Google Sign-In application to us to authenticate access. You can contact // TODO INSERT CONTACT DETAILS FOR ADDING GOOGLE ID TO AWS IAM
+Once successfully implemented you must send the Google Id token for the Google Sign-In application to us to authenticate access. You can contact us at hello@sensum.co.
 
 `void submit()`
 

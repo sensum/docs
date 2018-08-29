@@ -1,11 +1,14 @@
+<!--
 # Tutorial - iOS
 
 ## Getting Started
 
 The **SensumKit** framework is only compatible with **Swift 3** and above. We strongly recommend using **Xcode version 8 and above**. We work on **Xcode 8.3.3** at time of our first public framework release.
+-->
 
 <!-- (UPDATE WITH ACCURATE DATE) -->
 
+<!--
 ### Create a project
 
  * Select **Create a new Xcode project** displayed in Figure 1.
@@ -719,3 +722,4 @@ func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError err
     }
 }
 ```
+-->
