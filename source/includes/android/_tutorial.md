@@ -98,7 +98,7 @@ Have fun and enjoy!
 ## Including Permissions
 
  * A number of permissions are required to use the Sensum **sdk-release**, shown in Code Snippet 1.
- * Include these permissions within your manifest file (*AndroidManifest.xml*).
+ * Include these permissions within your manifest file (*AndroidManifest.xml*). You will need to grant these permissions explicity.
 
  > Code Snippet 1
 
@@ -124,12 +124,20 @@ In order to create this *ServiceConnection*, follow the steps outlined within Co
 > Code Snippet 2
 
 ```java
+
+    Messenger mServiceMessenger;
+    SdkService mService;
+    boolean mIsBound;
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             SdkService.LocalBinder binder = (SdkService.LocalBinder) iBinder;
             mService = binder.getService();
             mServiceMessenger = mService.mServiceMessenger;
+            if (!mIsBound) {
+                mIsBound = true;
+            }
         }
 
         @Override
@@ -139,13 +147,14 @@ In order to create this *ServiceConnection*, follow the steps outlined within Co
     };
 ```
 
-* Declare both the *Service* and the *BLE Service* within your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3.
+* Declare both the *Service* and the *BLE Service* in your manifest file (*AndroidManifest.xml*) as shown in Code Snippet 3 within the application tags.
 
 > Code Snippet 3
 
 ```xml
-<service android:name="co.sensum.sensumservice.SDK.SdkService"/>
-<service android:name="co.sensum.sensumservice.SDK.BLE.BluetoothLeService"/>
+        <service android:name="co.sensum.sensumservice.SDK.SdkService"/>
+        <service android:name="co.sensum.sensumservice.SDK.BLE.BluetoothLeService"/>
+    </application>
 ```
 
 ## Binding and Unbinding the Service
@@ -233,7 +242,8 @@ protected void onDestroy() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            switch (action){
+            switch (action) {
+
                 case HELLO_FILTER:
                     Toast.makeText(MainActivity.this, intent.getStringExtra(EXTRA_DATA), Toast.LENGTH_LONG).show();
                     break;
@@ -242,10 +252,10 @@ protected void onDestroy() {
                     break;
                 case ACC_FILTER:
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
-                    isAcc = true;
                     break;
                 case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
+                    Log.d(TAG, "onReceive: " + hrValue);
                     break;
                 case GSR_FILTER:
                     String gsrValue = intent.getStringExtra(EXTRA_DATA);
@@ -256,22 +266,36 @@ protected void onDestroy() {
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
-               case HR_EVENT_FILTER:
-                   Break;
-               case AROUSAL_FILTER:
-                   break;
-               case GSR_EVENT_FILTER:
-                   break;
-               case EMOJI_SENTIMENT_FILTER:
-                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case TEXT_SENTIMENT_FILTER:
-                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case CONNECTED_DEVICES_FILTER:
-                    String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
+                case HR_EVENT_FILTER:
+                    break;
+                case AROUSAL_FILTER:
+                    break;
+                case GSR_EVENT_FILTER:
+                    break;
+                case EMOJI_SENTIMENT_FILTER:
+                    Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case TEXT_SENTIMENT_FILTER:
+                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case CONNECTED_DEVICES_FILTER:
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
-                   break;
+                    break;
+                case BLE_DEVICE_FILTER:
+                    ArrayList<BluetoothDevice> bledeviceList = intent.getParcelableArrayListExtra
+                            (EXTRA_DATA);
+                    for (BluetoothDevice bleDevice: bledeviceList) {
+                        Log.d("BleDevice", bleDevice.getName() + " " + bleDevice.getAddress());
+                    }
+                    break;
+                case BLUETOOTH_DEVICE_FILTER:
+                    Log.d(TAG, "onReceive: BLUETOOTH_DEVICE_FILTER");
+                    ArrayList<BluetoothDevice> bluetoothDevices = intent.getParcelableArrayListExtra(EXTRA_DATA);
+                    for (BluetoothDevice bluetoothDevice : bluetoothDevices) {
+                        Log.d("BluetoothDevice", bluetoothDevice.getName() + " " + bluetoothDevice
+                                .getAddress());
+                    }
+                    break;
             }
         }
     };
@@ -310,6 +334,9 @@ protected void onDestroy() {
         filter.addAction(EMOJI_SENTIMENT_FILTER);
         filter.addAction(TEXT_SENTIMENT_FILTER);
         filter.addAction(CONNECTED_DEVICES_FILTER);
+        filter.addAction(BLE_DEVICE_FILTER);
+        filter.addAction(BLE_CONNECTION_FILTER);
+        filter.addAction(BLUETOOTH_DEVICE_FILTER);
         return filter;
     }
 ```
@@ -394,7 +421,8 @@ protected void onDestroy() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            switch (action){
+            switch (action) {
+
                 case HELLO_FILTER:
                     Toast.makeText(MainActivity.this, intent.getStringExtra(EXTRA_DATA), Toast.LENGTH_LONG).show();
                     break;
@@ -403,10 +431,10 @@ protected void onDestroy() {
                     break;
                 case ACC_FILTER:
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
-                    isAcc = true;
                     break;
                 case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
+                    Log.d(TAG, "onReceive: " + hrValue);
                     break;
                 case GSR_FILTER:
                     String gsrValue = intent.getStringExtra(EXTRA_DATA);
@@ -417,22 +445,37 @@ protected void onDestroy() {
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
-               case HR_EVENT_FILTER:
-                   break;
-               case AROUSAL_FILTER:
-                   break;
-               case GSR_EVENT_FILTER:
-                   break;
-               case EMOJI_SENTIMENT_FILTER:
-                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case TEXT_SENTIMENT_FILTER:
-                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case CONNECTED_DEVICES_FILTER:
-                    String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
+                case HR_EVENT_FILTER:
+                    break;
+                case AROUSAL_FILTER:
+                    break;
+                case GSR_EVENT_FILTER:
+                    break;
+                case EMOJI_SENTIMENT_FILTER:
+                    Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case TEXT_SENTIMENT_FILTER:
+                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case CONNECTED_DEVICES_FILTER:
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
-                   break;
+                    break;
+                case BLE_DEVICE_FILTER:
+                    ArrayList<BluetoothDevice> bledeviceList = intent.getParcelableArrayListExtra
+                            (EXTRA_DATA);
+                    Log.d(TAG, "onReceive: " + bledeviceList.size());
+                    for (BluetoothDevice bleDevice: bledeviceList) {
+                        Log.d("BleDevice", bleDevice.getName() + " " + bleDevice.getAddress());
+                    }
+                    break;
+               case BLUETOOTH_DEVICE_FILTER:
+                    Log.d(TAG, "onReceive: BLUETOOTH_DEVICE_FILTER");
+                    ArrayList<BluetoothDevice> bluetoothDevices = intent.getParcelableArrayListExtra(EXTRA_DATA);
+                    for (BluetoothDevice bluetoothDevice : bluetoothDevices) {
+                        Log.d("BluetoothDevice", bluetoothDevice.getName() + " " + bluetoothDevice
+                                .getAddress());
+                    }
+                    break;
             }
         }
     };
@@ -479,16 +522,17 @@ button.setOnClickListener(new View.OnClickListener() {
  * Table 1 displays the data that the *Intent* received by the *BroadcastReceiver* carries.
  * In this case, the data that is received is an *ArrayList* of *BluetoothDevices*.
  * It is then up to the developer as to how they wish to display these devices.
- * We would recommend that the user sets up a *ListView* or *RecyclerView*.
+ * In our implementations we take the arraylist of devices sent back as shown in the `case BLE_DEVICE_FILTER` output and assign that to a recycler view for display. We then use an onClick for each viewholder to pass the name and address to the service.
 
 ## Connecting a BLE Device
 
  * To connect a BLE device the developer will need to send two *String* objects as part of the *Bundle* object that will be sent to the *Service* as part of the `sendToService` method (Code Snippet 14).
+
  * According to Table 2, the two Strings required are the BLE device's name and address.
  * These are necessary in order to create a connection between the Android device and the BLE device.
  * The developer should include the **BLE_CONNECTION_FILTER** constant within the *BroadcastReceiver’s* overridden `onReceive` method.
  * According to Table 1, the data received is of type *String*.
- * This *String* provides a connection message, sent back from the *Service*, to notify the user whether the connection was successful or not.
+ * This *String* provides a connection message, sent back from the *Service*, to notify the user whether the connection was successful or not. The `case HR_FILTER:` output will now update. 
 
 > Code Snippet 14
 
@@ -512,17 +556,13 @@ sendToService(bundle, CONNECT_BLE);
 ## Bluetooth
 
  * To scan for, receive, and read values from Bluetooth devices, please follow the steps previously outlined within the <a href = "#setting-up-the-ble">Setting up BLE</a> section of this tutorial.
- * The same steps should be taken, however bear in mind that the constants should change i.e. replace BLE_SCAN with **BLUETOOTH_SCAN**.
+ * The same steps should be taken, however bear in mind that the constants should change i.e. replace BLE_SCAN with **BLUETOOTH_SCAN** and BLE_DEVICE_FILTER with **BL.
  * This version of the **SensumSDK** will only connect to a *Shimmer 2r* device. This device returns GSR values.
  * The developer should include the **GSR_FILTER** constant within the *BroadcastReceiver’s* `onReceive` method.
  * According to Table 1 the value received will be of type *String*. This value will be the GSR value.
 
 
-
-**Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from *Shimmer 2r* devices at present.
-
 ## Receiving GPS and Acceleration Values
-
 
  * GPS and Acceleration values will automatically be sent from the *Service* to the application’s frontend once the user has started the application and is authenticated (see <a href = "#google-sign-in">Google Sign-In Section</a>).
  * The developer should include the **GPS_FILTER** and the **ACC_FILTER** constants within the *BroadcastReceiver’s* `onReceive` method.
