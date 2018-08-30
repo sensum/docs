@@ -5,11 +5,7 @@ language_tabs:
   - javascript--nodejs: Node.JS
   - python: Python
   - java: Java (Android)
-<!--
-toc_footers:
-  - <a href='https://www.sensum.co/'>Sign Up for a Developer Key</a>
-  - <a href='#'>Documentation Powered by Slate</a>
--->
+
 includes:
   - api/api
   - android/android
