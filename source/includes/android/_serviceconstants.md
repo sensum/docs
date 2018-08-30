@@ -329,8 +329,3 @@ This is used to pass a message from the **SensumSDK** service in case of any dev
 `public static final String REALM_RESPONSE = "realm-response"`
 
 This is used to pass message from the **SensumSDK** service for data manipulation in realm for a session
-
-
-
-
-

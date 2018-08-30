@@ -4,7 +4,7 @@
 
 The Android version of **SensumSDK** can be installed on devices with **6.0 (Marshmallow)** up to **8.0 (Oreo)**.
 
-We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the **Google Pixel** as suitable devices
+We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the **Google Pixel** as suitable devices for reliable bluetooth functionality. 
 
 ## Bluetooth Device Compatibility
 
@@ -27,7 +27,6 @@ The Android **SensumSDK** can accept the following <a href = "#available-metrics
   * Acceleration X
   * Acceleration Y
   * Acceleration Z
-
 
 ## Service Constants
 
@@ -365,8 +364,6 @@ This is used to pass a message from the **SensumSDK** service in case of any dev
 
 This is used to pass message from the **SensumSDK** service for data manipulation in realm for a session
 
-
-
 ## Example Methods
 
 Examples available in the 'Android' tab.
@@ -374,35 +371,32 @@ Examples available in the 'Android' tab.
 ### Initiate connection to service
 
 ```java
+      // class fields
+    Messenger mServiceMessenger;
+    SdkService mService;
+    boolean mIsBound;
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             SdkService.LocalBinder binder = (SdkService.LocalBinder) iBinder;
             mService = binder.getService();
             mServiceMessenger = mService.mServiceMessenger;
+            if (!mIsBound) {
+                mIsBound = true;
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-
+            // handle disconnect
         }
     };
 ```
 
 `private final ServiceConnection mConnection = new ServiceConnection()`
 
-Connection made to the service. 
-
-Once bound to the service, the binder object is passed through to messenger to set it up.
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
+Connection made to the service. Once bound to the service, the binder object is passed through to messenger to set it up.
 
 ### Submit Credentials to service for authorization (Google Sign-In)
 
@@ -417,6 +411,7 @@ Once bound to the service, the binder object is passed through to messenger to s
         sendToService(bundle, GOOGLE_LOGIN);
     }
 ```
+
 Follow Google's <a href = "https://developers.google.com/identity/sign-in/android/start-integrating">instructions</a> to add Google Sign-In to your application.
 
 Once successfully implemented you must send the Google Id token for the Google Sign-In application to us to authenticate access. You can contact us at hello@sensum.co.
@@ -424,16 +419,6 @@ Once successfully implemented you must send the Google Id token for the Google S
 `void submit()`
 
 Sets up the credential bundle to be sent to the **SensumSDK** service this needs to be sent first to the **SensumSDK** service as only authenticated users can use the service.
-
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 
 ### Send a data message to the service
 
@@ -458,26 +443,15 @@ Send message to the service.
    * `bundle` — any data that needs passed to the service
    * `argValue` — for service handler to switch on
 
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-
-
 ### Create New Broadcast Receiver Object
 
 ```java
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-
             switch (action) {
+
                 case HELLO_FILTER:
                     Toast.makeText(MainActivity.this, intent.getStringExtra(EXTRA_DATA), Toast.LENGTH_LONG).show();
                     break;
@@ -486,7 +460,6 @@ Send message to the service.
                     break;
                 case ACC_FILTER:
                     Bundle accBundle = intent.getBundleExtra(EXTRA_DATA);
-                    isAcc = true;
                     break;
                 case HR_FILTER:
                     String hrValue = intent.getStringExtra(EXTRA_DATA);
@@ -500,24 +473,30 @@ Send message to the service.
                 case TOAST_MESSAGE:
                     String toastMessage = intent.getStringExtra(EXTRA_DATA);
                     break;
-               case HR_EVENT_FILTER:
-                   Break;
-               case AROUSAL_FILTER:
-                   break;
-               case GSR_EVENT_FILTER:
-                   break;
-               case EMOJI_SENTIMENT_FILTER:
-                   Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case TEXT_SENTIMENT_FILTER:
-                   Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
-                   break;
-               case CONNECTED_DEVICES_FILTER:
-                    String bleDeviceName = intent.getStringExtra(ServiceConstants.BLE_DEVICE_NAME);
+                case EMOJI_SENTIMENT_FILTER:
+                    Bundle emojiSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case TEXT_SENTIMENT_FILTER:
+                    Bundle textSentimentBundle = intent.getBundleExtra(EXTRA_DATA);
+                    break;
+                case CONNECTED_DEVICES_FILTER:
                     String btDeviceName = intent.getStringExtra(ServiceConstants.BLUETOOTH_DEVICE_NAME);
-                   break;
+                    break;
+                case BLE_DEVICE_FILTER:
+                    ArrayList<BluetoothDevice> bledeviceList = intent.getParcelableArrayListExtra
+                            (EXTRA_DATA);
+                    for (BluetoothDevice bleDevice: bledeviceList) {
+                        Log.d("BleDevice", bleDevice.getName() + " " + bleDevice.getAddress());
+                    }
+                    break;
+                case BLUETOOTH_DEVICE_FILTER:
+                    ArrayList<BluetoothDevice> bluetoothDevices = intent.getParcelableArrayListExtra(EXTRA_DATA);
+                    for (BluetoothDevice bluetoothDevice : bluetoothDevices) {
+                        Log.d("BluetoothDevice", bluetoothDevice.getName() + " " + bluetoothDevice
+                                .getAddress());
+                    }
+                    break;
             }
-
         }
     };
 ```
@@ -525,27 +504,6 @@ Send message to the service.
 `private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()`
 
 Broadcast receiver with the list of registered filters.
-
-
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 
 ### Update IntentFilter with new Actions
 
@@ -570,28 +528,9 @@ Broadcast receiver with the list of registered filters.
     }
 ```
 
-
 `private IntentFilter updateIntentFilter()`
 
  * **Returns:** an intent filter with a list of actions.
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 
 ### Start Biometric Data Capture
 
@@ -600,23 +539,10 @@ Broadcast receiver with the list of registered filters.
         sendToService(getCaptureBundle(), START_CAPTURE);
     }
 ```
+
 `private void startCaptureSetUp()`
 
 Starts capturing of biometric/contextual data.
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-
-&nbsp;
-
-
 
 ### Get Capture Bundle
 
@@ -633,30 +559,11 @@ Starts capturing of biometric/contextual data.
     }
 ```
 
-
 `private Bundle getCaptureBundle()`
 
 Sets up the bundle data for capture using the service constants.
 
  * **Returns:** capture bundle
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-
 
 ### Stop Biometric Data Capture
 
@@ -665,18 +572,7 @@ Sets up the bundle data for capture using the service constants.
         sendToService(getCaptureBundle(), CANCEL_CAPTURE);
     }
 ```
+
 `private void stopCaptureSetUp()`
 
 Stops capturing of biometric/contextual data.
-
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-
-
