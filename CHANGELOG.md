@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 1.6
+
+*August 30, 2018*
+
+- Updated Android tutorial, documentation, guide with the latest improvements and constants implemented in the recent internal releases.
+- Removed unused documentation for iOS.
+
 ## Version 1.5.0
 
 *February 23, 2017*
