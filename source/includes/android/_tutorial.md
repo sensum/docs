@@ -493,7 +493,7 @@ bundle.putString(DEVICE_ADDRESS, deviceAddress);
 sendToService(bundle, CONNECT_BLE);
 ```
 
-* **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre. // TODO FIX THIS LINK
+* **SensumSDK** supports connecting to BLE devices for reading heart rate measurements. For a list of tested compatible devices please contact us - hello@sensum.co
 
 ## Receiving Values
 
