@@ -8,7 +8,7 @@ We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the 
 
 ## Bluetooth Device Compatibility
 
-* The Android **SensumSDK** supports connecting to BLE and Bluetooth devices for reading heart rate measurements. For a list of tested compatible devices please view the <a href = "http://help.sensum.co/knowledge_base/topics/what-type-of-sensors-can-i-use"> list of compatible devices</a> at our Knowledge Centre.  // TODO FIX THIS LINK
+* The Android **SensumSDK** supports connecting to BLE and Bluetooth devices for reading heart rate measurements. For a list of tested compatible devices please contact us - hello@sensum.co
 
 **Note:** This document is regularly updated with new devices. Please contact us for integration details. GSR data is only accessible from Shimmer devices at present.
 
