@@ -17,7 +17,7 @@
 **SensumAPI** uses URI resources to provide access to its services. To use a RESTful API, your application will use HTTP Methods(GET, POST, etc.) to request and parse a response. **SensumAPI** uses JSON for communication between your application and the server.
 
 An example URI:
-<a href="">https://emotionai.sensum.co/v0/testdata</a>
+<a href="">https://api.sensum.co/v0/testdata</a>
 
 ## Authorization
 
@@ -115,7 +115,7 @@ The service will return a JSON object that contain Positivity, Negativity and Em
 
 ### HTTP Request
 
-`POST https://emotionai.sensum.co/v0/sentiment`
+`POST https://api.sensum.co/v0/sentiment`
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
@@ -148,7 +148,7 @@ var data = {
 };
 
 $.ajax({
-  url: 'https://emotionai.sensum.co/v0/sentiment',
+  url: 'https://api.sensum.co/v0/sentiment',
   method: 'post',
   data: JSON.stringify(data);
   headers: headers,
@@ -173,7 +173,7 @@ var data = {
 };
 
 
-fetch('https://emotionai.sensum.co/v0/sentiment',
+fetch('https://api.sensum.co/v0/sentiment',
 {
   method: 'POST',
   body : body,
@@ -200,7 +200,7 @@ data = {
   "text":"👌👌👌"
 }
 
-r = requests.post('https://emotionai.sensum.co/v0/sentiment', data=data, headers = headers)
+r = requests.post('https://api.sensum.co/v0/sentiment', data=data, headers = headers)
 
 print r.json()
 ```
@@ -299,7 +299,7 @@ How "isolated" the event is with respect to any events identified before / after
 
 ### HTTP Request
 
-`POST https://emotionai.sensum.co/v0/events`
+`POST https://api.sensum.co/v0/events`
 
 > Code samples
 
@@ -359,7 +359,7 @@ var data = {
   };
 
 $.ajax({
-  url: 'https://emotionai.sensum.co/v0/events',
+  url: 'https://api.sensum.co/v0/events',
   method: 'post',
   data: JSON.stringify(data),
   headers: headers,
@@ -425,7 +425,7 @@ const headers = {
 
 };
 
-fetch('https://emotionai.sensum.co/v0/events',
+fetch('https://api.sensum.co/v0/events',
 {
   method: 'POST',
   body: inputBody,
@@ -494,7 +494,7 @@ data = {
   }
 
 
-r = requests.post('https://emotionai.sensum.co/v0/events', params = data, headers = headers)
+r = requests.post('https://api.sensum.co/v0/events', params = data, headers = headers)
 
 print r.json()
 ```
