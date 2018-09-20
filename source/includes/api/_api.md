@@ -5,10 +5,10 @@
 ## Introduction
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-**SensumAPI** enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the `Content-Type: application/json` header be specified.
+**SensumAPI** enables you to access our Empathic AI Platform, which processes data (eg. from sensors) into human-state values.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the `Content-Type: application/json` header be specified.
 **SensumAPI** is also cross-origin resource sharing ready.
 
-**SensumSDK** handles many of these requests and responses natively. It can however be useful to utilise the **SensumAPI** directly.
+**SensumSDK** handles many of these requests and responses natively. It can however be useful to use the **SensumAPI** directly.
 
 
 
@@ -57,7 +57,7 @@ Below are the metrics that **SensumAPI** can analyse and the units that the data
 |`acceleration_y`|m/s<sup>2</sup>|
 |`acceleration_z`|m/s<sup>2</sup>|
 
-<sup>*</sup> The GSR Conductance unit 'microsiemens' is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)
+<sup>*</sup> The GSR (galvanic skin response) unit of skin conductance 'microsiemens' is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)
 
 <sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup>
 
@@ -109,7 +109,7 @@ Current Sector Labels (highest to lowest activation value):
 
 This endpoint allows users to send strings of text to our service for emotional sentiment analysis.
 
-The service will return a JSON object that contain Positivity, Negativity and Emotionality values for emojis and text.
+The service will return a JSON object that contains Positivity, Negativity and Emotionality values for emojis and text.
 
 
 
@@ -130,7 +130,7 @@ API Key, Authorization.
 |`negativity`| The level of negative emotion expressed in an input(Scale: 0 to +1)|
 |`emotionality`| The overall strength of emotion contained in an input(Scale: -1 to +1)*|
 
-* Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response.
+* Values greater than 0 imply positive feelings, values less than 0 imply negative feelings, while 0 implies no emotional response.
 
 
 > Code samples
@@ -288,14 +288,14 @@ Please refer to the code samples for request and response examples
 
 ## Send data for events analysis
 
-This endpoint allows the user to send data to the Emotion AI service for analysis. The response will return a series of significant events.
+This endpoint allows the user to send data to the Empathic AI service for analysis. The response will return a series of significant events.
 
-An event is triggered when there is a statistically significant timeseries change detected in an incoming data stream, be that from a Bluetooth sensor or internal sensor such as Accelerometer. Depending on the data stream applied, this can indicate a shift or change in emotional or activity state.
+An event is triggered when there is a statistically significant timeseries change detected in an incoming data stream, whether that is from a Bluetooth sensor or internal sensor such as Accelerometer. Depending on the data stream applied, this can indicate a shift or change in emotional or activity state.
 
 The severity of an event is dependent on
 
-How "steep" the event is and  
-How "isolated" the event is with respect to any events identified before / after it.   
+* How "steep" the event is and
+* How "isolated" the event is with respect to any events identified before / after it.   
 
 ### HTTP Request
 
