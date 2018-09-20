@@ -1,5 +1,5 @@
 ---
-title: 'Sensum Emotion AI API & SDK Reference'
+title: 'Sensum Empathic AI API & SDK Reference'
 language_tabs:
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
@@ -17,7 +17,7 @@ search: true
 
 # Introduction
 
-Welcome to the Sensum Emotion AI API & SDK.
+Welcome to the Sensum Empathic AI API & SDK.
 
 The **SensumAPI** and **SensumSDK** enables you to build services or products which respond to emotional events in real time.
 
