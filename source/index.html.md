@@ -17,9 +17,9 @@ search: true
 
 # Introduction
 
-Welcome to the Sensum Empathic AI API & SDK.
+Welcome to the Sensum Empathic AI Developer Platform.
 
-The **SensumAPI** and **SensumSDK** enables you to build services or products which respond to emotional events in real time.
+The **SensumAPI** and **SensumSDK** enable you to build products & services that respond to emotional events in real time.
 
 # Glossary of Terms
 

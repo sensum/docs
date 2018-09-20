@@ -4,7 +4,7 @@
 
 The Android version of **SensumSDK** can be installed on devices with **6.0 (Marshmallow)** up to **8.0 (Oreo)**.
 
-We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the **Google Pixel** as suitable devices for reliable bluetooth functionality. 
+We recommend the **Samsung S6**, **S7**, **S8**, **OnePlus X and above** or the **Google Pixel** as suitable devices for reliable Bluetooth functionality. 
 
 ## Bluetooth Device Compatibility
 
@@ -30,84 +30,84 @@ The Android **SensumSDK** can accept the following <a href = "#available-metrics
 
 ## Service Constants
 
-These constants can be used to construct message bundles that are then relayed to the Emotion AI service to send and retrieve data.
+These constants can be used to construct message bundles that are then relayed to the Empathic AI service to send and retrieve data.
 
 One example of a call to the service would be to send credentials in order to authenticate a user. See <a href = "#submit-credentials-to-service-for-authorization">"Submit Credentials to service for authorization"</a> for an example in how these bundles are constructed.
 
 ### API Base URL
 `public static final String API_BASEURL = "api-baseurl"`
 
-This is used to pass the base url for API to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
+This is used to pass the base url for API to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**.
 
 ### API Key
 `public static final String API_KEY = "api-key"`
 
-This is used to pass the API key to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
+This is used to pass the API key to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**.
 
 ### Google Id Token
 `public static final String GOOGLE_ID_TOKEN = "google-id-token"`
 
-This is used to pass the Google id token to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
+This is used to pass the Google id token to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**.
 
 ### Google Web Client Id
 `public static final String GOOGLE_WEB_CLIENT_ID = "google-web-client-id"`
 
-This is used to pass the Google web client id to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**
+This is used to pass the Google web client id to the **SensumSDK** service which is used for setting up communication with the **SensumAPI**.
 
 ### Google Login
 `public static final int GOOGLE_LOGIN = 126`
 
-This is used to pass a google login message to the **SensumSDK** service
+This is used to pass a google login message to the **SensumSDK** service.
 
 ### Login Filter
 `public static final String LOGIN_FILTER = "login-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the user login
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for the user login.
 
 ### Identity Pool Id
 `public static final String IDENTITY_POOL_ID = "identity-poolid"`
 
-This is used to pass the AWS identity pool id to the **SensumSDK** service which is used for user authentication
+This is used to pass the AWS identity pool id to the **SensumSDK** service which is used for user authentication.
 
 ### Heart Rate Filter
 `public static final String HR_FILTER = "hr-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate value
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate value.
 
 ### Heart Rate Event Filter
 `public static final String HR_EVENT_FILTER = "hr-event-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate events from the **SensumAPI**
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate events from the **SensumAPI**.
 
 ### Heart Rate Arousal Filter
 `public static final String AROUSAL_FILTER = "arousal-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate arousal from the **SensumAPI**
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the heart rate arousal from the **SensumAPI**.
 
 ### GPS Filter
 `public static final String GPS_FILTER = "gps-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GPS values
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GPS values.
 
 ### Speed Value
 `public static final String SPEED_VALUE = "speed-value"`
 
-This is used to pass the captured GPS speed value
+This is used to pass the captured GPS speed value.
 
 ### Latitude Value
 `public static final String LATITUDE_VALUE = "latitude-value"`
 
-This is used to pass the captured GPS latitude value
+This is used to pass the captured GPS latitude value.
 
 ### Longitude Value
 `public static final String LONGITUDE_VALUE = "longtitude-value"`
 
-This is used to pass the captured GPS longitude value
+This is used to pass the captured GPS longitude value.
 
 ### Altitude Value
 `public static final String ALTITUDE_VALUE = "altitude-value"`
 
-This is used to pass the captured GPS altitude value
+This is used to pass the captured GPS altitude value.
 
 ### Bearing Value
 `public static final String BEARING_VALUE = "bearing-value"`
@@ -117,22 +117,22 @@ This is used to pass the captured GPS bearing value
 ### Accuracy Value
 `public static final String ACCURACY_VALUE = "accuracy-value"`
 
-This is used to pass the captured GPS accuracy value
+This is used to pass the captured GPS accuracy value.
 
 ### GPS Event Filter
 `public static final String GPS_EVENT_FILTER = "gps-event-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GPS events from the **SensumAPI**
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GPS events from the **SensumAPI**.
 
 ### Accelerometer Filter
 `public static final String ACC_FILTER = "acc-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the accelerometer values
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the accelerometer values.
 
 ### X Value
 `public static final String X_VALUE = "x-value"`
 
-This is used to pass the captured accelerometer x value
+This is used to pass the captured accelerometer x value.
 
 ### Y Value
 `public static final String Y_VALUE = "y-value"`
@@ -142,87 +142,87 @@ This is used to pass the captured accelerometer y value
 ### Z Value
 `public static final String Z_VALUE = "z-value"`
 
-This is used to pass the captured accelerometer z value
+This is used to pass the captured accelerometer z value.
 
 ### Accelerometer Event Filter
 `public static final String ACC_EVENT_FILTER = "acc-event-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the accelerometer events from the **SensumAPI**
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the accelerometer events from the **SensumAPI**.
 
 ### Accelerometer Registration
 `public static final String ACC_FAILED_REGISTERED = "accelerometer-registration"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for checking accelerometer registration
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for checking accelerometer registration.
 
 ### GSR Filter
 `public static final String GSR_FILTER = "gsr-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GSR values
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GSR values.
 
 ### GSR Event Filter
 `public static final String GSR_EVENT_FILTER = "gsr-event-filter"`
 
-This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GSR events from the **SensumAPI**
+This is used to pass a message from the **SensumSDK** service which is used as an intent filter at the front end for receiving the GSR events from the **SensumAPI**.
 
 ### Extra Data
 `public static final String EXTRA_DATA = "extra-data"`
 
-This is used to bundle up extra data to the intents
+This is used to bundle up extra data to the intents.
 
 ### Acceleration Capture
 `public static final String ACCELERATION_CAPTURE = "acceleration-capture"`
 
-This is used to enable/disable capturing of accelerometer data which is sent to the **SensumAPI**
+This is used to enable/disable capturing of accelerometer data that is sent to the **SensumAPI**.
 
 ### GPS Capture
 `public static final String GPS_CAPTURE = "gps-capture"`
 
-This is used to enable/disable capturing of GPS data which is sent to the **SensumAPI**
+This is used to enable/disable capturing of GPS data that is sent to the **SensumAPI**.
 
 ### HR Capture
 `public static final String HR_CAPTURE = "heartrate-capture"`
 
-This is used to enable/disable capturing of heart rate data which is sent to the **SensumAPI**
+This is used to enable/disable capturing of heart rate data that is sent to the **SensumAPI**.
 
 ### Input Capture
 `public static final String INPUT_CAPTURE = "input-capture"`
 
-This is used to enable/disable capturing of text/emoji data which is sent to the **SensumAPI**
+This is used to enable/disable capturing of text/emoji data that is sent to the **SensumAPI**.
 
 ### GSR Capture
 `public static final String GSR_CAPTURE = "gsr-capture"`
 
-This is used to enable/disable capturing of GSR data which is sent to the **SensumAPI**
+This is used to enable/disable capturing of GSR data that is sent to the **SensumAPI**.
 
 ### Data Rate Send
 `public static final String DATA_RATE_SEND = "send-rate"`
 
-This is used to pass the interval rate (in milliseconds) for the data to be sent to the **SensumAPI**
+This is used to pass the interval rate (in milliseconds) for the data to be sent to the **SensumAPI**.
 
 ### API Response
 `public static final String API_RESPONSE = "api-response"`
 
-This is used to pass message from the **SensumSDK** service for the **SensumAPI** response
+This is used to pass message from the **SensumSDK** service for the **SensumAPI** response.
 
 ### Toast Message
 `public static final String TOAST_MESSAGE = "toast-message"`
 
-This is used to pass informative toast message from the **SensumSDK** service
+This is used to pass informative toast message from the **SensumSDK** service.
 
 ### Input Sentiment Text
 `public static final int INPUT_SENTIMENT_TEXT = 128`
 
-This is used to filter/pass text & emoji message for sentiment analysis to the **SensumSDK** service
+This is used to filter/pass text & emoji message for sentiment analysis to the **SensumSDK** service.
 
 ### Emoji Sentiment Filter
 `public static final String EMOJI_SENTIMENT_FILTER = "emoji-sentiment-filter"`
 
-This is used to pass Emoji value to the **SensumSDK** service which is passed to the API for Sentiment analysis
+This is used to pass Emoji value to the **SensumSDK** service which is passed to the API for Sentiment analysis.
 
 ### Text Sentiment Filter 
 `public static final String TEXT_SENTIMENT_FILTER = "text-sentiment-filter"`
 
-This is used to pass Text value to the **SensumSDK** service which is passed to the API for Sentiment analysis
+This is used to pass Text value to the **SensumSDK** service which is passed to the API for Sentiment analysis.
 
 ### Emotionality
 `public static final String EMOTIONALITY = "emotionality"`
