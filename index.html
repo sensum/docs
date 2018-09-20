@@ -265,7 +265,7 @@
 <p><strong>SensumAPI</strong> uses URI resources to provide access to its services. To use a RESTful API, your application will use HTTP Methods(GET, POST, etc.) to request and parse a response. <strong>SensumAPI</strong> uses JSON for communication between your application and the server.</p>
 
 <p>An example URI:
-<a href="">https://emotionai.sensum.co/v0/testdata</a></p>
+<a href="">https://api.sensum.co/v0/testdata</a></p>
 
 <h2 id="authorization">Authorization</h2>
 
@@ -505,7 +505,7 @@ To learn more about generating the Signature please read the <a href="https://do
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://emotionai.sensum.co/v0/sentiment</code></p>
+<p><code class="prettyprint">POST https://api.sensum.co/v0/sentiment</code></p>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of the following headers:
@@ -553,7 +553,7 @@ API Key, Authorization.
 <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://emotionai.sensum.co/v0/sentiment'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
   <span class="na">data</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
   <span class="nl">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
@@ -575,7 +575,7 @@ API Key, Authorization.
 <span class="p">};</span>
 
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://emotionai.sensum.co/v0/sentiment'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
   <span class="na">body</span> <span class="p">:</span> <span class="nx">body</span><span class="p">,</span>
@@ -598,7 +598,7 @@ API Key, Authorization.
   <span class="s">"text"</span><span class="p">:</span><span class="s">"👌👌👌"</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://emotionai.sensum.co/v0/sentiment'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/sentiment'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
@@ -702,7 +702,7 @@ How &ldquo;isolated&rdquo; the event is with respect to any events identified be
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://emotionai.sensum.co/v0/events</code></p>
+<p><code class="prettyprint">POST https://api.sensum.co/v0/events</code></p>
 
 <blockquote>
 <p>Code samples</p>
@@ -762,7 +762,7 @@ How &ldquo;isolated&rdquo; the event is with respect to any events identified be
   <span class="p">};</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://emotionai.sensum.co/v0/events'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
   <span class="na">data</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
@@ -825,7 +825,7 @@ How &ldquo;isolated&rdquo; the event is with respect to any events identified be
 
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://emotionai.sensum.co/v0/events'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://api.sensum.co/v0/events'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -891,7 +891,7 @@ How &ldquo;isolated&rdquo; the event is with respect to any events identified be
   <span class="p">}</span>
 
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://emotionai.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.sensum.co/v0/events'</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
