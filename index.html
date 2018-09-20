@@ -225,9 +225,9 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Sensum Empathic AI API &amp; SDK.</p>
+<p>Welcome to the Sensum Empathic AI Developer Platform.</p>
 
-<p>The <strong>SensumAPI</strong> and <strong>SensumSDK</strong> enables you to build services or products which respond to emotional events in real time.</p>
+<p>The <strong>SensumAPI</strong> and <strong>SensumSDK</strong> enable you to build products &amp; services that respond to emotional events in real time.</p>
 
 <h1 id="glossary-of-terms">Glossary of Terms</h1>
 
@@ -255,10 +255,10 @@
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
 
-<p><strong>SensumAPI</strong> enables you to access our emotional intelligence platform.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
+<p><strong>SensumAPI</strong> enables you to access our Empathic AI Platform, which processes data (eg. from sensors) into human-state values.  Our API is designed to be RESTful, responding to HTTP requests with bodies in JSON format. All requests require that the <code class="prettyprint">Content-Type: application/json</code> header be specified.
 <strong>SensumAPI</strong> is also cross-origin resource sharing ready.</p>
 
-<p><strong>SensumSDK</strong> handles many of these requests and responses natively. It can however be useful to utilise the <strong>SensumAPI</strong> directly.</p>
+<p><strong>SensumSDK</strong> handles many of these requests and responses natively. It can however be useful to use the <strong>SensumAPI</strong> directly.</p>
 
 <h2 id="uri-structure">URI Structure</h2>
 
@@ -354,7 +354,7 @@ To learn more about generating the Signature please read the <a href="https://do
 </tr>
 </tbody></table>
 
-<p><sup>*</sup> The GSR Conductance unit &lsquo;microsiemens&rsquo; is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)</p>
+<p><sup>*</sup> The GSR (galvanic skin response) unit of skin conductance &lsquo;microsiemens&rsquo; is the inverse of the skin resistance; some devices return GSR as resistance in Ohms and this must be converted before upload, i.e. if a device returns values in x kOhms, the conversion is 1/(1000*x)</p>
 
 <p><sup>**</sup> All acceleration values should exclude gravity and be in m/s<sup>2</sup></p>
 
@@ -501,7 +501,7 @@ To learn more about generating the Signature please read the <a href="https://do
 
 <p>This endpoint allows users to send strings of text to our service for emotional sentiment analysis.</p>
 
-<p>The service will return a JSON object that contain Positivity, Negativity and Emotionality values for emojis and text.</p>
+<p>The service will return a JSON object that contains Positivity, Negativity and Emotionality values for emojis and text.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -535,7 +535,7 @@ API Key, Authorization.
 </tbody></table>
 
 <ul>
-<li>Values greater than 0 imply positive feelings, values less than 0 imply negative feelings while 0 implies no emotional response.</li>
+<li>Values greater than 0 imply positive feelings, values less than 0 imply negative feelings, while 0 implies no emotional response.</li>
 </ul>
 
 <blockquote>
@@ -691,14 +691,16 @@ API Key, Authorization.
 </span></code></pre>
 <h2 id="send-data-for-events-analysis">Send data for events analysis</h2>
 
-<p>This endpoint allows the user to send data to the Emotion AI service for analysis. The response will return a series of significant events.</p>
+<p>This endpoint allows the user to send data to the Empathic AI service for analysis. The response will return a series of significant events.</p>
 
-<p>An event is triggered when there is a statistically significant timeseries change detected in an incoming data stream, be that from a Bluetooth sensor or internal sensor such as Accelerometer. Depending on the data stream applied, this can indicate a shift or change in emotional or activity state.</p>
+<p>An event is triggered when there is a statistically significant timeseries change detected in an incoming data stream, whether that is from a Bluetooth sensor or internal sensor such as Accelerometer. Depending on the data stream applied, this can indicate a shift or change in emotional or activity state.</p>
 
 <p>The severity of an event is dependent on</p>
 
-<p>How &ldquo;steep&rdquo; the event is and<br>
-How &ldquo;isolated&rdquo; the event is with respect to any events identified before / after it.   </p>
+<ul>
+<li>How &ldquo;steep&rdquo; the event is and</li>
+<li>How &ldquo;isolated&rdquo; the event is with respect to any events identified before / after it.<br></li>
+</ul>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1068,7 +1070,7 @@ X-API-Key, Authorization
 
 <p>The Android version of <strong>SensumSDK</strong> can be installed on devices with <strong>6.0 (Marshmallow)</strong> up to <strong>8.0 (Oreo)</strong>.</p>
 
-<p>We recommend the <strong>Samsung S6</strong>, <strong>S7</strong>, <strong>S8</strong>, <strong>OnePlus X and above</strong> or the <strong>Google Pixel</strong> as suitable devices for reliable bluetooth functionality. </p>
+<p>We recommend the <strong>Samsung S6</strong>, <strong>S7</strong>, <strong>S8</strong>, <strong>OnePlus X and above</strong> or the <strong>Google Pixel</strong> as suitable devices for reliable Bluetooth functionality. </p>
 
 <h2 id="bluetooth-device-compatibility">Bluetooth Device Compatibility</h2>
 
@@ -1098,7 +1100,7 @@ X-API-Key, Authorization
 
 <h2 id="service-constants">Service Constants</h2>
 
-<p>These constants can be used to construct message bundles that are then relayed to the Emotion AI service to send and retrieve data.</p>
+<p>These constants can be used to construct message bundles that are then relayed to the Empathic AI service to send and retrieve data.</p>
 
 <p>One example of a call to the service would be to send credentials in order to authenticate a user. See <a href = "#submit-credentials-to-service-for-authorization">&ldquo;Submit Credentials to service for authorization&rdquo;</a> for an example in how these bundles are constructed.</p>
 
@@ -1106,91 +1108,91 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String API_BASEURL = &quot;api-baseurl&quot;</code></p>
 
-<p>This is used to pass the base url for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong></p>
+<p>This is used to pass the base url for API to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong>.</p>
 
 <h3 id="api-key">API Key</h3>
 
 <p><code class="prettyprint">public static final String API_KEY = &quot;api-key&quot;</code></p>
 
-<p>This is used to pass the API key to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong></p>
+<p>This is used to pass the API key to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong>.</p>
 
 <h3 id="google-id-token">Google Id Token</h3>
 
 <p><code class="prettyprint">public static final String GOOGLE_ID_TOKEN = &quot;google-id-token&quot;</code></p>
 
-<p>This is used to pass the Google id token to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong></p>
+<p>This is used to pass the Google id token to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong>.</p>
 
 <h3 id="google-web-client-id">Google Web Client Id</h3>
 
 <p><code class="prettyprint">public static final String GOOGLE_WEB_CLIENT_ID = &quot;google-web-client-id&quot;</code></p>
 
-<p>This is used to pass the Google web client id to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong></p>
+<p>This is used to pass the Google web client id to the <strong>SensumSDK</strong> service which is used for setting up communication with the <strong>SensumAPI</strong>.</p>
 
 <h3 id="google-login">Google Login</h3>
 
 <p><code class="prettyprint">public static final int GOOGLE_LOGIN = 126</code></p>
 
-<p>This is used to pass a google login message to the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass a google login message to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="login-filter">Login Filter</h3>
 
 <p><code class="prettyprint">public static final String LOGIN_FILTER = &quot;login-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the user login</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for the user login.</p>
 
 <h3 id="identity-pool-id">Identity Pool Id</h3>
 
 <p><code class="prettyprint">public static final String IDENTITY_POOL_ID = &quot;identity-poolid&quot;</code></p>
 
-<p>This is used to pass the AWS identity pool id to the <strong>SensumSDK</strong> service which is used for user authentication</p>
+<p>This is used to pass the AWS identity pool id to the <strong>SensumSDK</strong> service which is used for user authentication.</p>
 
 <h3 id="heart-rate-filter">Heart Rate Filter</h3>
 
 <p><code class="prettyprint">public static final String HR_FILTER = &quot;hr-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate value</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate value.</p>
 
 <h3 id="heart-rate-event-filter">Heart Rate Event Filter</h3>
 
 <p><code class="prettyprint">public static final String HR_EVENT_FILTER = &quot;hr-event-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate events from the <strong>SensumAPI</strong></p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate events from the <strong>SensumAPI</strong>.</p>
 
 <h3 id="heart-rate-arousal-filter">Heart Rate Arousal Filter</h3>
 
 <p><code class="prettyprint">public static final String AROUSAL_FILTER = &quot;arousal-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate arousal from the <strong>SensumAPI</strong></p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the heart rate arousal from the <strong>SensumAPI</strong>.</p>
 
 <h3 id="gps-filter">GPS Filter</h3>
 
 <p><code class="prettyprint">public static final String GPS_FILTER = &quot;gps-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS values.</p>
 
 <h3 id="speed-value">Speed Value</h3>
 
 <p><code class="prettyprint">public static final String SPEED_VALUE = &quot;speed-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS speed value</p>
+<p>This is used to pass the captured GPS speed value.</p>
 
 <h3 id="latitude-value">Latitude Value</h3>
 
 <p><code class="prettyprint">public static final String LATITUDE_VALUE = &quot;latitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS latitude value</p>
+<p>This is used to pass the captured GPS latitude value.</p>
 
 <h3 id="longitude-value">Longitude Value</h3>
 
 <p><code class="prettyprint">public static final String LONGITUDE_VALUE = &quot;longtitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS longitude value</p>
+<p>This is used to pass the captured GPS longitude value.</p>
 
 <h3 id="altitude-value">Altitude Value</h3>
 
 <p><code class="prettyprint">public static final String ALTITUDE_VALUE = &quot;altitude-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS altitude value</p>
+<p>This is used to pass the captured GPS altitude value.</p>
 
 <h3 id="bearing-value">Bearing Value</h3>
 
@@ -1202,25 +1204,25 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String ACCURACY_VALUE = &quot;accuracy-value&quot;</code></p>
 
-<p>This is used to pass the captured GPS accuracy value</p>
+<p>This is used to pass the captured GPS accuracy value.</p>
 
 <h3 id="gps-event-filter">GPS Event Filter</h3>
 
 <p><code class="prettyprint">public static final String GPS_EVENT_FILTER = &quot;gps-event-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS events from the <strong>SensumAPI</strong></p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GPS events from the <strong>SensumAPI</strong>.</p>
 
 <h3 id="accelerometer-filter">Accelerometer Filter</h3>
 
 <p><code class="prettyprint">public static final String ACC_FILTER = &quot;acc-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer values.</p>
 
 <h3 id="x-value">X Value</h3>
 
 <p><code class="prettyprint">public static final String X_VALUE = &quot;x-value&quot;</code></p>
 
-<p>This is used to pass the captured accelerometer x value</p>
+<p>This is used to pass the captured accelerometer x value.</p>
 
 <h3 id="y-value">Y Value</h3>
 
@@ -1232,103 +1234,103 @@ X-API-Key, Authorization
 
 <p><code class="prettyprint">public static final String Z_VALUE = &quot;z-value&quot;</code></p>
 
-<p>This is used to pass the captured accelerometer z value</p>
+<p>This is used to pass the captured accelerometer z value.</p>
 
 <h3 id="accelerometer-event-filter">Accelerometer Event Filter</h3>
 
 <p><code class="prettyprint">public static final String ACC_EVENT_FILTER = &quot;acc-event-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer events from the <strong>SensumAPI</strong></p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the accelerometer events from the <strong>SensumAPI</strong>.</p>
 
 <h3 id="accelerometer-registration">Accelerometer Registration</h3>
 
 <p><code class="prettyprint">public static final String ACC_FAILED_REGISTERED = &quot;accelerometer-registration&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for checking accelerometer registration</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for checking accelerometer registration.</p>
 
 <h3 id="gsr-filter">GSR Filter</h3>
 
 <p><code class="prettyprint">public static final String GSR_FILTER = &quot;gsr-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GSR values</p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GSR values.</p>
 
 <h3 id="gsr-event-filter">GSR Event Filter</h3>
 
 <p><code class="prettyprint">public static final String GSR_EVENT_FILTER = &quot;gsr-event-filter&quot;</code></p>
 
-<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GSR events from the <strong>SensumAPI</strong></p>
+<p>This is used to pass a message from the <strong>SensumSDK</strong> service which is used as an intent filter at the front end for receiving the GSR events from the <strong>SensumAPI</strong>.</p>
 
 <h3 id="extra-data">Extra Data</h3>
 
 <p><code class="prettyprint">public static final String EXTRA_DATA = &quot;extra-data&quot;</code></p>
 
-<p>This is used to bundle up extra data to the intents</p>
+<p>This is used to bundle up extra data to the intents.</p>
 
 <h3 id="acceleration-capture">Acceleration Capture</h3>
 
 <p><code class="prettyprint">public static final String ACCELERATION_CAPTURE = &quot;acceleration-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of accelerometer data which is sent to the <strong>SensumAPI</strong></p>
+<p>This is used to enable/disable capturing of accelerometer data that is sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="gps-capture">GPS Capture</h3>
 
 <p><code class="prettyprint">public static final String GPS_CAPTURE = &quot;gps-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of GPS data which is sent to the <strong>SensumAPI</strong></p>
+<p>This is used to enable/disable capturing of GPS data that is sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="hr-capture">HR Capture</h3>
 
 <p><code class="prettyprint">public static final String HR_CAPTURE = &quot;heartrate-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of heart rate data which is sent to the <strong>SensumAPI</strong></p>
+<p>This is used to enable/disable capturing of heart rate data that is sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="input-capture">Input Capture</h3>
 
 <p><code class="prettyprint">public static final String INPUT_CAPTURE = &quot;input-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of text/emoji data which is sent to the <strong>SensumAPI</strong></p>
+<p>This is used to enable/disable capturing of text/emoji data that is sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="gsr-capture">GSR Capture</h3>
 
 <p><code class="prettyprint">public static final String GSR_CAPTURE = &quot;gsr-capture&quot;</code></p>
 
-<p>This is used to enable/disable capturing of GSR data which is sent to the <strong>SensumAPI</strong></p>
+<p>This is used to enable/disable capturing of GSR data that is sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="data-rate-send">Data Rate Send</h3>
 
 <p><code class="prettyprint">public static final String DATA_RATE_SEND = &quot;send-rate&quot;</code></p>
 
-<p>This is used to pass the interval rate (in milliseconds) for the data to be sent to the <strong>SensumAPI</strong></p>
+<p>This is used to pass the interval rate (in milliseconds) for the data to be sent to the <strong>SensumAPI</strong>.</p>
 
 <h3 id="api-response">API Response</h3>
 
 <p><code class="prettyprint">public static final String API_RESPONSE = &quot;api-response&quot;</code></p>
 
-<p>This is used to pass message from the <strong>SensumSDK</strong> service for the <strong>SensumAPI</strong> response</p>
+<p>This is used to pass message from the <strong>SensumSDK</strong> service for the <strong>SensumAPI</strong> response.</p>
 
 <h3 id="toast-message">Toast Message</h3>
 
 <p><code class="prettyprint">public static final String TOAST_MESSAGE = &quot;toast-message&quot;</code></p>
 
-<p>This is used to pass informative toast message from the <strong>SensumSDK</strong> service</p>
+<p>This is used to pass informative toast message from the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="input-sentiment-text">Input Sentiment Text</h3>
 
 <p><code class="prettyprint">public static final int INPUT_SENTIMENT_TEXT = 128</code></p>
 
-<p>This is used to filter/pass text &amp; emoji message for sentiment analysis to the <strong>SensumSDK</strong> service</p>
+<p>This is used to filter/pass text &amp; emoji message for sentiment analysis to the <strong>SensumSDK</strong> service.</p>
 
 <h3 id="emoji-sentiment-filter">Emoji Sentiment Filter</h3>
 
 <p><code class="prettyprint">public static final String EMOJI_SENTIMENT_FILTER = &quot;emoji-sentiment-filter&quot;</code></p>
 
-<p>This is used to pass Emoji value to the <strong>SensumSDK</strong> service which is passed to the API for Sentiment analysis</p>
+<p>This is used to pass Emoji value to the <strong>SensumSDK</strong> service which is passed to the API for Sentiment analysis.</p>
 
 <h3 id="text-sentiment-filter">Text Sentiment Filter</h3>
 
 <p><code class="prettyprint">public static final String TEXT_SENTIMENT_FILTER = &quot;text-sentiment-filter&quot;</code></p>
 
-<p>This is used to pass Text value to the <strong>SensumSDK</strong> service which is passed to the API for Sentiment analysis</p>
+<p>This is used to pass Text value to the <strong>SensumSDK</strong> service which is passed to the API for Sentiment analysis.</p>
 
 <h3 id="emotionality">Emotionality</h3>
 
